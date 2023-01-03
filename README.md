@@ -12,6 +12,7 @@ _Note: more complete configuration and usage documentation is TBD_
 * Yarn
 
 ## Dependencies
+* Windows 10/11
 * Volta: https://docs.volta.sh/guide/getting-started
 
 ## Install / Configuration
