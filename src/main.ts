@@ -28,7 +28,7 @@ class Main {
 
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {
     const window = new BrowserWindow({
-      title: `Driver Station App - ${appWindowType}`,
+      title: `Driver Station - ${appWindowType}`,
       width: 1280,
       height: 720,
       x: position.x,

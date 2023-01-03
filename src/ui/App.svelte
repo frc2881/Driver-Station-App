@@ -18,7 +18,6 @@
 	import DataView from "./views/Data.svelte";
 
 	const appWindowType = new URLSearchParams(window.location.search).get("appWindowType") as AppWindowType;
-	document.title += ` - ${appWindowType}`;
 
 	let networkTables: NetworkTables = {
 		isConnected: false,

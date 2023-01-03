@@ -67,7 +67,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   private connect = (): void => {
     this._webSocket = new WebSocket("ws://127.0.0.1:5810/networktables/ws");
     this._webSocket.binaryType = "arraybuffer";
-    this._webSocket.on("open", () => { console.log("pynetworktables2js OPENED"); });
+    this._webSocket.on("open", () => {});
     this._webSocket.on("error", () => {});
     this._webSocket.on("message", this.onMessageReceived);
     this._webSocket.on("close", async () => {
