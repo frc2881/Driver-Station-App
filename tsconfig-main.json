@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": ["src/ui/*", "node_modules/*"],
+  "compilerOptions": {
+    "outDir": "app",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": false,
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove"
+  }
+}
