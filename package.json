@@ -15,7 +15,7 @@
     "watch": "rollup -c --bundleConfigAsCjs -w",
     "start": "electron .",
     "dev": "npm-run-all build --parallel start watch",
-    "dist": "electron-builder"
+    "dist": "electron-builder --win"
   },
   "build": {
     "appId": "FRC.DriverStationApp.1.0.0",

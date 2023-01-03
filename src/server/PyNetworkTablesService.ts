@@ -1,11 +1,11 @@
-import { exec, execFile } from "child_process";
+import { exec, execFile, spawn, ChildProcessWithoutNullStreams } from "child_process";
 import { readFile, writeFile } from "fs/promises";
-import { performance } from "perf_hooks";
 import { WebSocket, RawData } from "ws";
 import { encode, decode } from "cbor";
 import { 
   Configuration, 
   Utils, 
+  Platform,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage,
@@ -26,27 +26,48 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
 		topics: []
 	};
   private _robotTimeTopicIndex: number = -1;
+  
   private _webSocket!: WebSocket;
+  private _pynetworktables2jsProcess!: ChildProcessWithoutNullStreams;
 
   private init = async (): Promise<void> => {
-    try {
-      await writeFile(
-        "resources/pynetworktables2js.exe", 
-        await readFile("resources/app.asar/resources/pynetworktables2js.exe")
-      );
-    } catch {}
-    execFile("resources/pynetworktables2js.exe", [ `--robot=${ Configuration.NT_SERVER_ADDRESS }`, "--port=5810" ]);
+    switch (process.platform) {
+      case Platform.Windows:
+        try {
+          await writeFile(
+            "resources/pynetworktables2js.exe", 
+            await readFile("resources/app.asar/resources/pynetworktables2js.exe")
+          );
+        } catch {}
+        execFile("resources/pynetworktables2js.exe", [ `--robot=${ Configuration.NT_SERVER_ADDRESS }`, "--port=5810" ]);
+        break;
+      case Platform.macOS:
+        this._pynetworktables2jsProcess = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ Configuration.NT_SERVER_ADDRESS }`, "--port=5810"]);
+        break;
+      default:
+        break;
+    }
     this.connect();
   };
 
   public dispose = (): void => {
-    exec("taskkill /t /f /im pynetworktables2js.exe");
+    this._webSocket.terminate();
+    switch (process.platform) {
+      case Platform.Windows:
+        exec("taskkill /t /f /im pynetworktables2js.exe");
+        break;
+      case Platform.macOS:
+        this._pynetworktables2jsProcess?.kill();
+        break;
+      default:
+        break;
+    }
   };
 
   private connect = (): void => {
     this._webSocket = new WebSocket("ws://127.0.0.1:5810/networktables/ws");
     this._webSocket.binaryType = "arraybuffer";
-    this._webSocket.on("open", () => {});
+    this._webSocket.on("open", () => { console.log("pynetworktables2js OPENED"); });
     this._webSocket.on("error", () => {});
     this._webSocket.on("message", this.onMessageReceived);
     this._webSocket.on("close", async () => {

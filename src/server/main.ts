@@ -92,6 +92,7 @@ class Server {
 
   private onProcessDisconnect = (): void => {
     this._networkTablesService?.dispose();
+    process.exit(0);
   };
 }
 

@@ -5,7 +5,6 @@ import { AppWindowType, Position } from "./common";
 
 class Main {
   constructor() {
-    app.on("before-quit", this.onAppBeforeQuit);
     app.on("quit", this.onAppQuit);
     this.init();
   }
@@ -46,12 +45,12 @@ class Main {
     );
   }
 
-  private onAppBeforeQuit = (): void => {
-    this._server.disconnect();
-  }
-
   private onAppQuit = (): void => {
-    app.exit(1);
+    this._server.disconnect();
+    app.exit(0);
+    if (!app.isPackaged) {
+      console.log("All windows closed and application exited. Press [ Ctrl+C ] to terminate process.");
+    }
   }
 }
 

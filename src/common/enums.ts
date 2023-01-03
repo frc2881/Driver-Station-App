@@ -1,3 +1,8 @@
+export enum Platform {
+  Windows = "win32",
+  macOS = "darwin"
+}
+
 export enum AppWindowType {
   HUD = "HUD",
   DASHBOARD = "DASHBOARD",
