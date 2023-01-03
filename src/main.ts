@@ -23,6 +23,9 @@ class Main {
     this.createAppWindow(AppWindowType.DASHBOARD, { x: 25, y: 40 });
     this.createAppWindow(AppWindowType.DATA, { x: 50, y: 80 });
 
+    process.env.robotAddress = "127.0.0.1";
+    process.env.robotTimeTopicName = "/SmartDashboard/Timing/RobotTime";
+
     this._server = fork(path.join(__dirname, "server/main.js"));
   }
 
@@ -35,7 +38,8 @@ class Main {
       y: position.y,
       backgroundColor: "#000000",
       webPreferences: { 
-        webSecurity: false 
+        webSecurity: false,
+        nodeIntegration: true
       }
     });
     window.menuBarVisible = false;

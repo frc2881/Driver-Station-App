@@ -3,7 +3,6 @@ import { readFile, writeFile } from "fs/promises";
 import { WebSocket, RawData } from "ws";
 import { encode, decode } from "cbor";
 import { 
-  Configuration, 
   Utils, 
   Platform,
   NetworkTablesServiceMessageType,
@@ -16,19 +15,27 @@ import {
 import { TypedEventEmitter, NetworkTablesServiceMessages, PyNetworkTablesServiceMessage } from "./types";
 
 export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
-  constructor() {
+  constructor(
+    robotAddress: string, 
+    robotTimeTopicName: string
+  ) {
     super();
+    this._robotAddress = robotAddress;
+    this._robotTimeTopicName = robotTimeTopicName;
     this.init();
   }
 
+  private readonly _robotAddress: string;
+  private readonly _robotTimeTopicName: string;
+
+  private _robotTimeTopicIndex: number = -1;
+  private _webSocket!: WebSocket;
+  private _pynetworktables2jsProcess!: ChildProcessWithoutNullStreams;
+  
   private _networkTables: NetworkTables = {
 		isConnected: false,
 		topics: []
 	};
-  private _robotTimeTopicIndex: number = -1;
-  
-  private _webSocket!: WebSocket;
-  private _pynetworktables2jsProcess!: ChildProcessWithoutNullStreams;
 
   private init = async (): Promise<void> => {
     switch (process.platform) {
@@ -39,10 +46,10 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
             await readFile("resources/app.asar/resources/pynetworktables2js.exe")
           );
         } catch {}
-        execFile("resources/pynetworktables2js.exe", [ `--robot=${ Configuration.NT_SERVER_ADDRESS }`, "--port=5810" ]);
+        execFile("resources/pynetworktables2js.exe", [ `--robot=${ this._robotAddress }`, "--port=5810" ]);
         break;
       case Platform.macOS:
-        this._pynetworktables2jsProcess = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ Configuration.NT_SERVER_ADDRESS }`, "--port=5810"]);
+        this._pynetworktables2jsProcess = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ this._robotAddress }`, "--port=5810"]);
         break;
       default:
         break;
@@ -103,7 +110,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
         }
         const topics: NetworkTablesTopic[] = [topic];
         if (this._robotTimeTopicIndex === -1) {
-          const index = this._networkTables.topics.findIndex(topic => topic.name === Configuration.ROBOT_TIME_TOPIC_NAME);
+          const index = this._networkTables.topics.findIndex(topic => topic.name === this._robotTimeTopicName);
           if (index !== -1) {
             this._robotTimeTopicIndex = index;
             const timestamp = this._networkTables.topics[this._robotTimeTopicIndex]?.value as number;
@@ -146,7 +153,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   };
 
   private getNetworkTablesTimestamp = (name: string, value: any): number => {
-    return (name === Configuration.ROBOT_TIME_TOPIC_NAME) ? 
+    return (name === this._robotTimeTopicName) ? 
       value as number : 
       this._networkTables.topics[this._robotTimeTopicIndex]?.value as number ?? 0;
   };
