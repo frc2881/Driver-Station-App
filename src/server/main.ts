@@ -94,8 +94,8 @@ class Server {
   };
 
   private onProcessDisconnect = (): void => {
+    this._webSocketServer.close();
     this._networkTablesService?.dispose();
-    process.exit(0);
   };
 }
 

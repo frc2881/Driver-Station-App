@@ -5,6 +5,7 @@ import { AppWindowType, Position } from "./common";
 
 class Main {
   constructor() {
+    app.on("will-quit", this.onAppWillQuit);
     app.on("quit", this.onAppQuit);
     this.init();
   }
@@ -20,14 +21,14 @@ class Main {
     await app.whenReady();
 
     this.createAppWindow(AppWindowType.HUD, { x: 0, y: 0 });
-    this.createAppWindow(AppWindowType.DASHBOARD, { x: 25, y: 40 });
-    this.createAppWindow(AppWindowType.DATA, { x: 50, y: 80 });
+    this.createAppWindow(AppWindowType.DASHBOARD, { x: 30, y: 50 });
+    this.createAppWindow(AppWindowType.DATA, { x: 60, y: 100 });
 
     process.env.robotAddress = "127.0.0.1";
     process.env.robotTimeTopicName = "/SmartDashboard/Timing/RobotTime";
 
     this._server = fork(path.join(__dirname, "server/main.js"));
-  }
+  };
 
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {
     const window = new BrowserWindow({
@@ -47,15 +48,17 @@ class Main {
       path.join(__dirname, "ui/index.html"), 
       { query: { "appWindowType": appWindowType } }
     );
-  }
+  };
+
+  private onAppWillQuit = (): void => {
+    this._server.disconnect();
+  };
 
   private onAppQuit = (): void => {
-    this._server.disconnect();
-    app.exit(0);
     if (!app.isPackaged) {
       console.log("All windows closed and application exited. Press [ Ctrl+C ] to terminate process.");
     }
-  }
+  };
 }
 
 new Main();

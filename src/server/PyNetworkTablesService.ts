@@ -61,7 +61,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
     this._webSocket.terminate();
     switch (process.platform) {
       case Platform.Windows:
-        exec("taskkill /t /f /im pynetworktables2js.exe");
+        exec("taskkill /IM pynetworktables2js* /T /F");
         break;
       case Platform.macOS:
         this._pynetworktables2jsProcess?.kill();
