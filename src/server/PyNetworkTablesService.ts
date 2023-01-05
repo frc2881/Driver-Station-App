@@ -15,29 +15,25 @@ import {
 import { TypedEventEmitter, NetworkTablesServiceMessages, PyNetworkTablesServiceMessage } from "./types";
 
 export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
-  constructor(
-    robotAddress: string, 
-    robotTimeTopicName: string
-  ) {
+  constructor(robotAddress: string) {
     super();
-    this._robotAddress = robotAddress;
-    this._robotTimeTopicName = robotTimeTopicName;
-    this.init();
+    this.init(robotAddress);
   }
 
-  private readonly _robotAddress: string;
-  private readonly _robotTimeTopicName: string;
+  private readonly _pynetworktables2jsServicePort: number = 5810; //TODO: move into common configuration module
+  private readonly _robotTimeTopicName: string = "/SmartDashboard/Timing/RobotTime"; //TODO: move back into common configuration module
 
   private _robotTimeTopicIndex: number = -1;
   private _webSocket!: WebSocket;
-  private _pynetworktables2jsProcess!: ChildProcessWithoutNullStreams;
+  private _pynetworktables2jsService!: ChildProcessWithoutNullStreams;
   
   private _networkTables: NetworkTables = {
 		isConnected: false,
 		topics: []
 	};
 
-  private init = async (): Promise<void> => {
+  private init = async (robotAddress: string): Promise<void> => {
+    console.log("robotAddress:", robotAddress);
     switch (process.platform) {
       case Platform.Windows:
         try {
@@ -46,10 +42,10 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
             await readFile("resources/app.asar/resources/pynetworktables2js.exe")
           );
         } catch {}
-        execFile("resources/pynetworktables2js.exe", [ `--robot=${ this._robotAddress }`, "--port=5810" ]);
+        execFile("resources/pynetworktables2js.exe", [ `--robot=${ robotAddress }`, `--port=${ this._pynetworktables2jsServicePort }` ]);
         break;
       case Platform.macOS:
-        this._pynetworktables2jsProcess = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ this._robotAddress }`, "--port=5810"]);
+        this._pynetworktables2jsService = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ robotAddress }`, `--port=${ this._pynetworktables2jsServicePort }`]);
         break;
       default:
         break;
@@ -64,7 +60,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
         exec("taskkill /IM pynetworktables2js* /T /F");
         break;
       case Platform.macOS:
-        this._pynetworktables2jsProcess?.kill();
+        this._pynetworktables2jsService?.kill();
         break;
       default:
         break;
@@ -72,7 +68,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   };
 
   private connect = (): void => {
-    this._webSocket = new WebSocket("ws://127.0.0.1:5810/networktables/ws");
+    this._webSocket = new WebSocket(`ws://127.0.0.1:${ this._pynetworktables2jsServicePort }/networktables/ws`);
     this._webSocket.binaryType = "arraybuffer";
     this._webSocket.on("open", () => {});
     this._webSocket.on("error", () => {});

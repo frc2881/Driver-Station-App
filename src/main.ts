@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { AppWindowType, Position } from "./common";
 
@@ -13,10 +14,15 @@ class Main {
   private _server!: ChildProcess;
 
   private init = async (): Promise<void> => {
-    if (!app.isPackaged) {
-      const electronReload = (await import("electron-reload")).default;
-      electronReload(path.join(__dirname, "ui"), {});
-    }
+
+    const args = minimist(process.argv.slice(2), {
+      default: { 
+        "robotAddress": "127.0.0.1" 
+      }
+    });
+    process.env.robotAddress = args.robotAddress;
+
+    this._server = fork(path.join(__dirname, "server/main.js"));
 
     await app.whenReady();
 
@@ -24,10 +30,10 @@ class Main {
     this.createAppWindow(AppWindowType.DASHBOARD, { x: 30, y: 50 });
     this.createAppWindow(AppWindowType.DATA, { x: 60, y: 100 });
 
-    process.env.robotAddress = "127.0.0.1";
-    process.env.robotTimeTopicName = "/SmartDashboard/Timing/RobotTime";
-
-    this._server = fork(path.join(__dirname, "server/main.js"));
+    if (!app.isPackaged) {
+      const electronReload = (await import("electron-reload")).default;
+      electronReload(path.join(__dirname, "ui"), { hardResetMethod: "exit" });
+    }
   };
 
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {

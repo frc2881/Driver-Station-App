@@ -1,6 +1,5 @@
 import { 
-  ServerMessageType,
-  NetworkTablesDataType
+  ServerMessageType
 } from "./enums";
 import { 
   ServerMessage
