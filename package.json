@@ -12,10 +12,11 @@
     "build:init": "node scripts/build-init.mjs",
     "build:main": "tsc -p tsconfig-main.json",
     "build:ui": "rollup -c --bundleConfigAsCjs",
-    "watch": "rollup -c --bundleConfigAsCjs -w",
+    "dist": "electron-builder --win",
+    "package": "npm-run-all build dist",
     "start": "electron .",
-    "dev": "npm-run-all build --parallel start watch",
-    "dist": "electron-builder --win"
+    "watch": "rollup -c --bundleConfigAsCjs -w",
+    "dev": "npm-run-all build --parallel start watch"
   },
   "build": {
     "appId": "FRC.DriverStationApp.1.0.0",

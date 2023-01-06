@@ -30,9 +30,9 @@ _Note: more complete configuration and usage documentation is TBD_
 ## Build / Run
 * Run robot simulation or Romi in local environment OR run live robot and connect remotely
 * Development
-  * `yarn dev` (builds and runs the app with live UI refresh on edit/save)
+  * `yarn dev` (builds and runs the app locally for development with live UI refresh on edit/save)
 * Binary packaging and distribution
-  * `yarn dist` (builds and packages Windows portable executable file for copy distribution to driver station)
+  * `yarn package` (builds and packages Windows portable executable file for simple copy distribution to driver station)
 * Other
   * See `scripts` section in `package.json` file for more options
 
