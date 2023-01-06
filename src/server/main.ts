@@ -1,5 +1,6 @@
 import { WebSocketServer, WebSocket } from "ws";
 import { IncomingMessage } from "http";
+import minimist from "minimist";
 import { 
   Utils, 
   AppWindowType,
@@ -23,10 +24,12 @@ class Server {
   private _networkTablesService!: PyNetworkTablesService;
 
   private init = async (): Promise<void> => {
+    const args = minimist(process.argv.slice(2));
+
     this._webSocketServer = new WebSocketServer({ port: 52881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
-    this._networkTablesService = new PyNetworkTablesService({ address: process.env.ntServerAddress!, port: Number(process.env.ntServerPort!) });
+    this._networkTablesService = new PyNetworkTablesService({ address: args.ntServerAddress, port: args.ntServerPort });
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {
       this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
     });
