@@ -3,6 +3,7 @@ import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { 
+  Configuration,
   AppArguments, 
   AppWindowType, 
   Position 
@@ -20,8 +21,8 @@ class Main {
   private init = async (): Promise<void> => {
     const args = minimist(process.argv, {
       default: { 
-        "ntServerAddress": "10.28.81.2",
-        "ntServerPort": 52881 
+        "ntServerAddress": Configuration.Settings.Defaults.NT_SERVER_ADDRESS,
+        "ntServerPort": Configuration.Settings.Defaults.NT_SERVER_PORT 
       }
     }) as AppArguments;
 

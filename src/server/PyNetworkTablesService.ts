@@ -3,6 +3,7 @@ import { readFile, writeFile } from "fs/promises";
 import { WebSocket, RawData } from "ws";
 import { encode, decode } from "cbor";
 import { 
+  Configuration,
   Utils, 
   Platform,
   NetworkTables,
@@ -25,8 +26,6 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
     this._networkTablesServiceOptions = options;
     this.init();
   }
-
-  private readonly _FPGATimestampTopicName: string = "/SmartDashboard/Timing/FPGATimestamp"; // TODO: move back into common configuration module
 
   private readonly _networkTablesServiceOptions: NetworkTablesServiceOptions;
   
@@ -148,7 +147,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   };
 
   private getNetworkTablesTimestamp = (name: string, value: any): number => {
-    if (name === this._FPGATimestampTopicName) {
+    if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
       this._FPGATimestamp = value;
     }
     return this._FPGATimestamp;

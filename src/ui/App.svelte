@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { 
+		Configuration,
 		Utils,
 		AppWindowType, 
 		ServerMessageType,
@@ -25,7 +26,7 @@
 		topics: []
 	};
 
-	const server = new WebSocket(`ws://127.0.0.1:62881/ws?appWindowType=${appWindowType}`);
+	const server = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
 	server.binaryType = "arraybuffer";
 	server.onmessage = (e) => onMessageReceived(e);
 
