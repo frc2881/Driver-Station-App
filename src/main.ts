@@ -2,7 +2,11 @@ import { app, BrowserWindow } from "electron";
 import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
-import { AppWindowType, Position } from "./common";
+import { 
+  AppArguments, 
+  AppWindowType, 
+  Position 
+} from "./common";
 
 class Main {
   constructor() {
@@ -14,16 +18,18 @@ class Main {
   private _server!: ChildProcess;
 
   private init = async (): Promise<void> => {
-
-    // TODO: create app args type for validation
     const args = minimist(process.argv.slice(2), {
       default: { 
-        "ntServerAddress": "127.0.0.1",
-        "ntServerPort": 5810 
+        "ntServerAddress": "10.28.81.2",
+        "ntServerPort": 52881 
       }
-    });
+    }) as AppArguments;
 
-    this._server = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }`, `--ntServerPort=${ args.ntServerPort }` ]);
+    this._server = fork(
+      path.join(__dirname, "server/main.js"), [ 
+        `--ntServerAddress=${ args.ntServerAddress }`, 
+        `--ntServerPort=${ args.ntServerPort }` 
+    ]);
 
     await app.whenReady();
 
@@ -46,8 +52,7 @@ class Main {
       y: position.y,
       backgroundColor: "#000000",
       webPreferences: { 
-        webSecurity: false,
-        nodeIntegration: true
+        webSecurity: false
       }
     });
     window.menuBarVisible = false;

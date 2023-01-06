@@ -3,6 +3,12 @@ import {
   NetworkTablesServiceMessageType,
   NetworkTablesDataType 
 } from "./enums";
+import { ParsedArgs } from "minimist";
+
+export type AppArguments = ParsedArgs & {
+  ntServerAddress: string;
+  ntServerPort: number;
+}
 
 export type ServerMessage = {
   type: ServerMessageType;

@@ -2,14 +2,15 @@ import { WebSocketServer, WebSocket } from "ws";
 import { IncomingMessage } from "http";
 import minimist from "minimist";
 import { 
-  Utils, 
+  AppArguments, 
   AppWindowType,
   ServerMessageType,
   ServerMessage,
   NetworkTablesServiceMessageType,
   NetworkTablesServiceMessage,
   NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage
+  NetworkTablesTopicsUpdatedMessage,
+  Utils
 } from "../common";
 import { PyNetworkTablesService } from "./PyNetworkTablesService";
 
@@ -24,9 +25,9 @@ class Server {
   private _networkTablesService!: PyNetworkTablesService;
 
   private init = async (): Promise<void> => {
-    const args = minimist(process.argv.slice(2));
-
-    this._webSocketServer = new WebSocketServer({ port: 52881, skipUTF8Validation: true });
+    const args = minimist(process.argv.slice(2)) as AppArguments;
+    
+    this._webSocketServer = new WebSocketServer({ port: 62881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
     this._networkTablesService = new PyNetworkTablesService({ address: args.ntServerAddress, port: args.ntServerPort });

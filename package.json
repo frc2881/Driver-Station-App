@@ -13,7 +13,7 @@
     "build:main": "tsc -p tsconfig-main.json",
     "build:ui": "rollup -c --bundleConfigAsCjs",
     "watch": "rollup -c --bundleConfigAsCjs -w",
-    "start": "electron .",
+    "start": "electron . --ntServerAddress=10.28.81.2",
     "dev": "npm-run-all build --parallel start watch",
     "dist": "electron-builder --win"
   },
