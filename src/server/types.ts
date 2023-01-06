@@ -14,6 +14,11 @@ export declare interface TypedEventEmitter<Events extends EmittedEvents> {
 
 export class TypedEventEmitter<Events extends EmittedEvents> extends EventEmitter {}
 
+export type NetworkTablesServiceOptions = {
+  address: string;
+  port: number;
+}
+
 export type NetworkTablesServiceMessages = {
   [NetworkTablesServiceMessageType.ConnectionChanged]: (event: NetworkTablesConnectionChangedMessage) => void;
   [NetworkTablesServiceMessageType.TopicsUpdated]: (event: NetworkTablesTopicsUpdatedMessage) => void;

@@ -20,6 +20,7 @@
 	const appWindowType = new URLSearchParams(window.location.search).get("appWindowType") as AppWindowType;
 
 	let networkTables: NetworkTables = {
+		address: "",
 		isConnected: false,
 		topics: []
 	};
@@ -51,7 +52,8 @@
 	};
 
 	const onNetworkTablesConnectionChanged = (e: NetworkTablesConnectionChangedMessage): void => {
-		const { isConnected } = e.data;
+		const { address, isConnected } = e.data;
+		networkTables.address = address;
 		networkTables.isConnected = isConnected;
 		// TODO: determine if we want to keep last networktables state around when robot disconnects and reset on next connection
 		if (!isConnected) {

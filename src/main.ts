@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+import { readFile } from "fs/promises";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { AppWindowType, Position } from "./common";
@@ -15,12 +16,15 @@ class Main {
 
   private init = async (): Promise<void> => {
 
+    // TODO: create app arguments type, pass as args to server process in place of env
     const args = minimist(process.argv.slice(2), {
       default: { 
-        "robotAddress": "127.0.0.1" 
+        "ntServerAddress": "127.0.0.1",
+        "ntServerPort": 5810 
       }
     });
-    process.env.robotAddress = args.robotAddress;
+    process.env.ntServerAddress = args.ntServerAddress;
+    process.env.ntServerPort = args.ntServerPort;
 
     this._server = fork(path.join(__dirname, "server/main.js"));
 

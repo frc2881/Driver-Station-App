@@ -16,6 +16,6 @@
     padding: 1em;
 		color: var(--_color-pink);
     font-size: 80%;
-    opacity: 0.2;
+    opacity: 0.5;
 	}
 </style>

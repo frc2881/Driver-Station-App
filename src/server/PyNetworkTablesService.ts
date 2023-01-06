@@ -5,35 +5,43 @@ import { encode, decode } from "cbor";
 import { 
   Utils, 
   Platform,
-  NetworkTablesServiceMessageType,
-  NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage,
   NetworkTables,
   NetworkTablesTopic,
-  NetworkTablesDataType
+  NetworkTablesDataType,
+  NetworkTablesServiceMessageType,
+  NetworkTablesConnectionChangedMessage,
+  NetworkTablesTopicsUpdatedMessage
 } from "../common";
-import { TypedEventEmitter, NetworkTablesServiceMessages, PyNetworkTablesServiceMessage } from "./types";
+import { 
+  TypedEventEmitter, 
+  NetworkTablesServiceOptions,
+  NetworkTablesServiceMessages, 
+  PyNetworkTablesServiceMessage 
+} from "./types";
 
 export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
-  constructor(robotAddress: string) {
+  constructor(options: NetworkTablesServiceOptions) {
     super();
-    this.init(robotAddress);
+    this._networkTablesServiceOptions = options;
+    this.init();
   }
 
-  private readonly _pynetworktables2jsServicePort: number = 5810; //TODO: move into common configuration module
-  private readonly _robotTimeTopicName: string = "/SmartDashboard/Timing/RobotTime"; //TODO: move back into common configuration module
+  private readonly _FPGATimestampTopicName: string = "/SmartDashboard/Timing/FPGATimestamp"; // TODO: move back into common configuration module
 
-  private _robotTimeTopicIndex: number = -1;
-  private _webSocket!: WebSocket;
+  private readonly _networkTablesServiceOptions: NetworkTablesServiceOptions;
+  
   private _pynetworktables2jsService!: ChildProcessWithoutNullStreams;
+  private _webSocket!: WebSocket;
+  private _FPGATimestamp: number = 0;
   
   private _networkTables: NetworkTables = {
+    address: "",
 		isConnected: false,
 		topics: []
 	};
 
-  private init = async (robotAddress: string): Promise<void> => {
-    console.log("robotAddress:", robotAddress);
+  private init = async (): Promise<void> => {
+    this._networkTables.address = this._networkTablesServiceOptions.address;
     switch (process.platform) {
       case Platform.Windows:
         try {
@@ -42,10 +50,10 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
             await readFile("resources/app.asar/resources/pynetworktables2js.exe")
           );
         } catch {}
-        execFile("resources/pynetworktables2js.exe", [ `--robot=${ robotAddress }`, `--port=${ this._pynetworktables2jsServicePort }` ]);
+        execFile("resources/pynetworktables2js.exe", [ `--robot=${ this._networkTablesServiceOptions.address }`, `--port=${ this._networkTablesServiceOptions.port }` ]);
         break;
       case Platform.macOS:
-        this._pynetworktables2jsService = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ robotAddress }`, `--port=${ this._pynetworktables2jsServicePort }`]);
+        this._pynetworktables2jsService = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ this._networkTablesServiceOptions.address }`, `--port=${ this._networkTablesServiceOptions.port }`]);
         break;
       default:
         break;
@@ -68,7 +76,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   };
 
   private connect = (): void => {
-    this._webSocket = new WebSocket(`ws://127.0.0.1:${ this._pynetworktables2jsServicePort }/networktables/ws`);
+    this._webSocket = new WebSocket(`ws://127.0.0.1:${ this._networkTablesServiceOptions.port }/networktables/ws`);
     this._webSocket.binaryType = "arraybuffer";
     this._webSocket.on("open", () => {});
     this._webSocket.on("error", () => {});
@@ -104,21 +112,7 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
         } else {
           this._networkTables.topics.push(topic);
         }
-        const topics: NetworkTablesTopic[] = [topic];
-        if (this._robotTimeTopicIndex === -1) {
-          const index = this._networkTables.topics.findIndex(topic => topic.name === this._robotTimeTopicName);
-          if (index !== -1) {
-            this._robotTimeTopicIndex = index;
-            const timestamp = this._networkTables.topics[this._robotTimeTopicIndex]?.value as number;
-            for (const topic of this._networkTables.topics) {
-              if (topic.timestamp === 0) {
-                topic.timestamp = timestamp;
-                topics.push(topic);
-              }
-            }
-          }
-        }
-        this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getNetworkTablesTopicsUpdatedMessage(topics));
+        this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getNetworkTablesTopicsUpdatedMessage([ topic ]));
       }
     }
   };
@@ -126,14 +120,19 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   public getNetworkTablesConnectionChangedMessage = (): NetworkTablesConnectionChangedMessage => {
     return {
       type: NetworkTablesServiceMessageType.ConnectionChanged,
-      data: { isConnected: this._networkTables.isConnected }
+      data: { 
+        address: this._networkTables.address,
+        isConnected: this._networkTables.isConnected 
+      }
     } as NetworkTablesConnectionChangedMessage;
   };
 
   public getNetworkTablesTopicsUpdatedMessage = (topics: NetworkTablesTopic[] | null = null): NetworkTablesTopicsUpdatedMessage => {
     return {
       type: NetworkTablesServiceMessageType.TopicsUpdated,
-      data: { topics: topics ?? this._networkTables.topics }
+      data: { 
+        topics: topics ?? this._networkTables.topics 
+      }
     } as NetworkTablesTopicsUpdatedMessage;
   };
 
@@ -144,14 +143,15 @@ export class PyNetworkTablesService extends TypedEventEmitter<NetworkTablesServi
   };
 
   private resetNetworkTables = (): void => {
-    this._robotTimeTopicIndex = -1;
+    this._FPGATimestamp = 0;
     this._networkTables.topics = [];
   };
 
   private getNetworkTablesTimestamp = (name: string, value: any): number => {
-    return (name === this._robotTimeTopicName) ? 
-      value as number : 
-      this._networkTables.topics[this._robotTimeTopicIndex]?.value as number ?? 0;
+    if (name === this._FPGATimestampTopicName) {
+      this._FPGATimestamp = value;
+    }
+    return this._FPGATimestamp;
   };
 
   private getNetworkTablesDataType = (value: any): NetworkTablesDataType => {

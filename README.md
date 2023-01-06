@@ -28,7 +28,7 @@ _Note: more complete configuration and usage documentation is TBD_
 * `yarn install`
 
 ## Build / Run
-* Run robot simulation or Romi in local environment OR run live robot and connect remotely (edit `src\common\config.ts - NT_SERVER_ADDRESS` as needed)
+* Run robot simulation or Romi in local environment OR run live robot and connect remotely
 * Development
   * `yarn dev` (builds and runs the app with live UI refresh on edit/save)
 * Binary packaging and distribution

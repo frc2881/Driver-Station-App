@@ -26,7 +26,7 @@ class Server {
     this._webSocketServer = new WebSocketServer({ port: 52881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
-    this._networkTablesService = new PyNetworkTablesService(process.env.robotAddress!);
+    this._networkTablesService = new PyNetworkTablesService({ address: process.env.ntServerAddress!, port: Number(process.env.ntServerPort!) });
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {
       this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
     });

@@ -15,11 +15,16 @@ export type NetworkTablesServiceMessage = {
 }
 
 export type NetworkTablesConnectionChangedMessage = NetworkTablesServiceMessage & {
-  data: { isConnected: boolean; };
+  data: { 
+    address: string;
+    isConnected: boolean; 
+  };
 }
 
 export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
-  data: { topics: NetworkTablesTopic[]; };
+  data: { 
+    topics: NetworkTablesTopic[]; 
+  };
 }
 
 export type NetworkTablesTopic = {
@@ -31,6 +36,7 @@ export type NetworkTablesTopic = {
 }
 
 export type NetworkTables = {
+  address: string;
   isConnected: boolean;
   topics: NetworkTablesTopic[];
 }

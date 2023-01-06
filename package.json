@@ -19,7 +19,7 @@
   },
   "build": {
     "appId": "FRC.DriverStationApp.1.0.0",
-    "productName": "DriverStationApp",
+    "productName": "FRCDriverStationApp",
     "copyright": "Copyright (c) 2022 FRC Team 2881",
     "win": {
       "target": "portable",
