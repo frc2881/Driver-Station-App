@@ -18,7 +18,7 @@ class Main {
   private _server!: ChildProcess;
 
   private init = async (): Promise<void> => {
-    const args = minimist(process.argv.slice(2), {
+    const args = minimist(process.argv, {
       default: { 
         "ntServerAddress": "10.28.81.2",
         "ntServerPort": 52881 

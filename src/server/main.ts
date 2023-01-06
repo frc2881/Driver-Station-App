@@ -25,7 +25,7 @@ class Server {
   private _networkTablesService!: PyNetworkTablesService;
 
   private init = async (): Promise<void> => {
-    const args = minimist(process.argv.slice(2)) as AppArguments;
+    const args = minimist(process.argv) as AppArguments;
     
     this._webSocketServer = new WebSocketServer({ port: 62881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
