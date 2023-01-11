@@ -22,15 +22,11 @@ class Main {
     const args = minimist(process.argv, {
       default: { 
         "ntServerAddress": Configuration.Settings.Defaults.NT_SERVER_ADDRESS,
-        "ntServerPort": Configuration.Settings.Defaults.NT_SERVER_PORT 
+        "ntVersion": Configuration.Settings.Defaults.NT_VERSION 
       }
     }) as AppArguments;
 
-    this._server = fork(
-      path.join(__dirname, "server/main.js"), [ 
-        `--ntServerAddress=${ args.ntServerAddress }`, 
-        `--ntServerPort=${ args.ntServerPort }` 
-    ]);
+    this._server = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }`, `--ntVersion=${ args.ntVersion }` ]);
 
     await app.whenReady();
 
@@ -42,11 +38,11 @@ class Main {
       const electronReload = (await import("electron-reload")).default;
       electronReload(path.join(__dirname, "ui"), { hardResetMethod: "exit" });
     }
-  };
+  }
 
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {
     const window = new BrowserWindow({
-      title: `Driver Station - ${appWindowType}`,
+      title: `Driver Station - ${ appWindowType }`,
       width: 1280,
       height: 720,
       x: position.x,
@@ -61,17 +57,17 @@ class Main {
       path.join(__dirname, "ui/index.html"), 
       { query: { "appWindowType": appWindowType } }
     );
-  };
+  }
 
   private onAppWillQuit = (): void => {
     this._server.disconnect();
-  };
+  }
 
   private onAppQuit = (): void => {
     if (!app.isPackaged) {
       console.log("All windows closed and application exited. Press [ Ctrl+C ] to terminate process.");
     }
-  };
+  }
 }
 
 new Main();

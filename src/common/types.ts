@@ -7,7 +7,7 @@ import { ParsedArgs } from "minimist";
 
 export type AppArguments = ParsedArgs & {
   ntServerAddress: string;
-  ntServerPort: number;
+  ntVersion: number;
 }
 
 export type ServerMessage = {
@@ -24,27 +24,27 @@ export type NetworkTablesConnectionChangedMessage = NetworkTablesServiceMessage 
   data: { 
     address: string;
     isConnected: boolean; 
-  };
+  }
 }
 
 export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
   data: { 
     topics: NetworkTablesTopic[]; 
-  };
-}
-
-export type NetworkTablesTopic = {
-  id: number;
-  timestamp: number;
-  type: NetworkTablesDataType;
-  name: string;
-  value: any;
+  }
 }
 
 export type NetworkTables = {
   address: string;
   isConnected: boolean;
   topics: NetworkTablesTopic[];
+}
+
+export type NetworkTablesTopic = {
+  id: number;
+  name: string;
+  timestamp: number;
+  type: NetworkTablesDataType;
+  value: any;
 }
 
 export type Position = {

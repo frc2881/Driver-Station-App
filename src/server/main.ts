@@ -13,7 +13,9 @@ import {
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage
 } from "../common";
-import { PyNetworkTablesService } from "./PyNetworkTablesService";
+import { NetworkTablesService } from "./types";
+import { NetworkTables3Service } from "./NetworkTables3Service";
+import { NetworkTables4Service } from "./NetworkTables4Service";
 
 class Server {
   constructor() {
@@ -23,22 +25,34 @@ class Server {
 
   private _appWindowConnections = new Map<AppWindowType, WebSocket>();
   private _webSocketServer!: WebSocketServer;
-  private _networkTablesService!: PyNetworkTablesService;
+
+  private _networkTablesService!: NetworkTablesService;
 
   private init = async (): Promise<void> => {
     const args = minimist(process.argv) as AppArguments;
-    
+
     this._webSocketServer = new WebSocketServer({ port: Configuration.Settings.APP_SERVER_PORT, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
-    this._networkTablesService = new PyNetworkTablesService({ address: args.ntServerAddress, port: args.ntServerPort });
+    switch (args.ntVersion) {
+      case 4:
+        this._networkTablesService = new NetworkTables4Service({ address: args.ntServerAddress, port: Configuration.Settings.NT4_SERVER_PORT });
+        break;
+      case 3:
+        this._networkTablesService = new NetworkTables3Service({ address: args.ntServerAddress, port: Configuration.Settings.NT3_SERVER_PORT });
+        break;
+      default:
+        throw new Error(`NT version ${ args.ntVersion } is invalid or not supported.`);
+    }
+    
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {
       this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
     });
+
     this._networkTablesService.on(NetworkTablesServiceMessageType.TopicsUpdated, (e: NetworkTablesTopicsUpdatedMessage) => {
       this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
     });
-  };
+  }
 
   private onAppWindowConnectionOpened = (connection: WebSocket, request: IncomingMessage): void => {
     const appWindowType = new URLSearchParams(new URL(request.url!, `ws://${request.headers.host}`).search).get("appWindowType") as AppWindowType;
@@ -58,7 +72,7 @@ class Server {
         connection
       );
     }
-  };
+  }
 
   private onMessageReceived = (data: ArrayBuffer): void => {
     const { type, message } = Utils.decodeServerMessage(data) as ServerMessage;
@@ -77,14 +91,14 @@ class Server {
 				console.log("Server message:", ServerMessageType[type], message);
 				break;
 		}
-  };
+  }
 
   private sendMessage = (type: ServerMessageType, message: Object, connection: WebSocket): void => {
     const serverMessage = Utils.encodeServerMessage(type, message);
     if (connection.readyState === WebSocket.OPEN) {
       connection.send(serverMessage, { binary: true });
     }
-  };
+  }
 
   private broadcastMessage = (type: ServerMessageType, message: Object): void => {
     const serverMessage = Utils.encodeServerMessage(type, message);
@@ -93,12 +107,12 @@ class Server {
         connection.send(serverMessage, { binary: true });
       }
     }
-  };
+  }
 
   private onProcessDisconnect = (): void => {
     this._webSocketServer.close();
     this._networkTablesService?.dispose();
-  };
+  }
 }
 
 new Server();

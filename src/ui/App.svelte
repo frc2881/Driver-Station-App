@@ -50,7 +50,7 @@
 				console.log("Server message:", ServerMessageType[type], message);
 				break;
 		}
-	};
+	}
 
 	const onNetworkTablesConnectionChanged = (e: NetworkTablesConnectionChangedMessage): void => {
 		const { address, isConnected } = e.data;
@@ -60,7 +60,7 @@
 		if (!isConnected) {
     	networkTables.topics = []; 
 		}
-	};
+	}
 
 	const onNetworkTablesTopicsUpdated = (e: NetworkTablesTopicsUpdatedMessage): void => {
 		for (const topic of e.data.topics) {
@@ -71,14 +71,14 @@
 				networkTables.topics.push(topic);
 			}
 		}
-	};
+	}
 
 	const sendServerMessage = (type: ServerMessageType, message: Object): void => {
     const serverMessage = Utils.encodeServerMessage(type, message);
     if (server.readyState === WebSocket.OPEN) {
       server.send(serverMessage);
     }
-  };
+  }
 
 	const updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {
 		const message = {
@@ -86,11 +86,11 @@
 			data: { topics }
 		} as NetworkTablesTopicsUpdatedMessage;
 		sendServerMessage(ServerMessageType.NetworkTablesService, message);
-	};
+	}
 
 	const updateNetworkTablesTopic = (name: string, value: any): void => {
 		updateNetworkTablesTopics([{ id: 0, timestamp: 0, type: NetworkTablesDataType.any, name, value }]);
-	};
+	}
 
 	// HACK: Romi example test update
 	// (async () => {

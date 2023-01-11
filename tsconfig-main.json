@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
     "preserveValueImports": false,

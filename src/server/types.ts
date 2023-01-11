@@ -2,7 +2,8 @@ import { EventEmitter } from "events";
 import { 
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage
+  NetworkTablesTopicsUpdatedMessage,
+  NetworkTablesTopic
 } from "../common";
 
 export type EmittedEvents = Record<string | symbol, (...args: any) => any>;
@@ -22,10 +23,22 @@ export type NetworkTablesServiceOptions = {
 export type NetworkTablesServiceMessages = {
   [NetworkTablesServiceMessageType.ConnectionChanged]: (event: NetworkTablesConnectionChangedMessage) => void;
   [NetworkTablesServiceMessageType.TopicsUpdated]: (event: NetworkTablesTopicsUpdatedMessage) => void;
-};
+}
+
+export abstract class NetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
+  protected readonly _networkTablesServiceOptions: NetworkTablesServiceOptions;
+  constructor(options: NetworkTablesServiceOptions) {
+    super();
+    this._networkTablesServiceOptions = options;
+  }
+  public abstract dispose(): void;
+  public abstract getNetworkTablesConnectionChangedMessage(): NetworkTablesConnectionChangedMessage;
+  public abstract getNetworkTablesTopicsUpdatedMessage(): NetworkTablesTopicsUpdatedMessage;
+  public abstract updateNetworkTablesTopics(topics: NetworkTablesTopic[]): void;
+}
 
 export type PyNetworkTablesServiceMessage = {
   r: boolean | undefined;
   k: string;
   v: any;
-};
+}

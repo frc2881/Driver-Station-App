@@ -1,6 +1,6 @@
 {
-  "name": "driver-station-app",
-  "description": "FRC driver station app for HUD, dashboard, and debug",
+  "name": "frc-driver-station-app",
+  "description": "FRC driver station app for HUD, dashboard, and NT data inspection",
   "version": "1.0.0",
   "author": "frc2881",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "build:ui": "rollup -c --bundleConfigAsCjs",
     "dist": "electron-builder --win",
     "package": "npm-run-all build dist",
-    "start": "electron .",
+    "start": "electron . --ntServerAddress=192.168.0.218 --ntVersion=3",
     "watch": "rollup -c --bundleConfigAsCjs -w",
     "dev": "npm-run-all build --parallel start watch"
   },
