@@ -3,7 +3,8 @@ import {
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage,
-  NetworkTablesTopic
+  NetworkTablesTopic,
+  NetworkTablesDataType
 } from "../common";
 
 export type EmittedEvents = Record<string | symbol, (...args: any) => any>;
@@ -36,6 +37,13 @@ export abstract class NetworkTablesService extends TypedEventEmitter<NetworkTabl
   public abstract getNetworkTablesTopicsUpdatedMessage(): NetworkTablesTopicsUpdatedMessage;
   public abstract updateNetworkTablesTopics(topics: NetworkTablesTopic[]): void;
 }
+
+export type NetworkTablesBinaryDataFrame = [ 
+  id: number, 
+  timestamp: number, 
+  type: NetworkTablesDataType, 
+  value: any 
+]
 
 export type PyNetworkTablesServiceMessage = {
   r: boolean | undefined;

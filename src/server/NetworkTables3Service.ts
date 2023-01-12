@@ -91,9 +91,9 @@ export class NetworkTables3Service extends NetworkTablesService {
         } else {
           const topic: NetworkTablesTopic = {
             id: 0,
+            name,
             timestamp: this.getNetworkTablesServerTimestamp(),
             type: this.getNetworkTablesDataType(value),
-            name,
             value
           };
           const index = this._networkTables.topics.findIndex(t => t.name === topic.name);
