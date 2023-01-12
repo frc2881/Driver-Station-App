@@ -14,8 +14,8 @@
     "build:ui": "rollup -c --bundleConfigAsCjs",
     "dist": "electron-builder --win",
     "package": "npm-run-all build dist",
-    "start": "electron . --ntServerAddress=192.168.0.218 --ntVersion=3",
-    "watch": "rollup -c --bundleConfigAsCjs -w",
+    "start": "electron .",
+    "watch": "rollup -cw --bundleConfigAsCjs",
     "dev": "npm-run-all build --parallel start watch"
   },
   "build": {
