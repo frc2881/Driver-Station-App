@@ -37,17 +37,17 @@ export class NetworkTables3Service extends NetworkTablesService {
 		topics: []
 	};
 
-  private _pynetworktables2jsService!: ChildProcessWithoutNullStreams;
+  private _pyNetworkTablesService!: ChildProcessWithoutNullStreams;
 
   private init = async (): Promise<void> => {
     this._networkTables.address = this._networkTablesServiceOptions.address;
-    await this.startpynetworktables2jsService();
+    await this.startPyNetworkTablesService();
     this.connect();
   }
 
   public dispose = (): void => {
     this._webSocket.terminate();
-    this.stoppynetworktables2jsService();
+    this.stopPyNetworkTablesService();
   }
 
   private connect = (): void => {
@@ -77,7 +77,7 @@ export class NetworkTables3Service extends NetworkTablesService {
 
   private onMessageReceived = (message: RawData, isBinary: boolean): void => {
     if (isBinary) {
-      const { r: robot, k: name, v: value } = decode(message as Buffer) as PyNetworkTablesServiceMessage;
+      const { r: robot, k: name, v: value } = this.decodePyNetworkTablesServiceMessage(message);
       if (robot !== undefined) {
         this._networkTables.isConnected = robot as boolean;
         if (!this._networkTables.isConnected) {
@@ -129,7 +129,7 @@ export class NetworkTables3Service extends NetworkTablesService {
 
   public updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {
     for (const topic of topics) {
-      this._webSocket?.send(encode({"k": topic.name, "v": topic.value}));
+      this._webSocket?.send(this.encodePyNetworkTablesServiceMessage(topic));
     }
   }
 
@@ -171,7 +171,15 @@ export class NetworkTables3Service extends NetworkTablesService {
     return Math.floor(performance.now() * 1000);
   }
 
-  private startpynetworktables2jsService = async (): Promise<void> => {
+  private decodePyNetworkTablesServiceMessage = (message: RawData): PyNetworkTablesServiceMessage => {
+    return decode(message as Buffer) as PyNetworkTablesServiceMessage;
+  }
+
+  private encodePyNetworkTablesServiceMessage = (topic: NetworkTablesTopic): Buffer => {
+    return encode({ k: topic.name, v: topic.value } as PyNetworkTablesServiceMessage);
+  }
+
+  private startPyNetworkTablesService = async (): Promise<void> => {
     switch (process.platform) {
       case Platform.Windows:
         try {
@@ -183,20 +191,20 @@ export class NetworkTables3Service extends NetworkTablesService {
         execFile("resources/pynetworktables2js.exe", [ `--robot=${ this._networkTablesServiceOptions.address }`, `--port=${ this._networkTablesServiceOptions.port }` ]);
         break;
       case Platform.macOS:
-        this._pynetworktables2jsService = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ this._networkTablesServiceOptions.address }`, `--port=${ this._networkTablesServiceOptions.port }`]);
+        this._pyNetworkTablesService = spawn("python3", ["-u", "-m", "pynetworktables2js", `--robot=${ this._networkTablesServiceOptions.address }`, `--port=${ this._networkTablesServiceOptions.port }`]);
         break;
       default:
         break;
     }
   }
 
-  private stoppynetworktables2jsService = (): void => {
+  private stopPyNetworkTablesService = (): void => {
     switch (process.platform) {
       case Platform.Windows:
         exec("taskkill /IM pynetworktables2js* /T /F");
         break;
       case Platform.macOS:
-        this._pynetworktables2jsService?.kill();
+        this._pyNetworkTablesService?.kill();
         break;
       default:
         break;
