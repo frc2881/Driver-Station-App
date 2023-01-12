@@ -88,7 +88,6 @@ export class NetworkTables3Service extends NetworkTablesService {
         if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
           const fpgaTimestamp = value as number;
           this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
-          console.log(fpgaTimestamp);
         } else {
           const topic: NetworkTablesTopic = {
             id: 0,
@@ -165,7 +164,7 @@ export class NetworkTables3Service extends NetworkTablesService {
   }
 
   private getNetworkTablesServerTimestamp = (): number => {
-    return this.getLocalTimestamp() + this._serverTimeOffset;
+    return this._serverTimeOffset ? this.getLocalTimestamp() + this._serverTimeOffset : 0;
   }
 
   private getLocalTimestamp = (): number => {
