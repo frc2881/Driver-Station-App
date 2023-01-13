@@ -1,17 +1,22 @@
 import { 
-  ServerMessageType,
+  AppServerMessageType,
   NetworkTablesServiceMessageType,
   NetworkTablesDataType 
 } from "./enums";
 import { ParsedArgs } from "minimist";
+
+export type Position = {
+  x: number;
+  y: number;
+}
 
 export type AppArguments = ParsedArgs & {
   ntServerAddress: string;
   ntVersion: number;
 }
 
-export type ServerMessage = {
-  type: ServerMessageType;
+export type AppServerMessage = {
+  type: AppServerMessageType;
   message: Record<string, any>;
 }
 
@@ -33,12 +38,6 @@ export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
   }
 }
 
-export type NetworkTables = {
-  address: string;
-  isConnected: boolean;
-  topics: NetworkTablesTopic[];
-}
-
 export type NetworkTablesTopic = {
   id: number;
   name: string;
@@ -47,7 +46,8 @@ export type NetworkTablesTopic = {
   value: any;
 }
 
-export type Position = {
-  x: number;
-  y: number;
+export type NetworkTables = {
+  address: string;
+  isConnected: boolean;
+  topics: NetworkTablesTopic[];
 }

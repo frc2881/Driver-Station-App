@@ -6,8 +6,8 @@ import {
   Utils,
   AppArguments, 
   AppWindowType,
-  ServerMessageType,
-  ServerMessage,
+  AppServerMessageType,
+  AppServerMessage,
   NetworkTablesServiceMessageType,
   NetworkTablesServiceMessage,
   NetworkTablesConnectionChangedMessage,
@@ -46,11 +46,11 @@ class Server {
     }
     
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {
-      this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
+      this.broadcastMessage(AppServerMessageType.NetworkTablesService, e);
     });
 
     this._networkTablesService.on(NetworkTablesServiceMessageType.TopicsUpdated, (e: NetworkTablesTopicsUpdatedMessage) => {
-      this.broadcastMessage(ServerMessageType.NetworkTablesService, e);
+      this.broadcastMessage(AppServerMessageType.NetworkTablesService, e);
     });
   }
 
@@ -62,46 +62,46 @@ class Server {
       connection.binaryType = "arraybuffer";
       connection.on("message", this.onMessageReceived);
       this.sendMessage(
-        ServerMessageType.NetworkTablesService, 
-        this._networkTablesService.getNetworkTablesConnectionChangedMessage(), 
+        AppServerMessageType.NetworkTablesService, 
+        this._networkTablesService.getConnectionChangedMessage(), 
         connection
       );
       this.sendMessage(
-        ServerMessageType.NetworkTablesService, 
-        this._networkTablesService.getNetworkTablesTopicsUpdatedMessage(), 
+        AppServerMessageType.NetworkTablesService, 
+        this._networkTablesService.getTopicsUpdatedMessage(), 
         connection
       );
     }
   }
 
   private onMessageReceived = (data: ArrayBuffer): void => {
-    const { type, message } = Utils.decodeServerMessage(data) as ServerMessage;
+    const { type, message } = Utils.decodeAppServerMessage(data) as AppServerMessage;
     switch (type) {
-			case ServerMessageType.NetworkTablesService:
+			case AppServerMessageType.NetworkTablesService:
 				switch ((message as NetworkTablesServiceMessage).type) {
 					case NetworkTablesServiceMessageType.TopicsUpdated:
             const { data: { topics } } = message as NetworkTablesTopicsUpdatedMessage;
-            this._networkTablesService.updateNetworkTablesTopics(topics);
+            this._networkTablesService.updateTopics(topics);
 						break;
 					default:
 						break;
 				}
 				break;
 			default:
-				console.log("Server message:", ServerMessageType[type], message);
+				console.log("Server message:", AppServerMessageType[type], message);
 				break;
 		}
   }
 
-  private sendMessage = (type: ServerMessageType, message: Object, connection: WebSocket): void => {
-    const serverMessage = Utils.encodeServerMessage(type, message);
+  private sendMessage = (type: AppServerMessageType, message: Object, connection: WebSocket): void => {
+    const serverMessage = Utils.encodeAppServerMessage(type, message);
     if (connection.readyState === WebSocket.OPEN) {
       connection.send(serverMessage, { binary: true });
     }
   }
 
-  private broadcastMessage = (type: ServerMessageType, message: Object): void => {
-    const serverMessage = Utils.encodeServerMessage(type, message);
+  private broadcastMessage = (type: AppServerMessageType, message: Object): void => {
+    const serverMessage = Utils.encodeAppServerMessage(type, message);
     for (const connection of this._appWindowConnections.values()) {
       if (connection.readyState === WebSocket.OPEN) {
         connection.send(serverMessage, { binary: true });

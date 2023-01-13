@@ -16,7 +16,7 @@ class Main {
     this.init();
   }
 
-  private _server!: ChildProcess;
+  private _appServer!: ChildProcess;
 
   private init = async (): Promise<void> => {
     const args = minimist(process.argv, {
@@ -26,7 +26,7 @@ class Main {
       }
     }) as AppArguments;
 
-    this._server = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }`, `--ntVersion=${ args.ntVersion }` ]);
+    this._appServer = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }`, `--ntVersion=${ args.ntVersion }` ]);
 
     await app.whenReady();
 
@@ -60,7 +60,7 @@ class Main {
   }
 
   private onAppWillQuit = (): void => {
-    this._server.disconnect();
+    this._appServer.disconnect();
   }
 
   private onAppQuit = (): void => {

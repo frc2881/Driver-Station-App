@@ -3,15 +3,15 @@
 		Configuration,
 		Utils,
 		AppWindowType, 
-		ServerMessageType,
-		ServerMessage,
+		AppServerMessageType,
+		AppServerMessage,
+		NetworkTables,
+		NetworkTablesDataType,
+		NetworkTablesTopic,
 		NetworkTablesServiceMessageType,
 		NetworkTablesServiceMessage,
 		NetworkTablesConnectionChangedMessage,
-		NetworkTablesTopicsUpdatedMessage,
-		NetworkTables,
-		NetworkTablesTopic,
-    NetworkTablesDataType
+		NetworkTablesTopicsUpdatedMessage
 	} from "../common";
 	import Symbols from "./graphics/Symbols.svelte";
 	import HudView from "./views/Hud.svelte";
@@ -26,14 +26,14 @@
 		topics: []
 	};
 
-	const server = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
-	server.binaryType = "arraybuffer";
-	server.onmessage = (e) => onMessageReceived(e);
+	const webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
+	webSocket.binaryType = "arraybuffer";
+	webSocket.onmessage = (e) => onMessageReceived(e);
 
 	const onMessageReceived = (e: MessageEvent): void => {
-		const { type, message } = Utils.decodeServerMessage(e.data as Uint8Array) as ServerMessage;
+		const { type, message } = Utils.decodeAppServerMessage(e.data as Uint8Array) as AppServerMessage;
 		switch (type) {
-			case ServerMessageType.NetworkTablesService:
+			case AppServerMessageType.NetworkTablesService:
 				switch ((message as NetworkTablesServiceMessage).type) {
 					case NetworkTablesServiceMessageType.ConnectionChanged:
 						onNetworkTablesConnectionChanged(message as NetworkTablesConnectionChangedMessage);
@@ -47,7 +47,7 @@
 				networkTables = networkTables;
 				break;
 			default:
-				console.log("Server message:", ServerMessageType[type], message);
+				console.log("Server message:", AppServerMessageType[type], message);
 				break;
 		}
 	}
@@ -56,7 +56,6 @@
 		const { address, isConnected } = e.data;
 		networkTables.address = address;
 		networkTables.isConnected = isConnected;
-		// TODO: determine if we want to keep last networktables state around when robot disconnects and reset on next connection
 		if (!isConnected) {
     	networkTables.topics = []; 
 		}
@@ -73,19 +72,19 @@
 		}
 	}
 
-	const sendServerMessage = (type: ServerMessageType, message: Object): void => {
-    const serverMessage = Utils.encodeServerMessage(type, message);
-    if (server.readyState === WebSocket.OPEN) {
-      server.send(serverMessage);
+	const sendServerMessage = (type: AppServerMessageType, message: Object): void => {
+    const appServerMessage = Utils.encodeAppServerMessage(type, message);
+    if (webSocket.readyState === WebSocket.OPEN) {
+      webSocket.send(appServerMessage);
     }
   }
 
 	const updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {
-		const message = {
+		const topicsUpdatedMessage = {
 			type: NetworkTablesServiceMessageType.TopicsUpdated,
 			data: { topics }
 		} as NetworkTablesTopicsUpdatedMessage;
-		sendServerMessage(ServerMessageType.NetworkTablesService, message);
+		sendServerMessage(AppServerMessageType.NetworkTablesService, topicsUpdatedMessage);
 	}
 
 	const updateNetworkTablesTopic = (name: string, value: any): void => {

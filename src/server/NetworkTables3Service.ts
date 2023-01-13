@@ -8,8 +8,8 @@ import {
   Utils, 
   Platform,
   NetworkTables,
-  NetworkTablesTopic,
   NetworkTablesDataType,
+  NetworkTablesTopic,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage
@@ -29,7 +29,7 @@ export class NetworkTables3Service extends NetworkTablesService {
   private _webSocket!: WebSocket;
 
   private _serverTimeOffset!: number;
-  private _serverRoundTripTime: number = 1000;
+  private _serverRoundTripTime: number = 200;
 
   private _networkTables: NetworkTables = {
     address: "",
@@ -77,13 +77,13 @@ export class NetworkTables3Service extends NetworkTablesService {
 
   private onMessageReceived = (message: RawData, isBinary: boolean): void => {
     if (isBinary) {
-      const { r: robot, k: name, v: value } = this.decodePyNetworkTablesServiceMessage(message);
+      const { r: robot, k: name, v: value } = this.decodeMessage(message);
       if (robot !== undefined) {
         this._networkTables.isConnected = robot as boolean;
         if (!this._networkTables.isConnected) {
           this.reset();
         }
-        this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getNetworkTablesConnectionChangedMessage());
+        this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
       } else {
         if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
           const fpgaTimestamp = value as number;
@@ -92,8 +92,8 @@ export class NetworkTables3Service extends NetworkTablesService {
           const topic: NetworkTablesTopic = {
             id: 0,
             name,
-            timestamp: this.getNetworkTablesServerTimestamp(),
-            type: this.getNetworkTablesDataType(value),
+            timestamp: this.getServerTimestamp(),
+            type: this.getDataType(value),
             value
           };
           const index = this._networkTables.topics.findIndex(t => t.name === topic.name);
@@ -102,13 +102,13 @@ export class NetworkTables3Service extends NetworkTablesService {
           } else {
             this._networkTables.topics.push(topic);
           }
-          this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getNetworkTablesTopicsUpdatedMessage([ topic ]));
+          this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([ topic ]));
         }
       }
     }
   }
 
-  public getNetworkTablesConnectionChangedMessage = (): NetworkTablesConnectionChangedMessage => {
+  public getConnectionChangedMessage = (): NetworkTablesConnectionChangedMessage => {
     return {
       type: NetworkTablesServiceMessageType.ConnectionChanged,
       data: { 
@@ -118,7 +118,7 @@ export class NetworkTables3Service extends NetworkTablesService {
     } as NetworkTablesConnectionChangedMessage;
   }
 
-  public getNetworkTablesTopicsUpdatedMessage = (topics: NetworkTablesTopic[] | null = null): NetworkTablesTopicsUpdatedMessage => {
+  public getTopicsUpdatedMessage = (topics: NetworkTablesTopic[] | null = null): NetworkTablesTopicsUpdatedMessage => {
     return {
       type: NetworkTablesServiceMessageType.TopicsUpdated,
       data: { 
@@ -127,13 +127,13 @@ export class NetworkTables3Service extends NetworkTablesService {
     } as NetworkTablesTopicsUpdatedMessage;
   }
 
-  public updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {
+  public updateTopics = (topics: NetworkTablesTopic[]): void => {
     for (const topic of topics) {
-      this._webSocket?.send(this.encodePyNetworkTablesServiceMessage(topic));
+      this._webSocket?.send(this.encodeMessage(topic));
     }
   }
 
-  private getNetworkTablesDataType = (value: any): NetworkTablesDataType => {
+  private getDataType = (value: any): NetworkTablesDataType => {
     switch (typeof value) {
       case "boolean":
         return NetworkTablesDataType.boolean;
@@ -163,7 +163,7 @@ export class NetworkTables3Service extends NetworkTablesService {
     return NetworkTablesDataType.any; 
   }
 
-  private getNetworkTablesServerTimestamp = (): number => {
+  private getServerTimestamp = (): number => {
     return this._serverTimeOffset ? this.getLocalTimestamp() + this._serverTimeOffset : 0;
   }
 
@@ -171,11 +171,11 @@ export class NetworkTables3Service extends NetworkTablesService {
     return Math.floor(performance.now() * 1000);
   }
 
-  private decodePyNetworkTablesServiceMessage = (message: RawData): PyNetworkTablesServiceMessage => {
+  private decodeMessage = (message: RawData): PyNetworkTablesServiceMessage => {
     return decode(message as Buffer) as PyNetworkTablesServiceMessage;
   }
 
-  private encodePyNetworkTablesServiceMessage = (topic: NetworkTablesTopic): Buffer => {
+  private encodeMessage = (topic: NetworkTablesTopic): Buffer => {
     return encode({ k: topic.name, v: topic.value } as PyNetworkTablesServiceMessage);
   }
 

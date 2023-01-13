@@ -4,8 +4,8 @@ import { encode, decode } from "@msgpack/msgpack";
 import { 
   Utils, 
   NetworkTables,
-  NetworkTablesTopic,
   NetworkTablesDataType,
+  NetworkTablesTopic,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage
@@ -25,7 +25,7 @@ export class NetworkTables4Service extends NetworkTablesService {
   private _webSocket!: WebSocket;
   
   private _serverTimeOffset!: number;
-  private _serverRoundTripTime: number = 1000;
+  private _serverRoundTripTime: number = Number.MAX_SAFE_INTEGER;
 
   private _networkTables: NetworkTables = {
     address: "",
@@ -62,34 +62,42 @@ export class NetworkTables4Service extends NetworkTablesService {
 
   private onConnectionOpened = (): void => {
     this._networkTables.isConnected = true;
-    this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getNetworkTablesConnectionChangedMessage());
+    this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     this.runServerTimestampSynchronization();
   }
 
   private onConnectionClosed = async (): Promise<void> => {
     this.reset();
-    this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getNetworkTablesConnectionChangedMessage());
+    this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     await Utils.wait(5);
     this.connect();
   }
 
   private onMessageReceived = (message: RawData, isBinary: boolean): void => {
-    // TODO: implement all of this including timestamp sync, server announcements, topic subscriptions, value updates, etc.
+    // TODO: implement handling of server announcements, topic subscriptions, etc.
     if (isBinary) {
-      const topic = this.decodeNetworkTablesBinaryFrame(message);
-      const index = this._networkTables.topics.findIndex(t => t.id === topic.id);
-      if (index !== -1) {
-        this._networkTables.topics[index] = topic;
+      const topic = this.decodeBinaryFrame(message);
+      if (topic.id === -1) {
+        const roundTripTime = (this.getLocalTimestamp() - topic.value as number) / 2;
+        if (roundTripTime < this._serverRoundTripTime) { 
+          this._serverRoundTripTime = roundTripTime; 
+          this._serverTimeOffset = topic.timestamp + this._serverRoundTripTime - this.getLocalTimestamp();
+        }
       } else {
-        this._networkTables.topics.push(topic);
+        const index = this._networkTables.topics.findIndex(t => t.id === topic.id);
+        if (index !== -1) {
+          this._networkTables.topics[index] = topic;
+        } else {
+          this._networkTables.topics.push(topic);
+        }
+        this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([ topic ]));
       }
-      this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getNetworkTablesTopicsUpdatedMessage([ topic ]));
     } else {
       console.log(message);
     }
   }
 
-  public getNetworkTablesConnectionChangedMessage = (): NetworkTablesConnectionChangedMessage => {
+  public getConnectionChangedMessage = (): NetworkTablesConnectionChangedMessage => {
     return {
       type: NetworkTablesServiceMessageType.ConnectionChanged,
       data: { 
@@ -99,7 +107,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     } as NetworkTablesConnectionChangedMessage;
   }
 
-  public getNetworkTablesTopicsUpdatedMessage = (topics: NetworkTablesTopic[] | null = null): NetworkTablesTopicsUpdatedMessage => {
+  public getTopicsUpdatedMessage = (topics: NetworkTablesTopic[] | null = null): NetworkTablesTopicsUpdatedMessage => {
     return {
       type: NetworkTablesServiceMessageType.TopicsUpdated,
       data: { 
@@ -108,11 +116,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     } as NetworkTablesTopicsUpdatedMessage;
   }
 
-  public updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {}
-
-  private getNetworkTablesServerTimestamp = (): number => {
-    return 0;
-  }
+  public updateTopics = (topics: NetworkTablesTopic[]): void => {}
 
   private runServerTimestampSynchronization = async (): Promise<void> => {
     const topic: NetworkTablesTopic = {
@@ -124,16 +128,20 @@ export class NetworkTables4Service extends NetworkTablesService {
     };
     while (this._networkTables.isConnected) {
       topic.value = this.getLocalTimestamp();
-      this._webSocket?.send(this.encodeNetworkTablesBinaryFrame(topic));
+      this._webSocket?.send(this.encodeBinaryFrame(topic));
       await Utils.wait(3);
     }
+  }
+
+  private getServerTimestamp = (): number => {
+    return this._serverTimeOffset ? this.getLocalTimestamp() + this._serverTimeOffset : 0;
   }
 
   private getLocalTimestamp = (): number => {
     return Math.floor(performance.now() * 1000);
   }
 
-  private decodeNetworkTablesBinaryFrame = (message: RawData): NetworkTablesTopic => {
+  private decodeBinaryFrame = (message: RawData): NetworkTablesTopic => {
     const binaryFrame = decode(message as Buffer) as NetworkTablesBinaryDataFrame;
     return {
       id: binaryFrame[0],
@@ -144,7 +152,12 @@ export class NetworkTables4Service extends NetworkTablesService {
     } as NetworkTablesTopic;
   }
 
-  private encodeNetworkTablesBinaryFrame = (topic: NetworkTablesTopic): Uint8Array => {
-    return encode([ topic.id, topic.timestamp, topic.type, topic.value ] as NetworkTablesBinaryDataFrame);
+  private encodeBinaryFrame = (topic: NetworkTablesTopic): Uint8Array => {
+    return encode([ 
+      topic.id, 
+      topic.timestamp, 
+      topic.type, 
+      topic.value 
+    ] as NetworkTablesBinaryDataFrame);
   }
 }

@@ -9,7 +9,7 @@ export enum AppWindowType {
   DATA = "DATA"
 }
 
-export enum ServerMessageType {
+export enum AppServerMessageType {
   NetworkTablesService
 }
 

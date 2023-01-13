@@ -33,9 +33,9 @@ export abstract class NetworkTablesService extends TypedEventEmitter<NetworkTabl
     this._networkTablesServiceOptions = options;
   }
   public abstract dispose(): void;
-  public abstract getNetworkTablesConnectionChangedMessage(): NetworkTablesConnectionChangedMessage;
-  public abstract getNetworkTablesTopicsUpdatedMessage(): NetworkTablesTopicsUpdatedMessage;
-  public abstract updateNetworkTablesTopics(topics: NetworkTablesTopic[]): void;
+  public abstract getConnectionChangedMessage(): NetworkTablesConnectionChangedMessage;
+  public abstract getTopicsUpdatedMessage(): NetworkTablesTopicsUpdatedMessage;
+  public abstract updateTopics(topics: NetworkTablesTopic[]): void;
 }
 
 export type NetworkTablesBinaryDataFrame = [ 

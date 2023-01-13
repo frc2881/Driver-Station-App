@@ -1,5 +1,5 @@
-import { ServerMessageType } from "./enums";
-import { ServerMessage } from "./types";
+import { AppServerMessageType } from "./enums";
+import { AppServerMessage } from "./types";
 
 export namespace Utils {
   export const wait = async (time: number = 0): Promise<void> => {
@@ -9,11 +9,11 @@ export namespace Utils {
   const textEncoder = new TextEncoder();
   const textDecoder = new TextDecoder();
 
-  export const encodeServerMessage = (type: ServerMessageType, message: Record<string, any>): Uint8Array => {
-    return textEncoder.encode(JSON.stringify(<ServerMessage>{ type, message }));
+  export const encodeAppServerMessage = (type: AppServerMessageType, message: Record<string, any>): Uint8Array => {
+    return textEncoder.encode(JSON.stringify(<AppServerMessage>{ type, message }));
   };
 
-  export const decodeServerMessage = (data: Uint8Array | ArrayBuffer): ServerMessage => {
-    return JSON.parse(textDecoder.decode(data)) as ServerMessage;
+  export const decodeAppServerMessage = (data: Uint8Array | ArrayBuffer): AppServerMessage => {
+    return JSON.parse(textDecoder.decode(data)) as AppServerMessage;
   };
 }
