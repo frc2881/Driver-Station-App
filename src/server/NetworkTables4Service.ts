@@ -77,30 +77,43 @@ export class NetworkTables4Service extends NetworkTablesService {
   }
 
   private onMessageReceived = (message: RawData, isBinary: boolean): void => {
+    const __topics = [] as NetworkTablesTopic[];
     if (isBinary) {
       const topics = this.decodeBinaryDataFrame(message);
       for (const topic of topics) {
         if (topic.id === -1) {
           this.setServerTimeOffset(topic.timestamp, topic.value as number);
         } else {
-          const index = this._networkTables.topics.findIndex(t => t.id === topic.id);
-          if (index !== -1) {
-            this._networkTables.topics[index] = topic;
-          } else {
-            this._networkTables.topics.push(topic);
+          const __topic = this._networkTables.topics.find(t => t.id === topic.id);
+          if (__topic) {
+            __topic.value = topic.value;
+            __topic.timestamp = topic.timestamp;
+            __topics.push(__topic);
           }
         }
       }
-      this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage(
-        topics.filter(topic => topic.id !== -1)
-      ));
     } else {
       const textDataFrame = this.decodeTextDataFrame(message);
       for (const textDataFrameMessage of textDataFrame) {
-        console.log(textDataFrameMessage);
+        switch (textDataFrameMessage.method) {
+          case TextDataFrameMessageMethod.Announce:
+            const { id, name, type } = textDataFrameMessage.params as AnnounceMessage;
+            const topic = {
+              id,
+              name,
+              timestamp: 0,
+              type: this.getDataType(type)
+            } as NetworkTablesTopic;
+            this._networkTables.topics.push(topic);
+            __topics.push(topic);
+            break;
+          default:
+            break;
+        }
       }
-      // TODO: parse announce messages
-      // ex: [{"method":"announce","params":{"id":63,"name":"/SmartDashboard/Timing/FPGATimestamp","properties":{},"type":"double"}}]
+    }
+    if (__topics.length > 0) {
+      this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage(__topics));
     }
   }
 
@@ -175,7 +188,6 @@ export class NetworkTables4Service extends NetworkTablesService {
     for (const binaryDataFrameMessage of binaryDataFrame) {
       topics.push({
         id: binaryDataFrameMessage[0],
-        name: "",
         timestamp: binaryDataFrameMessage[1],
         type: binaryDataFrameMessage[2],
         value: binaryDataFrameMessage[3]
@@ -205,7 +217,40 @@ export class NetworkTables4Service extends NetworkTablesService {
 
   private encodeTextDataFrame = (textDataFrame: TextDataFrameMessage[]): string => {
     return JSON.stringify(textDataFrame);
-  } 
+  }
+  
+  private getDataType = (type: string): NetworkTablesDataType => {
+    switch (type) {
+      case "boolean":
+        return NetworkTablesDataType.Boolean;
+      case "double":
+        return NetworkTablesDataType.Double;
+      case "int":
+        return NetworkTablesDataType.Integer;
+      case "float":
+        return NetworkTablesDataType.Float;
+      case "string":
+      case "json":
+        return NetworkTablesDataType.String;
+      case "raw":
+      case "rpc":
+      case "msgpack":
+      case "protobuf":
+        return NetworkTablesDataType.Binary;
+      case "boolean[]":
+        return NetworkTablesDataType.BooleanArray;
+      case "double[]":
+        return NetworkTablesDataType.DoubleArray;
+      case "int[]":
+        return NetworkTablesDataType.IntegerArray;
+      case "float[]":
+        return NetworkTablesDataType.FloatArray;
+      case "string[]":
+        return NetworkTablesDataType.StringArray;
+      default:
+        return NetworkTablesDataType.Any; 
+    }
+  }
 }
 
 enum TextDataFrameMessageMethod {
@@ -222,6 +267,16 @@ enum TextDataFrameMessageMethod {
 type TextDataFrameMessage = {
   method: TextDataFrameMessageMethod;
   params: object;
+}
+
+type AnnounceMessage = {
+  id: number;
+  name: string;
+  properties: {
+    persistent: boolean;
+    retained: boolean;
+  }
+  type: string;
 }
 
 type BinaryDataFrameMessage = [ 
