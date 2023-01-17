@@ -16,8 +16,7 @@ import {
 } from "../common";
 import { 
   NetworkTablesService, 
-  NetworkTablesServiceOptions,
-  PyNetworkTablesServiceMessage 
+  NetworkTablesServiceOptions
 } from "./types";
 
 export class NetworkTables3Service extends NetworkTablesService {
@@ -86,7 +85,7 @@ export class NetworkTables3Service extends NetworkTablesService {
         this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
       } else {
         if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
-          const fpgaTimestamp = value as number;
+          const fpgaTimestamp = Math.floor((value as number) * 1000 * 1000);
           this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
         } else {
           const topic: NetworkTablesTopic = {
@@ -136,31 +135,30 @@ export class NetworkTables3Service extends NetworkTablesService {
   private getDataType = (value: any): NetworkTablesDataType => {
     switch (typeof value) {
       case "boolean":
-        return NetworkTablesDataType.boolean;
+        return NetworkTablesDataType.Boolean;
       case "number":
         if (Number.isInteger(value)) {
-          return NetworkTablesDataType.integer;
+          return NetworkTablesDataType.Integer;
         }
-        return NetworkTablesDataType.double;
+        return NetworkTablesDataType.Double;
       case "string":
-        return NetworkTablesDataType.string;
+        return NetworkTablesDataType.String;
       case "object":
         if (Array.isArray(value)) {
           switch (typeof value[0]) {
             case "string":
-              return NetworkTablesDataType.stringArray; 
+              return NetworkTablesDataType.StringArray; 
             case "boolean":
-              return NetworkTablesDataType.booleanArray;
+              return NetworkTablesDataType.BooleanArray;
             case "number":
-              return NetworkTablesDataType.doubleArray;
+              return NetworkTablesDataType.DoubleArray;
             default:
               break;
           }
         }
       default:
-        break;
+        return NetworkTablesDataType.Any; 
     }
-    return NetworkTablesDataType.any; 
   }
 
   private getServerTimestamp = (): number => {
@@ -210,4 +208,10 @@ export class NetworkTables3Service extends NetworkTablesService {
         break;
     }
   }
+}
+
+type PyNetworkTablesServiceMessage = {
+  r: boolean | undefined;
+  k: string;
+  v: any;
 }

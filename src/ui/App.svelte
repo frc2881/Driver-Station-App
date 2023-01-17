@@ -63,7 +63,7 @@
 
 	const onNetworkTablesTopicsUpdated = (e: NetworkTablesTopicsUpdatedMessage): void => {
 		for (const topic of e.data.topics) {
-			const index = networkTables.topics.findIndex(t => t.name === topic.name);
+			const index = networkTables.topics.findIndex(t => t.id === topic.id);
 			if (index !== -1) {
 				networkTables.topics[index] = topic;
 			} else {
@@ -88,7 +88,7 @@
 	}
 
 	const updateNetworkTablesTopic = (name: string, value: any): void => {
-		updateNetworkTablesTopics([{ id: 0, timestamp: 0, type: NetworkTablesDataType.any, name, value }]);
+		updateNetworkTablesTopics([{ id: 0, timestamp: 0, type: NetworkTablesDataType.Any, name, value }]);
 	}
 
 	// HACK: Romi example test update
