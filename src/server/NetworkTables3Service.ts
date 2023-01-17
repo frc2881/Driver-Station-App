@@ -10,6 +10,7 @@ import {
   NetworkTables,
   NetworkTablesDataType,
   NetworkTablesTopic,
+  NetworkTablesTopics,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage
@@ -27,29 +28,25 @@ export class NetworkTables3Service extends NetworkTablesService {
 
   private _webSocket!: WebSocket;
 
-  private _serverTimeOffset!: number;
+  private _serverTimeOffset: number = 0;
   private _serverRoundTripTime: number = 200;
 
-  private _networkTables: NetworkTables = {
-    address: "",
+  private _networkTables = {
+    address: "0.0.0.0",
 		isConnected: false,
-		topics: []
-	};
+		topics: new Map() as NetworkTablesTopics
+	} as NetworkTables;
 
+  private _topicId = 0;
   private _pyNetworkTablesService!: ChildProcessWithoutNullStreams;
 
-  private init = async (): Promise<void> => {
+  private init = (): void => {
     this._networkTables.address = this._networkTablesServiceOptions.address;
-    await this.startPyNetworkTablesService();
     this.connect();
   }
 
-  public dispose = (): void => {
-    this._webSocket.terminate();
-    this.stopPyNetworkTablesService();
-  }
-
-  private connect = (): void => {
+  private connect = async (): Promise<void> => {
+    await this.startPyNetworkTablesService();
     this._webSocket = new WebSocket(
       `ws://127.0.0.1:${ this._networkTablesServiceOptions.port }/networktables/ws`,
       [],
@@ -61,16 +58,24 @@ export class NetworkTables3Service extends NetworkTablesService {
     this._webSocket.on("error", () => {});
   }
 
+  public dispose = (): void => {
+    this._webSocket.terminate();
+    this.stopPyNetworkTablesService();
+  }
+
   private reset = (): void => {
+    this.dispose();
     this._networkTables.isConnected = false;
-    this._networkTables.topics = [];
+    this._networkTables.topics.clear();
+    this._topicId = 0;
   }
 
   private onConnectionOpened = (): void => {}
 
   private onConnectionClosed = async (): Promise<void> => {
     this.reset();
-    await Utils.wait(5);
+    this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
+    await Utils.wait(3);
     this.connect();
   }
 
@@ -85,24 +90,23 @@ export class NetworkTables3Service extends NetworkTablesService {
         this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
       } else {
         if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
-          const fpgaTimestamp = Math.floor((value as number) * 1000 * 1000);
-          this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
+          this.setServerTimeOffset(value as number);
+        }
+        let topic = this._networkTables.topics.get(name);
+        if (topic) {
+          topic.value = value;
+          topic.timestamp = this.getServerTimestamp();
         } else {
-          const topic: NetworkTablesTopic = {
-            id: 0,
+          topic = {
+            id: this.getNextTopicId(),
             name,
             timestamp: this.getServerTimestamp(),
             type: this.getDataType(value),
             value
-          };
-          const index = this._networkTables.topics.findIndex(t => t.name === topic.name);
-          if (index !== -1) {
-            this._networkTables.topics[index] = topic;
-          } else {
-            this._networkTables.topics.push(topic);
-          }
-          this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([ topic ]));
+          } as NetworkTablesTopic 
+          this._networkTables.topics.set(name, topic);
         }
+        this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([topic]));
       }
     }
   }
@@ -121,7 +125,7 @@ export class NetworkTables3Service extends NetworkTablesService {
     return {
       type: NetworkTablesServiceMessageType.TopicsUpdated,
       data: { 
-        topics: topics ?? this._networkTables.topics 
+        topics: topics ?? Array.from(this._networkTables.topics.values()) as NetworkTablesTopic[] 
       }
     } as NetworkTablesTopicsUpdatedMessage;
   }
@@ -130,6 +134,10 @@ export class NetworkTables3Service extends NetworkTablesService {
     for (const topic of topics) {
       this._webSocket?.send(this.encodeMessage(topic));
     }
+  }
+
+  private getNextTopicId = (): number => {
+    return this._topicId += 3;
   }
 
   private getDataType = (value: any): NetworkTablesDataType => {
@@ -162,11 +170,16 @@ export class NetworkTables3Service extends NetworkTablesService {
   }
 
   private getServerTimestamp = (): number => {
-    return this._serverTimeOffset ? this.getLocalTimestamp() + this._serverTimeOffset : 0;
+    return this.getLocalTimestamp() + this._serverTimeOffset;
   }
 
   private getLocalTimestamp = (): number => {
     return Math.floor(performance.now() * 1000);
+  }
+
+  private setServerTimeOffset = (serverTimestamp: number): void => {
+    const fpgaTimestamp = Math.floor(serverTimestamp * 1000000);
+    this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
   }
 
   private decodeMessage = (message: RawData): PyNetworkTablesServiceMessage => {

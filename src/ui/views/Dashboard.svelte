@@ -1,13 +1,14 @@
 <script lang="ts">
   import { 
-		NetworkTables
+		NetworkTables,
+    Utils
 	} from "../../common";
 
   export let networkTables: NetworkTables;
 </script>
 
 <main>
-  <pre>{ JSON.stringify(networkTables, null, 4) }</pre>
+  <pre>{ Utils.stringifyNetworkTables(networkTables, 4) }</pre>
 </main>
 
 <style lang="postcss">

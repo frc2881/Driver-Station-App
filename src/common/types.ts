@@ -40,14 +40,16 @@ export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
 
 export type NetworkTablesTopic = {
   id: number;
-  name?: string;
+  name: string;
   timestamp: number;
   type: NetworkTablesDataType;
   value?: any;
 }
 
+export type NetworkTablesTopics = Map<number | string, NetworkTablesTopic>;
+
 export type NetworkTables = {
   address: string;
   isConnected: boolean;
-  topics: NetworkTablesTopic[];
+  topics: NetworkTablesTopics;
 }

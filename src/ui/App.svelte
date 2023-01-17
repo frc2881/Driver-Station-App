@@ -8,6 +8,7 @@
 		NetworkTables,
 		NetworkTablesDataType,
 		NetworkTablesTopic,
+		NetworkTablesTopics,
 		NetworkTablesServiceMessageType,
 		NetworkTablesServiceMessage,
 		NetworkTablesConnectionChangedMessage,
@@ -23,7 +24,7 @@
 	let networkTables: NetworkTables = {
 		address: "",
 		isConnected: false,
-		topics: []
+		topics: new Map() as NetworkTablesTopics
 	};
 
 	const webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
@@ -57,18 +58,13 @@
 		networkTables.address = address;
 		networkTables.isConnected = isConnected;
 		if (!isConnected) {
-    	networkTables.topics = []; 
+    	networkTables.topics.clear(); 
 		}
 	}
 
 	const onNetworkTablesTopicsUpdated = (e: NetworkTablesTopicsUpdatedMessage): void => {
 		for (const topic of e.data.topics) {
-			const index = networkTables.topics.findIndex(t => t.id === topic.id);
-			if (index !== -1) {
-				networkTables.topics[index] = topic;
-			} else {
-				networkTables.topics.push(topic);
-			}
+			networkTables.topics.set(topic.name, topic);
 		}
 	}
 

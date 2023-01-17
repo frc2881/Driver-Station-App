@@ -6,6 +6,7 @@ import {
   NetworkTables,
   NetworkTablesDataType,
   NetworkTablesTopic,
+  NetworkTablesTopics,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage
@@ -27,13 +28,13 @@ export class NetworkTables4Service extends NetworkTablesService {
   private _webSocket!: WebSocket;
   
   private _serverTimeOffset!: number;
-  private _serverRoundTripTime: number = Number.MAX_SAFE_INTEGER;
+  private _serverRoundTripTime = Number.MAX_SAFE_INTEGER;
 
-  private _networkTables: NetworkTables = {
-    address: "",
+  private _networkTables = {
+    address: "0.0.0.0",
 		isConnected: false,
-		topics: []
-	};
+		topics: new Map() as NetworkTablesTopics
+	} as NetworkTables;
 
   private init = async (): Promise<void> => {
     this._networkTables.address = this._networkTablesServiceOptions.address;
@@ -59,7 +60,7 @@ export class NetworkTables4Service extends NetworkTablesService {
 
   private reset = (): void => {
     this._networkTables.isConnected = false;
-    this._networkTables.topics = [];
+    this._networkTables.topics.clear();
   }
 
   private onConnectionOpened = (): void => {
@@ -72,7 +73,7 @@ export class NetworkTables4Service extends NetworkTablesService {
   private onConnectionClosed = async (): Promise<void> => {
     this.reset();
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
-    await Utils.wait(5);
+    await Utils.wait(3);
     this.connect();
   }
 
@@ -84,7 +85,7 @@ export class NetworkTables4Service extends NetworkTablesService {
         if (topic.id === -1) {
           this.setServerTimeOffset(topic.timestamp, topic.value as number);
         } else {
-          const __topic = this._networkTables.topics.find(t => t.id === topic.id);
+          const __topic = this._networkTables.topics.get(topic.id);
           if (__topic) {
             __topic.value = topic.value;
             __topic.timestamp = topic.timestamp;
@@ -97,22 +98,23 @@ export class NetworkTables4Service extends NetworkTablesService {
       for (const textDataFrameMessage of textDataFrame) {
         switch (textDataFrameMessage.method) {
           case TextDataFrameMessageMethod.Announce:
-            const { id, name, type } = textDataFrameMessage.params as AnnounceMessage;
-            const topic = {
-              id,
-              name,
+            const topic = textDataFrameMessage.params as TopicAnnouncementMessage;
+            const __topic = {
+              id: topic.id,
+              name: topic.name,
               timestamp: 0,
-              type: this.getDataType(type)
+              type: this.getDataType(topic.type),
+              value: null
             } as NetworkTablesTopic;
-            this._networkTables.topics.push(topic);
-            __topics.push(topic);
+            this._networkTables.topics.set(topic.id, __topic);
+            __topics.push(__topic);
             break;
           default:
             break;
         }
       }
     }
-    if (__topics.length > 0) {
+    if (__topics.length !== 0) {
       this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage(__topics));
     }
   }
@@ -131,7 +133,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     return {
       type: NetworkTablesServiceMessageType.TopicsUpdated,
       data: { 
-        topics: topics ?? this._networkTables.topics 
+        topics: topics ?? Array.from(this._networkTables.topics.values()) as NetworkTablesTopic[]
       }
     } as NetworkTablesTopicsUpdatedMessage;
   }
@@ -269,7 +271,14 @@ type TextDataFrameMessage = {
   params: object;
 }
 
-type AnnounceMessage = {
+type BinaryDataFrameMessage = [ 
+  id: number, 
+  timestamp: number, 
+  type: NetworkTablesDataType, 
+  value: any 
+]
+
+type TopicAnnouncementMessage = {
   id: number;
   name: string;
   properties: {
@@ -278,10 +287,3 @@ type AnnounceMessage = {
   }
   type: string;
 }
-
-type BinaryDataFrameMessage = [ 
-  id: number, 
-  timestamp: number, 
-  type: NetworkTablesDataType, 
-  value: any 
-]
