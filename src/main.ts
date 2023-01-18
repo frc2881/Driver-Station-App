@@ -33,11 +33,6 @@ class Main {
     this.createAppWindow(AppWindowType.HUD, { x: 0, y: 0 });
     this.createAppWindow(AppWindowType.DASHBOARD, { x: 30, y: 50 });
     this.createAppWindow(AppWindowType.DATA, { x: 60, y: 100 });
-
-    if (!app.isPackaged) {
-      const electronReload = (await import("electron-reload")).default;
-      electronReload(path.join(__dirname, "ui"), { hardResetMethod: "exit" });
-    }
   }
 
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {

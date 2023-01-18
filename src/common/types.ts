@@ -39,10 +39,10 @@ export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
 }
 
 export type NetworkTablesTopic = {
-  id: number;
+  id?: number;
   name: string;
-  timestamp: number;
-  type: NetworkTablesDataType;
+  timestamp?: number;
+  type?: NetworkTablesDataType;
   value?: any;
 }
 

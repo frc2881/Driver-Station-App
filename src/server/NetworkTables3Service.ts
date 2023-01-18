@@ -37,7 +37,6 @@ export class NetworkTables3Service extends NetworkTablesService {
 		topics: new Map() as NetworkTablesTopics
 	} as NetworkTables;
 
-  private _topicId = 0;
   private _pyNetworkTablesService!: ChildProcessWithoutNullStreams;
 
   private init = (): void => {
@@ -67,7 +66,6 @@ export class NetworkTables3Service extends NetworkTablesService {
     this.dispose();
     this._networkTables.isConnected = false;
     this._networkTables.topics.clear();
-    this._topicId = 0;
   }
 
   private onConnectionOpened = (): void => {}
@@ -98,7 +96,6 @@ export class NetworkTables3Service extends NetworkTablesService {
           topic.timestamp = this.getServerTimestamp();
         } else {
           topic = {
-            id: this.getNextTopicId(),
             name,
             timestamp: this.getServerTimestamp(),
             type: this.getDataType(value),
@@ -134,10 +131,6 @@ export class NetworkTables3Service extends NetworkTablesService {
     for (const topic of topics) {
       this._webSocket?.send(this.encodeMessage(topic));
     }
-  }
-
-  private getNextTopicId = (): number => {
-    return this._topicId += 3;
   }
 
   private getDataType = (value: any): NetworkTablesDataType => {

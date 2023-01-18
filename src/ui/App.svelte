@@ -84,7 +84,7 @@
 	}
 
 	const updateNetworkTablesTopic = (name: string, value: any): void => {
-		updateNetworkTablesTopics([{ id: 0, timestamp: 0, type: NetworkTablesDataType.Any, name, value }]);
+		updateNetworkTablesTopics([{ name, value }]);
 	}
 
 	// HACK: Romi example test update

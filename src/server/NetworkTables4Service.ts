@@ -83,9 +83,9 @@ export class NetworkTables4Service extends NetworkTablesService {
       const topics = this.decodeBinaryDataFrame(message);
       for (const topic of topics) {
         if (topic.id === -1) {
-          this.setServerTimeOffset(topic.timestamp, topic.value as number);
+          this.setServerTimeOffset(topic.timestamp!, topic.value as number);
         } else {
-          const __topic = this._networkTables.topics.get(topic.id);
+          const __topic = this._networkTables.topics.get(topic.id!);
           if (__topic) {
             __topic.value = topic.value;
             __topic.timestamp = topic.timestamp;
