@@ -39,14 +39,15 @@ export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
 }
 
 export type NetworkTablesTopic = {
+  name?: string;
   id?: number;
-  name: string;
+  pubuid?: number;
   timestamp?: number;
   type?: NetworkTablesDataType;
   value?: any;
 }
 
-export type NetworkTablesTopics = Map<number | string, NetworkTablesTopic>;
+export type NetworkTablesTopics = Map<string, NetworkTablesTopic>;
 
 export type NetworkTables = {
   address: string;

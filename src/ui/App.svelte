@@ -6,13 +6,13 @@
 		AppServerMessageType,
 		AppServerMessage,
 		NetworkTables,
-		NetworkTablesDataType,
 		NetworkTablesTopic,
 		NetworkTablesTopics,
 		NetworkTablesServiceMessageType,
 		NetworkTablesServiceMessage,
 		NetworkTablesConnectionChangedMessage,
-		NetworkTablesTopicsUpdatedMessage
+		NetworkTablesTopicsUpdatedMessage,
+		NetworkTablesDataType
 	} from "../common";
 	import Symbols from "./graphics/Symbols.svelte";
 	import HudView from "./views/Hud.svelte";
@@ -30,6 +30,7 @@
 	const webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
 	webSocket.binaryType = "arraybuffer";
 	webSocket.onmessage = (e) => onMessageReceived(e);
+	webSocket.onerror = (e) => { console.log(e); }
 
 	const onMessageReceived = (e: MessageEvent): void => {
 		const { type, message } = Utils.decodeAppServerMessage(e.data as Uint8Array) as AppServerMessage;
@@ -54,6 +55,7 @@
 	}
 
 	const onNetworkTablesConnectionChanged = (e: NetworkTablesConnectionChangedMessage): void => {
+		console.log(onNetworkTablesConnectionChanged, e);
 		const { address, isConnected } = e.data;
 		networkTables.address = address;
 		networkTables.isConnected = isConnected;
@@ -83,19 +85,24 @@
 		sendServerMessage(AppServerMessageType.NetworkTablesService, topicsUpdatedMessage);
 	}
 
-	const updateNetworkTablesTopic = (name: string, value: any): void => {
-		updateNetworkTablesTopics([{ name, value }]);
+	const updateNetworkTablesTopic = (topic: NetworkTablesTopic): void => {
+		updateNetworkTablesTopics([topic]);
 	}
-
-	// HACK: Romi example test update
-	// (async () => {
-	// 	await Utils.wait(5);
-	// 	updateNetworkTablesTopic("/SmartDashboard/SendableChooser[0]/selected", "Auto Routine Time");
-	// })();
-	
 </script>
 
 <div style="display:none"><Symbols /></div>
+
+<!-- <button on:click={ () => { updateNetworkTablesTopic({
+	name: "/SmartDashboard/AutonomousMode/selected",
+	type: NetworkTablesDataType.String,
+	value: "Time"
+}) } }>Time</button>
+
+<button on:click={ () => { updateNetworkTablesTopic({
+	name: "/SmartDashboard/AutonomousMode/selected",
+	type: NetworkTablesDataType.String,
+	value: "Distance"
+}) } }>Distance</button> -->
 
 {#if appWindowType === AppWindowType.HUD}
 <HudView networkTables={networkTables} />

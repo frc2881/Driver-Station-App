@@ -133,6 +133,27 @@ export class NetworkTables3Service extends NetworkTablesService {
     }
   }
 
+  private getServerTimestamp = (): number => {
+    return this.getLocalTimestamp() + this._serverTimeOffset;
+  }
+
+  private getLocalTimestamp = (): number => {
+    return Math.floor(performance.now() * 1000);
+  }
+
+  private setServerTimeOffset = (serverTimestamp: number): void => {
+    const fpgaTimestamp = Math.floor(serverTimestamp * 1000000);
+    this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
+  }
+
+  private decodeMessage = (message: RawData): PyNetworkTablesServiceMessage => {
+    return decode(message as Buffer) as PyNetworkTablesServiceMessage;
+  }
+
+  private encodeMessage = (topic: NetworkTablesTopic): Buffer => {
+    return encode({ k: topic.name, v: topic.value } as PyNetworkTablesServiceMessage);
+  }
+
   private getDataType = (value: any): NetworkTablesDataType => {
     switch (typeof value) {
       case "boolean":
@@ -158,29 +179,8 @@ export class NetworkTables3Service extends NetworkTablesService {
           }
         }
       default:
-        return NetworkTablesDataType.Any; 
+        return NetworkTablesDataType.Raw; 
     }
-  }
-
-  private getServerTimestamp = (): number => {
-    return this.getLocalTimestamp() + this._serverTimeOffset;
-  }
-
-  private getLocalTimestamp = (): number => {
-    return Math.floor(performance.now() * 1000);
-  }
-
-  private setServerTimeOffset = (serverTimestamp: number): void => {
-    const fpgaTimestamp = Math.floor(serverTimestamp * 1000000);
-    this._serverTimeOffset = fpgaTimestamp + this._serverRoundTripTime - this.getLocalTimestamp();
-  }
-
-  private decodeMessage = (message: RawData): PyNetworkTablesServiceMessage => {
-    return decode(message as Buffer) as PyNetworkTablesServiceMessage;
-  }
-
-  private encodeMessage = (topic: NetworkTablesTopic): Buffer => {
-    return encode({ k: topic.name, v: topic.value } as PyNetworkTablesServiceMessage);
   }
 
   private startPyNetworkTablesService = async (): Promise<void> => {

@@ -70,7 +70,9 @@ class Main {
         signal: this._abortController.signal 
       }).on("change", () => {
         for (const appWindow of this._appWindows) {
-          appWindow.reload();
+          try {
+            appWindow.reload();
+          } catch {}
         }
     });
   }

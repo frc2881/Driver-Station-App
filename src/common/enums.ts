@@ -19,13 +19,12 @@ export enum NetworkTablesServiceMessageType {
 }
 
 export enum NetworkTablesDataType {
-  Any = -1,
   Boolean = 0,
   Double = 1,
   Integer = 2,
   Float = 3,
   String = 4,
-  Binary = 5,
+  Raw = 5,
   BooleanArray = 16,
   DoubleArray = 17,
   IntegerArray = 18,

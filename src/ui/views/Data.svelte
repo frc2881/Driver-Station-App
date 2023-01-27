@@ -1,7 +1,7 @@
 <script lang="ts">
   import { 
-		NetworkTables,
-    Utils
+    Utils,
+    NetworkTables
 	} from "../../common";
 
   export let networkTables: NetworkTables;
