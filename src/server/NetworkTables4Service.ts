@@ -71,7 +71,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._networkTables.isConnected = true;
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     this.runServerTimestampSynchronization();
-    this.subscribeTopics(this._networkTablesServiceOptions.subscriptionTopics ?? ["/"]);
+    this.subscribeTopics(this._networkTablesServiceOptions.subscriptionTopics);
   }
 
   private onConnectionClosed = async (): Promise<void> => {

@@ -42,7 +42,7 @@ export class NetworkTables3Service extends NetworkTablesService {
   private _pyNetworkTablesService!: ChildProcessWithoutNullStreams;
 
   private init = (): void => {
-    this._subscriptionTopics = new RegExp(`^(${this._networkTablesServiceOptions.subscriptionTopics?.join("|").replace("/", "\\/")})`);
+    this._subscriptionTopics = new RegExp(`^(${this._networkTablesServiceOptions.subscriptionTopics.join("|").replace("/", "\\/")})`);
     this._networkTables.address = this._networkTablesServiceOptions.address;
     this.connect();
   }

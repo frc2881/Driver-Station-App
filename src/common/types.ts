@@ -60,3 +60,15 @@ export type NetworkTables = {
   isConnected: boolean;
   topics: NetworkTablesTopics;
 }
+
+export type ConfigurationSettings = {
+  Defaults: {
+    NT_SERVER_ADDRESS: string;
+    NT_VERSION: number;
+  };
+  APP_SERVER_PORT: number;
+  NT3_SERVER_PORT: number;
+  NT4_SERVER_PORT: number;
+  FPGA_TIMESTAMP_TOPIC_NAME: string;
+  SUBSCRIPTION_TOPICS: string[];
+}

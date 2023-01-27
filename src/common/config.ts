@@ -1,3 +1,5 @@
+import { ConfigurationSettings } from "./types";
+
 export namespace Configuration {
   export const Settings = {
     Defaults: {
@@ -13,5 +15,5 @@ export namespace Configuration {
       "/FMSInfo",
       "/photonvision"
     ]
-  }
+  } as ConfigurationSettings
 }
