@@ -37,10 +37,18 @@ class Server {
 
     switch (args.ntVersion) {
       case 4:
-        this._networkTablesService = new NetworkTables4Service({ address: args.ntServerAddress, port: Configuration.Settings.NT4_SERVER_PORT });
+        this._networkTablesService = new NetworkTables4Service({ 
+          address: args.ntServerAddress, 
+          port: Configuration.Settings.NT4_SERVER_PORT,
+          subscriptionTopics: Configuration.Settings.SUBSCRIPTION_TOPICS
+        });
         break;
       case 3:
-        this._networkTablesService = new NetworkTables3Service({ address: args.ntServerAddress, port: Configuration.Settings.NT3_SERVER_PORT });
+        this._networkTablesService = new NetworkTables3Service({ 
+          address: args.ntServerAddress, 
+          port: Configuration.Settings.NT3_SERVER_PORT,
+          subscriptionTopics: Configuration.Settings.SUBSCRIPTION_TOPICS
+        });
         break;
       default:
         throw new Error(`NT version ${ args.ntVersion } is invalid or not supported.`);

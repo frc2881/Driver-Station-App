@@ -37,7 +37,7 @@ export class NetworkTables4Service extends NetworkTablesService {
 		topics: new Map() as NetworkTablesTopics
 	} as NetworkTables;
 
-  private _networkTablesNames = new Map<number, string>();
+  private _networkTablesLookup = new Map<number, string>();
 
   private init = async (): Promise<void> => {
     this._networkTables.address = this._networkTablesServiceOptions.address;
@@ -64,14 +64,14 @@ export class NetworkTables4Service extends NetworkTablesService {
   private reset = (): void => {
     this._networkTables.isConnected = false;
     this._networkTables.topics.clear();
-    this._networkTablesNames.clear();
+    this._networkTablesLookup.clear();
   }
 
   private onConnectionOpened = (): void => {
     this._networkTables.isConnected = true;
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     this.runServerTimestampSynchronization();
-    this.subscribeTopics();
+    this.subscribeTopics(this._networkTablesServiceOptions.subscriptionTopics ?? ["/"]);
   }
 
   private onConnectionClosed = async (): Promise<void> => {
@@ -114,14 +114,14 @@ export class NetworkTables4Service extends NetworkTablesService {
             __topic.id = topic.id;
             __topic.pubuid = topic.pubuid;
             this._networkTables.topics.set(__topic.name!, __topic);
-            this._networkTablesNames.set(__topic.id, __topic.name!);
+            this._networkTablesLookup.set(__topic.id, __topic.name!);
             updatedTopics__.push(__topic);
             break;
           case TextDataFrameMessageMethod.Unannounce:
             const { name, id } = textDataFrameMessage.params as TopicRemovalMessage;
             removedTopics__.push({ name } as NetworkTablesTopic);
             this._networkTables.topics.delete(name);
-            this._networkTablesNames.delete(id);
+            this._networkTablesLookup.delete(id);
             break;
           default:
             // TODO: implement other message types as needed
@@ -180,11 +180,11 @@ export class NetworkTables4Service extends NetworkTablesService {
     }
   }
 
-  private subscribeTopics = (): void => {
+  private subscribeTopics = (topics: string[]): void => {
     const subscribeMessage = {
       method: TextDataFrameMessageMethod.Subscribe,
       params: {
-        topics: ["/"],
+        topics,
         subuid: 2881,
         options: { prefix: true }
       }
@@ -284,7 +284,7 @@ export class NetworkTables4Service extends NetworkTablesService {
   private getTopic = (prop: string | number): NetworkTablesTopic | undefined => {
     return (typeof prop === "string") ? 
       this._networkTables.topics.get(prop) : 
-      this._networkTables.topics.get(this._networkTablesNames.get(prop)!);
+      this._networkTables.topics.get(this._networkTablesLookup.get(prop)!);
   }
 
   private convertDataType = (type: string | NetworkTablesDataType): string | NetworkTablesDataType => {

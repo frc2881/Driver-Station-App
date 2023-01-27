@@ -37,9 +37,12 @@ export class NetworkTables3Service extends NetworkTablesService {
 		topics: new Map() as NetworkTablesTopics
 	} as NetworkTables;
 
+  private _subscriptionTopics!: RegExp;
+
   private _pyNetworkTablesService!: ChildProcessWithoutNullStreams;
 
   private init = (): void => {
+    this._subscriptionTopics = new RegExp(`^(${this._networkTablesServiceOptions.subscriptionTopics?.join("|").replace("/", "\\/")})`);
     this._networkTables.address = this._networkTablesServiceOptions.address;
     this.connect();
   }
@@ -90,20 +93,22 @@ export class NetworkTables3Service extends NetworkTablesService {
         if (name === Configuration.Settings.FPGA_TIMESTAMP_TOPIC_NAME) {
           this.setServerTimeOffset(value as number);
         }
-        let topic = this._networkTables.topics.get(name);
-        if (topic) {
-          topic.value = value;
-          topic.timestamp = this.getServerTimestamp();
-        } else {
-          topic = {
-            name,
-            timestamp: this.getServerTimestamp(),
-            type: this.getDataType(value),
-            value
-          } as NetworkTablesTopic 
-          this._networkTables.topics.set(name, topic);
+        if (this._subscriptionTopics.test(name)) {
+          let topic = this._networkTables.topics.get(name);
+          if (topic) {
+            topic.value = value;
+            topic.timestamp = this.getServerTimestamp();
+          } else {
+            topic = {
+              name,
+              timestamp: this.getServerTimestamp(),
+              type: this.getDataType(value),
+              value
+            } as NetworkTablesTopic 
+            this._networkTables.topics.set(name, topic);
+          }
+          this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([topic]));
         }
-        this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage([topic]));
       }
     }
   }

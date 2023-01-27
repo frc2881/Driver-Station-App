@@ -19,6 +19,7 @@ export class TypedEventEmitter<Events extends EmittedEvents> extends EventEmitte
 export type NetworkTablesServiceOptions = {
   address: string;
   port: number;
+  subscriptionTopics?: string[];
 }
 
 export type NetworkTablesServiceMessages = {
