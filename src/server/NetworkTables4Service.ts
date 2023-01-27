@@ -9,7 +9,8 @@ import {
   NetworkTablesTopics,
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage
+  NetworkTablesTopicsUpdatedMessage,
+  NetworkTablesTopicsRemovedMessage
 } from "../common";
 import { 
   NetworkTablesService,
@@ -70,7 +71,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._networkTables.isConnected = true;
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     this.runServerTimestampSynchronization();
-    this.subscribe();
+    this.subscribeTopics();
   }
 
   private onConnectionClosed = async (): Promise<void> => {
@@ -81,7 +82,8 @@ export class NetworkTables4Service extends NetworkTablesService {
   }
 
   private onMessageReceived = (message: RawData, isBinary: boolean): void => {
-    const topics__ = [] as NetworkTablesTopic[];
+    const updatedTopics__ = [] as NetworkTablesTopic[];
+    const removedTopics__ = [] as NetworkTablesTopic[];
     if (isBinary) {
       const topics = this.decodeBinaryDataFrame(message);
       for (const topic of topics) {
@@ -92,7 +94,7 @@ export class NetworkTables4Service extends NetworkTablesService {
           if (__topic) {
             __topic.value = topic.value;
             __topic.timestamp = topic.timestamp;
-            topics__.push(__topic);
+            updatedTopics__.push(__topic);
           }
         }
       }
@@ -113,7 +115,13 @@ export class NetworkTables4Service extends NetworkTablesService {
             __topic.pubuid = topic.pubuid;
             this._networkTables.topics.set(__topic.name!, __topic);
             this._networkTablesNames.set(__topic.id, __topic.name!);
-            topics__.push(__topic);
+            updatedTopics__.push(__topic);
+            break;
+          case TextDataFrameMessageMethod.Unannounce:
+            const { name, id } = textDataFrameMessage.params as TopicRemovalMessage;
+            removedTopics__.push({ name } as NetworkTablesTopic);
+            this._networkTables.topics.delete(name);
+            this._networkTablesNames.delete(id);
             break;
           default:
             // TODO: implement other message types as needed
@@ -122,8 +130,11 @@ export class NetworkTables4Service extends NetworkTablesService {
         }
       }
     }
-    if (topics__.length > 0) {
-      this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage(topics__));
+    if (updatedTopics__.length > 0) {
+      this.emit(NetworkTablesServiceMessageType.TopicsUpdated, this.getTopicsUpdatedMessage(updatedTopics__));
+    }
+    if (removedTopics__.length > 0) {
+      this.emit(NetworkTablesServiceMessageType.TopicsRemoved, this.getTopicsRemovedMessage(removedTopics__));
     }
   }
 
@@ -146,6 +157,15 @@ export class NetworkTables4Service extends NetworkTablesService {
     } as NetworkTablesTopicsUpdatedMessage;
   }
 
+  public getTopicsRemovedMessage = (topics: NetworkTablesTopic[]): NetworkTablesTopicsRemovedMessage => {
+    return {
+      type: NetworkTablesServiceMessageType.TopicsRemoved,
+      data: { 
+        topics
+      }
+    } as NetworkTablesTopicsRemovedMessage;
+  }
+
   private runServerTimestampSynchronization = async (): Promise<void> => {
     const topic: NetworkTablesTopic = {
       pubuid: -1,
@@ -160,7 +180,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     }
   }
 
-  private subscribe = (): void => {
+  private subscribeTopics = (): void => {
     const subscribeMessage = {
       method: TextDataFrameMessageMethod.Subscribe,
       params: {
@@ -328,4 +348,9 @@ type TopicAnnouncementMessage = {
     persistent: boolean;
     retained: boolean;
   }
+}
+
+type TopicRemovalMessage = {
+  name: string;
+  id: number;
 }

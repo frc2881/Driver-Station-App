@@ -15,7 +15,8 @@ export enum AppServerMessageType {
 
 export enum NetworkTablesServiceMessageType {
   ConnectionChanged,
-  TopicsUpdated
+  TopicsUpdated,
+  TopicsRemoved
 }
 
 export enum NetworkTablesDataType {

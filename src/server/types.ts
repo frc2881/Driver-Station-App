@@ -3,6 +3,7 @@ import {
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage,
+  NetworkTablesTopicsRemovedMessage,
   NetworkTablesTopic
 } from "../common";
 
@@ -23,6 +24,7 @@ export type NetworkTablesServiceOptions = {
 export type NetworkTablesServiceMessages = {
   [NetworkTablesServiceMessageType.ConnectionChanged]: (event: NetworkTablesConnectionChangedMessage) => void;
   [NetworkTablesServiceMessageType.TopicsUpdated]: (event: NetworkTablesTopicsUpdatedMessage) => void;
+  [NetworkTablesServiceMessageType.TopicsRemoved]: (event: NetworkTablesTopicsRemovedMessage) => void;
 }
 
 export abstract class NetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {

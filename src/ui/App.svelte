@@ -12,6 +12,7 @@
 		NetworkTablesServiceMessage,
 		NetworkTablesConnectionChangedMessage,
 		NetworkTablesTopicsUpdatedMessage,
+		NetworkTablesTopicsRemovedMessage,
 		NetworkTablesDataType
 	} from "../common";
 	import Symbols from "./graphics/Symbols.svelte";
@@ -43,6 +44,9 @@
 					case NetworkTablesServiceMessageType.TopicsUpdated:
 						onNetworkTablesTopicsUpdated(message as NetworkTablesTopicsUpdatedMessage);
 						break;
+					case NetworkTablesServiceMessageType.TopicsRemoved:
+						onNetworkTablesTopicsRemoved(message as NetworkTablesTopicsRemovedMessage);
+						break;
 					default:
 						break;
 				}
@@ -55,7 +59,6 @@
 	}
 
 	const onNetworkTablesConnectionChanged = (e: NetworkTablesConnectionChangedMessage): void => {
-		console.log(onNetworkTablesConnectionChanged, e);
 		const { address, isConnected } = e.data;
 		networkTables.address = address;
 		networkTables.isConnected = isConnected;
@@ -70,12 +73,11 @@
 		}
 	}
 
-	const sendServerMessage = (type: AppServerMessageType, message: Object): void => {
-    const appServerMessage = Utils.encodeAppServerMessage(type, message);
-    if (webSocket.readyState === WebSocket.OPEN) {
-      webSocket.send(appServerMessage);
-    }
-  }
+	const onNetworkTablesTopicsRemoved = (e: NetworkTablesTopicsRemovedMessage): void => {
+		for (const topic of e.data.topics) {
+			networkTables.topics.delete(topic.name);
+		}
+	}
 
 	const updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void => {
 		const topicsUpdatedMessage = {
@@ -88,6 +90,13 @@
 	const updateNetworkTablesTopic = (topic: NetworkTablesTopic): void => {
 		updateNetworkTablesTopics([topic]);
 	}
+
+	const sendServerMessage = (type: AppServerMessageType, message: Object): void => {
+    const appServerMessage = Utils.encodeAppServerMessage(type, message);
+    if (webSocket.readyState === WebSocket.OPEN) {
+      webSocket.send(appServerMessage);
+    }
+  }
 </script>
 
 <div style="display:none"><Symbols /></div>

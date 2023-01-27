@@ -38,6 +38,12 @@ export type NetworkTablesTopicsUpdatedMessage = NetworkTablesServiceMessage & {
   }
 }
 
+export type NetworkTablesTopicsRemovedMessage = NetworkTablesServiceMessage & {
+  data: { 
+    topics: NetworkTablesTopic[]; 
+  }
+}
+
 export type NetworkTablesTopic = {
   name?: string;
   id?: number;

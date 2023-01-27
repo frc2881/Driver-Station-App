@@ -11,11 +11,12 @@ import {
   NetworkTablesServiceMessageType,
   NetworkTablesServiceMessage,
   NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage
+  NetworkTablesTopicsUpdatedMessage,
+  NetworkTablesTopicsRemovedMessage
 } from "../common";
 import { NetworkTablesService } from "./types";
-import { NetworkTables3Service } from "./NetworkTables3Service";
 import { NetworkTables4Service } from "./NetworkTables4Service";
+import { NetworkTables3Service } from "./NetworkTables3Service";
 
 class Server {
   constructor() {
@@ -50,6 +51,10 @@ class Server {
     });
 
     this._networkTablesService.on(NetworkTablesServiceMessageType.TopicsUpdated, (e: NetworkTablesTopicsUpdatedMessage) => {
+      this.broadcastMessage(AppServerMessageType.NetworkTablesService, e);
+    });
+
+    this._networkTablesService.on(NetworkTablesServiceMessageType.TopicsRemoved, (e: NetworkTablesTopicsRemovedMessage) => {
       this.broadcastMessage(AppServerMessageType.NetworkTablesService, e);
     });
   }
