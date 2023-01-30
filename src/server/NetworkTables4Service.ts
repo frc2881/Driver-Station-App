@@ -168,6 +168,8 @@ export class NetworkTables4Service extends NetworkTablesService {
 
   private runServerTimestampSynchronization = async (): Promise<void> => {
     const topic: NetworkTablesTopic = {
+      id: -1,
+      name: "RTT",
       pubuid: -1,
       timestamp: 0,
       type: NetworkTablesDataType.Integer,

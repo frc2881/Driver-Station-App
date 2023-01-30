@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Theme } from "carbon-components-svelte";
+	import "carbon-components-svelte/css/all.css";
+
 	import { 
 		Configuration,
 		Utils,
@@ -123,6 +126,15 @@
 <DataView networkTables={networkTables} />
 {/if}
 
+<Theme
+  theme="g100"
+  tokens={{
+    "interactive-01": "var(--_color-pink)",
+    "hover-primary": "var(--_color-pink-80)",
+    "active-primary": "var(--_color-pink-60)",
+  }}
+/>
+
 <style global lang="postcss">
 	@font-face { font-family: "Roboto"; src: url("./fonts/Roboto-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
 	@font-face { font-family: "Roboto"; src: url("./fonts/Roboto-Bold.woff") format("woff"); font-weight: bold; font-style: normal; }
@@ -134,9 +146,9 @@
 	}
 
 	:root {
-		--_color-black: #000000;
-		--_color-white: #FFFFFF;
 		--_color-pink: #FF69B4;
+		--_color-pink-80: #FF69B4CC;
+		--_color-pink-60: #FF69B499;
 		--_color-green: #00FF00;
 	}
 </style>

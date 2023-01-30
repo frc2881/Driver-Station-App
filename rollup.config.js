@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocess from "svelte-preprocess";
 import postcssUrl from "postcss-url";
+import { optimizeImports } from "carbon-preprocess-svelte";
 
 export default {
 	input: "src/ui/main.ts",
@@ -27,7 +28,8 @@ export default {
 							postcssUrl({ url: "inline" })
 						]
 					} 
-				})
+				}),
+				optimizeImports()
 			],
 			compilerOptions: { 
 				dev: true,

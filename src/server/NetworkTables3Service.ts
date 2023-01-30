@@ -31,6 +31,8 @@ export class NetworkTables3Service extends NetworkTablesService {
   private _serverTimeOffset: number = 0;
   private _serverRoundTripTime: number = 200;
 
+  private _id: number = 0;
+
   private _networkTables = {
     address: "0.0.0.0",
 		isConnected: false,
@@ -101,6 +103,7 @@ export class NetworkTables3Service extends NetworkTablesService {
           } else {
             topic = {
               name,
+              id: this._id += 1,
               timestamp: this.getServerTimestamp(),
               type: this.getDataType(value),
               value

@@ -45,11 +45,11 @@ export type NetworkTablesTopicsRemovedMessage = NetworkTablesServiceMessage & {
 }
 
 export type NetworkTablesTopic = {
-  name?: string;
-  id?: number;
+  name: string;
+  id: number;
   pubuid?: number;
   timestamp?: number;
-  type?: NetworkTablesDataType;
+  type: NetworkTablesDataType;
   value?: any;
 }
 
