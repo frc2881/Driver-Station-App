@@ -12,6 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
     "preserveValueImports": false,
-    "importsNotUsedAsValues": "remove"
+    "importsNotUsedAsValues": "remove",
+    "allowSyntheticDefaultImports": true
   }
 }

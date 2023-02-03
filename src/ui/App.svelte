@@ -131,7 +131,7 @@
   tokens={{
     "interactive-01": "var(--_color-pink)",
     "hover-primary": "var(--_color-pink-80)",
-    "active-primary": "var(--_color-pink-60)",
+    "active-primary": "var(--_color-pink-60)"
   }}
 />
 

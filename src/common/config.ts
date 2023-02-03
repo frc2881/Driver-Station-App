@@ -13,6 +13,7 @@ export namespace Configuration {
     SUBSCRIPTION_TOPICS: [
       "/SmartDashboard", 
       "/FMSInfo",
+      "/LiveWindow",
       "/photonvision"
     ]
   } as ConfigurationSettings

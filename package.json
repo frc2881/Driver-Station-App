@@ -53,6 +53,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
     "postcss": "^8.4.21",
+    "postcss-nesting": "^11.1.0",
     "postcss-url": "^10.1.3",
     "@types/postcss-url": "^10.0.0",
     "svelte": "^3.55.1",

@@ -5,6 +5,7 @@ import css from "rollup-plugin-css-only";
 import { terser } from 'rollup-plugin-terser';
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocess from "svelte-preprocess";
+import postcssNesting from "postcss-nesting";
 import postcssUrl from "postcss-url";
 import { optimizeImports } from "carbon-preprocess-svelte";
 
@@ -25,6 +26,7 @@ export default {
 				sveltePreprocess({ 
 					postcss: {
 						plugins: [
+							postcssNesting(),
 							postcssUrl({ url: "inline" })
 						]
 					} 
