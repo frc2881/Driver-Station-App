@@ -4,6 +4,9 @@
     Toolbar,
     ToolbarContent,
     ToolbarSearch,
+    ToolbarMenu,
+    ToolbarMenuItem,
+    LocalStorage
   } from "carbon-components-svelte";
   import { 
     Configuration,
@@ -35,6 +38,8 @@
 </script>
 
 <main>
+  <LocalStorage key="dataViewSelectedTopicIds" bind:value={ selectedTopicIds } />
+
   { #if selectedTopicIds.length > 0 }
     <div class="pinnedTopics">
       <DataTable
@@ -46,7 +51,7 @@
         bind:selectedRowIds={ selectedTopicIds }>
         <svelte:fragment slot="cell" let:row let:cell>
           { #if cell.key === "name" }
-            <div class="name" title={ cell.value }>{ cell.value }</div>
+            <span class="topicName" title={ cell.value }>{ cell.value }</span>
           { :else if cell.key === "timestamp" }
             { Utils.formatFPGATimestamp(cell.value / 1000) }
           { :else }
@@ -66,11 +71,14 @@
     <Toolbar>
       <ToolbarContent>
         <ToolbarSearch shouldFilterRows />
+        <ToolbarMenu>
+          <ToolbarMenuItem primaryFocus on:click={ () => {} }>Settings</ToolbarMenuItem>
+        </ToolbarMenu>
       </ToolbarContent>
     </Toolbar>
     <svelte:fragment slot="cell" let:row let:cell>
       { #if cell.key === "name" }
-        <span class="name" title={ cell.value }>{ cell.value }</span>
+        <span class="topicName" title={ cell.value }>{ cell.value }</span>
       { :else if cell.key === "timestamp" }
         { Utils.formatFPGATimestamp(cell.value / 1000) }
       { :else }
@@ -91,7 +99,7 @@
     margin-bottom: 3.5em;
   }
 
-  .name {
+  .topicName {
     display: block;
     white-space: nowrap;
     overflow: hidden;
