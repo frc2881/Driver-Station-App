@@ -29,25 +29,29 @@
   //   selectedFilterIds.push(id);
   // }
 
+  let selectedTopicNames = new Set<string>(JSON.parse(window.localStorage.getItem("dataViewSelectedTopicNames")));
+
   let selectedTopicIds: number[] = [];
+
+  // TODO: use Map directly to filter and group selected/default before converting to array for data table
 
   $: topics = Array.from(networkTables.topics.values()).filter(topic => !topic.name.includes("."));
   $: defaultTopics = topics.filter(topic => !selectedTopicIds.includes(topic.id));
   $: selectedTopics = topics.filter(topic => selectedTopicIds.includes(topic.id));
 
   const onRowSelectionChanged = (e: CustomEvent): void => {
-    console.log(e.detail);
     const topic = e.detail.row as NetworkTablesTopic;
-    console.log(topic, e.detail.selected);
+    if (e.detail.selected) {
+      selectedTopicNames.add(topic.name);
+      window.scrollTo(0, 0);
+    } else {
+      selectedTopicNames.delete(topic.name);
+    }
+    window.localStorage.setItem("dataViewSelectedTopicNames", JSON.stringify(Array.from(selectedTopicNames)));
   }
 </script>
 
 <main>
-  <LocalStorage 
-    key="dataViewSelectedTopicIds" 
-    bind:value={ selectedTopicIds }
-  />
-
   { #if networkTables.isConnected }
     <DataTable
       headers={ [
