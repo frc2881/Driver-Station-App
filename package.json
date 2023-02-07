@@ -33,7 +33,10 @@
     "ws": "^8.12.0",
     "cbor": "^8.1.0",
     "@msgpack/msgpack": "^2.8.0",
-    "minimist": "^1.2.7"
+    "minimist": "^1.2.7",
+    "carbon-components-svelte": "^0.72.2",
+    "carbon-icons-svelte": "^11.4.0",
+    "carbon-pictograms-svelte": "^12.2.0"
   },
   "devDependencies": {
     "@types/ws": "^8.5.4",
@@ -58,9 +61,6 @@
     "@types/postcss-url": "^10.0.0",
     "svelte": "^3.55.1",
     "svelte-preprocess": "^5.0.1",
-    "carbon-components-svelte": "^0.72.2",
-    "carbon-icons-svelte": "^11.4.0",
-    "carbon-pictograms-svelte": "^12.2.0",
     "carbon-preprocess-svelte": "^0.9.1"
   },
   "volta": {

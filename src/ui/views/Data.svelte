@@ -1,26 +1,25 @@
 <script lang="ts">
   import { 
     DataTable, 
+    DataTableSkeleton,
     Toolbar,
     ToolbarContent,
     ToolbarSearch,
     ToolbarMenu,
     ToolbarMenuItem,
+    OverflowMenu,
+    OverflowMenuItem,
     LocalStorage
   } from "carbon-components-svelte";
   import { 
     Configuration,
     Utils,
-    NetworkTables
+    NetworkTables,
+    NetworkTablesTopic,
+    NetworkTablesTopics
 	} from "../../common";
 
   export let networkTables: NetworkTables;
-
-  const dataTableHeaders: any = [
-    { key: "name", value: "Name", width: "50%" },
-    { key: "value", value: "Value", width: "35%", sort: false },
-    { key: "timestamp", value: "Timestamp", width: "10%" }
-  ];
 
   // const filters: any = [];
   // const selectedFilterIds: string[] = [];
@@ -35,57 +34,58 @@
   $: topics = Array.from(networkTables.topics.values()).filter(topic => !topic.name.includes("."));
   $: defaultTopics = topics.filter(topic => !selectedTopicIds.includes(topic.id));
   $: selectedTopics = topics.filter(topic => selectedTopicIds.includes(topic.id));
+
+  const onRowSelectionChanged = (e: CustomEvent): void => {
+    console.log(e.detail);
+    const topic = e.detail.row as NetworkTablesTopic;
+    console.log(topic, e.detail.selected);
+  }
 </script>
 
 <main>
-  <LocalStorage key="dataViewSelectedTopicIds" bind:value={ selectedTopicIds } />
+  <LocalStorage 
+    key="dataViewSelectedTopicIds" 
+    bind:value={ selectedTopicIds }
+  />
 
-  { #if selectedTopicIds.length > 0 }
-    <div class="pinnedTopics">
-      <DataTable
-        headers={ dataTableHeaders }
-        rows={ selectedTopics }
-        size="medium"
-        sortable
-        batchSelection
-        bind:selectedRowIds={ selectedTopicIds }>
-        <svelte:fragment slot="cell" let:row let:cell>
-          { #if cell.key === "name" }
-            <span class="topicName" title={ cell.value }>{ cell.value }</span>
-          { :else if cell.key === "timestamp" }
-            { Utils.formatFPGATimestamp(cell.value / 1000) }
-          { :else }
-            { cell.value }
-          { /if }
-        </svelte:fragment>
-      </DataTable>
-    </div>
+  { #if networkTables.isConnected }
+    <DataTable
+      headers={ [
+        { key: "name", value: "Name", width: "50%" },
+        { key: "value", value: "Value", width: "30%", sort: false },
+        { key: "timestamp", value: "Timestamp", width: "10%" },
+        { key: "overflow", empty: true }
+      ] }
+      rows={ selectedTopics.concat(defaultTopics) }
+      selectable
+      sortable
+      bind:selectedRowIds = { selectedTopicIds }
+      on:click:row--select={ onRowSelectionChanged }>
+      <Toolbar>
+        <ToolbarContent>
+          <ToolbarSearch shouldFilterRows />
+          <ToolbarMenu>
+            <ToolbarMenuItem primaryFocus on:click={ () => {} }>Settings</ToolbarMenuItem>
+          </ToolbarMenu>
+        </ToolbarContent>
+      </Toolbar>
+      <svelte:fragment slot="cell" let:row let:cell>
+        { #if cell.key === "name" }
+          <span class="topicName" title={ cell.value }>{ cell.value }</span>
+        { :else if cell.key === "timestamp" }
+          { Utils.formatFPGATimestamp(cell.value / 1000) }
+        { :else if cell.key === "overflow" }
+          <OverflowMenu flipped>
+            <OverflowMenuItem text="Edit" />
+          </OverflowMenu>
+        { :else }
+          { cell.value }
+        { /if }
+      </svelte:fragment>
+    </DataTable>
+  { :else }
+    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
   { /if }
-  <DataTable
-    headers={ dataTableHeaders }
-    rows={ defaultTopics }
-    size="medium"
-    sortable
-    selectable
-    bind:selectedRowIds={ selectedTopicIds }>
-    <Toolbar>
-      <ToolbarContent>
-        <ToolbarSearch shouldFilterRows />
-        <ToolbarMenu>
-          <ToolbarMenuItem primaryFocus on:click={ () => {} }>Settings</ToolbarMenuItem>
-        </ToolbarMenu>
-      </ToolbarContent>
-    </Toolbar>
-    <svelte:fragment slot="cell" let:row let:cell>
-      { #if cell.key === "name" }
-        <span class="topicName" title={ cell.value }>{ cell.value }</span>
-      { :else if cell.key === "timestamp" }
-        { Utils.formatFPGATimestamp(cell.value / 1000) }
-      { :else }
-        { cell.value }
-      { /if }
-    </svelte:fragment>
-  </DataTable>
 
   <!-- <pre class="debug">{ Utils.stringifyNetworkTables(networkTables, 4) }</pre> -->
 </main>
@@ -93,10 +93,6 @@
 <style lang="postcss">
   main {
     margin: 0;
-  }
-
-  .pinnedTopics {
-    margin-bottom: 3.5em;
   }
 
   .topicName {
