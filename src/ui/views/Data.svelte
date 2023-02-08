@@ -8,7 +8,9 @@
     ToolbarMenu,
     ToolbarMenuItem,
     OverflowMenu,
-    OverflowMenuItem
+    OverflowMenuItem,
+    Modal,
+    Checkbox
   } from "carbon-components-svelte";
   import { 
     Configuration,
@@ -16,7 +18,7 @@
 	} from "../../common";
   import {
     Utils as UiUtils,
-    NetworkTablesTopicSelectionChanged
+    RowSelectionChanged
   } from "../common";
 
   export let networkTables: NetworkTables;
@@ -30,10 +32,15 @@
   // }
 
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("dataViewSelectedTopicNames")) ?? [];
-  let selectedRowIds: number[] = [];
 
-  const onRowSelectionChanged = (e: CustomEvent): void => {
-    const { row: topic, selected } = e.detail as NetworkTablesTopicSelectionChanged;
+  const sources = Configuration.Settings.SUBSCRIPTION_TOPICS;
+  let selectedSources = sources;
+  let isSourcesOpen = false;
+
+  let selectedRowIds: number[] = [];
+  
+  const onRowSelectionChanged = (e: CustomEvent<RowSelectionChanged>): void => {
+    const { row: topic, selected } = e.detail;
     if (selected) {
       selectedTopicNames.push(topic.name);
       window.scrollTo(0, 0);
@@ -69,7 +76,7 @@
         <ToolbarContent>
           <ToolbarSearch shouldFilterRows />
           <ToolbarMenu>
-            <ToolbarMenuItem primaryFocus on:click={ () => {} }>Settings</ToolbarMenuItem>
+            <ToolbarMenuItem on:click={ () => { isSourcesOpen = true; } }>Sources</ToolbarMenuItem>
           </ToolbarMenu>
         </ToolbarContent>
       </Toolbar>
@@ -94,6 +101,22 @@
   <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
 </main>
 
+<Modal
+  size="xs"
+  passiveModal
+  hasScrollingContent
+  modalHeading="Sources"
+  bind:open = { isSourcesOpen }
+  on:open
+  on:close
+>
+  <div class="sources">
+    {#each Configuration.Settings.SUBSCRIPTION_TOPICS as subscription}
+      <Checkbox bind:group = { selectedSources } labelText={ subscription } value = { subscription } />
+    {/each}
+  </div>
+</Modal>
+
 <style lang="postcss">
   main {
     margin: 0;
@@ -104,6 +127,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sources {
+    padding: .5em;
   }
 
 	/* .debug {

@@ -2,7 +2,7 @@ import {
   NetworkTablesTopic 
 } from "../../common/types";
 
-export type NetworkTablesTopicSelectionChanged = {
+export type RowSelectionChanged = {
   selected: boolean;
   row: NetworkTablesTopic;
 }
