@@ -8,15 +8,13 @@
     ToolbarMenu,
     ToolbarMenuItem,
     OverflowMenu,
-    OverflowMenuItem,
-    LocalStorage
+    OverflowMenuItem
   } from "carbon-components-svelte";
   import { 
     Configuration,
     Utils,
     NetworkTables,
-    NetworkTablesTopic,
-    NetworkTablesTopics
+    NetworkTablesTopic
 	} from "../../common";
 
   export let networkTables: NetworkTables;
@@ -29,26 +27,26 @@
   //   selectedFilterIds.push(id);
   // }
 
-  let selectedTopicNames = new Set<string>(JSON.parse(window.localStorage.getItem("dataViewSelectedTopicNames")));
-
-  let selectedTopicIds: number[] = [];
-
-  // TODO: use Map directly to filter and group selected/default before converting to array for data table
-
-  $: topics = Array.from(networkTables.topics.values()).filter(topic => !topic.name.includes("."));
-  $: defaultTopics = topics.filter(topic => !selectedTopicIds.includes(topic.id));
-  $: selectedTopics = topics.filter(topic => selectedTopicIds.includes(topic.id));
+  let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("dataViewSelectedTopicNames")) ?? [];
+  let selectedRowIds: number[] = [];
 
   const onRowSelectionChanged = (e: CustomEvent): void => {
     const topic = e.detail.row as NetworkTablesTopic;
     if (e.detail.selected) {
-      selectedTopicNames.add(topic.name);
+      selectedTopicNames.push(topic.name);
       window.scrollTo(0, 0);
     } else {
-      selectedTopicNames.delete(topic.name);
+      selectedTopicNames.splice(selectedTopicNames.indexOf(topic.name), 1);
     }
-    window.localStorage.setItem("dataViewSelectedTopicNames", JSON.stringify(Array.from(selectedTopicNames)));
+    window.localStorage.setItem("dataViewSelectedTopicNames", JSON.stringify(selectedTopicNames));
+    selectedTopicNames = selectedTopicNames;
   }
+
+  $: topics = Array.from(networkTables.topics.values())
+      .filter(topic => !topic.name.includes("."))
+      .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
+
+  $: selectedRowIds = selectedTopicNames.map(topicName => networkTables.topics.get(topicName)?.id);
 </script>
 
 <main>
@@ -60,10 +58,10 @@
         { key: "timestamp", value: "Timestamp", width: "10%" },
         { key: "overflow", empty: true }
       ] }
-      rows={ selectedTopics.concat(defaultTopics) }
-      selectable
+      rows={ topics }
       sortable
-      bind:selectedRowIds = { selectedTopicIds }
+      selectable
+      bind:selectedRowIds
       on:click:row--select={ onRowSelectionChanged }>
       <Toolbar>
         <ToolbarContent>
