@@ -12,10 +12,12 @@
   } from "carbon-components-svelte";
   import { 
     Configuration,
-    Utils,
     NetworkTables,
-    NetworkTablesTopic
 	} from "../../common";
+  import {
+    Utils as UiUtils,
+    NetworkTablesTopicSelectionChanged
+  } from "../common";
 
   export let networkTables: NetworkTables;
 
@@ -31,8 +33,8 @@
   let selectedRowIds: number[] = [];
 
   const onRowSelectionChanged = (e: CustomEvent): void => {
-    const topic = e.detail.row as NetworkTablesTopic;
-    if (e.detail.selected) {
+    const { row: topic, selected } = e.detail as NetworkTablesTopicSelectionChanged;
+    if (selected) {
       selectedTopicNames.push(topic.name);
       window.scrollTo(0, 0);
     } else {
@@ -75,7 +77,7 @@
         { #if cell.key === "name" }
           <span class="topicName" title={ cell.value }>{ cell.value }</span>
         { :else if cell.key === "timestamp" }
-          { Utils.formatFPGATimestamp(cell.value / 1000) }
+          { UiUtils.formatFPGATimestamp(cell.value / 1000) }
         { :else if cell.key === "overflow" }
           <OverflowMenu flipped>
             <OverflowMenuItem text="Edit" />
@@ -89,7 +91,7 @@
     <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
   { /if }
 
-  <!-- <pre class="debug">{ Utils.stringifyNetworkTables(networkTables, 4) }</pre> -->
+  <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
 </main>
 
 <style lang="postcss">
