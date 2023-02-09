@@ -23,19 +23,11 @@
 
   export let networkTables: NetworkTables;
 
-  // const filters: any = [];
-  // const selectedFilterIds: string[] = [];
-  // for (let i = 0; i < Configuration.Settings.SUBSCRIPTION_TOPICS.length; i += 1) {
-  //   const id = i.toString();
-  //   filters.push({ id, text: Configuration.Settings.SUBSCRIPTION_TOPICS[i] });
-  //   selectedFilterIds.push(id);
-  // }
+  let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
-  let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("dataViewSelectedTopicNames")) ?? [];
-
-  const sources = Configuration.Settings.SUBSCRIPTION_TOPICS;
-  let selectedSources = sources;
-  let isSourcesOpen = false;
+  const subscriptions = Configuration.Settings.SUBSCRIPTIONS;
+  let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? subscriptions;
+  let isSubscriptionsModalOpen = false;
 
   let selectedRowIds: number[] = [];
   
@@ -47,12 +39,17 @@
     } else {
       selectedTopicNames.splice(selectedTopicNames.indexOf(topic.name), 1);
     }
-    window.localStorage.setItem("dataViewSelectedTopicNames", JSON.stringify(selectedTopicNames));
+    window.localStorage.setItem("App.Data.SelectedTopicNames", JSON.stringify(selectedTopicNames));
     selectedTopicNames = selectedTopicNames;
+  }
+
+  const onSubscriptionsModalClosed = (): void => {
+    window.localStorage.setItem("App.Data.SelectedSubscriptions", JSON.stringify(selectedSubscriptions));
   }
 
   $: topics = Array.from(networkTables.topics.values())
       .filter(topic => !topic.name.includes("."))
+      .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
       .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
 
   $: selectedRowIds = selectedTopicNames.map(topicName => networkTables.topics.get(topicName)?.id);
@@ -76,7 +73,7 @@
         <ToolbarContent>
           <ToolbarSearch shouldFilterRows />
           <ToolbarMenu>
-            <ToolbarMenuItem on:click={ () => { isSourcesOpen = true; } }>Sources</ToolbarMenuItem>
+            <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Subscriptions</ToolbarMenuItem>
           </ToolbarMenu>
         </ToolbarContent>
       </Toolbar>
@@ -95,7 +92,7 @@
       </svelte:fragment>
     </DataTable>
   { :else }
-    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
+    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 12 } showHeader={ false } showToolbar={ false } />
   { /if }
 
   <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
@@ -103,18 +100,14 @@
 
 <Modal
   size="xs"
-  passiveModal
-  hasScrollingContent
-  modalHeading="Sources"
-  bind:open = { isSourcesOpen }
-  on:open
-  on:close
->
-  <div class="sources">
-    {#each Configuration.Settings.SUBSCRIPTION_TOPICS as subscription}
-      <Checkbox bind:group = { selectedSources } labelText={ subscription } value = { subscription } />
-    {/each}
-  </div>
+  modalHeading="Subscriptions"
+  primaryButtonText="Ok"
+  bind:open = { isSubscriptionsModalOpen }
+  on:submit = { () => { isSubscriptionsModalOpen = false; } }
+  on:close = { onSubscriptionsModalClosed }>
+  {#each subscriptions as subscription}
+    <Checkbox bind:group = { selectedSubscriptions } labelText={ subscription } value = { subscription } />
+  {/each}
 </Modal>
 
 <style lang="postcss">
@@ -127,10 +120,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .sources {
-    padding: .5em;
   }
 
 	/* .debug {

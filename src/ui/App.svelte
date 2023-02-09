@@ -129,9 +129,9 @@
 <Theme
   theme="g100"
   tokens={{
-    "interactive-01": "var(--_color-pink)",
-    "hover-primary": "var(--_color-pink-80)",
-    "active-primary": "var(--_color-pink-60)"
+    "interactive-01": "var(--_color-pink-80)",
+    "hover-primary": "var(--_color-pink-60)",
+    "active-primary": "var(--_color-pink-40)"
   }}
 />
 
@@ -149,6 +149,7 @@
 		--_color-pink: #FF69B4;
 		--_color-pink-80: #FF69B4CC;
 		--_color-pink-60: #FF69B499;
+		--_color-pink-40: #FF69B466;
 		--_color-green: #00FF00;
 	}
 </style>
