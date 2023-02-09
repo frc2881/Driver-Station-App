@@ -11,7 +11,7 @@
     OverflowMenuItem,
     Modal,
     Checkbox,
-    ToastNotification
+    InlineNotification
   } from "carbon-components-svelte";
   import { 
     Configuration,
@@ -93,23 +93,19 @@
       </svelte:fragment>
     </DataTable>
   { :else }
-    <ToastNotification
-      lowContrast
-      fullWidth
-      hideCloseButton
-      kind="warning-alt"
-      title="Robot Not Connected"
+    <InlineNotification
+      title="Robot Not Connected:"
       subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
-    />
+      kind="warning-alt"
+      lowContrast
+      hideCloseButton/>
     <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
   { /if }
-
-  <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
 </main>
 
 <Modal
-  size="xs"
   modalHeading="Subscriptions"
+  size="xs"
   primaryButtonText="Ok"
   bind:open = { isSubscriptionsModalOpen }
   on:submit = { () => { isSubscriptionsModalOpen = false; } }
@@ -119,9 +115,11 @@
   {/each}
 </Modal>
 
+<!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
+
 <style lang="postcss">
   main {
-    margin: 0;
+    margin: var(--cds-spacing-06);
   }
 
   .topicName {
