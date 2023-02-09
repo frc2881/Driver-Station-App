@@ -10,7 +10,8 @@
     OverflowMenu,
     OverflowMenuItem,
     Modal,
-    Checkbox
+    Checkbox,
+    ToastNotification
   } from "carbon-components-svelte";
   import { 
     Configuration,
@@ -92,7 +93,15 @@
       </svelte:fragment>
     </DataTable>
   { :else }
-    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 12 } showHeader={ false } showToolbar={ false } />
+    <ToastNotification
+      lowContrast
+      fullWidth
+      hideCloseButton
+      kind="warning-alt"
+      title="Robot Not Connected"
+      subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
+    />
+    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
   { /if }
 
   <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
