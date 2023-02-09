@@ -28,7 +28,9 @@
 
   const subscriptions = Configuration.Settings.SUBSCRIPTIONS;
   let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? subscriptions;
-  let isSubscriptionsModalOpen = false;
+  let isSubscriptionsModalOpen: boolean = false;
+
+  let isMetadataPropsEnabled: boolean = false;
 
   let selectedRowIds: number[] = [];
   
@@ -49,7 +51,7 @@
   }
 
   $: topics = Array.from(networkTables.topics.values())
-      .filter(topic => !topic.name.includes("."))
+      .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
       .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
       .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
 
@@ -74,7 +76,8 @@
         <ToolbarContent>
           <ToolbarSearch shouldFilterRows />
           <ToolbarMenu>
-            <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Subscriptions</ToolbarMenuItem>
+            <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
+            <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
           </ToolbarMenu>
         </ToolbarContent>
       </Toolbar>
