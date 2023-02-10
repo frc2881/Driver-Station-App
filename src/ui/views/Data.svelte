@@ -102,7 +102,7 @@
       kind="warning-alt"
       lowContrast
       hideCloseButton/>
-    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 8 } showHeader={ false } showToolbar={ false } />
+    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 10 } showHeader={ false } showToolbar={ false } />
   { /if }
 </main>
 
@@ -122,7 +122,9 @@
 
 <style lang="postcss">
   main {
-    margin: var(--cds-spacing-06);
+    display: flex;
+    flex-direction: column;
+    padding: var(--cds-spacing-06);
   }
 
   .topicName {
