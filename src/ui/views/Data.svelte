@@ -88,7 +88,7 @@
           { UiUtils.formatFPGATimestamp(cell.value / 1000) }
         { :else if cell.key === "overflow" }
           <OverflowMenu flipped>
-            <OverflowMenuItem text="Edit" />
+            <OverflowMenuItem text="Edit" disabled />
           </OverflowMenu>
         { :else }
           { cell.value }
