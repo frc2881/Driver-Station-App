@@ -1,5 +1,4 @@
 import resolve from "@rollup/plugin-node-resolve";
-import replace from '@rollup/plugin-replace';
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
@@ -17,8 +16,8 @@ export default {
 		name: "ui",
 		file: "app/ui/bundle.js",
 		sourcemap: false,
+		inlineDynamicImports: true
 	},
-	context: "window",
 	plugins: [
 		typescript({
 			tsconfig: "./tsconfig-ui.json"
@@ -45,20 +44,9 @@ export default {
 			browser: true,
 			dedupe: ["svelte"]
 		}),
-		replace({ 
-			preventAssignment: true, 
-			"process.env.NODE_ENV": JSON.stringify("production") 
-		}),
 		commonjs(),
 		terser()
 	],
-	onwarn: (warning, warn) => {
-		// omit circular dependency warnings emitted from "d3-*" packages and "@carbon/charts"
-		if (warning.code === "CIRCULAR_DEPENDENCY") {
-			if (warning.ids.some((id) => /node_modules\/(d3-|@carbon\/charts)/.test(id))) { return; }
-		}
-		warn(warning);
-	},
 	watch: {
 		clearScreen: false
 	}

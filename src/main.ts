@@ -23,6 +23,11 @@ class Main {
   private _isDevMode = !app.isPackaged;
 
   private init = async (): Promise<void> => {
+    if (!app.requestSingleInstanceLock()) {
+      app.quit();
+      return;
+    }
+
     const args = minimist(process.argv, {
       default: { 
         "ntServerAddress": Configuration.Settings.Defaults.NT_SERVER_ADDRESS,
@@ -78,11 +83,11 @@ class Main {
   }
 
   private onAppWillQuit = (): void => {
-    this._appServer.disconnect();
+    this._appServer?.disconnect();
   }
 
   private onAppQuit = (): void => {
-    this._abortController.abort();
+    this._abortController?.abort();
     if (this._isDevMode) {
       console.log("All windows closed and application exited. Press [ Ctrl+C ] to terminate process.");
     }

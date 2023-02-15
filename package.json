@@ -37,8 +37,8 @@
     "carbon-components-svelte": "^0.72.3",
     "carbon-icons-svelte": "^11.4.0",
     "carbon-pictograms-svelte": "^12.2.0",
-    "@carbon/charts-svelte": "^1.6.4",
-    "d3": "^7.8.2"
+    "plotly.js-dist": "^2.18.1",
+    "svelte-plotly.js": "^0.3.2"
   },
   "devDependencies": {
     "@types/ws": "^8.5.4",
@@ -56,7 +56,6 @@
     "rollup-plugin-terser": "^7.0.2",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-typescript": "^11.0.0",
     "postcss": "^8.4.21",
     "postcss-nesting": "^11.2.0",
@@ -64,7 +63,8 @@
     "@types/postcss-url": "^10.0.0",
     "svelte": "^3.55.1",
     "svelte-preprocess": "^5.0.1",
-    "carbon-preprocess-svelte": "^0.9.1"
+    "carbon-preprocess-svelte": "^0.9.1",
+    "@types/plotly.js": "^2.12.16"
   },
   "volta": {
     "node": "18.13.0",

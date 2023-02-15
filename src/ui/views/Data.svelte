@@ -13,8 +13,8 @@
     Checkbox,
     InlineNotification
   } from "carbon-components-svelte";
-  import { LineChart } from "@carbon/charts-svelte";
-  import { ChartTheme, ScaleTypes } from "../../../node_modules/@carbon/charts/interfaces";
+    import { PlotDatum } from "plotly.js";
+  import Plot, { Data } from 'svelte-plotly.js';
   import { 
     Configuration,
     NetworkTables,
@@ -37,7 +37,7 @@
   let isSubscriptionsModalOpen: boolean = false;
 
   let graphModalTopicName: string = null;
-  let graphModalTopicValues: NetworkTablesTopic[] = [];
+  let graphModalData: Data[] = [];
   let isGraphModalOpen: boolean = false;
 
   let selectedRowIds: number[] = [];
@@ -59,18 +59,20 @@
   }
 
   const openGraphModal = (topicName: string): void => {
+    isGraphModalOpen = true;
     graphModalTopicName = topicName;
     const topic = networkTables.topics.get(topicName);
-    graphModalTopicValues.push(topic); 
-    graphModalTopicValues = graphModalTopicValues;
-    isGraphModalOpen = true;
+    graphModalData = [{
+      x: [ topic.timestamp / 1000 ],
+      y: [ topic.value ],
+      type: "scatter"
+    }];
   }
 
   const onGraphModalClosed = (): void => {
     isGraphModalOpen = false;
-    graphModalTopicValues = [];
-    graphModalTopicValues = graphModalTopicValues;
     graphModalTopicName = null;
+    graphModalData = [];
   }
 
   const isGraphOptionEnabled = (type: NetworkTablesDataType): boolean => {
@@ -94,10 +96,15 @@
 
   $: {
     if (isGraphModalOpen) {
-      const topic = networkTables.topics.get(graphModalTopicName);
-      if (topic.value !== graphModalTopicValues[graphModalTopicValues.length - 1].value) {
-        graphModalTopicValues.push(networkTables.topics.get(graphModalTopicName));
-        graphModalTopicValues = graphModalTopicValues;
+      if (networkTables.isConnected) {
+        const topic = networkTables.topics.get(graphModalTopicName);
+        if (topic.value !== graphModalData.at(0)["y"].at(-1).value) {
+          graphModalData.at(0)["x"].push(topic.timestamp / 1000);
+          graphModalData.at(0)["y"].push(topic.value);
+          graphModalData = graphModalData;
+        }
+      } else {
+        isGraphModalOpen = false;
       }
     }
   }
@@ -165,7 +172,7 @@
 </Modal>
 
 <Modal
-  modalHeading="Value Graph"
+  modalHeading={ graphModalTopicName }
   size="lg"
   passiveModal
   preventCloseOnClickOutside
@@ -173,26 +180,36 @@
   bind:open = { isGraphModalOpen }
   on:close = { onGraphModalClosed }>
   <span class="noop"></span>
-  <LineChart 
-    data={ graphModalTopicValues }
-    options={{
-      title: graphModalTopicName,
-      height: "540px",
-      theme: ChartTheme.G100,
-      legend: { clickable: false },
-      data: { groupMapsTo: "name" },
-      axes: {
-        left: {
-          mapsTo: "value",
-          scaleType: ScaleTypes.LINEAR
-        },
-        bottom: {
-          mapsTo: "timestamp",
-          scaleType: ScaleTypes.TIME
+  <Plot
+    data={ graphModalData }
+    layout={{
+      height: 480,
+      margin: { t: 40, b: 60 },
+      paper_bgcolor: "transparent",
+      plot_bgcolor: "transparent",
+      colorway: [ "#FF69B4", "#AA00FF", "#FFFFFF" ],
+      font: {
+        color: "#FFFFFF"
+      },
+      hoverlabel: {
+        font: {
+          color: "#FFFFFF"
         }
+      },
+      xaxis: {
+        gridcolor: "#666666",
+        showticklabels: false
+      },
+      yaxis: {
+        gridcolor: "#666666"
+      },
+      modebar: {
+        bgcolor: "transparent",
+        color: "#FF69B4",
+        remove: [ "lasso2d" ]
       }
     }}
-  />
+    fillParent="width" />
 </Modal>
 
 <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
