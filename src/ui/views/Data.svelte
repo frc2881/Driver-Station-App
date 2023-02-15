@@ -13,9 +13,12 @@
     Checkbox,
     InlineNotification
   } from "carbon-components-svelte";
+  import { LineChart } from "@carbon/charts-svelte";
+  import { ChartTheme, ScaleTypes } from "../../../node_modules/@carbon/charts/interfaces";
   import { 
     Configuration,
     NetworkTables,
+    NetworkTablesTopic
 	} from "../../common";
   import {
     Utils as UiUtils,
@@ -24,13 +27,17 @@
 
   export let networkTables: NetworkTables;
 
+  let isMetadataPropsEnabled: boolean = false;
+
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
   const subscriptions = Configuration.Settings.SUBSCRIPTIONS;
   let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? subscriptions;
   let isSubscriptionsModalOpen: boolean = false;
 
-  let isMetadataPropsEnabled: boolean = false;
+  let graphModalTopicName: string = null;
+  let graphModalTopicValues: NetworkTablesTopic[] = [];
+  let isGraphModalOpen: boolean = false;
 
   let selectedRowIds: number[] = [];
   
@@ -50,12 +57,34 @@
     window.localStorage.setItem("App.Data.SelectedSubscriptions", JSON.stringify(selectedSubscriptions));
   }
 
+  const openGraphModal = (topicName: string): void => {
+    graphModalTopicName = topicName;
+    const topic = networkTables.topics.get(topicName);
+    graphModalTopicValues.push(topic); 
+    graphModalTopicValues = graphModalTopicValues;
+    isGraphModalOpen = true;
+  }
+
+  const onGraphModalClosed = (): void => {
+    isGraphModalOpen = false;
+    graphModalTopicValues = [];
+    graphModalTopicValues = graphModalTopicValues;
+    graphModalTopicName = null;
+  }
+
   $: topics = Array.from(networkTables.topics.values())
       .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
       .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
       .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
 
   $: selectedRowIds = selectedTopicNames.map(topicName => networkTables.topics.get(topicName)?.id);
+
+  $: {
+    if (isGraphModalOpen) {
+      graphModalTopicValues.push(networkTables.topics.get(graphModalTopicName));
+      graphModalTopicValues = graphModalTopicValues;
+    }
+  }
 </script>
 
 <main>
@@ -88,7 +117,8 @@
           { UiUtils.formatFPGATimestamp(cell.value / 1000) }
         { :else if cell.key === "overflow" }
           <OverflowMenu flipped>
-            <OverflowMenuItem text="Edit" disabled />
+            <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
+            <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } }>Graph</OverflowMenuItem>
           </OverflowMenu>
         { :else }
           { cell.value }
@@ -105,6 +135,45 @@
     <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 10 } showHeader={ false } showToolbar={ false } />
   { /if }
 </main>
+
+<Modal
+  modalHeading="Value Graph"
+  size="lg"
+  passiveModal
+  preventCloseOnClickOutside
+  selectorPrimaryFocus=".noop"
+  bind:open = { isGraphModalOpen }
+  on:close = { onGraphModalClosed }>
+  <span class="noop"></span>
+  <LineChart 
+    data={ graphModalTopicValues }
+    options={{
+      title: graphModalTopicName,
+      height: "420px",
+      theme: ChartTheme.G100,
+      legend: { clickable: false },
+      data: { groupMapsTo: "name" },
+      axes: {
+        left: {
+          mapsTo: "value",
+          scaleType: ScaleTypes.LINEAR
+        },
+        bottom: {
+          mapsTo: "timestamp",
+          scaleType: ScaleTypes.TIME
+        }
+      },
+      timeScale: {
+        timeIntervalFormats: {
+          minute: {
+            primary: "mm:ss",
+            secondary: "mm:ss"
+          }
+        }
+      }
+    }}
+  />
+</Modal>
 
 <Modal
   modalHeading="Subscriptions"

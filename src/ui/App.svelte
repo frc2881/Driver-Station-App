@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Theme } from "carbon-components-svelte";
 	import "carbon-components-svelte/css/all.css";
+	import "@carbon/styles/css/styles.css";
+	import "@carbon/charts/styles.css";
 	import { 
 		Configuration,
 		Utils,
