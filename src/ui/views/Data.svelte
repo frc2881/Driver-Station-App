@@ -18,6 +18,7 @@
   import { 
     Configuration,
     NetworkTables,
+    NetworkTablesDataType,
     NetworkTablesTopic
 	} from "../../common";
   import {
@@ -72,6 +73,18 @@
     graphModalTopicName = null;
   }
 
+  const isGraphOptionEnabled = (type: NetworkTablesDataType): boolean => {
+    switch (type) {
+      case NetworkTablesDataType.Boolean:
+      case NetworkTablesDataType.Double:
+      case NetworkTablesDataType.Integer:
+      case NetworkTablesDataType.Float:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   $: topics = Array.from(networkTables.topics.values())
       .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
       .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
@@ -81,8 +94,11 @@
 
   $: {
     if (isGraphModalOpen) {
-      graphModalTopicValues.push(networkTables.topics.get(graphModalTopicName));
-      graphModalTopicValues = graphModalTopicValues;
+      const topic = networkTables.topics.get(graphModalTopicName);
+      if (topic.value !== graphModalTopicValues[graphModalTopicValues.length - 1].value) {
+        graphModalTopicValues.push(networkTables.topics.get(graphModalTopicName));
+        graphModalTopicValues = graphModalTopicValues;
+      }
     }
   }
 </script>
@@ -116,9 +132,9 @@
         { :else if cell.key === "timestamp" }
           { UiUtils.formatFPGATimestamp(cell.value / 1000) }
         { :else if cell.key === "overflow" }
-          <OverflowMenu flipped>
+          <OverflowMenu flipped direction="top">
             <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
-            <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } }>Graph</OverflowMenuItem>
+            <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
           </OverflowMenu>
         { :else }
           { cell.value }
@@ -137,6 +153,18 @@
 </main>
 
 <Modal
+  modalHeading="Subscriptions"
+  size="xs"
+  primaryButtonText="Ok"
+  bind:open = { isSubscriptionsModalOpen }
+  on:submit = { () => { isSubscriptionsModalOpen = false; } }
+  on:close = { onSubscriptionsModalClosed }>
+  {#each subscriptions as subscription}
+    <Checkbox bind:group = { selectedSubscriptions } labelText={ subscription } value = { subscription } />
+  {/each}
+</Modal>
+
+<Modal
   modalHeading="Value Graph"
   size="lg"
   passiveModal
@@ -149,7 +177,7 @@
     data={ graphModalTopicValues }
     options={{
       title: graphModalTopicName,
-      height: "420px",
+      height: "540px",
       theme: ChartTheme.G100,
       legend: { clickable: false },
       data: { groupMapsTo: "name" },
@@ -162,29 +190,9 @@
           mapsTo: "timestamp",
           scaleType: ScaleTypes.TIME
         }
-      },
-      timeScale: {
-        timeIntervalFormats: {
-          minute: {
-            primary: "mm:ss",
-            secondary: "mm:ss"
-          }
-        }
       }
     }}
   />
-</Modal>
-
-<Modal
-  modalHeading="Subscriptions"
-  size="xs"
-  primaryButtonText="Ok"
-  bind:open = { isSubscriptionsModalOpen }
-  on:submit = { () => { isSubscriptionsModalOpen = false; } }
-  on:close = { onSubscriptionsModalClosed }>
-  {#each subscriptions as subscription}
-    <Checkbox bind:group = { selectedSubscriptions } labelText={ subscription } value = { subscription } />
-  {/each}
 </Modal>
 
 <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->

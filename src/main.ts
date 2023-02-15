@@ -34,9 +34,9 @@ class Main {
 
     await app.whenReady();
 
-    this.createAppWindow(AppWindowType.HUD, { x: 0, y: 0 });
-    this.createAppWindow(AppWindowType.DASHBOARD, { x: 30, y: 50 });
-    this.createAppWindow(AppWindowType.DATA, { x: 60, y: 100 });
+    this.createAppWindow(AppWindowType.HUD, { x: 0, y: -400 });
+    this.createAppWindow(AppWindowType.DASHBOARD, { x: 0, y: 0 });
+    this.createAppWindow(AppWindowType.DATA, { x: 0, y: 0 });
 
     if (this._isDevMode) {
       this.startUiAutoReload();
@@ -46,9 +46,9 @@ class Main {
   private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {
     const appWindow = new BrowserWindow({
       title: `Driver Station - ${ appWindowType }`,
-      width: 1280,
-      height: 720,
-      x: position.x,
+      width: 1600,
+      height: 835,
+      x: 0,
       y: position.y,
       backgroundColor: "#000000",
       webPreferences: { 
