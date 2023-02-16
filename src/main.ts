@@ -1,4 +1,4 @@
-import { app, screen, BrowserWindow, Rectangle } from "electron";
+import { app, screen, Rectangle, BrowserWindow } from "electron";
 import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
@@ -44,7 +44,8 @@ class Main {
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT 
       } as Rectangle, 
-      !this._isDevMode && secondaryDisplay !== null
+      !this._isDevMode && secondaryDisplay !== null,
+      false
     );
 
     this.createAppWindow(
@@ -53,7 +54,9 @@ class Main {
         y: 0, 
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT 
-      } as Rectangle
+      } as Rectangle,
+      false,
+      false
     );
 
     this.createAppWindow(
@@ -62,7 +65,9 @@ class Main {
         y: 0, 
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT
-      } as Rectangle
+      } as Rectangle,
+      false,
+      !this._isDevMode
     );
 
     if (this._isDevMode) {
@@ -70,7 +75,12 @@ class Main {
     }
   }
 
-  private createAppWindow = (appWindowType: AppWindowType, bounds: Rectangle, isFullScreen: boolean = false): void => {
+  private createAppWindow = (
+    appWindowType: AppWindowType, 
+    bounds: Rectangle, 
+    isFullScreen: boolean,
+    isMinimized: boolean
+  ): void => {
     const appWindow = new BrowserWindow({
       title: `Driver Station - ${ appWindowType }`,
       width: bounds.width,
@@ -83,6 +93,7 @@ class Main {
         webSecurity: false
       }
     });
+    if (isMinimized) { appWindow.minimize(); }
     appWindow.menuBarVisible = false;
     appWindow.loadFile(
       path.join(__dirname, "ui/index.html"), 
