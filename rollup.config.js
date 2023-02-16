@@ -1,6 +1,7 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
+import alias from "@rollup/plugin-alias";
+import commonjs from "@rollup/plugin-commonjs";
 import css from "rollup-plugin-css-only";
 import { terser } from 'rollup-plugin-terser';
 import svelte from "rollup-plugin-svelte";
@@ -18,6 +19,7 @@ export default {
 		sourcemap: false,
 		inlineDynamicImports: true
 	},
+	treeshake: false,
 	plugins: [
 		typescript({
 			tsconfig: "./tsconfig-ui.json"
@@ -39,6 +41,11 @@ export default {
 				sourcemap: false
 			}
 		}),
+		alias({
+			entries: [
+				{ find: "plotly.js-dist", replacement: "plotly.js-basic-dist-min" }
+			]
+    }),
 		css({ output: "bundle.css" }),
 		resolve({
 			browser: true,

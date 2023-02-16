@@ -139,7 +139,7 @@
 	@font-face { font-family: "Roboto"; src: url("./fonts/Roboto-Bold.woff") format("woff"); font-weight: bold; font-style: normal; }
 
 	* {
-		font-family: "Roboto", sans-serif;
+		font-family: "Roboto", sans-serif !important;
 		font-weight: normal;
 		-webkit-font-smoothing: antialiased !important;
 	}
@@ -155,5 +155,9 @@
 	.placeholder {
 		transform: scale(2);
 		fill: var(--_color-pink);
+  }
+
+	.hidden {
+    display: none;
   }
 </style>

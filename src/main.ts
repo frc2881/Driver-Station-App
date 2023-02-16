@@ -1,14 +1,9 @@
-import { app, BrowserWindow } from "electron";
+import { app, screen, BrowserWindow, Rectangle } from "electron";
 import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { watch } from "fs";
-import { 
-  Configuration,
-  AppArguments, 
-  AppWindowType, 
-  Position 
-} from "./common";
+import { Configuration, AppArguments, AppWindowType } from "./common";
 
 class Main {
   constructor() {
@@ -39,22 +34,52 @@ class Main {
 
     await app.whenReady();
 
-    this.createAppWindow(AppWindowType.HUD, { x: 0, y: -400 });
-    this.createAppWindow(AppWindowType.DASHBOARD, { x: 0, y: 0 });
-    this.createAppWindow(AppWindowType.DATA, { x: 0, y: 0 });
+    const displays = screen.getAllDisplays();
+    const primaryDisplay = displays[0];
+    const secondaryDisplay = displays.length === 2 ? displays[1] : null;
+
+    this.createAppWindow(
+      AppWindowType.HUD, { 
+        x: 0, 
+        y: secondaryDisplay?.bounds.y ?? 0, 
+        width: secondaryDisplay?.bounds.width ?? primaryDisplay.bounds.width, 
+        height: secondaryDisplay?.bounds.height ?? primaryDisplay.bounds.height  
+      }, 
+      secondaryDisplay !== null);
+
+    this.createAppWindow(
+      AppWindowType.DASHBOARD, 
+      { 
+        x: 0, 
+        y: 0, 
+        width: primaryDisplay.bounds.width, 
+        height: primaryDisplay.bounds.height - Configuration.Settings.FRC_DRIVER_STATION_APP_DOCKED_HEIGHT 
+      }
+    );
+    
+    this.createAppWindow(
+      AppWindowType.DATA, 
+      { 
+        x: 0, 
+        y: 0, 
+        width: primaryDisplay.bounds.width, 
+        height: primaryDisplay.bounds.height - Configuration.Settings.FRC_DRIVER_STATION_APP_DOCKED_HEIGHT 
+      }
+    );
 
     if (this._isDevMode) {
       this.startUiAutoReload();
     }
   }
 
-  private createAppWindow = (appWindowType: AppWindowType, position: Position): void => {
+  private createAppWindow = (appWindowType: AppWindowType, bounds: Rectangle, isFullScreen: boolean = false): void => {
     const appWindow = new BrowserWindow({
       title: `Driver Station - ${ appWindowType }`,
-      width: 1600,
-      height: 835,
-      x: 0,
-      y: position.y,
+      width: bounds.width,
+      height: bounds.height,
+      x: bounds.x,
+      y: bounds.y,
+      fullscreen: isFullScreen,
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false

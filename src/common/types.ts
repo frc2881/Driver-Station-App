@@ -5,11 +5,6 @@ import {
 } from "./enums";
 import { ParsedArgs } from "minimist";
 
-export type Position = {
-  x: number;
-  y: number;
-}
-
 export type AppArguments = ParsedArgs & {
   ntServerAddress: string;
   ntVersion: number;
@@ -71,4 +66,5 @@ export type ConfigurationSettings = {
   NT4_SERVER_PORT: number;
   FPGA_TIMESTAMP_TOPIC_NAME: string;
   SUBSCRIPTIONS: string[];
+  FRC_DRIVER_STATION_APP_DOCKED_HEIGHT: number;
 }

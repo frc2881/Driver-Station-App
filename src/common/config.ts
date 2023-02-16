@@ -15,6 +15,7 @@ export namespace Configuration {
       "/FMSInfo",
       "/LiveWindow",
       "/photonvision"
-    ]
+    ],
+    FRC_DRIVER_STATION_APP_DOCKED_HEIGHT: 240
   } as ConfigurationSettings
 }
