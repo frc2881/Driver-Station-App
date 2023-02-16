@@ -35,36 +35,34 @@ class Main {
     await app.whenReady();
 
     const displays = screen.getAllDisplays();
-    const primaryDisplay = displays[0];
     const secondaryDisplay = displays.length === 2 ? displays[1] : null;
 
     this.createAppWindow(
-      AppWindowType.HUD, { 
-        x: 0, 
-        y: secondaryDisplay?.bounds.y ?? 0, 
-        width: secondaryDisplay?.bounds.width ?? primaryDisplay.bounds.width, 
-        height: secondaryDisplay?.bounds.height ?? primaryDisplay.bounds.height  
-      }, 
-      secondaryDisplay !== null);
+      AppWindowType.HUD, 
+      { x: 0, 
+        y: secondaryDisplay?.bounds.y ?? 0,
+        width: Configuration.Settings.WINDOW_MAX_WIDTH, 
+        height: Configuration.Settings.WINDOW_MAX_HEIGHT 
+      } as Rectangle, 
+      !this._isDevMode && secondaryDisplay !== null
+    );
 
     this.createAppWindow(
       AppWindowType.DASHBOARD, 
-      { 
-        x: 0, 
+      { x: 0, 
         y: 0, 
-        width: primaryDisplay.bounds.width, 
-        height: primaryDisplay.bounds.height - Configuration.Settings.FRC_DRIVER_STATION_APP_DOCKED_HEIGHT 
-      }
+        width: Configuration.Settings.WINDOW_MAX_WIDTH, 
+        height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT 
+      } as Rectangle
     );
-    
+
     this.createAppWindow(
       AppWindowType.DATA, 
-      { 
-        x: 0, 
+      { x: 0, 
         y: 0, 
-        width: primaryDisplay.bounds.width, 
-        height: primaryDisplay.bounds.height - Configuration.Settings.FRC_DRIVER_STATION_APP_DOCKED_HEIGHT 
-      }
+        width: Configuration.Settings.WINDOW_MAX_WIDTH, 
+        height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT
+      } as Rectangle
     );
 
     if (this._isDevMode) {

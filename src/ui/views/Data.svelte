@@ -182,7 +182,7 @@
     <Plot
       data={ graphModalData }
       layout={{
-        height: 480,
+        height: 600,
         margin: { t: 40, b: 60 },
         paper_bgcolor: "transparent",
         plot_bgcolor: "transparent",

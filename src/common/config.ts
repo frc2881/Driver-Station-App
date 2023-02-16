@@ -16,6 +16,8 @@ export namespace Configuration {
       "/LiveWindow",
       "/photonvision"
     ],
-    FRC_DRIVER_STATION_APP_DOCKED_HEIGHT: 240
+    WINDOW_MAX_WIDTH: 1920,
+    WINDOW_MAX_HEIGHT: 1080,
+    FRC_DS_APP_DOCKED_HEIGHT: 240
   } as ConfigurationSettings
 }
