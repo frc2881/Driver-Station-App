@@ -13,8 +13,7 @@
     Checkbox,
     InlineNotification
   } from "carbon-components-svelte";
-    import { PlotDatum } from "plotly.js";
-  import Plot, { Data } from 'svelte-plotly.js';
+  import Plot, { Data } from "svelte-plotly.js";
   import { 
     Configuration,
     NetworkTables,
@@ -113,23 +112,23 @@
 <main>
   { #if networkTables.isConnected }
     <DataTable
-      headers={ [
+      headers = {[
         { key: "name", value: "Name", width: "50%" },
         { key: "value", value: "Value", width: "30%", sort: false },
         { key: "timestamp", value: "Timestamp", width: "10%" },
         { key: "overflow", empty: true }
-      ] }
-      rows={ topics }
+      ]}
+      rows = { topics }
       sortable
       selectable
       bind:selectedRowIds
-      on:click:row--select={ onRowSelectionChanged }>
+      on:click:row--select = { onRowSelectionChanged }>
       <Toolbar>
         <ToolbarContent>
           <ToolbarSearch shouldFilterRows />
           <ToolbarMenu>
-            <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
-            <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
+            <ToolbarMenuItem on:click = { () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
+            <ToolbarMenuItem on:click = { () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
           </ToolbarMenu>
         </ToolbarContent>
       </Toolbar>
@@ -140,8 +139,8 @@
           { UiUtils.formatFPGATimestamp(cell.value / 1000) }
         { :else if cell.key === "overflow" }
           <OverflowMenu flipped direction="top">
-            <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
-            <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
+            <OverflowMenuItem on:click = { () => { } } disabled>Edit</OverflowMenuItem>
+            <OverflowMenuItem on:click = { () => { openGraphModal(row.name) } } disabled = { !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
           </OverflowMenu>
         { :else }
           { cell.value }
@@ -150,19 +149,19 @@
     </DataTable>
   { :else }
     <InlineNotification
-      title="Robot Not Connected:"
-      subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
-      kind="warning-alt"
+      title = "Robot Not Connected:"
+      subtitle = {`Attempting to restart connection to ${ networkTables.address } ...`}
+      kind = "warning-alt"
       lowContrast
       hideCloseButton/>
-    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 10 } showHeader={ false } showToolbar={ false } />
+    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 10 } showHeader = { false } showToolbar = { false } />
   { /if }
 </main>
 
 <Modal
-  modalHeading="Subscriptions"
-  size="xs"
-  primaryButtonText="Ok"
+  modalHeading = "Subscriptions"
+  size = "xs"
+  primaryButtonText = "Ok"
   bind:open = { isSubscriptionsModalOpen }
   on:submit = { () => { isSubscriptionsModalOpen = false; } }
   on:close = { onSubscriptionsModalClosed }>
@@ -172,30 +171,24 @@
 </Modal>
 
 <Modal
-  modalHeading={ graphModalTopicName }
-  size="lg"
+  modalHeading = { graphModalTopicName }
+  size = "lg"
   passiveModal
   preventCloseOnClickOutside
-  selectorPrimaryFocus=".noop"
+  selectorPrimaryFocus = ".noop"
   bind:open = { isGraphModalOpen }
   on:close = { onGraphModalClosed }>
   <span class="noop"></span>
   <Plot
-    data={ graphModalData }
-    layout={{
+    data = { graphModalData }
+    layout = {{
       height: 480,
       margin: { t: 40, b: 60 },
       paper_bgcolor: "transparent",
       plot_bgcolor: "transparent",
       colorway: [ "#FF69B4", "#AA00FF", "#FFFFFF" ],
-      font: {
-        color: "#FFFFFF"
-      },
-      hoverlabel: {
-        font: {
-          color: "#FFFFFF"
-        }
-      },
+      font: { color: "#FFFFFF" },
+      hoverlabel: { font: { color: "#FFFFFF" } },
       xaxis: {
         gridcolor: "#666666",
         showticklabels: false
@@ -206,10 +199,10 @@
       modebar: {
         bgcolor: "transparent",
         color: "#FF69B4",
-        remove: [ "lasso2d" ]
+        remove: [ "lasso2d", "pan2d", "pan3d", "autoScale2d" ]
       }
     }}
-    fillParent="width" />
+    fillParent = "width" />
 </Modal>
 
 <!-- <pre class="debug">{ UiUtils.stringifyNetworkTables(networkTables, 4) }</pre> -->
