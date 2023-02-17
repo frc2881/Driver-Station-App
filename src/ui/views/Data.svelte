@@ -63,7 +63,7 @@
     const topic = networkTables.topics.get(topicName);
     graphModalData = [{
       name: topic.name,
-      x: [ UiUtils.getTimestampDuration(topic.timestamp) ],
+      x: [ UiUtils.convertTimestamp(topic.timestamp) ],
       y: [ topic.value ],
       type: "scatter"
     }];
@@ -98,7 +98,7 @@
       if (networkTables.isConnected) {
         const topic = networkTables.topics.get(graphModalTopicName);
         if (topic.value !== graphModalData.at(0)["y"].at(-1).value) {
-          graphModalData.at(0)["x"].push(UiUtils.getTimestampDuration(topic.timestamp));
+          graphModalData.at(0)["x"].push(UiUtils.convertTimestamp(topic.timestamp));
           graphModalData.at(0)["y"].push(topic.value);
           graphModalData = graphModalData;
         }
@@ -136,7 +136,7 @@
         { #if cell.key === "name" }
           <span class="topicName" title={ cell.value }>{ cell.value }</span>
         { :else if cell.key === "timestamp" }
-          { UiUtils.formatFPGATimestamp(cell.value / 1000) }
+          { UiUtils.formatTimestamp(cell.value) }
         { :else if cell.key === "overflow" }
           <OverflowMenu flipped direction="top">
             <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
