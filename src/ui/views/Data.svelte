@@ -62,6 +62,7 @@
     graphModalTopicName = topicName;
     const topic = networkTables.topics.get(topicName);
     graphModalData = [{
+      name: topic.name,
       x: [ UiUtils.getTimestampDuration(topic.timestamp) ],
       y: [ topic.value ],
       type: "scatter"
