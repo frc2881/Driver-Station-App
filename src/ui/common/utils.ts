@@ -13,5 +13,11 @@ export namespace Utils {
     const seconds = ((timestamp / 1000 / 60 / 60 - hours) * 60 - minutes) * 60;
     return `${hours}:${`${ minutes < 10 ? "0": "" }${minutes}`}:${`${ seconds < 10 ? "0": "" }${seconds.toFixed(3)}`}`;
   }
+
+  export const getTimestampDuration = (timestamp: number): Date => {
+    const duration = new Date(0);
+    duration.setHours(0, 0, 0, timestamp / 1000);
+    return duration;
+  }
 }
 

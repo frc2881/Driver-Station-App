@@ -62,7 +62,7 @@
     graphModalTopicName = topicName;
     const topic = networkTables.topics.get(topicName);
     graphModalData = [{
-      x: [ topic.timestamp / 1000 ],
+      x: [ UiUtils.getTimestampDuration(topic.timestamp) ],
       y: [ topic.value ],
       type: "scatter"
     }];
@@ -97,7 +97,7 @@
       if (networkTables.isConnected) {
         const topic = networkTables.topics.get(graphModalTopicName);
         if (topic.value !== graphModalData.at(0)["y"].at(-1).value) {
-          graphModalData.at(0)["x"].push(topic.timestamp / 1000);
+          graphModalData.at(0)["x"].push(UiUtils.getTimestampDuration(topic.timestamp));
           graphModalData.at(0)["y"].push(topic.value);
           graphModalData = graphModalData;
         }
@@ -170,7 +170,7 @@
 </Modal>
 
 <Modal
-  modalHeading={ graphModalTopicName }
+  modalHeading=""
   size="lg"
   passiveModal
   preventCloseOnClickOutside
@@ -181,28 +181,36 @@
   <div class:hidden={ !isGraphModalOpen }>
     <Plot
       data={ graphModalData }
+      config={{ responsive: true }}
+      fillParent="width"
       layout={{
-        height: 600,
-        margin: { t: 40, b: 60 },
+        height: 640,
+        margin: { t: 60, b: 40 },
         paper_bgcolor: "transparent",
         plot_bgcolor: "transparent",
         colorway: [ "#FF69B4", "#AA00FF", "#FFFFFF" ],
         font: { color: "#FFFFFF" },
+        title: {
+          text: graphModalTopicName,
+          x: 0,
+          y: 1,
+          pad: { l: 20 }
+        },
         hoverlabel: { font: { color: "#FFFFFF" } },
         xaxis: {
           gridcolor: "#666666",
-          showticklabels: false
+          tickformat: "%-H:%M:%S",
+          hoverformat: "%-H:%M:%S.%L",
         },
         yaxis: {
           gridcolor: "#666666"
         },
         modebar: {
           bgcolor: "transparent",
-          color: "#FF69B4",
+          activecolor: "#FF69B4",
           remove: [ "lasso2d", "pan2d", "pan3d", "autoScale2d" ]
         }
-      }}
-      fillParent="width" />
+      }} />
   </div>
 </Modal>
 
