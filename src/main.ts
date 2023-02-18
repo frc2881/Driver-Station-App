@@ -3,7 +3,12 @@ import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { watch } from "fs";
-import { Configuration, AppArguments, AppWindowType } from "./common";
+import { 
+  Configuration, 
+  AppArguments, 
+  AppWindowType, 
+  AppWindowOptions 
+} from "./common";
 
 class Main {
   constructor() {
@@ -37,52 +42,48 @@ class Main {
     const displays = screen.getAllDisplays();
     const secondaryDisplay = displays.length === 2 ? displays[1] : null;
 
-    this.createAppWindow(
-      AppWindowType.HUD, 
-      { x: 0, 
+    this.createAppWindow(AppWindowType.HUD, {
+      bounds:{ 
+        x: 0, 
         y: secondaryDisplay?.bounds.y ?? 0,
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT 
-      } as Rectangle, 
-      !this._isDevMode && secondaryDisplay !== null,
-      false
-    );
+      },
+      isFullScreen: !this._isDevMode && secondaryDisplay !== null,
+      isMinimized: secondaryDisplay === null
+    });
 
-    this.createAppWindow(
-      AppWindowType.DASHBOARD, 
-      { x: 0, 
+    this.createAppWindow(AppWindowType.DASHBOARD, {
+      bounds: { 
+        x: 0, 
         y: 0, 
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT 
-      } as Rectangle,
-      false,
-      false
-    );
+      },
+      isFullScreen: false,
+      isMinimized: false
+    });
 
-    this.createAppWindow(
-      AppWindowType.DATA, 
-      { x: 0, 
+    this.createAppWindow(AppWindowType.DATA, { 
+      bounds: { 
+        x: 0, 
         y: 0, 
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT
       } as Rectangle,
-      false,
-      !this._isDevMode
-    );
+      isFullScreen: false,
+      isMinimized: !this._isDevMode
+    });
 
     if (this._isDevMode) {
       this.startUiAutoReload();
     }
   }
 
-  private createAppWindow = (
-    appWindowType: AppWindowType, 
-    bounds: Rectangle, 
-    isFullScreen: boolean,
-    isMinimized: boolean
-  ): void => {
+  private createAppWindow = (type: AppWindowType, options: AppWindowOptions): void => {
+    const { bounds, isFullScreen, isMinimized } = options;
     const appWindow = new BrowserWindow({
-      title: `Driver Station - ${ appWindowType }`,
+      title: `Driver Station - ${ type }`,
       width: bounds.width,
       height: bounds.height,
       x: bounds.x,
@@ -97,7 +98,7 @@ class Main {
     appWindow.menuBarVisible = false;
     appWindow.loadFile(
       path.join(__dirname, "ui/index.html"), 
-      { query: { "appWindowType": appWindowType } }
+      { query: { "appWindowType": type } }
     );
     this._appWindows.push(appWindow);
   }

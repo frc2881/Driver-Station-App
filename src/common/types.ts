@@ -1,3 +1,4 @@
+import { Rectangle } from "electron";
 import { 
   AppServerMessageType,
   NetworkTablesServiceMessageType,
@@ -8,6 +9,27 @@ import { ParsedArgs } from "minimist";
 export type AppArguments = ParsedArgs & {
   ntServerAddress: string;
   ntVersion: number;
+}
+
+export type ConfigurationSettings = {
+  Defaults: {
+    NT_SERVER_ADDRESS: string;
+    NT_VERSION: number;
+  };
+  APP_SERVER_PORT: number;
+  NT3_SERVER_PORT: number;
+  NT4_SERVER_PORT: number;
+  FPGA_TIMESTAMP_TOPIC_NAME: string;
+  SUBSCRIPTIONS: string[];
+  WINDOW_MAX_WIDTH: number;
+  WINDOW_MAX_HEIGHT: number;
+  FRC_DS_APP_DOCKED_HEIGHT: number;
+}
+
+export type AppWindowOptions = {
+  bounds: Rectangle;
+  isFullScreen: boolean;
+  isMinimized: boolean;
 }
 
 export type AppServerMessage = {
@@ -54,19 +76,4 @@ export type NetworkTables = {
   address: string;
   isConnected: boolean;
   topics: NetworkTablesTopics;
-}
-
-export type ConfigurationSettings = {
-  Defaults: {
-    NT_SERVER_ADDRESS: string;
-    NT_VERSION: number;
-  };
-  APP_SERVER_PORT: number;
-  NT3_SERVER_PORT: number;
-  NT4_SERVER_PORT: number;
-  FPGA_TIMESTAMP_TOPIC_NAME: string;
-  SUBSCRIPTIONS: string[];
-  WINDOW_MAX_WIDTH: number;
-  WINDOW_MAX_HEIGHT: number;
-  FRC_DS_APP_DOCKED_HEIGHT: number;
 }
