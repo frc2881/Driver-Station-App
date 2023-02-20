@@ -91,7 +91,8 @@ class Main {
       fullscreen: isFullScreen,
       backgroundColor: "#000000",
       webPreferences: { 
-        webSecurity: false
+        webSecurity: false,
+        zoomFactor: 1
       }
     });
     if (isMinimized) { appWindow.minimize(); }
