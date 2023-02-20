@@ -18,11 +18,17 @@
 		NetworkTablesDataType
 	} from "../common";
 	import Symbols from "./graphics/Symbols.svelte";
-	import HudView from "./views/Hud.svelte";
-	import DashboardView from "./views/Dashboard.svelte";
-	import DataView from "./views/Data.svelte";
+	import Hud from "./views/Hud.svelte";
+	import Dashboard from "./views/Dashboard.svelte";
+	import Data from "./views/Data.svelte";
 
 	const appWindowType = new URLSearchParams(window.location.search).get("appWindowType") as AppWindowType;
+
+	const views = {
+		[AppWindowType.Hud]: Hud,
+		[AppWindowType.Dashboard]: Dashboard,
+		[AppWindowType.Data]: Data
+	}
 
 	let networkTables: NetworkTables = {
 		address: "",
@@ -115,15 +121,7 @@
 	value: "Distance"
 }) } }>Distance</button> -->
 
-{#if appWindowType === AppWindowType.HUD}
-<HudView networkTables={networkTables} />
-{/if}
-{#if appWindowType === AppWindowType.DASHBOARD}
-<DashboardView networkTables={networkTables} />
-{/if}
-{#if appWindowType === AppWindowType.DATA}
-<DataView networkTables={networkTables} />
-{/if}
+<svelte:component this={ views[appWindowType] } networkTables={ networkTables } />
 
 <Theme
   theme="g100"

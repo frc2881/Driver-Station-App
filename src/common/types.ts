@@ -2,7 +2,8 @@ import { Rectangle } from "electron";
 import { 
   AppServerMessageType,
   NetworkTablesServiceMessageType,
-  NetworkTablesDataType 
+  NetworkTablesDataType,
+  CameraName
 } from "./enums";
 import { ParsedArgs } from "minimist";
 
@@ -19,14 +20,16 @@ export type ConfigurationSettings = {
   APP_SERVER_PORT: number;
   NT3_SERVER_PORT: number;
   NT4_SERVER_PORT: number;
-  FPGA_TIMESTAMP_TOPIC_NAME: string;
-  SUBSCRIPTIONS: string[];
   WINDOW_MAX_WIDTH: number;
   WINDOW_MAX_HEIGHT: number;
   FRC_DS_APP_DOCKED_HEIGHT: number;
+  FPGA_TIMESTAMP_TOPIC_NAME: string;
+  SUBSCRIPTIONS: string[];
+  CAMERA_STREAMS: Record<CameraName, string>;
 }
 
 export type AppWindowOptions = {
+  title: string;
   bounds: Rectangle;
   isFullScreen: boolean;
   isMinimized: boolean;

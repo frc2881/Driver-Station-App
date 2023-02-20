@@ -23,11 +23,12 @@ export class NetworkTables4Service extends NetworkTablesService {
     this.init();
   }
 
+  private _webSocket!: WebSocket;
   private _decoder = new Decoder();
   private _encoder = new Encoder();
-  private _webSocket!: WebSocket;
-  
-  private _serverTimeOffset!: number;
+
+  private _isServerTimeSynchronized: boolean = false;
+  private _serverTimeOffset: number | undefined;
   private _serverRoundTripTime = Number.MAX_SAFE_INTEGER;
   private _pubuid: number = 0;
 
@@ -54,7 +55,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._webSocket.on("open", this.onConnectionOpened);
     this._webSocket.on("close", this.onConnectionClosed);
     this._webSocket.on("message", this.onMessageReceived);
-    this._webSocket.on("error", () => {});
+    this._webSocket.on("error", (e) => { console.log(e); });
   }
 
   public dispose = (): void => {
@@ -65,6 +66,10 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._networkTables.isConnected = false;
     this._networkTables.topics.clear();
     this._networkTablesLookup.clear();
+    this._isServerTimeSynchronized = false;
+    this._serverTimeOffset = undefined;
+    this._serverRoundTripTime = 0;
+    this._pubuid = 0;
   }
 
   private onConnectionOpened = (): void => {
@@ -176,9 +181,14 @@ export class NetworkTables4Service extends NetworkTablesService {
       value: 0
     };
     while (this._networkTables.isConnected) {
+      this._isServerTimeSynchronized = false;
       topic.value = this.getLocalTimestamp();
       this._webSocket?.send(this.encodeBinaryDataFrame([topic]));
       await Utils.wait(3);
+      if (!this._isServerTimeSynchronized) {
+        this._webSocket?.terminate();
+        break;
+      }
     }
   }
 
@@ -244,6 +254,7 @@ export class NetworkTables4Service extends NetworkTablesService {
       this._serverRoundTripTime = roundTripTime;
       this._serverTimeOffset = Math.floor(serverTimestamp + roundTripTime - currentLocalTimestamp);
     }
+    this._isServerTimeSynchronized = true;
   }
 
   private decodeBinaryDataFrame = (message: RawData): NetworkTablesTopic[] => {

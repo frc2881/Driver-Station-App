@@ -4,9 +4,9 @@ export enum Platform {
 }
 
 export enum AppWindowType {
-  HUD = "HUD",
-  DASHBOARD = "DASHBOARD",
-  DATA = "DATA"
+  Hud = "HUD",
+  Dashboard = "DASHBOARD",
+  Data = "DATA"
 }
 
 export enum AppServerMessageType {
@@ -31,4 +31,9 @@ export enum NetworkTablesDataType {
   IntegerArray = 18,
   FloatArray = 19,
   StringArray = 20
+}
+
+export enum CameraName {
+  Left = "LEFT",
+  Right = "RIGHT"
 }

@@ -59,7 +59,7 @@ export class NetworkTables3Service extends NetworkTablesService {
     this._webSocket.on("open", this.onConnectionOpened);
     this._webSocket.on("close", this.onConnectionClosed);
     this._webSocket.on("message", this.onMessageReceived);
-    this._webSocket.on("error", () => {});
+    this._webSocket.on("error", (e) => { console.log(e); });
   }
 
   public dispose = (): void => {

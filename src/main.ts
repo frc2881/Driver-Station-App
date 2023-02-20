@@ -42,7 +42,8 @@ class Main {
     const displays = screen.getAllDisplays();
     const secondaryDisplay = displays.length === 2 ? displays[1] : null;
 
-    this.createAppWindow(AppWindowType.HUD, {
+    this.createAppWindow(AppWindowType.Hud, {
+      title: "Heads-Up Display",
       bounds:{ 
         x: 0, 
         y: secondaryDisplay?.bounds.y ?? 0,
@@ -53,7 +54,8 @@ class Main {
       isMinimized: secondaryDisplay === null
     });
 
-    this.createAppWindow(AppWindowType.DASHBOARD, {
+    this.createAppWindow(AppWindowType.Dashboard, {
+      title: "Dashboard",
       bounds: { 
         x: 0, 
         y: 0, 
@@ -64,7 +66,8 @@ class Main {
       isMinimized: false
     });
 
-    this.createAppWindow(AppWindowType.DATA, { 
+    this.createAppWindow(AppWindowType.Data, { 
+      title: "Data Explorer",
       bounds: { 
         x: 0, 
         y: 0, 
@@ -81,9 +84,9 @@ class Main {
   }
 
   private createAppWindow = (type: AppWindowType, options: AppWindowOptions): void => {
-    const { bounds, isFullScreen, isMinimized } = options;
+    const { title, bounds, isFullScreen, isMinimized } = options;
     const appWindow = new BrowserWindow({
-      title: `Driver Station - ${ type }`,
+      title: `Driver Station App - ${ title }`,
       width: bounds.width,
       height: bounds.height,
       x: bounds.x,
