@@ -3,7 +3,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import alias from "@rollup/plugin-alias";
 import commonjs from "@rollup/plugin-commonjs";
 import css from "rollup-plugin-css-only";
-import { terser } from 'rollup-plugin-terser';
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocess from "svelte-preprocess";
 import postcssNesting from "postcss-nesting";
@@ -51,8 +50,7 @@ export default {
 			browser: true,
 			dedupe: ["svelte"]
 		}),
-		commonjs(),
-		terser()
+		commonjs()
 	],
 	watch: {
 		clearScreen: false
