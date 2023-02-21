@@ -11,10 +11,14 @@
 <main>
   <CameraStream 
     stream={ Configuration.Settings.CAMERA_STREAMS.LEFT }
-    isConnected={ networkTables.isConnected }  />
+    isConnected={ networkTables.isConnected }
+    width={ "960px" }
+    height={ "540px" }  />
   <CameraStream 
     stream={ Configuration.Settings.CAMERA_STREAMS.RIGHT }
-    isConnected={ networkTables.isConnected }  />
+    isConnected={ networkTables.isConnected }
+    width={ "960px" }
+    height={ "540px" }  />
 </main>
 
 <style lang="postcss">
