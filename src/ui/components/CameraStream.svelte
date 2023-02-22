@@ -16,7 +16,7 @@
   }
 </script>
 
-<div class="cameraStream" style:width style:height>
+<div class="main" style:width style:height>
   <div class="icon"><Video_02 class="watermark" /></div>
   <img 
     src={ isConnected ? stream : transparentPixelImage } 
@@ -26,7 +26,7 @@
 </div>
 
 <style lang="postcss">
-  .cameraStream {
+  .main {
     position: relative;
     display: flex;
     align-items: center;

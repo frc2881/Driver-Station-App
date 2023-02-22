@@ -1,41 +1,20 @@
 <script lang="ts">
   import { Tile, InlineNotification } from "carbon-components-svelte";
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-  import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
-  import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
-  import { 
-		NetworkTables,
-    RobotMode,
-    RobotStatus
-	} from "../../common";
+  import { NetworkTables } from "../../common";
+  import RobotInfo from "../components/RobotInfo.svelte";
+  import Suction from "../components/Suction.svelte";
 
   export let networkTables: NetworkTables;
-
-  let robotMode: RobotMode;
-  let robotStatus: RobotStatus;
-
-  $: {
-    robotMode = networkTables.topics.get("/SmartDashboard/Robot/Mode")?.value;
-    robotStatus = networkTables.topics.get("/SmartDashboard/Robot/Status")?.value;
-  }
 </script>
 
 <main>
 { #if networkTables.isConnected }
-  <div class="infobar">
+  <div class="info">
     <div class="left">
-      <div class="mode"><h3>{ robotStatus === RobotStatus.Estopped ? "ESTOP" : robotMode }</h3></div>
-      <div class="status">
-        { #if robotStatus === RobotStatus.Enabled }
-          <CheckmarkFilled width=48 height=48 fill="#00CC00" />
-        { /if }
-        { #if robotStatus === RobotStatus.Disabled }
-          <CloseFilled width=48 height=48 fill="#CC0000" />
-        { /if }
-        { #if robotStatus === RobotStatus.Estopped }
-          <WarningAltFilled width=48 height=48 fill="#CCCC00" />
-        { /if } 
-      </div>
+      <RobotInfo 
+        mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
+        status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }
+      />
     </div>
     <div class="right"></div>
   </div>
@@ -43,7 +22,9 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <Suction />
+    </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
@@ -67,7 +48,7 @@
     width: 100vw;
     height: 100vh;
     
-    & .infobar {
+    & .info {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       height: 100px;
@@ -83,17 +64,6 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-      }
-
-      & .mode {
-        width: 160px;
-        text-align: center;
-        padding: 5px 0;
-        border: 1px solid var(--_color-charcoal);
-      }
-
-      & .status {
-        margin: 5px 0 0 20px;
       }
     }
 
