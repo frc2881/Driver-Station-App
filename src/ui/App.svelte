@@ -150,11 +150,6 @@
 		--_color-green: #00FF00;
 	}
 
-	.placeholder {
-		transform: scale(2);
-		fill: var(--_color-pink);
-  }
-
 	.hidden {
     display: none;
   }
