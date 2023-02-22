@@ -34,16 +34,16 @@
     align-items: center;
     justify-content: center;
 
-    & .mode {
+    .mode {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 160px;
       padding: 5px 0;
-      border: 1px solid var(--_color-charcoal);
+      border: 1px solid var(--app-color-charcoal);
     }
 
-    & .status {
+    .status {
       margin: 3px 0 0 20px;
     }
   }

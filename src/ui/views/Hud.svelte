@@ -58,11 +58,11 @@
       }
     }
 
-    & .icon {
+    .icon {
       position: absolute;
       width: 256px;
       height: 256px;
-      fill: var(--_color-pink);
+      fill: var(--app-color-pink);
     }
   }
 </style>

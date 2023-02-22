@@ -13,8 +13,7 @@
     <div class="left">
       <RobotInfo 
         mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
-        status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }
-      />
+        status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }/>
     </div>
     <div class="right"></div>
   </div>
@@ -23,7 +22,17 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget">
-      <Suction />
+      <Suction
+        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
+        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
+        topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
+        topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
+        topMotorSpeed={ networkTables.topics.get("/SmartDashboard/Suction/Top/Motor/Speed") }
+        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
+        bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
+        bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") }
+        bottomMotorSpeed={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Motor/Speed") }
+       />
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
@@ -48,26 +57,26 @@
     width: 100vw;
     height: 100vh;
     
-    & .info {
+    .info {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       height: 100px;
       padding: 0 20px;
 
-      & .left {
+      .left {
         display: flex;
         align-items: center;
         justify-content: flex-start;
       }
 
-      & .right {
+      .right {
         display: flex;
         align-items: center;
         justify-content: flex-end;
       }
     }
 
-    & .widgets {
+    .widgets {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 350px;
@@ -77,9 +86,18 @@
 
       :global {
         .widget {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          padding: 2em;
+
+          .main {
+            display: grid;
+            grid-template-rows: 50px auto;
+            width: 100%;
+            height: 100%;
+
+            .title {
+              color: var(--app-color-smoke);
+            }
+          }
         }
       }
     }
@@ -103,11 +121,11 @@
       }
     }
 
-    & .icon {
+    .icon {
       position: absolute;
       width: 256px;
       height: 256px;
-      fill: var(--_color-pink);
+      fill: var(--app-color-pink);
     }
   }
 </style>

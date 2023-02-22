@@ -67,7 +67,7 @@
       name: topic.name,
       x: [ Utils.convertTimestamp(topic.timestamp) ],
       y: [ topic.value ],
-      type: "scatter"
+      type: "scattergl"
     }];
   }
 
@@ -225,7 +225,7 @@
   main {
     display: flex;
     flex-direction: column;
-    padding: var(--cds-spacing-06);
+    padding: 2em;
   }
 
   .topicName {
@@ -236,14 +236,14 @@
   }
 
   .inlineNotification {
-    margin: -1em 0 .5em 0;
+    margin: -1.5em 0 .5em 0;
   }
 
 	/* .debug {
     display: block;
     margin: 0;
     padding: 1em;
-		color: var(--_color-green);
+		color: var(--app-color-green);
     font-size: 80%;
 	} */
 </style>

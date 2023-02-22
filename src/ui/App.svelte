@@ -126,9 +126,9 @@
 <Theme
   theme="g100"
   tokens={{
-    "interactive-01": "var(--_color-pink-80)",
-    "hover-primary": "var(--_color-pink-60)",
-    "active-primary": "var(--_color-pink-40)"
+    "interactive-01": "var(--app-color-pink-80)",
+    "hover-primary": "var(--app-color-pink-60)",
+    "active-primary": "var(--app-color-pink-40)"
   }}
 />
 
@@ -143,14 +143,15 @@
 	}
 
 	:root {
-		--_color-pink: #FF69B4;
-		--_color-pink-80: #FF69B4CC;
-		--_color-pink-60: #FF69B499;
-		--_color-pink-40: #FF69B466;
-		--_color-green: #00CC00;
-		--_color-red: #CC0000;
-		--_color-yellow: #CCCC00;
-		--_color-charcoal: #666666;
+		--app-color-pink: #FF69B4;
+		--app-color-pink-80: #FF69B4CC;
+		--app-color-pink-60: #FF69B499;
+		--app-color-pink-40: #FF69B466;
+		--app-color-green: #00CC00;
+		--app-color-red: #CC0000;
+		--app-color-yellow: #CCCC00;
+		--app-color-charcoal: #666666;
+		--app-color-smoke: #999999;
 	}
 
 	.hidden {

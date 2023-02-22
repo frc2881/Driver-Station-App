@@ -32,7 +32,7 @@
     align-items: center;
     justify-content: center;
 
-    & .icon {
+    .icon {
       position: absolute;
 		  
       :global {
@@ -40,7 +40,7 @@
           width: 48px;
           height: 48px;
           transform: scale(4);
-          fill: var(--_color-pink);
+          fill: var(--app-color-pink);
           opacity: 0.2;
         }
       }
