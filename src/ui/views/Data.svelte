@@ -110,52 +110,54 @@
 </script>
 
 <main>
-  { #if networkTables.isConnected }
-    <DataTable
-      headers={[
-        { key: "name", value: "Name", width: "50%" },
-        { key: "value", value: "Value", width: "30%", sort: false },
-        { key: "timestamp", value: "Timestamp", width: "10%" },
-        { key: "overflow", empty: true }
-      ]}
-      rows={ topics }
-      sortable
-      selectable
-      bind:selectedRowIds
-      on:click:row--select={ onRowSelectionChanged }>
-      <Toolbar>
-        <ToolbarContent>
-          <ToolbarSearch shouldFilterRows />
-          <ToolbarMenu>
-            <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
-            <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
-          </ToolbarMenu>
-        </ToolbarContent>
-      </Toolbar>
-      <svelte:fragment slot="cell" let:row let:cell>
-        { #if cell.key === "name" }
-          <span class="topicName" title={ cell.value }>{ cell.value }</span>
-        { :else if cell.key === "timestamp" }
-          { Utils.formatTimestamp(cell.value) }
-        { :else if cell.key === "overflow" }
-          <OverflowMenu flipped direction="top">
-            <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
-            <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
-          </OverflowMenu>
-        { :else }
-          { cell.value }
-        { /if }
-      </svelte:fragment>
-    </DataTable>
-  { :else }
+{ #if networkTables.isConnected }
+  <DataTable
+    headers={[
+      { key: "name", value: "Name", width: "50%" },
+      { key: "value", value: "Value", width: "30%", sort: false },
+      { key: "timestamp", value: "Timestamp", width: "10%" },
+      { key: "overflow", empty: true }
+    ]}
+    rows={ topics }
+    sortable
+    selectable
+    bind:selectedRowIds
+    on:click:row--select={ onRowSelectionChanged }>
+    <Toolbar>
+      <ToolbarContent>
+        <ToolbarSearch shouldFilterRows />
+        <ToolbarMenu>
+          <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
+          <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
+        </ToolbarMenu>
+      </ToolbarContent>
+    </Toolbar>
+    <svelte:fragment slot="cell" let:row let:cell>
+      { #if cell.key === "name" }
+        <span class="topicName" title={ cell.value }>{ cell.value }</span>
+      { :else if cell.key === "timestamp" }
+        { Utils.formatTimestamp(cell.value) }
+      { :else if cell.key === "overflow" }
+        <OverflowMenu flipped direction="top">
+          <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
+          <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
+        </OverflowMenu>
+      { :else }
+        { cell.value }
+      { /if }
+    </svelte:fragment>
+  </DataTable>
+{ :else }
+  <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
       subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
       kind="warning-alt"
       lowContrast
-      hideCloseButton/>
-    <DataTableSkeleton headers={ ["Name", "Value", "Timestamp" ] } rows={ 10 } showHeader={ false } showToolbar={ false } />
-  { /if }
+      hideCloseButton />
+  </div>
+  <DataTableSkeleton headers={ [ "Name", "Value", "Timestamp" ] } rows={ 13 } showHeader={ false } showToolbar={ false } />
+{ /if }
 </main>
 
 <Modal
@@ -229,6 +231,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .inlineNotification {
+    margin: -1em 0 .5em 0;
   }
 
 	/* .debug {

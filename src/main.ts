@@ -50,8 +50,9 @@ class Main {
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT 
       },
-      isFullScreen: !this._isDevMode && secondaryDisplay !== null,
-      isMinimized: secondaryDisplay === null
+      isMinimized: secondaryDisplay === null,
+      isTransparent: true,
+      isFrameless: true
     });
 
     this.createAppWindow(AppWindowType.Dashboard, {
@@ -62,8 +63,9 @@ class Main {
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT 
       },
-      isFullScreen: false,
-      isMinimized: false
+      isMinimized: false,
+      isTransparent: true,
+      isFrameless: true
     });
 
     this.createAppWindow(AppWindowType.Data, { 
@@ -74,8 +76,9 @@ class Main {
         width: Configuration.Settings.WINDOW_MAX_WIDTH, 
         height: Configuration.Settings.WINDOW_MAX_HEIGHT - Configuration.Settings.FRC_DS_APP_DOCKED_HEIGHT
       } as Rectangle,
-      isFullScreen: false,
-      isMinimized: !this._isDevMode
+      isMinimized: !this._isDevMode,
+      isTransparent: false,
+      isFrameless: false
     });
 
     if (this._isDevMode) {
@@ -84,14 +87,15 @@ class Main {
   }
 
   private createAppWindow = (type: AppWindowType, options: AppWindowOptions): void => {
-    const { title, bounds, isFullScreen, isMinimized } = options;
+    const { title, bounds, isMinimized, isFrameless, isTransparent } = options;
     const appWindow = new BrowserWindow({
       title: `Driver Station App - ${ title }`,
       width: bounds.width,
       height: bounds.height,
       x: bounds.x,
       y: bounds.y,
-      fullscreen: isFullScreen,
+      transparent: isTransparent,
+      frame: !isFrameless,
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false,

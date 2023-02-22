@@ -147,10 +147,19 @@
 		--_color-pink-80: #FF69B4CC;
 		--_color-pink-60: #FF69B499;
 		--_color-pink-40: #FF69B466;
-		--_color-green: #00FF00;
+		--_color-green: #00CC00;
+		--_color-red: #CC0000;
+		--_color-yellow: #CCCC00;
+		--_color-charcoal: #666666;
 	}
 
 	.hidden {
     display: none;
   }
+
+	@keyframes pulse-animation {
+		0%    { opacity: 0.75; transform: scale(1);  }
+		50%   { opacity: 1; transform: scale(1.025); }
+		100%  { opacity: 0.75; transform: scale(1); }
+	}
 </style>

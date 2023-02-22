@@ -31,8 +31,9 @@ export type ConfigurationSettings = {
 export type AppWindowOptions = {
   title: string;
   bounds: Rectangle;
-  isFullScreen: boolean;
   isMinimized: boolean;
+  isTransparent: boolean;
+  isFrameless: boolean;
 }
 
 export type AppServerMessage = {

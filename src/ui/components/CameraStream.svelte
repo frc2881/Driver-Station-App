@@ -17,7 +17,7 @@
 </script>
 
 <div class="cameraStream" style:width style:height>
-  <div class="icon"><Video_02 class="placeholder" /></div>
+  <div class="icon"><Video_02 class="watermark" /></div>
   <img 
     src={ isConnected ? stream : transparentPixelImage } 
     bind:this={ image } 
@@ -34,11 +34,14 @@
 
     & .icon {
       position: absolute;
-      transform: scale(2);
 		  
       :global {
-        .placeholder {
+        .watermark {
+          width: 48px;
+          height: 48px;
+          transform: scale(4);
           fill: var(--_color-pink);
+          opacity: 0.2;
         }
       }
     }

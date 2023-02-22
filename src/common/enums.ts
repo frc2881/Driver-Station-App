@@ -33,6 +33,19 @@ export enum NetworkTablesDataType {
   StringArray = 20
 }
 
+export enum RobotMode {
+  Disabled = "DISABLED",
+  Auto = "AUTO",
+  Teleop = "TELEOP",
+  Test = "TEST"
+}
+
+export enum RobotStatus {
+  Disabled = "DISABLED",
+  Enabled = "ENABLED",
+  Estopped = "ESTOPPED"
+}
+
 export enum CameraName {
   Left = "LEFT",
   Right = "RIGHT"
