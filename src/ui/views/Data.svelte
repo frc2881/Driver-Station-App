@@ -18,12 +18,9 @@
     Utils,
     Configuration,
     NetworkTables,
-    NetworkTablesDataType,
-    NetworkTablesTopic
+    NetworkTablesTopic,
+    NetworkTablesDataType
 	} from "../../common";
-  import {
-    RowSelectionChanged
-  } from "../common";
 
   export let networkTables: NetworkTables;
 
@@ -40,6 +37,11 @@
   let isGraphModalOpen: boolean = false;
 
   let selectedRowIds: number[] = [];
+
+  type RowSelectionChanged = {
+    selected: boolean;
+    row: NetworkTablesTopic;
+  }
   
   const onRowSelectionChanged = (e: CustomEvent<RowSelectionChanged>): void => {
     const { row: topic, selected } = e.detail;

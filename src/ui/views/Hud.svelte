@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { InlineNotification } from "carbon-components-svelte";
+  import { InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
   import { 
     Configuration,
 		NetworkTables
@@ -28,7 +28,7 @@
       lowContrast
       hideCloseButton />
   </div>
-  <div class="watermark"><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
+  <div class="watermark"><SkeletonPlaceholder class="skeleton" /><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
 { /if }
 </main>
 
@@ -48,13 +48,21 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    transform: translate(-128px, -128px);
+
+    :global {
+      .skeleton {
+        position: absolute;
+        width: 256px;
+        height: 256px;
+      }
+    }
 
     & .icon {
-      width: 48px;
-      height: 48px;
-      transform: scale(6);
+      position: absolute;
+      width: 256px;
+      height: 256px;
       fill: var(--_color-pink);
-      opacity: 0.2;
     }
   }
 </style>

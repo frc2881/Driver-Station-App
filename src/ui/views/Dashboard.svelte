@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tile, InlineNotification } from "carbon-components-svelte";
+  import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
   import { NetworkTables } from "../../common";
   import RobotInfo from "../components/RobotInfo.svelte";
   import Suction from "../components/Suction.svelte";
@@ -39,7 +39,7 @@
       lowContrast
       hideCloseButton />
   </div>
-  <div class="watermark"><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
+  <div class="watermark"><SkeletonPlaceholder class="skeleton" /><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
 { /if }
 </main>
 
@@ -93,13 +93,21 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    transform: translate(-128px, -128px);
+
+    :global {
+      .skeleton {
+        position: absolute;
+        width: 256px;
+        height: 256px;
+      }
+    }
 
     & .icon {
-      width: 48px;
-      height: 48px;
-      transform: scale(6);
+      position: absolute;
+      width: 256px;
+      height: 256px;
       fill: var(--_color-pink);
-      opacity: 0.2;
     }
   }
 </style>
