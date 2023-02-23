@@ -24,6 +24,10 @@ export namespace Configuration {
     CAMERA_STREAMS: {
       [CameraName.Left]: "http://10.28.81.18:1183/?action=stream",
       [CameraName.Right]: "http://10.28.81.18:1185/?action=stream"
+    },
+    MATCH_TIME_TRIGGERS: {
+      WARNING: 35,
+      CRITICAL: 10
     }
   } as ConfigurationSettings
 }

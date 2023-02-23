@@ -19,6 +19,10 @@ export namespace Utils {
     return textEncoder.encode(JSON.stringify(<AppServerMessage>{ type, message }));
   }
 
+  export const isNumberInRange = (value: number, minValue: number, maxValue: number): boolean => {
+    return value >= minValue && value <= maxValue;
+  }
+
   const baseTime = dayjs(0).startOf("d");
 
   export const formatTimestamp = (timestamp: number): string => {

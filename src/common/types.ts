@@ -26,6 +26,10 @@ export type ConfigurationSettings = {
   FPGA_TIMESTAMP_TOPIC_NAME: string;
   SUBSCRIPTIONS: string[];
   CAMERA_STREAMS: Record<CameraName, string>;
+  MATCH_TIME_TRIGGERS: {
+    WARNING: number;
+    CRITICAL: number;
+  }
 }
 
 export type AppWindowOptions = {
