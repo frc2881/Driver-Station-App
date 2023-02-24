@@ -23,11 +23,11 @@
     <CameraStream 
       stream={ Configuration.Settings.CAMERA_STREAMS.LEFT }
       isConnected={ networkTables.isConnected }
-      width={ "960px" } height={ "540px" }  />
+      width={ "800px" } height={ "600px" }  />
     <CameraStream 
       stream={ Configuration.Settings.CAMERA_STREAMS.RIGHT }
       isConnected={ networkTables.isConnected }
-      width={ "960px" } height={ "540px" }  />
+      width={ "800px" } height={ "600px" }  />
   </div>
   <div class="info">
     <div></div>
@@ -70,6 +70,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    cursor: none;
 
     .cameras {
       display: flex;
