@@ -5,7 +5,7 @@
   import { 
     NetworkTablesTopic,
     RobotStatus
-	} from "../../common";
+	} from "../../../common";
 
   export let mode: NetworkTablesTopic;
   export let status: NetworkTablesTopic;

@@ -5,7 +5,8 @@
     Utils,
 		NetworkTables
 	} from "../../common";
-  import CameraStream from "../components/CameraStream.svelte";
+  import CameraStream from "../components/Hud/CameraStream.svelte";
+  import Suction from "../components/Hud/Suction.svelte";
 
   export let networkTables: NetworkTables;
 
@@ -47,7 +48,16 @@
         ) }>
       { matchTime }
     </div>
-    <div></div>
+    <div>
+      <Suction
+        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
+        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
+        topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
+        topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
+        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
+        bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
+        bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
+    </div>
   </div>
 { :else }
   <div class="inlineNotification">
@@ -81,7 +91,7 @@
 
     .info {
       display: grid;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: 35% 30% 35%;
       width: 100%;
 
       .matchTime {

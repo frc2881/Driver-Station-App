@@ -1,8 +1,7 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
   import { NetworkTables } from "../../common";
-  import RobotInfo from "../components/RobotInfo.svelte";
-  import Suction from "../components/Suction.svelte";
+  import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
 
   export let networkTables: NetworkTables;
 </script>
@@ -21,19 +20,7 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget">
-      <Suction
-        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
-        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
-        topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
-        topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
-        topMotorSpeed={ networkTables.topics.get("/SmartDashboard/Suction/Top/Motor/Speed") }
-        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
-        bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
-        bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") }
-        bottomMotorSpeed={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Motor/Speed") }
-       />
-    </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
