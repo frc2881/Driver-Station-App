@@ -46,6 +46,11 @@ export enum RobotStatus {
   Estopped = "ESTOPPED"
 }
 
+export enum Alliance {
+  Red = "RED",
+  Blue = "BLUE"
+}
+
 export enum CameraName {
   Left = "LEFT",
   Right = "RIGHT"

@@ -7,6 +7,7 @@
 	} from "../../common";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import Suction from "../components/Hud/Suction.svelte";
+  import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
   export let networkTables: NetworkTables;
 
@@ -24,14 +25,18 @@
     <CameraStream 
       stream={ Configuration.Settings.CAMERA_STREAMS.LEFT }
       isConnected={ networkTables.isConnected }
-      width={ "800px" } height={ "600px" }  />
+      width={ "960px" } height={ "540px" } translation={ 240 }  />
     <CameraStream 
       stream={ Configuration.Settings.CAMERA_STREAMS.RIGHT }
       isConnected={ networkTables.isConnected }
-      width={ "800px" } height={ "600px" }  />
+      width={ "960px" } height={ "540px" } translation={ -240 }  />
   </div>
   <div class="info">
-    <div></div>
+    <div>
+      <TargetAlignment 
+        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
+        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }/>
+    </div>
     <div 
       class="matchTime"
       class:inactive={ matchTime === -1 }
@@ -80,7 +85,6 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    cursor: none;
 
     .cameras {
       display: flex;
@@ -91,7 +95,7 @@
 
     .info {
       display: grid;
-      grid-template-columns: 35% 30% 35%;
+      grid-template-columns: 45% 25% 30%;
       width: 100%;
 
       .matchTime {

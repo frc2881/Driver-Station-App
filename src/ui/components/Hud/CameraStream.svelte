@@ -5,6 +5,7 @@
   export let isConnected: boolean;
   export let width: string;
   export let height: string;
+  export let translation: number;
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
@@ -22,6 +23,7 @@
     src={ isConnected ? stream : transparentPixelImage } 
     bind:this={ image } 
     on:error={ reloadStream } 
+    style:transform={ `translate(${ translation }px, 0)` }
     alt="" />
 </div>
 
