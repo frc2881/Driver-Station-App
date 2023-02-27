@@ -96,7 +96,7 @@ class Main {
       y: bounds.y,
       transparent: isTransparent,
       frame: !isFrameless,
-      fullscreen: type === AppWindowType.Hud,
+      fullscreen: type === AppWindowType.Hud && !this._isDevMode,
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false,
