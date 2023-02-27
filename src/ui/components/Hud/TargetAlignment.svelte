@@ -8,6 +8,11 @@
   export let robotPose: NetworkTablesTopic;
   export let isRedAlliance: NetworkTablesTopic;
 
+  const zoneLimits = {
+    [Alliance.Blue]: 1.70,
+    [Alliance.Red]: 14.78
+  }
+
   type Pose = {
     x: number;
     y: number;
@@ -26,9 +31,9 @@
     }
 
     if (alliance === Alliance.Red) {
-      isInRange = Math.abs(14.78 - pose.x) <= .30;
+      isInRange = Math.abs(zoneLimits[Alliance.Red] - pose.x) <= 1;
     } else {
-      isInRange = Math.abs(pose.x - 1.70) <= .30;
+      isInRange = Math.abs(pose.x - zoneLimits[Alliance.Blue]) <= 1;
     }
   }
 </script>
@@ -44,9 +49,9 @@
     <div class="barrier" />
     <div class="robot"      
       style:display={ isInRange ? "block" : "none" } 
-      style:right={ `${ (pose.y * 100) }px` } 
+      style:right={ `${ ((pose.y * 100) - 24) }px` } 
       style:bottom={ `${ ((pose.x - 1.70) * 100) + 90 }px` }
-      style:transform={ `rotate(${ pose.rotation }deg` }>
+      style:transform={ `rotate(${ -pose.rotation }deg` }>
       <div class="arm" />
     </div>
   </div>
@@ -97,7 +102,7 @@
         .arm {
           position: absolute;
           left: 20px;
-          width: 6px;
+          width: 7px;
           height: 75%;
           background: var(--app-color-pink);
         }

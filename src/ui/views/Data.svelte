@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { 
     DataTable, 
     DataTableSkeleton,
@@ -24,7 +25,10 @@
 
   export let networkTables: NetworkTables;
 
+  const dispatch = createEventDispatcher();
+
   let isMetadataPropsEnabled: boolean = false;
+  let isAllTelemetryEnabled: boolean = false;
 
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
@@ -88,6 +92,23 @@
     }
   }
 
+  const updateNetworkTablesTopic = (topic: NetworkTablesTopic): void => {
+    dispatch("updateNetworkTablesTopic", topic);
+  }
+
+  const formatValue = (value: any, type: NetworkTablesDataType): string => {
+    switch (type) {
+      case NetworkTablesDataType.BooleanArray:
+      case NetworkTablesDataType.DoubleArray:
+      case NetworkTablesDataType.FloatArray:
+      case NetworkTablesDataType.IntegerArray:
+      case NetworkTablesDataType.StringArray:
+        return `[${ value }]`;
+      default:
+        return value;
+    }
+  }
+
   $: topics = Array.from(networkTables.topics.values())
       .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
       .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
@@ -109,14 +130,18 @@
       }
     }
   }
+
+  $: {
+    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/EnableAllTelemetry")?.value ?? false;
+  }
 </script>
 
 <main>
 { #if networkTables.isConnected }
   <DataTable
     headers={[
-      { key: "name", value: "Name", width: "50%" },
-      { key: "value", value: "Value", width: "30%", sort: false },
+      { key: "name", value: "Name", width: "35%" },
+      { key: "value", value: "Value", width: "35%", sort: false },
       { key: "timestamp", value: "Timestamp", width: "10%" },
       { key: "overflow", empty: true }
     ]}
@@ -131,6 +156,15 @@
         <ToolbarMenu>
           <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
           <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
+          <ToolbarMenuItem on:click={ () => { 
+            updateNetworkTablesTopic({ 
+              id: 0, 
+              name: "/SmartDashboard/EnableAllTelemetry", 
+              type: NetworkTablesDataType.Boolean, 
+              value: !isAllTelemetryEnabled 
+            }) } }>
+            { isAllTelemetryEnabled ? "Disable": "Enable" } Telemetry
+          </ToolbarMenuItem>
         </ToolbarMenu>
       </ToolbarContent>
     </Toolbar>
@@ -145,7 +179,7 @@
           <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
         </OverflowMenu>
       { :else }
-        { cell.value }
+        <span title={ `<${ NetworkTablesDataType[row.type] }> ${ formatValue(cell.value, row.type) }` }>{ formatValue(cell.value, row.type) }</span>
       { /if }
     </svelte:fragment>
   </DataTable>

@@ -99,6 +99,10 @@
 		updateNetworkTablesTopics([topic]);
 	}
 
+	const onUpdateNetworkTablesTopic = (event: CustomEvent<NetworkTablesTopic>): void => {
+		updateNetworkTablesTopic(event.detail as NetworkTablesTopic);
+	}
+
 	const sendServerMessage = (type: AppServerMessageType, message: Object): void => {
     const appServerMessage = Utils.encodeAppServerMessage(type, message);
     if (webSocket.readyState === WebSocket.OPEN) {
@@ -109,19 +113,10 @@
 
 <div style="display:none"><Symbols /></div>
 
-<!-- <button on:click={ () => { updateNetworkTablesTopic({
-	name: "/SmartDashboard/AutonomousMode/selected",
-	type: NetworkTablesDataType.String,
-	value: "Time"
-}) } }>Time</button>
-
-<button on:click={ () => { updateNetworkTablesTopic({
-	name: "/SmartDashboard/AutonomousMode/selected",
-	type: NetworkTablesDataType.String,
-	value: "Distance"
-}) } }>Distance</button> -->
-
-<svelte:component this={ views[appWindowType] } networkTables={ networkTables } />
+<svelte:component 
+	this={ views[appWindowType] } 
+	networkTables={ networkTables }
+	on:updateNetworkTablesTopic={ onUpdateNetworkTablesTopic } />
 
 <Theme
   theme="g100"

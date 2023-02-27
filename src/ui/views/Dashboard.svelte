@@ -1,9 +1,18 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
-  import { NetworkTables } from "../../common";
+  import { NetworkTables, NetworkTablesTopic, NetworkTablesDataType } from "../../common";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
+  import AutoCommand from "../components/Dashboard/AutoCommand.svelte";
 
   export let networkTables: NetworkTables;
+
+  const dispatch = createEventDispatcher();
+
+  const updateNetworkTablesTopic = (topic: NetworkTablesTopic): void => {
+    dispatch("updateNetworkTablesTopic", topic);
+  }
+
 </script>
 
 <main>
@@ -21,7 +30,18 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <AutoCommand
+        options={ networkTables.topics.get("/SmartDashboard/Auto/Command/options") }
+        active={ networkTables.topics.get("/SmartDashboard/Auto/Command/active") }
+        onSelected={ (e) => { 
+          updateNetworkTablesTopic({ 
+            id: 0, 
+            name: "/SmartDashboard/Auto/Command/selected", 
+            type: NetworkTablesDataType.String, 
+            value: e.detail.selectedItem.text 
+          }) } } />
+    </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
+  import { Utils } from "../../../common";
 
   export let stream: string;
   export let isConnected: boolean;
@@ -15,6 +16,11 @@
     image.src = transparentPixelImage;
     image.src = stream;
   }
+
+  (async (): Promise<void> => {
+    await Utils.wait(30);
+    reloadStream();
+  })();
 </script>
 
 <div class="main" style:width style:height>
