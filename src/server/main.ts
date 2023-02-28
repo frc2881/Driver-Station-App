@@ -1,8 +1,8 @@
 import { WebSocketServer, WebSocket } from "ws";
 import { IncomingMessage } from "http";
 import minimist from "minimist";
+import { Configuration } from "../config";
 import { 
-  Configuration,
   Utils,
   AppArguments, 
   AppWindowType,

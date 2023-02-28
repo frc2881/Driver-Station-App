@@ -14,9 +14,9 @@
     InlineNotification
   } from "carbon-components-svelte";
   import Plot, { Data } from "svelte-plotly.js";
+  import { Configuration } from "../../config";
   import { 
     Utils,
-    Configuration,
     NetworkTables,
     NetworkTablesTopic,
     NetworkTablesDataType

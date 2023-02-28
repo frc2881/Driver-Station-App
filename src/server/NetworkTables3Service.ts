@@ -3,8 +3,8 @@ import { readFile, writeFile } from "fs/promises";
 import { performance } from "perf_hooks";
 import { WebSocket, RawData } from "ws";
 import { encode, decode } from "cbor";
+import { Configuration } from "../config";
 import { 
-  Configuration,
   Utils, 
   Platform,
   NetworkTables,

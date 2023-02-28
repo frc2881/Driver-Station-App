@@ -1,5 +1,5 @@
-import { ConfigurationSettings } from "./types";
-import { CameraName } from "./enums";
+import { ConfigurationSettings } from "./common/types";
+import { CameraName } from "./common/enums";
 
 export namespace Configuration {
   export const Settings = {

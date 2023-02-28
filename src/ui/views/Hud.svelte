@@ -1,7 +1,7 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
+  import { Configuration } from "../../config";
   import { 
-    Configuration,
     NetworkTables
 	} from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";

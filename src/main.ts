@@ -3,8 +3,8 @@ import * as path from "path";
 import minimist from "minimist";
 import { fork, ChildProcess } from "child_process";
 import { watch } from "fs";
+import { Configuration } from "./config";
 import { 
-  Configuration, 
   AppArguments, 
   AppWindowType, 
   AppWindowOptions 

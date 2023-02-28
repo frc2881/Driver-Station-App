@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
+import { Configuration } from "../../config";
 import { 
-  Configuration,
   Utils,
   AppWindowType, 
   AppServerMessageType,

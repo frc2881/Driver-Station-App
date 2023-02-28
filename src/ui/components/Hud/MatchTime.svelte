@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { Configuration } from "../../../config";
   import { 
-    Configuration,
     Utils,
     NetworkTablesTopic
 	} from "../../../common";
