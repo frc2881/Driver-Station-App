@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import { 
     DataTable, 
     DataTableSkeleton,
@@ -22,10 +21,13 @@
     NetworkTablesTopic,
     NetworkTablesDataType
 	} from "../../common";
+  import { 
+    NetworkTablesStore, 
+    updateNetworkTablesTopics 
+  } from "../stores/NetworkTables";
 
-  export let networkTables: NetworkTables;
-
-  const dispatch = createEventDispatcher();
+  let networkTables: NetworkTables;
+  $: { networkTables = $NetworkTablesStore; }
 
   let isMetadataPropsEnabled: boolean = false;
   let isAllTelemetryEnabled: boolean = false;
@@ -92,10 +94,6 @@
     }
   }
 
-  const updateNetworkTablesTopic = (topic: NetworkTablesTopic): void => {
-    dispatch("updateNetworkTablesTopic", topic);
-  }
-
   const formatValue = (value: any, type: NetworkTablesDataType): string => {
     switch (type) {
       case NetworkTablesDataType.BooleanArray:
@@ -157,12 +155,12 @@
           <ToolbarMenuItem on:click={ () => { isSubscriptionsModalOpen = true; } }>Edit Subscriptions</ToolbarMenuItem>
           <ToolbarMenuItem on:click={ () => { isMetadataPropsEnabled = !isMetadataPropsEnabled; } }>{ isMetadataPropsEnabled ? "Hide": "Show" } Metadata</ToolbarMenuItem>
           <ToolbarMenuItem on:click={ () => { 
-            updateNetworkTablesTopic({ 
+            updateNetworkTablesTopics([{ 
               id: 0, 
               name: "/SmartDashboard/EnableAllTelemetry", 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
-            }) } }>
+            }]) } }>
             { isAllTelemetryEnabled ? "Disable": "Enable" } Telemetry
           </ToolbarMenuItem>
         </ToolbarMenu>

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { 
-    Utils,
     NetworkTablesTopic,
     Alliance
 	} from "../../../common";

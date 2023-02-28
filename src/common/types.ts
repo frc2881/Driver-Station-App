@@ -1,5 +1,6 @@
 import { Rectangle } from "electron";
 import { 
+  AppWindowType,
   AppServerMessageType,
   NetworkTablesServiceMessageType,
   NetworkTablesDataType,

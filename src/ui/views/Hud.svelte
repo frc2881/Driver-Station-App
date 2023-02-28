@@ -3,13 +3,15 @@
   import { 
     Configuration,
     Utils,
-		NetworkTables
+    NetworkTables
 	} from "../../common";
+  import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import Suction from "../components/Hud/Suction.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
-  export let networkTables: NetworkTables;
+  let networkTables: NetworkTables;
+  $: { networkTables = $NetworkTablesStore; }
 
   let matchTime: number;
 
