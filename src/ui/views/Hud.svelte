@@ -2,23 +2,16 @@
   import { InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
   import { 
     Configuration,
-    Utils,
     NetworkTables
 	} from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
+  import MatchTime from "../components/Hud/MatchTime.svelte";
   import Suction from "../components/Hud/Suction.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
-
-  let matchTime: number;
-
-  $: {
-    matchTime = networkTables.topics.get("/SmartDashboard/Timing/MatchTime")?.value ?? 0;
-    if (matchTime === -1) { matchTime = 0; }
-  }
 </script>
 
 <main>
@@ -34,37 +27,19 @@
       width={ "960px" } height={ "540px" } translation={ -240 }  />
   </div>
   <div class="info">
-    <div>
-      <TargetAlignment 
-        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
-        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }/>
-    </div>
-    <div 
-      class="matchTime"
-      class:inactive={ matchTime === -1 }
-      class:normal={ matchTime > 0 }
-      class:warning={ 
-        Utils.isNumberInRange(
-          matchTime, 
-          Configuration.Settings.MATCH_TIME_TRIGGERS.CRITICAL, 
-          Configuration.Settings.MATCH_TIME_TRIGGERS.WARNING
-        ) }
-      class:critical={ 
-        Utils.isNumberInRange(
-          matchTime, 1, Configuration.Settings.MATCH_TIME_TRIGGERS.CRITICAL
-        ) }>
-      { matchTime }
-    </div>
-    <div>
-      <Suction
-        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
-        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
-        topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
-        topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
-        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
-        bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
-        bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
-    </div>
+    <TargetAlignment 
+      robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
+      isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }/>
+    <MatchTime 
+      matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
+    <Suction
+      isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
+      topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
+      topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
+      topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
+      bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
+      bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
+      bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
   </div>
 { :else }
   <div class="inlineNotification">
@@ -87,6 +62,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    cursor: none;
 
     .cameras {
       display: flex;
@@ -99,34 +75,6 @@
       display: grid;
       grid-template-columns: 45% 25% 30%;
       width: 100%;
-
-      .matchTime {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 200px;
-        line-height: 200px;
-        font-weight: bold;
-        color: var(--app-color-charcoal);
-
-        &.inactive {
-          color: var(--app-color-charcoal) !important;
-        }
-
-        &.normal {
-          color: var(--app-color-white);
-        }
-
-        &.warning {
-          color: var(--app-color-yellow);
-          animation: pulse-animation 1000ms ease-in-out infinite;
-        }
-
-        &.critical {
-          color: var(--app-color-red);
-          animation: pulse-animation 750ms ease-in-out infinite;
-        }
-      }
     }
   }
 
