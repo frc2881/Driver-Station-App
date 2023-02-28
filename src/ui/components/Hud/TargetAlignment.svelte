@@ -1,6 +1,7 @@
 <script lang="ts">
   import { 
     NetworkTablesTopic,
+    Pose,
     Alliance
 	} from "../../../common";
 
@@ -12,27 +13,14 @@
     [Alliance.Red]: 14.78
   }
 
-  type Pose = {
-    x: number;
-    y: number;
-    rotation: number;
-  }
-
   let alliance: Alliance = Alliance.Blue;
   let pose: Pose = { x: 0, y: 0, rotation: 0 };
-  let isInRange: boolean = false;
 
   $: {
     alliance = isRedAlliance?.value ? Alliance.Red : Alliance.Blue;
 
     if (robotPose?.value) {
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
-    }
-
-    if (alliance === Alliance.Red) {
-      isInRange = Math.abs(zoneLimits[Alliance.Red] - pose.x) <= 1;
-    } else {
-      isInRange = Math.abs(pose.x - zoneLimits[Alliance.Blue]) <= 1;
     }
   }
 </script>
@@ -46,10 +34,10 @@
     <div class="target e" />
     <div class="target f" />
     <div class="barrier" />
-    <div class="robot"      
-      style:display={ isInRange ? "block" : "none" } 
-      style:right={ `${ ((pose.y * 100) - 24) }px` } 
-      style:bottom={ `${ ((pose.x - 1.70) * 100) + 90 }px` }
+    <div class="robot"
+      style:left={ `${ alliance === Alliance.Red ? ((pose.y * 100) - 25) : 0 }px` }       
+      style:right={ `${ alliance === Alliance.Blue ? ((pose.y * 100) - 22) : 0 }px` } 
+      style:bottom={ `${ ((pose.x - (alliance === Alliance.Blue ? 1.70 : 14.78)) * 100) + 90 }px` }
       style:transform={ `rotate(${ -pose.rotation }deg` }>
       <div class="arm" />
     </div>
@@ -63,6 +51,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 
     .zone {
       position: relative;
