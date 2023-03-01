@@ -18,11 +18,9 @@
   <div class="status">
     { #if status?.value === RobotStatus.Enabled }
       <CheckmarkFilled width=48 height=48 fill="#00CC00" />
-    { /if }
-    { #if status?.value === RobotStatus.Disabled }
+    { :else if status?.value === RobotStatus.Disabled }
       <CloseFilled width=48 height=48 fill="#CC0000" />
-    { /if }
-    { #if status?.value === RobotStatus.Estopped }
+    { :else if status?.value === RobotStatus.Estopped }
       <WarningAltFilled width=48 height=48 fill="#CCCC00" />
     { /if } 
   </div>

@@ -29,7 +29,7 @@
     Utils.isNumberInRange(
       time, 1, Configuration.Settings.MATCH_TIME_TRIGGERS.CRITICAL
     ) }>
-  { time }
+  <div class="time">{ time }</div>
 </div>
 
 <style lang="postcss">
@@ -58,6 +58,13 @@
     &.critical {
       color: var(--app-color-red);
       animation: pulse-animation 750ms ease-in-out infinite;
+    }
+
+    .time {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      border: 1px solid #666666;
     }
   }
 </style>

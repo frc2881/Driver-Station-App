@@ -2,7 +2,8 @@
   import { 
     NetworkTablesTopic,
     Pose,
-    Alliance
+    Alliance,
+    Utils
 	} from "../../../common";
 
   export let robotPose: NetworkTablesTopic;
@@ -37,12 +38,18 @@
     <div class="barrier" 
       style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="robot"
+      style:opacity={ pose.x === 0 && pose.y === 0 ? 0 : 1 }
       style:left={ alliance === Alliance.Red ? `${ (pose.y * 100) - 24 }px` : null }       
       style:right={ alliance === Alliance.Blue ? `${ (pose.y * 100) - 24 }px` : null } 
       style:bottom={ `${ ((alliance === Alliance.Blue ? pose.x - barriers[Alliance.Blue] : barriers[Alliance.Red] - pose.x) * 100) + 90 }px` }
       style:transform={ `rotate(${ pose.rotation }deg` }>
       <div class="arm" />
-      <div class="arrow" class:aligned={ coneNodes.includes(pose.y) && pose.x === barriers[alliance] } />
+      <div class="arrow" 
+        class:aligned={ 
+          coneNodes.includes(pose.y) && 
+          pose.x === barriers[alliance] && 
+          Utils.isNumberInRange(Math.abs(pose.rotation), 179, 181) 
+        } />
     </div>
   </div>
 </div>
@@ -59,7 +66,7 @@
     .zone {
       position: relative;
       width: 549px;
-      height: 300px;
+      height: 320px;
 
       .coneNode {
         position: absolute;

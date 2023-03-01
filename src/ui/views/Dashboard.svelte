@@ -8,6 +8,7 @@
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import SendableChooser from "../components/SendableChooser.svelte";
+  import BatteryInfo from "../components/Dashboard/BatteryInfo.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
@@ -21,19 +22,21 @@
         mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
         status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }/>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/BatteryVoltage") } />
+    </div>
   </div>
   <div class="widgets">
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget">
+    <Tile class="widget">      
       <SendableChooser
         name="Auto Command"
         options={ networkTables.topics.get("/SmartDashboard/Auto/Command/options") }
         active={ networkTables.topics.get("/SmartDashboard/Auto/Command/active") } />
     </Tile>
+    <Tile class="widget"></Tile>
+    <Tile class="widget"></Tile>
+    <Tile class="widget"></Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
