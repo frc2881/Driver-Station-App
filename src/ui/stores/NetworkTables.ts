@@ -26,7 +26,6 @@ let networkTables: NetworkTables = {
 export const NetworkTablesStore = writable(networkTables);
 
 export const connectNetworkTablesStore = (appWindowType: AppWindowType): void => {
-  console.log("network tables connected");
   webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
 	webSocket.binaryType = "arraybuffer";
 	webSocket.onmessage = (e) => onMessageReceived(e);

@@ -8,17 +8,18 @@
   export let robotPose: NetworkTablesTopic;
   export let isRedAlliance: NetworkTablesTopic;
 
-  const zoneLimits = {
+  const barriers = {
     [Alliance.Blue]: 1.70,
     [Alliance.Red]: 14.78
   }
+  const coneNodes = [ 0.51, 1.63, 2.19, 3.31, 3.86, 4.98 ];
+  const cubeNodes = [ 1.07, 2.75, 4.42 ];
 
   let alliance: Alliance = Alliance.Blue;
   let pose: Pose = { x: 0, y: 0, rotation: 0 };
 
   $: {
     alliance = isRedAlliance?.value ? Alliance.Red : Alliance.Blue;
-
     if (robotPose?.value) {
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
@@ -27,19 +28,21 @@
 
 <div class="main">
   <div class="zone">
-    <div class="target a" />
-    <div class="target b" />
-    <div class="target c" />
-    <div class="target d" />
-    <div class="target e" />
-    <div class="target f" />
-    <div class="barrier" />
+    { #each coneNodes as coneNode }
+      <div class="coneNode" style:right={ `${ (coneNode * 100) - 2 }px` } />
+    { /each }
+    { #each cubeNodes as cubeNode }
+      <div class="cubeNode" style:right={ `${ (cubeNode * 100) - 23 }px` } />
+    { /each }
+    <div class="barrier" 
+      style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="robot"
-      style:left={ `${ alliance === Alliance.Red ? ((pose.y * 100) - 25) : 0 }px` }       
-      style:right={ `${ alliance === Alliance.Blue ? ((pose.y * 100) - 22) : 0 }px` } 
-      style:bottom={ `${ ((pose.x - (alliance === Alliance.Blue ? 1.70 : 14.78)) * 100) + 90 }px` }
-      style:transform={ `rotate(${ -pose.rotation }deg` }>
+      style:left={ alliance === Alliance.Red ? `${ (pose.y * 100) - 24 }px` : null }       
+      style:right={ alliance === Alliance.Blue ? `${ (pose.y * 100) - 24 }px` : null } 
+      style:bottom={ `${ ((alliance === Alliance.Blue ? pose.x - barriers[Alliance.Blue] : barriers[Alliance.Red] - pose.x) * 100) + 90 }px` }
+      style:transform={ `rotate(${ pose.rotation }deg` }>
       <div class="arm" />
+      <div class="arrow" class:aligned={ coneNodes.includes(pose.y) && pose.x === barriers[alliance] } />
     </div>
   </div>
 </div>
@@ -47,7 +50,7 @@
 <style lang="postcss">
   .main {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
     height: 100%;
@@ -55,27 +58,30 @@
 
     .zone {
       position: relative;
-      width: 550px;
-      height: 200px;
+      width: 549px;
+      height: 300px;
 
-      .target {
+      .coneNode {
         position: absolute;
-        width: 5px;
-        height: 80px;
-        background: #FFFFFF;
         bottom: 0;
+        width: 4px;
+        height: 60px;
+        margin-top: 5px;
+        background: #FFFFFF;
+      }
 
-        &.a { right: 51px; }
-        &.b { right: 162px; }
-        &.c { right: 219px; }
-        &.d { right: 331px; }
-        &.e { right: 386px; }
-        &.f { right: 498px; }
+      .cubeNode {
+        position: absolute;
+        bottom: 0;
+        width: 46px;
+        height: 60px;
+        margin-top: 5px;
+        border: 1px solid #CCCCCC;
       }
 
       .barrier {
         position: absolute;
-        width: 100%;
+        width: 549px;
         height: 9px;
         bottom: 81px;
         background: #666666;
@@ -83,17 +89,34 @@
 
       .robot {
         position: absolute;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
         width: 48px;
         height: 54px;
-        border: 1px solid var(--app-color-pink);
+        border: 2px solid var(--app-color-pink);
 
         .arm {
-          position: absolute;
-          left: 20px;
-          width: 7px;
-          height: 75%;
+          width: 4px;
+          height: 66%;
+          margin-top: 3px;
           background: var(--app-color-pink);
         }
+
+        .arrow {
+          position: absolute;
+          width: 0; 
+          height: 0; 
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-top: 24px solid #FFFFFF66;
+          transform: translateY(-28px) rotate(180deg);
+
+          &.aligned {
+            border-top-color: #00FF00;
+          }
+        }
+        
       }
     }
   }

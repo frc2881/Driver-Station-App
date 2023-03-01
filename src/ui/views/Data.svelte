@@ -130,7 +130,7 @@
   }
 
   $: {
-    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/EnableAllTelemetry")?.value ?? false;
+    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/IsAllTelemetryEnabled")?.value ?? false;
   }
 </script>
 
@@ -157,7 +157,7 @@
           <ToolbarMenuItem on:click={ () => { 
             updateNetworkTablesTopics([{ 
               id: 0, 
-              name: "/SmartDashboard/EnableAllTelemetry", 
+              name: "/SmartDashboard/IsAllTelemetryEnabled", 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
             }]) } }>

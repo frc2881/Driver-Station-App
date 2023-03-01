@@ -13,8 +13,10 @@
   let image: HTMLImageElement;
 
   const reloadStream = (): void => {
-    image.src = transparentPixelImage;
-    image.src = stream;
+    if (image) {
+      image.src = transparentPixelImage;
+      image.src = stream;
+    }
   }
 
   (async (): Promise<void> => {

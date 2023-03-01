@@ -11,7 +11,7 @@
   let selectedItemId = 0;
 
   $: {
-    if (options && active) {
+    if (options?.value && active?.value) {
       items = [];
       let id = 0;
       for (const option of options?.value as Array<string>) {
