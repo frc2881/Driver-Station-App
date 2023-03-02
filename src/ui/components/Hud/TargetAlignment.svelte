@@ -42,7 +42,7 @@
       style:left={ alliance === Alliance.Red ? `${ (pose.y * 100) - 24 }px` : null }       
       style:right={ alliance === Alliance.Blue ? `${ (pose.y * 100) - 24 }px` : null } 
       style:bottom={ `${ ((alliance === Alliance.Blue ? pose.x - barriers[Alliance.Blue] : barriers[Alliance.Red] - pose.x) * 100) + 90 }px` }
-      style:transform={ `rotate(${ pose.rotation }deg` }>
+      style:transform={ `rotate(${ alliance === Alliance.Blue ? pose.rotation : pose.rotation - 180 }deg` }>
       <div class="arm" />
       <div class="arrow" 
         class:aligned={ 
