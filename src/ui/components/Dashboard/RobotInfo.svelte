@@ -12,7 +12,9 @@
 </script>
 
 <div class="main">
-  <div class="mode">
+  <div 
+    class="mode" 
+    class:active={ status?.value === RobotStatus.Enabled }>
     <h3>{ status?.value === RobotStatus.Estopped ? "ESTOP" : mode?.value }</h3>
   </div>
   <div class="status">
@@ -39,6 +41,11 @@
       width: 160px;
       padding: 5px 0;
       border: 1px solid var(--app-color-charcoal);
+
+      &.active {
+        background: var(--app-color-smoke);
+        color: #000000;
+      }
     }
 
     .status {

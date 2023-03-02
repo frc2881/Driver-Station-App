@@ -31,6 +31,7 @@
 
   let isMetadataPropsEnabled: boolean = false;
   let isAllTelemetryEnabled: boolean = false;
+  let isDebugEnabled: boolean = false;
 
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
@@ -163,6 +164,9 @@
             }]) } }>
             { isAllTelemetryEnabled ? "Disable": "Enable" } Telemetry
           </ToolbarMenuItem>
+          <ToolbarMenuItem on:click={ () => { isDebugEnabled = !isDebugEnabled; networkTables = networkTables; } }>
+            { isDebugEnabled ? "Hide": "Show" } Debug
+          </ToolbarMenuItem>
         </ToolbarMenu>
       </ToolbarContent>
     </Toolbar>
@@ -251,7 +255,9 @@
   </div>
 </Modal>
 
-<!-- <pre class="debug">{ Utils.stringifyNetworkTables(networkTables, 4) }</pre> -->
+{ #if isDebugEnabled }
+<pre class="debug">{ Utils.stringifyNetworkTables(networkTables, 4) }</pre>
+{ /if }
 
 <style lang="postcss">
   main {
@@ -271,11 +277,11 @@
     margin: -1.5em 0 .5em 0;
   }
 
-	/* .debug {
+	.debug {
     display: block;
     margin: 0;
-    padding: 1em;
+    padding: 1em 2.5em 2.5em 2.5em;
 		color: var(--app-color-green);
     font-size: 80%;
-	} */
+	}
 </style>

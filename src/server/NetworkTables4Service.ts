@@ -68,11 +68,12 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._networkTablesLookup.clear();
     this._isServerTimeSynchronized = false;
     this._serverTimeOffset = undefined;
-    this._serverRoundTripTime = 0;
+    this._serverRoundTripTime = Number.MAX_SAFE_INTEGER;
     this._pubuid = 0;
   }
 
   private onConnectionOpened = (): void => {
+    this.reset();
     this._networkTables.isConnected = true;
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
     this.runServerTimestampSynchronization();
