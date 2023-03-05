@@ -16,11 +16,11 @@
 
 <div class="main">
   <h3 class="value">{ formatVoltage(voltage?.value ?? 0) }</h3>
-  { #if voltage?.value >= 12.5 }
+  { #if voltage?.value >= 12.3 }
     <BatteryFull width=64 height=64 fill="#00CC00" />
-  { :else if Utils.isNumberInRange(voltage?.value, 12.2, 12.49) }
+  { :else if Utils.isNumberInRange(voltage?.value, 12.1, 12.29) }
     <BatteryHalf width=64 height=64 fill="#CCCC00" />
-  { :else if Utils.isNumberInRange(voltage?.value, 12, 12.19) }
+  { :else if Utils.isNumberInRange(voltage?.value, 12, 12.09) }
     <BatteryHalf width=64 height=64 fill="#FF6600" />
   { :else }
     <BatteryQuarter width=64 height=64 fill="#CC0000" />

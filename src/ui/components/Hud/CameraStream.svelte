@@ -12,9 +12,10 @@
 
   let image: HTMLImageElement;
 
-  const reloadStream = (): void => {
+  const reloadStream = async (): Promise<void> => {
     if (image) {
       image.src = transparentPixelImage;
+      await Utils.wait(1);
       image.src = stream;
     }
   }
