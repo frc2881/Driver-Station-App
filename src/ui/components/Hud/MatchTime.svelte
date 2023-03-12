@@ -37,8 +37,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 200px;
-    line-height: 200px;
+    font-size: 300px;
+    line-height: 300px;
     font-weight: bold;
     color: var(--app-color-charcoal);
 
@@ -64,7 +64,6 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      border: 1px solid #666666;
     }
   }
 </style>

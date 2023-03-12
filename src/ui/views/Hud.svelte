@@ -16,22 +16,14 @@
 
 <main>
 { #if networkTables.isConnected }
-  <div class="cameras">
-    <CameraStream 
-      stream={ Configuration.Settings.CAMERA_STREAMS.LEFT }
-      isConnected={ networkTables.isConnected }
-      width={ "960px" } height={ "540px" } translation={ 240 }  />
-    <CameraStream 
-      stream={ Configuration.Settings.CAMERA_STREAMS.RIGHT }
-      isConnected={ networkTables.isConnected }
-      width={ "960px" } height={ "540px" } translation={ -240 }  />
-  </div>
-  <div class="info">
+  <div class="primary">
     <TargetAlignment 
       robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
       isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }/>
-    <MatchTime 
-      matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
+    <CameraStream 
+      stream={ Configuration.Settings.CAMERA_STREAMS.DRIVER }
+      isConnected={ networkTables.isConnected }
+      width={ "800px" } height={ "600px" }  />
     <Suction
       isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
       topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
@@ -40,6 +32,10 @@
       bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
       bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
       bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
+  </div>
+  <div class="secondary">
+    <MatchTime 
+      matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
   </div>
 { :else }
   <div class="inlineNotification">
@@ -58,22 +54,21 @@
   main {
     display: grid;
     grid-template-rows: 600px auto;
-    row-gap: 20px;
+    row-gap: 80px;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 
-    .cameras {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
+    .primary {
+      display: grid;
+      grid-template-columns: 560px 800px 560px;
+      margin-top: 80px;
     }
 
-    .info {
-      display: grid;
-      grid-template-columns: 45% 25% 30%;
-      width: 100%;
+    .secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 

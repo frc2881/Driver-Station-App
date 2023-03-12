@@ -6,7 +6,7 @@
   export let isConnected: boolean;
   export let width: string;
   export let height: string;
-  export let translation: number;
+  export let translation: number = 0;
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 

@@ -24,12 +24,6 @@
 
 <div class="main">
   <div class="status">
-    <div>
-      <svelte:component 
-        this={ isEnabled?.value ? CheckmarkFilled : CloseFilled }
-        fill={ isEnabled?.value ? "#00CC00" : "#CC0000" }
-        width=180 height=180 />
-    </div>
     <div class="pressures">
       <svelte:component 
         this={ 
@@ -40,7 +34,7 @@
           topPressureCurrent?.value <= topPressureMinimum?.value ? "#00CC00" :
           (Utils.isNumberInRange(topPressureCurrent?.value, topPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
         }
-        width=80 height=80 />
+        width=180 height=180 />
       <svelte:component 
         this={ 
           bottomPressureCurrent?.value <= bottomPressureTarget?.value ? CenterCircle : 
@@ -50,7 +44,13 @@
           bottomPressureCurrent?.value <= bottomPressureMinimum?.value ? "#00CC00" :
           (Utils.isNumberInRange(bottomPressureCurrent?.value, bottomPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
         }
-        width=80 height=80 />
+        width=180 height=180 />
+    </div>
+    <div>
+      <svelte:component 
+        this={ isEnabled?.value ? CheckmarkFilled : CloseFilled }
+        fill={ isEnabled?.value ? "#00CC00" : "#CC0000" }
+        width=200 height=200 />
     </div>
   </div>
 </div>
@@ -58,15 +58,14 @@
 <style lang="postcss">
   .main {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
 
     .status {
       display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 10px;
+      grid-template-rows: auto auto;
+      row-gap: 10px;
 
       .pressures {
         display: flex;
