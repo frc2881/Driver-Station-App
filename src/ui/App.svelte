@@ -57,10 +57,4 @@
 	.hidden {
     display: none;
   }
-
-	@keyframes pulse-animation {
-		0%    { opacity: 0.75; transform: scale(1);  }
-		50%   { opacity: 1; transform: scale(1.025); }
-		100%  { opacity: 0.75; transform: scale(1); }
-	}
 </style>

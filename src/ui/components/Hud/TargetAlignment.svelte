@@ -16,29 +16,45 @@
     Cube
   }
 
-  const barriers = {
-    [Alliance.Blue]: 1.863,
-    [Alliance.Red]: 14.677
+  type Node = {
+    y: number;
+    slot: number;
+    type: NodeType;
   }
 
-  const nodes = [ 
-    0.475, // cone
-    1.07,  // cube
-    1.665, // cone
-    2.155, // cone
-    2.75,  // cube
-    3.345, // cone
-    3.825, // cone
-    4.42,  // cube
-    5.015  // cone
-  ];
+  const targetGridX = 1.863;
+
+  const nodes = {
+    [Alliance.Blue]: [
+      { y: 0.475, slot: 9, type: NodeType.Cone },
+      { y: 1.070, slot: 8, type: NodeType.Cube },
+      { y: 1.665, slot: 7, type: NodeType.Cone },
+      { y: 2.155, slot: 6, type: NodeType.Cone },
+      { y: 2.750, slot: 5, type: NodeType.Cube },
+      { y: 3.345, slot: 4, type: NodeType.Cone },
+      { y: 3.825, slot: 3, type: NodeType.Cone },
+      { y: 4.420, slot: 2, type: NodeType.Cube },
+      { y: 5.015, slot: 1, type: NodeType.Cone }
+    ] as Node[],
+    [Alliance.Red]: [
+      { y: 3.005, slot: 1, type: NodeType.Cone },
+      { y: 3.600, slot: 2, type: NodeType.Cube },
+      { y: 4.195, slot: 3, type: NodeType.Cone },
+      { y: 4.675, slot: 4, type: NodeType.Cone },
+      { y: 5.270, slot: 5, type: NodeType.Cube },
+      { y: 5.865, slot: 6, type: NodeType.Cone },
+      { y: 6.355, slot: 7, type: NodeType.Cone },
+      { y: 6.950, slot: 8, type: NodeType.Cube },
+      { y: 7.545, slot: 9, type: NodeType.Cone }
+    ] as Node[]
+  };
 
   let alliance: Alliance = Alliance.Blue;
   let pose: Pose = { x: 0, y: 0, rotation: 0 };
+  let targetNode: Node = null;
 
   let isVisible: boolean = false;
   let isAligned: boolean = false;
-  let targetNodeType: NodeType = NodeType.Cone;
   let isHorizontalAligned: boolean = false;
   let isVerticalAligned: boolean = false;
   let isRotationAligned: boolean = false;
@@ -55,40 +71,39 @@
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
 
-    let targetNode: number = 0;
-    if (Utils.isNumberInRange(pose.x, barriers[alliance] - 0.3, barriers[alliance] + 0.3)) {
+    targetNode = null;
+    if (Utils.isNumberInRange(pose.x, targetGridX - 0.3, targetGridX + 0.3)) {
       let index = 0;
-      for (const node of nodes) {
-        if (Utils.isNumberInRange(pose.y, node - 0.2, node + 0.2)) {
+      for (const node of nodes[alliance]) {
+        if (Utils.isNumberInRange(pose.y, node.y - 0.2, node.y + 0.2)) {
           targetNode = node;
-          targetNodeType = [1, 4, 7].includes(index) ? NodeType.Cube : NodeType.Cone;
           break;
         }
         index += 1;
       }
     }
-    isVisible = targetNode > 0;
+    isVisible = targetNode != null;
 
     if (isVisible) {
-      isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode - 0.05, targetNode + 0.05);
-      isVerticalAligned = Utils.isNumberInRange(pose.x, barriers[alliance] - 0.05, barriers[alliance] + 0.05);
+      isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - 0.05, targetNode.y + 0.05);
+      isVerticalAligned = Utils.isNumberInRange(pose.x, targetGridX - 0.05, targetGridX + 0.05);
       isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184) || Utils.isNumberInRange(pose.rotation, -3, 3);
       isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
 
-      const deltaY = Math.abs(pose.y - targetNode);
-      const translateX = (pose.y < targetNode ? -deltaY : deltaY) * 400;
-      const translateY = (alliance === Alliance.Red ? -(barriers[alliance] - pose.x) : (barriers[alliance] - pose.x)) * 400;
-      transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - (alliance === Alliance.Red ? 0 : 180) }deg)`;
+      const translateX = -(pose.y - targetNode.y) * 400;
+      const translateY = (targetGridX - pose.x) * 400;
+      transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
     }
   }
 </script>
 
 <div class="main">
   <div class="zone">
+    <div class="slot" style:display={ isVisible ? "block" : "none" } >{ targetNode?.slot }</div>
     <div class="barrier" style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="target"
       style:opacity={ isVisible ? 1 : 0 } 
-      style:width={ targetNodeType === NodeType.Cube ? "180px" : "16px" } />
+      style:width={ targetNode?.type === NodeType.Cube ? "180px" : "16px" } />
     <div class="robot"
       style:opacity={ isVisible ? 1 : 0 }
       style:transform={ transform }>
@@ -122,6 +137,13 @@
       justify-content: flex-end;
       width: 360px;
       height: 560px;
+
+      .slot {
+        position: absolute;
+        top: 0;
+        font-size: 200px;
+        opacity: .25;
+      }
 
       .barrier {
         width: 100%;

@@ -9,6 +9,8 @@
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import Suction from "../components/Hud/Suction.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
+  import ArmPositions from "../components/Hud/ArmPositions.svelte";
+  import GamePiece from "../components/Hud/GamePiece.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
@@ -34,8 +36,13 @@
       bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
   </div>
   <div class="secondary">
+    <GamePiece
+      lightsPattern={ networkTables.topics.get("/SmartDashboard/Lights/Pattern") } />
     <MatchTime 
       matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
+    <ArmPositions 
+      armTiltPosition={ networkTables.topics.get("/SmartDashboard/Arm/Tilt/Position") }
+      armExtendPosition={ networkTables.topics.get("/SmartDashboard/Arm/Extend/Position") } />
   </div>
 { :else }
   <div class="inlineNotification">
@@ -66,9 +73,8 @@
     }
 
     .secondary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 560px 800px 560px;
     }
   }
 
