@@ -37,8 +37,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 300px;
-    line-height: 300px;
+    height: 100%;
+    font-size: 280px;
+    line-height: 280px;
     font-weight: bold;
     color: var(--app-color-charcoal);
 

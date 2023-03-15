@@ -37,7 +37,9 @@
           value: e.detail.selectedItem.text
         }]);
       } } />
+    <div class="active"><h3>{ active?.value }</h3></div>
   </div>
+
 </div>
 
 <style lang="postcss">
@@ -50,5 +52,15 @@
     .title {
       color: var(--app-color-smoke);
     }
+
+    .active {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      height: 100%;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
   }
 </style>

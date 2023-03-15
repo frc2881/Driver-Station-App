@@ -21,14 +21,14 @@
 
 <div class="main">
   <div class="tilt">
-    <ChevronUp width=48 height=48 fill="#FFFFFF" />
+    <ChevronUp width=48 height=48 fill="#FFFFFF99" />
     <div class="value">{ tilt?.toFixed(2) ?? "----" }</div>
-    <ChevronDown width=48 height=48 fill="#FFFFFF" />
+    <ChevronDown width=48 height=48 fill="#FFFFFF99" />
   </div>
   <div class="extend">
-    <ChevronLeft width=48 height=48 fill="#FFFFFF" />
+    <ChevronLeft width=48 height=48 fill="#FFFFFF99" />
     <div class="value">{ extend?.toFixed(2) ?? "----" }</div>
-    <ChevronRight width=48 height=48 fill="#FFFFFF" />
+    <ChevronRight width=48 height=48 fill="#FFFFFF99" />
   </div>
 </div>
 
@@ -40,7 +40,6 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding-right: 20px;
 
     .tilt {
       display: flex;
@@ -52,12 +51,12 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      margin-top: 15px;
+      margin: 20px 0;
     }
 
     .value {
-      font-size: 48px;
-      margin: 5px 10px;
+      font-size: 64px;
+      margin: 10px;
     }
   }
 </style>

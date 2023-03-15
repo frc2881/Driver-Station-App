@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
+  import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
   import { Configuration } from "../../config";
   import { 
     NetworkTables
@@ -19,30 +19,42 @@
 <main>
 { #if networkTables.isConnected }
   <div class="primary">
-    <TargetAlignment 
-      robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
-      isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }/>
-    <CameraStream 
-      stream={ Configuration.Settings.CAMERA_STREAMS.DRIVER }
-      isConnected={ networkTables.isConnected }
-      width={ "800px" } height={ "600px" }  />
-    <Suction
-      isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
-      topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
-      topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
-      topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
-      bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
-      bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
-      bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
+    <Tile class="widget">
+      <TargetAlignment 
+        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
+        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") } />
+    </Tile>
+    <Tile class="widget">
+      <CameraStream 
+        stream={ Configuration.Settings.CAMERA_STREAMS.DRIVER }
+        isConnected={ networkTables.isConnected }
+        width={ "800px" } height={ "600px" } />
+    </Tile>
+    <Tile class="widget">
+      <Suction
+        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
+        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Current") }
+        topPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Minimum") }
+        topPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Top/Pressure/Target") }
+        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Current") }
+        bottomPressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Minimum") }
+        bottomPressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Bottom/Pressure/Target") } />
+    </Tile>
   </div>
   <div class="secondary">
-    <GamePiece
-      lightsPattern={ networkTables.topics.get("/SmartDashboard/Lights/Pattern") } />
-    <MatchTime 
-      matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
-    <ArmPositions 
-      armTiltPosition={ networkTables.topics.get("/SmartDashboard/Arm/Tilt/Position") }
-      armExtendPosition={ networkTables.topics.get("/SmartDashboard/Arm/Extend/Position") } />
+    <Tile class="widget">
+      <GamePiece
+        lightsPattern={ networkTables.topics.get("/SmartDashboard/Lights/Pattern") } />
+    </Tile>
+    <Tile class="widget">
+      <MatchTime 
+        matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
+    </Tile>
+    <Tile class="widget">
+      <ArmPositions 
+        armTiltPosition={ networkTables.topics.get("/SmartDashboard/Arm/Tilt/Position") }
+        armExtendPosition={ networkTables.topics.get("/SmartDashboard/Arm/Extend/Position") } />
+    </Tile>
   </div>
 { :else }
   <div class="inlineNotification">
@@ -60,21 +72,26 @@
 <style lang="postcss">
   main {
     display: grid;
-    grid-template-rows: 600px auto;
-    row-gap: 80px;
+    grid-template-rows: 620px auto;
+    row-gap: 0px;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    padding: 10px;
 
     .primary {
       display: grid;
-      grid-template-columns: 560px 800px 560px;
-      margin-top: 80px;
+      grid-template-columns: 540px 820px 540px;
     }
 
     .secondary {
       display: grid;
-      grid-template-columns: 560px 800px 560px;
+      grid-template-columns: 540px 820px 540px;
+    }
+
+    :global .widget {
+      margin: 10px;
+      padding: 0px;
     }
   }
 

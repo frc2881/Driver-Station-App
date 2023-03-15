@@ -34,7 +34,7 @@
           topPressureCurrent?.value <= topPressureMinimum?.value ? "#00CC00" :
           (Utils.isNumberInRange(topPressureCurrent?.value, topPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
         }
-        width=180 height=180 />
+        width=150 height=150 />
       <svelte:component 
         this={ 
           bottomPressureCurrent?.value <= bottomPressureTarget?.value ? CenterCircle : 
@@ -44,13 +44,13 @@
           bottomPressureCurrent?.value <= bottomPressureMinimum?.value ? "#00CC00" :
           (Utils.isNumberInRange(bottomPressureCurrent?.value, bottomPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
         }
-        width=180 height=180 />
+        width=150 height=150 />
     </div>
     <div>
       <svelte:component 
         this={ isEnabled?.value ? CheckmarkFilled : CloseFilled }
         fill={ isEnabled?.value ? "#00CC00" : "#CC0000" }
-        width=200 height=200 />
+        width=160 height=160 />
     </div>
   </div>
 </div>

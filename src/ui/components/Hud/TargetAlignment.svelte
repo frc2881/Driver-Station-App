@@ -99,11 +99,11 @@
 
 <div class="main">
   <div class="zone">
-    <div class="slot" style:display={ isVisible ? "block" : "none" } >{ targetNode?.slot }</div>
+    <div class="slot"><span style:display={ isVisible ? "block" : "none" }>{ targetNode?.slot }</span></div>
     <div class="barrier" style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="target"
       style:opacity={ isVisible ? 1 : 0 } 
-      style:width={ targetNode?.type === NodeType.Cube ? "180px" : "16px" } />
+      style:width={ targetNode?.type === NodeType.Cube ? "160px" : "20px" } />
     <div class="robot"
       style:opacity={ isVisible ? 1 : 0 }
       style:transform={ transform }>
@@ -114,7 +114,7 @@
           height=128 />
       </div>
       <CaretDown
-        stroke="#FFFFFFCC"
+        stroke="#FFFFFF99"
         fill="transparent"
         width=178 height=178 />
     </div>
@@ -124,7 +124,7 @@
 <style lang="postcss">
   .main {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
@@ -140,8 +140,13 @@
 
       .slot {
         position: absolute;
-        top: 0;
-        font-size: 200px;
+        text-align: center;
+        top: 60px;
+        width: 160px;
+        height: 140px;
+        font-size: 120px;
+        line-height: 140px;
+        border: 1px solid #FFFFFF;
         opacity: .25;
       }
 
@@ -153,7 +158,7 @@
       .target {
         height: 80px;
         margin-top: 32px;
-        background: #FFFFFF;
+        background: #FFFFFF99;
       }
 
       .robot {
