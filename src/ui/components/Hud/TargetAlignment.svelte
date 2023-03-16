@@ -26,26 +26,26 @@
 
   const nodes = {
     [Alliance.Blue]: [
-      { y: 0.475, slot: 9, type: NodeType.Cone },
-      { y: 1.070, slot: 8, type: NodeType.Cube },
-      { y: 1.665, slot: 7, type: NodeType.Cone },
-      { y: 2.155, slot: 6, type: NodeType.Cone },
+      { y: 0.475, slot: 1, type: NodeType.Cone },
+      { y: 1.070, slot: 2, type: NodeType.Cube },
+      { y: 1.665, slot: 3, type: NodeType.Cone },
+      { y: 2.155, slot: 4, type: NodeType.Cone },
       { y: 2.750, slot: 5, type: NodeType.Cube },
-      { y: 3.345, slot: 4, type: NodeType.Cone },
-      { y: 3.825, slot: 3, type: NodeType.Cone },
-      { y: 4.420, slot: 2, type: NodeType.Cube },
-      { y: 5.015, slot: 1, type: NodeType.Cone }
+      { y: 3.345, slot: 6, type: NodeType.Cone },
+      { y: 3.825, slot: 7, type: NodeType.Cone },
+      { y: 4.420, slot: 8, type: NodeType.Cube },
+      { y: 5.015, slot: 9, type: NodeType.Cone }
     ] as Node[],
     [Alliance.Red]: [
-      { y: 3.005, slot: 1, type: NodeType.Cone },
-      { y: 3.600, slot: 2, type: NodeType.Cube },
-      { y: 4.195, slot: 3, type: NodeType.Cone },
-      { y: 4.675, slot: 4, type: NodeType.Cone },
+      { y: 3.005, slot: 9, type: NodeType.Cone },
+      { y: 3.600, slot: 8, type: NodeType.Cube },
+      { y: 4.195, slot: 7, type: NodeType.Cone },
+      { y: 4.675, slot: 6, type: NodeType.Cone },
       { y: 5.270, slot: 5, type: NodeType.Cube },
-      { y: 5.865, slot: 6, type: NodeType.Cone },
-      { y: 6.355, slot: 7, type: NodeType.Cone },
-      { y: 6.950, slot: 8, type: NodeType.Cube },
-      { y: 7.545, slot: 9, type: NodeType.Cone }
+      { y: 5.865, slot: 4, type: NodeType.Cone },
+      { y: 6.355, slot: 3, type: NodeType.Cone },
+      { y: 6.950, slot: 2, type: NodeType.Cube },
+      { y: 7.545, slot: 1, type: NodeType.Cone }
     ] as Node[]
   };
 

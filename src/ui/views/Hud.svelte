@@ -92,6 +92,7 @@
     :global .widget {
       margin: 10px;
       padding: 0px;
+      background: #1C1C1C;
     }
   }
 
