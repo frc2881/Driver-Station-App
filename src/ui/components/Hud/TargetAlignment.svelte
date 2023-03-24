@@ -22,30 +22,30 @@
     type: NodeType;
   }
 
-  const targetGridX = 1.863;
+  const targetGridX = 1.760;
 
   const nodes = {
     [Alliance.Blue]: [
-      { y: 0.475, slot: 1, type: NodeType.Cone },
-      { y: 1.070, slot: 2, type: NodeType.Cube },
-      { y: 1.665, slot: 3, type: NodeType.Cone },
-      { y: 2.155, slot: 4, type: NodeType.Cone },
-      { y: 2.750, slot: 5, type: NodeType.Cube },
-      { y: 3.345, slot: 6, type: NodeType.Cone },
-      { y: 3.825, slot: 7, type: NodeType.Cone },
-      { y: 4.420, slot: 8, type: NodeType.Cube },
-      { y: 5.015, slot: 9, type: NodeType.Cone }
+      { y: 0.594, slot: 1, type: NodeType.Cone }, // 0.594
+      { y: 1.140, slot: 2, type: NodeType.Cube }, // 1.140
+      { y: 1.686, slot: 3, type: NodeType.Cone }, // 1.686
+      { y: 2.232, slot: 4, type: NodeType.Cone }, // 2.232
+      { y: 2.778, slot: 5, type: NodeType.Cube }, // 2.778
+      { y: 3.324, slot: 6, type: NodeType.Cone }, // 3.324
+      { y: 3.870, slot: 7, type: NodeType.Cone }, // 3.870
+      { y: 4.416, slot: 8, type: NodeType.Cube }, // 4.416
+      { y: 4.962, slot: 9, type: NodeType.Cone }  // 4.962
     ] as Node[],
     [Alliance.Red]: [
-      { y: 3.005, slot: 9, type: NodeType.Cone },
-      { y: 3.600, slot: 8, type: NodeType.Cube },
-      { y: 4.195, slot: 7, type: NodeType.Cone },
-      { y: 4.675, slot: 6, type: NodeType.Cone },
-      { y: 5.270, slot: 5, type: NodeType.Cube },
-      { y: 5.865, slot: 4, type: NodeType.Cone },
-      { y: 6.355, slot: 3, type: NodeType.Cone },
-      { y: 6.950, slot: 2, type: NodeType.Cube },
-      { y: 7.545, slot: 1, type: NodeType.Cone }
+      { y: 3.053, slot: 9, type: NodeType.Cone }, // 3.053
+      { y: 3.599, slot: 8, type: NodeType.Cube }, // 3.599
+      { y: 4.145, slot: 7, type: NodeType.Cone }, // 4.145
+      { y: 4.691, slot: 6, type: NodeType.Cone }, // 4.691
+      { y: 5.237, slot: 5, type: NodeType.Cube }, // 5.237
+      { y: 5.783, slot: 4, type: NodeType.Cone }, // 5.783
+      { y: 6.329, slot: 3, type: NodeType.Cone }, // 6.329
+      { y: 6.875, slot: 2, type: NodeType.Cube }, // 6.875
+      { y: 7.421, slot: 1, type: NodeType.Cone }  // 7.421
     ] as Node[]
   };
 
