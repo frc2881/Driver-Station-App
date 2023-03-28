@@ -9,6 +9,7 @@
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import SendableChooser from "../components/SendableChooser.svelte";
   import BatteryInfo from "../components/Dashboard/BatteryInfo.svelte";
+  import VisionInfo from "../components/Dashboard/VisionInfo.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
@@ -36,7 +37,9 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <VisionInfo robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") } />
+    </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>

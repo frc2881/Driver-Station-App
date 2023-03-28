@@ -1,6 +1,7 @@
 <script lang="ts">
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
   import { 
     NetworkTablesTopic,
     Pose,
@@ -10,6 +11,7 @@
 
   export let robotPose: NetworkTablesTopic;
   export let isRedAlliance: NetworkTablesTopic;
+  export let isXConfiguration: NetworkTablesTopic;
 
   enum NodeType {
     Cone,
@@ -53,12 +55,14 @@
   let pose: Pose = { x: 0, y: 0, rotation: 0 };
   let targetNode: Node = null;
 
-  let isVisible: boolean = false;
+  let isInRange: boolean = false;
   let isAligned: boolean = false;
   let isHorizontalAligned: boolean = false;
   let isVerticalAligned: boolean = false;
   let isRotationAligned: boolean = false;
   let transform: string = null;
+
+  let isRobotXLocked: boolean = false;
 
   $: {
     alliance = isRedAlliance?.value ? Alliance.Red : Alliance.Blue;
@@ -71,41 +75,51 @@
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
 
-    targetNode = null;
-    if (Utils.isNumberInRange(pose.x, targetGridX - 0.3, targetGridX + 0.3)) {
-      let index = 0;
-      for (const node of nodes[alliance]) {
-        if (Utils.isNumberInRange(pose.y, node.y - 0.2, node.y + 0.2)) {
-          targetNode = node;
-          break;
+    isRobotXLocked = isXConfiguration?.value as boolean;
+    isRobotXLocked = false;
+
+    if (!isRobotXLocked) {
+      targetNode = null;
+      if (Utils.isNumberInRange(pose.x, targetGridX - 0.3, targetGridX + 0.3)) {
+        let index = 0;
+        for (const node of nodes[alliance]) {
+          if (Utils.isNumberInRange(pose.y, node.y - 0.2, node.y + 0.2)) {
+            targetNode = node;
+            break;
+          }
+          index += 1;
         }
-        index += 1;
       }
-    }
-    isVisible = targetNode != null;
-
-    if (isVisible) {
-      isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - 0.05, targetNode.y + 0.05);
-      isVerticalAligned = Utils.isNumberInRange(pose.x, targetGridX - 0.05, targetGridX + 0.05);
-      isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184) || Utils.isNumberInRange(pose.rotation, -3, 3);
-      isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
-
-      const translateX = -(pose.y - targetNode.y) * 400;
-      const translateY = (targetGridX - pose.x) * 400;
-      transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
+      isInRange = targetNode != null;
+      if (isInRange) {
+        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - 0.05, targetNode.y + 0.05);
+        isVerticalAligned = Utils.isNumberInRange(pose.x, targetGridX - 0.05, targetGridX + 0.05);
+        isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184) || Utils.isNumberInRange(pose.rotation, -3, 3);
+        isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
+        const translateX = -(pose.y - targetNode.y) * 400;
+        const translateY = (targetGridX - pose.x) * 400;
+        transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
+      }
+    } else {
+      transform = `translate(${ 0 }px, ${ -40 }px) rotate(${ -pose.rotation - 180 }deg)`;
     }
   }
 </script>
 
 <div class="main">
   <div class="zone">
-    <div class="slot"><span style:display={ isVisible ? "block" : "none" }>{ targetNode?.slot }</span></div>
-    <div class="barrier" style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
+    <div class="slot" 
+      style:display={ isInRange ? "block" : "none" }>
+      <span>{ targetNode?.slot ?? "" }</span>
+    </div>
+    <div class="barrier" 
+      style:display={ isInRange ? "block" : "none"} 
+      style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="target"
-      style:opacity={ isVisible ? 1 : 0 } 
+      style:opacity={ isInRange ? 1 : 0 } 
       style:width={ targetNode?.type === NodeType.Cube ? "160px" : "20px" } />
     <div class="robot"
-      style:opacity={ isVisible ? 1 : 0 }
+      style:opacity={ isInRange || isRobotXLocked ? 1 : 0 }
       style:transform={ transform }>
       <div class="checkmark">
         <CheckmarkFilled
@@ -117,6 +131,13 @@
         stroke="#FFFFFF99"
         fill="transparent"
         width=178 height=178 />
+      <div class="xconfig">
+        <div class="wheel frontLeft"></div>
+        <div class="wheel frontRight"></div>
+        <div class="wheel rearLeft"></div>
+        <div class="wheel rearRight"></div>
+        <CloseFilled fill="#CC0000" width=100 height=100 />
+      </div>
     </div>
   </div>
 </div>
@@ -124,6 +145,7 @@
 <style lang="postcss">
   .main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -173,6 +195,49 @@
           position: absolute;
           top: 32px;
           left: 26px;
+        }
+
+        .xconfig {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .wheel {
+            position: absolute;
+            width: 40px;
+            height: 15px;
+            background-color: #FFFFFF;
+            transform-origin: 50% 50%;
+
+            &.frontLeft {
+              top: 20px;
+              left: 8px;
+              transform: rotate(45deg);
+            }
+
+            &.frontRight {
+              top: 20px;
+              right: 8px;
+              transform: rotate(-45deg);
+            }
+
+            &.rearLeft {
+              bottom: 20px;
+              left: 8px;
+              transform: rotate(-45deg);
+            }
+
+            &.rearRight {
+              bottom: 20px;
+              right: 8px;
+              transform: rotate(45deg);
+            }
+          }
         }
       }
     }

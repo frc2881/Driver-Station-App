@@ -3,7 +3,8 @@
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
   import CircleDash from "carbon-icons-svelte/lib/CircleDash.svelte";
   import CircleFilled from "carbon-icons-svelte/lib/CircleFilled.svelte";
-  import CenterCircle from "carbon-icons-svelte/lib/CenterCircle.svelte";
+  import ConditionWaitPoint from "carbon-icons-svelte/lib/ConditionWaitPoint.svelte";
+  import CircleSolid from "carbon-icons-svelte/lib/CircleSolid.svelte";
   import { 
     Utils,
     NetworkTablesTopic
@@ -11,46 +12,78 @@
 
   export let isEnabled: NetworkTablesTopic;
 
-  export let topPressureCurrent: NetworkTablesTopic;
-  export let topPressureMinimum: NetworkTablesTopic;
-  export let topPressureTarget: NetworkTablesTopic;
+  export let pressureMinimum: NetworkTablesTopic;
+  export let pressureTarget: NetworkTablesTopic;
+  export let pressureMaximum: NetworkTablesTopic;
 
   export let bottomPressureCurrent: NetworkTablesTopic;
-  export let bottomPressureMinimum: NetworkTablesTopic;
-  export let bottomPressureTarget: NetworkTablesTopic;
+  export let topPressureCurrent: NetworkTablesTopic;
+  export let leftPressureCurrent: NetworkTablesTopic;
+  export let rightPressureCurrent: NetworkTablesTopic;
 
-  const pressureVacuumMin = 40;   // TODO: make max reliable suction pressure a constant passed in from robot code
+  const pressureAmbient = 50;
 </script>
 
 <div class="main">
   <div class="status">
     <div class="pressures">
-      <svelte:component 
-        this={ 
-          topPressureCurrent?.value <= topPressureTarget?.value ? CenterCircle : 
-          (topPressureCurrent?.value <= topPressureMinimum?.value ? CircleFilled : CircleDash)  
-        } 
-        fill={
-          topPressureCurrent?.value <= topPressureMinimum?.value ? "#00CC00" :
-          (Utils.isNumberInRange(topPressureCurrent?.value, topPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
-        }
-        width=150 height=150 />
-      <svelte:component 
-        this={ 
-          bottomPressureCurrent?.value <= bottomPressureTarget?.value ? CenterCircle : 
-          (bottomPressureCurrent?.value <= bottomPressureMinimum?.value ? CircleFilled : CircleDash)  
-        }  
-        fill={
-          bottomPressureCurrent?.value <= bottomPressureMinimum?.value ? "#00CC00" :
-          (Utils.isNumberInRange(bottomPressureCurrent?.value, bottomPressureMinimum?.value, pressureVacuumMin) ? "#CCCC00" : "#CC0000")
-        }
-        width=150 height=150 />
+      <div>
+        <svelte:component 
+          this={ 
+            topPressureCurrent?.value <= pressureMaximum?.value ? CircleSolid : 
+            (topPressureCurrent?.value <= pressureTarget?.value ? CircleFilled : 
+            (topPressureCurrent?.value <= pressureMinimum?.value ? ConditionWaitPoint : CircleDash))  
+          } 
+          fill={
+            topPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
+            (Utils.isNumberInRange(topPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
+          }
+          width=100 height=100 />
+      </div>
+      <div>
+        <svelte:component 
+          this={ 
+            leftPressureCurrent?.value <= pressureMaximum?.value ? CircleSolid : 
+            (leftPressureCurrent?.value <= pressureTarget?.value ? CircleFilled : 
+            (leftPressureCurrent?.value <= pressureMinimum?.value ? ConditionWaitPoint : CircleDash))  
+          } 
+          fill={
+            leftPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
+            (Utils.isNumberInRange(leftPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
+          }
+          width=100 height=100 />
+        <div class="spacer"></div>
+        <svelte:component 
+          this={ 
+            rightPressureCurrent?.value <= pressureMaximum?.value ? CircleSolid : 
+            (rightPressureCurrent?.value <= pressureTarget?.value ? CircleFilled : 
+            (rightPressureCurrent?.value <= pressureMinimum?.value ? ConditionWaitPoint : CircleDash))  
+          } 
+          fill={
+            rightPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
+            (Utils.isNumberInRange(rightPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
+          }
+          width=100 height=100 />
+      </div>
+      <div>
+        <svelte:component 
+          this={ 
+            bottomPressureCurrent?.value <= pressureMaximum?.value ? CircleSolid : 
+            (bottomPressureCurrent?.value <= pressureTarget?.value ? CircleFilled : 
+            (bottomPressureCurrent?.value <= pressureMinimum?.value ? ConditionWaitPoint : CircleDash))  
+          } 
+          fill={
+            bottomPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
+            (Utils.isNumberInRange(bottomPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
+          }
+          width=100 height=100 />
+      </div>
     </div>
     <div>
       <svelte:component 
         this={ isEnabled?.value ? CheckmarkFilled : CloseFilled }
         fill={ isEnabled?.value ? "#00CC00" : "#CC0000" }
-        width=160 height=160 />
+        width=140 height=140 />
     </div>
   </div>
 </div>
@@ -63,15 +96,21 @@
     height: 100%;
 
     .status {
+      width: 100%;
       display: grid;
       grid-template-rows: auto auto;
-      row-gap: 10px;
+      justify-items: center;
+      row-gap: 40px;
 
       .pressures {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+
+        .spacer {
+          display: inline-block;
+          width: 100px;
+        }
       }
     }
   }
