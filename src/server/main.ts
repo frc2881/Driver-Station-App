@@ -16,7 +16,6 @@ import {
 } from "../common";
 import { NetworkTablesService } from "./types";
 import { NetworkTables4Service } from "./NetworkTables4Service";
-import { NetworkTables3Service } from "./NetworkTables3Service";
 
 class Server {
   constructor() {
@@ -40,13 +39,6 @@ class Server {
         this._networkTablesService = new NetworkTables4Service({ 
           address: args.ntServerAddress, 
           port: Configuration.Settings.NT4_SERVER_PORT,
-          subscriptionTopics: Configuration.Settings.SUBSCRIPTIONS ?? ["/"]
-        });
-        break;
-      case 3:
-        this._networkTablesService = new NetworkTables3Service({ 
-          address: args.ntServerAddress, 
-          port: Configuration.Settings.NT3_SERVER_PORT,
           subscriptionTopics: Configuration.Settings.SUBSCRIPTIONS ?? ["/"]
         });
         break;

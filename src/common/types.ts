@@ -1,6 +1,5 @@
 import { Rectangle } from "electron";
 import { 
-  AppWindowType,
   AppServerMessageType,
   NetworkTablesServiceMessageType,
   NetworkTablesDataType,
@@ -19,7 +18,6 @@ export type ConfigurationSettings = {
     NT_VERSION: number;
   };
   APP_SERVER_PORT: number;
-  NT3_SERVER_PORT: number;
   NT4_SERVER_PORT: number;
   WINDOW_MAX_WIDTH: number;
   WINDOW_MAX_HEIGHT: number;

@@ -8,7 +8,6 @@ export namespace Configuration {
       NT_VERSION: 4
     },
     APP_SERVER_PORT: 2881,
-    NT3_SERVER_PORT: 1882,
     NT4_SERVER_PORT: 5810,
     WINDOW_MAX_WIDTH: 1920,
     WINDOW_MAX_HEIGHT: 1080,
