@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CaretUp from "carbon-icons-svelte/lib/CaretUp.svelte";
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
@@ -24,7 +25,7 @@
     type: NodeType;
   }
 
-  const targetGridX = 1.760;
+  const nodesX = 1.760;
 
   const nodes = {
     [Alliance.Blue]: [
@@ -74,13 +75,12 @@
     if (robotPose?.value) {
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
-
+    
     isRobotXLocked = isXConfiguration?.value as boolean;
-    isRobotXLocked = false;
 
     if (!isRobotXLocked) {
       targetNode = null;
-      if (Utils.isNumberInRange(pose.x, targetGridX - 0.3, targetGridX + 0.3)) {
+      if (Utils.isNumberInRange(pose.x, nodesX - 0.3, nodesX + 0.3)) {
         let index = 0;
         for (const node of nodes[alliance]) {
           if (Utils.isNumberInRange(pose.y, node.y - 0.2, node.y + 0.2)) {
@@ -92,13 +92,15 @@
       }
       isInRange = targetNode != null;
       if (isInRange) {
-        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - 0.05, targetNode.y + 0.05);
-        isVerticalAligned = Utils.isNumberInRange(pose.x, targetGridX - 0.05, targetGridX + 0.05);
-        isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184) || Utils.isNumberInRange(pose.rotation, -3, 3);
+        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - (targetNode.type === NodeType.Cone ? 0.05 : 0.1), targetNode.y + (targetNode.type === NodeType.Cone ? 0.05 : 0.1));
+        isVerticalAligned = Utils.isNumberInRange(pose.x, nodesX - 0.05, nodesX + 0.05);
+        isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184);
         isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
         const translateX = -(pose.y - targetNode.y) * 400;
-        const translateY = (targetGridX - pose.x) * 400;
+        const translateY = (nodesX - pose.x) * 400;
         transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
+      } else {
+        transform = `translate(${ (-pose.y * 100) / 4 }px, ${ (-pose.x * 100) / 4 }px) rotate(${ pose.rotation }deg)`;
       }
     } else {
       transform = `translate(${ 0 }px, ${ -40 }px) rotate(${ -pose.rotation - 180 }deg)`;
@@ -107,6 +109,16 @@
 </script>
 
 <div class="main">
+  <div class="field" style:display={ !isInRange && !isRobotXLocked ? "block" : "none" }>
+    <div class="robot" style:transform={ transform }>
+      <div class="arrow">
+        <CaretUp
+          stroke="#FFFFFF"
+          fill="#FFFFFF"
+          width=12 height=12 />
+      </div>
+    </div>
+  </div>
   <div class="zone">
     <div class="slot" 
       style:display={ isInRange ? "block" : "none" }>
@@ -119,7 +131,7 @@
       style:opacity={ isInRange ? 1 : 0 } 
       style:width={ targetNode?.type === NodeType.Cube ? "160px" : "20px" } />
     <div class="robot"
-      style:opacity={ isInRange || isRobotXLocked ? 1 : 0 }
+      style:display={ isInRange || isRobotXLocked ? "block" : "none" }
       style:transform={ transform }>
       <div class="checkmark">
         <CheckmarkFilled
@@ -127,11 +139,15 @@
           width=128
           height=128 />
       </div>
-      <CaretDown
-        stroke="#FFFFFF99"
-        fill="transparent"
-        width=178 height=178 />
-      <div class="xconfig">
+      <div class="arrow">
+        <CaretDown
+          stroke="#FFFFFF99"
+          fill="transparent"
+          width=178 height=178 />
+      </div>
+      <div 
+        class="xconfig" 
+        style:display={ isRobotXLocked ? "block" : "none" }>
         <div class="wheel frontLeft"></div>
         <div class="wheel frontRight"></div>
         <div class="wheel rearLeft"></div>
@@ -140,16 +156,43 @@
       </div>
     </div>
   </div>
+  <div class="pose">
+    <div>x: { pose.x.toFixed(3) }</div>
+    <div>y: { pose.y.toFixed(3) }</div>
+    <div>r: { pose.rotation.toFixed(2) }</div>
+  </div>
 </div>
 
 <style lang="postcss">
   .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
+
+    .field {
+      position: absolute;
+      width: 200px;
+      height: 413px;
+      border: 1px solid #CCCCCC;
+
+      .robot {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 12px;
+        height: 13.5px;
+        background-color: var(--app-color-pink);
+
+        .arrow {
+          position: absolute;
+          top: -10px;
+        }
+      }
+    }
 
     .zone {
       position: relative;
@@ -187,7 +230,6 @@
         position: absolute;
         width: 192px;
         height: 216px;
-        padding-top: 128px;
         border: 8px solid var(--app-color-pink);
         bottom: 132px;
 
@@ -195,6 +237,11 @@
           position: absolute;
           top: 32px;
           left: 26px;
+        }
+
+        .arrow {
+          position: absolute;
+          bottom: -128px;
         }
 
         .xconfig {
@@ -239,6 +286,20 @@
             }
           }
         }
+      }
+    }
+
+    .pose {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      font-size: 16px;
+      background: #00000066;
+
+      & div {
+        margin: 0 5px;
       }
     }
   }

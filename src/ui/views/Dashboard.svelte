@@ -38,7 +38,7 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget">
-      <VisionInfo robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") } />
+      <VisionInfo />
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
