@@ -10,7 +10,7 @@ _Note: more complete configuration and usage documentation is TBD_
 * PostCSS
 * Rollup
 * Node
-* Yarn
+* pnpm
 
 ## Dependencies
 
@@ -19,15 +19,15 @@ _Note: more complete configuration and usage documentation is TBD_
 ## Install / Configuration
 
 * `volta install node`
-* `volta install yarn`
-* `yarn install`
+* `volta install pnpm`
+* `pnpm install`
 
 ## Build / Run
 
 * Run robot simulation or Romi in local environment OR run live robot and connect remotely
 * Development
-  * `yarn dev` (builds and runs the app locally for development with live UI refresh on edit/save)
+  * `pnpm dev` (builds and runs the app locally for development with live UI refresh on edit/save)
 * Binary packaging and distribution
-  * `yarn package` (builds and packages Windows portable executable file for simple copy distribution to driver station)
+  * `pnpm package` (builds and packages Windows portable executable file for simple copy distribution to driver station)
 * Other
   * See `scripts` section in `package.json` file for more options

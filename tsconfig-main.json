@@ -13,6 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
     "preserveValueImports": false,
+    "verbatimModuleSyntax": false,
     "importsNotUsedAsValues": "remove",
     "allowSyntheticDefaultImports": true
   }
