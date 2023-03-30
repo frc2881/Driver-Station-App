@@ -36,10 +36,14 @@
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
     <Tile class="widget">
-      <VisionInfo />
+      <VisionInfo 
+        photonVisionLeftCameraHasTarget={ networkTables.topics.get("/photonvision/LEFT/hasTarget") }
+        photonVisionRightCameraHasTarget={ networkTables.topics.get("/photonvision/RIGHT/hasTarget") }
+        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
+      />
     </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>

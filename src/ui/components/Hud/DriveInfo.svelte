@@ -100,7 +100,7 @@
         const translateY = (nodesX - pose.x) * 400;
         transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
       } else {
-        transform = `translate(${ (-pose.y * 100) / 4 }px, ${ (-pose.x * 100) / 4 }px) rotate(${ pose.rotation }deg)`;
+        transform = `translate(${ (-pose.y * 100) / 4 }px, ${ (-pose.x * 100) / 4 }px) rotate(${ -pose.rotation - 360 }deg)`;
       }
     } else {
       transform = `translate(${ 0 }px, ${ -40 }px) rotate(${ -pose.rotation - 180 }deg)`;
@@ -155,11 +155,6 @@
         <CloseFilled fill="#CC0000" width=100 height=100 />
       </div>
     </div>
-  </div>
-  <div class="pose">
-    <div>x: { pose.x.toFixed(3) }</div>
-    <div>y: { pose.y.toFixed(3) }</div>
-    <div>r: { pose.rotation.toFixed(2) }</div>
   </div>
 </div>
 
@@ -286,20 +281,6 @@
             }
           }
         }
-      }
-    }
-
-    .pose {
-      position: absolute;
-      bottom: 20px;
-      display: flex;
-      flex-direction: row;
-      padding: 10px;
-      font-size: 16px;
-      background: #00000066;
-
-      & div {
-        margin: 0 5px;
       }
     }
   }
