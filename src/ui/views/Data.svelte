@@ -11,7 +11,8 @@
     OverflowMenuItem,
     Modal,
     Checkbox,
-    InlineNotification
+    InlineNotification,
+    NumberInput
   } from "carbon-components-svelte";
   import Plot, { Data } from "svelte-plotly.js";
   import { Configuration } from "../../config";
@@ -41,6 +42,9 @@
 
   let graphModalTopicName: string = null;
   let graphModalData: Data[] = [];
+  let graphModalDataMovingAverageSamples: number[] = [];
+  let graphModalDataMovingAverageSamplesCount: number = 50;
+  let graphModalDataMovingAverage: number = 0;
   let isGraphModalOpen: boolean = false;
 
   let selectedRowIds: number[] = [];
@@ -82,6 +86,8 @@
     isGraphModalOpen = false;
     graphModalTopicName = null;
     graphModalData = [];
+    graphModalDataMovingAverageSamples = [];
+    graphModalDataMovingAverage = 0;
   }
 
   const isGraphOptionEnabled = (type: NetworkTablesDataType): boolean => {
@@ -123,6 +129,12 @@
           graphModalData.at(0)["x"].push(Utils.convertTimestamp(topic.timestamp));
           graphModalData.at(0)["y"].push(topic.value);
           graphModalData = graphModalData;
+
+          graphModalDataMovingAverageSamples.push(topic.value);
+          if (graphModalDataMovingAverageSamples.length > graphModalDataMovingAverageSamplesCount) {
+            graphModalDataMovingAverageSamples.shift();
+          }
+          graphModalDataMovingAverage = graphModalDataMovingAverageSamples.reduce((a, b) => a + b) / graphModalDataMovingAverageSamples.length;
         }
       } else {
         isGraphModalOpen = false;
@@ -219,13 +231,13 @@
   bind:open={ isGraphModalOpen }
   on:close={ onGraphModalClosed }>
   <span class="noop"></span>
-  <div class:hidden={ !isGraphModalOpen }>
+  <div class="graphModal" class:hidden={ !isGraphModalOpen }>
     <Plot
       data={ graphModalData }
       config={{ responsive: true }}
       fillParent="width"
       layout={{
-        height: 640,
+        height: 600,
         margin: { t: 60, b: 40 },
         paper_bgcolor: "transparent",
         plot_bgcolor: "transparent",
@@ -252,6 +264,11 @@
           remove: [ "lasso2d", "pan2d", "pan3d", "autoScale2d" ]
         }
       }} />
+    <div class="movingAverage">
+      Moving Average:
+      <span class="value">{ graphModalDataMovingAverage.toFixed(6) }</span>
+      <span class="input"><NumberInput bind:value={ graphModalDataMovingAverageSamplesCount } step={ 50 } min={ 50 } max={ 3000 } size="sm" /></span>samples
+    </div>
   </div>
 </Modal>
 
@@ -271,6 +288,27 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .graphModal {
+    .movingAverage {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 30px 0 0 50px;
+
+      .value {
+        margin: 0 10px;
+        font-weight: bold;
+        font-size: 120%;
+      }
+
+      .input {
+        margin: 0 10px;
+        display: inline-block;
+        width: 150px;
+      }
+    }
   }
 
   .inlineNotification {
