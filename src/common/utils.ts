@@ -19,6 +19,10 @@ export namespace Utils {
     return textEncoder.encode(JSON.stringify(<AppServerMessage>{ type, message }));
   }
 
+  export const radiansToDegrees = (radians: number): number => {
+    return radians / (Math.PI / 180);
+  }
+
   export const isNumberInRange = (value: number, minValue: number, maxValue: number): boolean => {
     return value >= minValue && value <= maxValue;
   }

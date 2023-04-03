@@ -85,6 +85,11 @@ export type NetworkTables = {
   topics: NetworkTablesTopics;
 }
 
+export type Pose2d = {
+  translation: { x: number; y: number; }
+  rotation: { radians: number; }
+}
+
 export type Pose = {
   x: number;
   y: number;

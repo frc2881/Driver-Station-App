@@ -7,97 +7,86 @@
   import Cube from "carbon-icons-svelte/lib/Cube.svelte";
   import { 
     NetworkTablesTopic,
+    Pose2d,
     Pose,
     Alliance,
     Utils
 	} from "../../../common";
 
-  export let robotPose: NetworkTablesTopic;
   export let isRedAlliance: NetworkTablesTopic;
+  export let nodes: NetworkTablesTopic;
+  export let robotPose: NetworkTablesTopic;
   export let isXConfiguration: NetworkTablesTopic;
 
   enum NodeType {
-    Cone,
-    Cube
+    Cone = "CONE",
+    Cube = "CUBE"
   }
 
   type Node = {
-    y: number;
+    pose: Pose2d;
+    nodeType: NodeType;
     slot: number;
-    type: NodeType;
   }
 
-  const nodesX = 1.747;
-
-  const nodes = {
-    [Alliance.Blue]: [
-      { y: 0.490, slot: 1, type: NodeType.Cone }, // 0.594
-      { y: 1.050, slot: 2, type: NodeType.Cube }, // 1.140
-      { y: 1.600, slot: 3, type: NodeType.Cone }, // 1.686
-      { y: 2.126, slot: 4, type: NodeType.Cone }, // 2.232
-      { y: 2.721, slot: 5, type: NodeType.Cube }, // 2.778
-      { y: 3.264, slot: 6, type: NodeType.Cone }, // 3.324
-      { y: 3.830, slot: 7, type: NodeType.Cone }, // 3.870
-      { y: 4.426, slot: 8, type: NodeType.Cube }, // 4.416
-      { y: 4.990, slot: 9, type: NodeType.Cone }  // 4.962
-    ] as Node[],
-    [Alliance.Red]: [
-      { y: 3.053, slot: 9, type: NodeType.Cone }, // 3.053
-      { y: 3.599, slot: 8, type: NodeType.Cube }, // 3.599
-      { y: 4.145, slot: 7, type: NodeType.Cone }, // 4.145
-      { y: 4.691, slot: 6, type: NodeType.Cone }, // 4.691
-      { y: 5.237, slot: 5, type: NodeType.Cube }, // 5.237
-      { y: 5.783, slot: 4, type: NodeType.Cone }, // 5.783
-      { y: 6.329, slot: 3, type: NodeType.Cone }, // 6.329
-      { y: 6.875, slot: 2, type: NodeType.Cube }, // 6.875
-      { y: 7.421, slot: 1, type: NodeType.Cone }  // 7.421
-    ] as Node[]
-  };
-
   let alliance: Alliance = Alliance.Blue;
-  let pose: Pose = { x: 0, y: 0, rotation: 0 };
+  let _nodes: any;
+  let targetNodes: Node[] = [];
   let targetNode: Node = null;
-
+  let pose: Pose = { x: 0, y: 0, rotation: 0 };
   let isInRange: boolean = false;
   let isAligned: boolean = false;
   let isHorizontalAligned: boolean = false;
   let isVerticalAligned: boolean = false;
   let isRotationAligned: boolean = false;
   let transform: string = null;
-
   let isRobotXLocked: boolean = false;
+  let targetNodesX: number = 0;
+
+  $: _nodes = nodes?.value;
+  $: targetNodes = JSON.parse(_nodes ?? null) ?? [];
 
   $: {
     alliance = isRedAlliance?.value ? Alliance.Red : Alliance.Blue;
 
-    pose.x = 0;
-    pose.y = 0;
-    pose.rotation = 0;
-    
+    if (targetNodes.length === 0) { break $; }
+
+    targetNodesX = targetNodes[0].pose.translation.x;
+
+    pose = { x: 0, y: 0, rotation: 0 };
     if (robotPose?.value) {
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
+
+    pose.x = 1.75;
+    pose.y = 6.875;
+    pose.rotation = 180;
     
     isRobotXLocked = isXConfiguration?.value as boolean;
 
     if (!isRobotXLocked) {
       targetNode = null;
-      if (Utils.isNumberInRange(pose.x, nodesX - 0.5, nodesX + 0.5)) {
-        for (const node of nodes[alliance]) {
-          if (Utils.isNumberInRange(pose.y, node.y - 0.25, node.y + 0.25)) {
-            targetNode = node;
+      if (Utils.isNumberInRange(pose.x, targetNodesX - 0.5, targetNodesX + 0.5)) {
+        for (const __targetNode of targetNodes) {
+          const y = __targetNode.pose.translation.y;
+          if (Utils.isNumberInRange(pose.y, y - 0.25, y + 0.25)) {
+            targetNode = __targetNode;
             break;
           }
         }
       }
       isInRange = targetNode != null;
       if (isInRange) {
-        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - (targetNode.type === NodeType.Cone ? 0.07 : 0.2), targetNode.y + (targetNode.type === NodeType.Cone ? 0.07 : 0.2));
-        isVerticalAligned = Utils.isNumberInRange(pose.x, nodesX - 0.07, nodesX + 0.07);
+        isHorizontalAligned = Utils.isNumberInRange(
+          pose.y, 
+          targetNode.pose.translation.y - (targetNode.nodeType === NodeType.Cone ? 0.06 : 0.15), 
+          targetNode.pose.translation.y + (targetNode.nodeType === NodeType.Cone ? 0.06 : 0.15)
+        );
+        isVerticalAligned = Utils.isNumberInRange(pose.x, targetNodesX - 0.06, targetNodesX + 0.06);
         isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 176, 184);
         isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
-        const translateX = -(pose.y - targetNode.y) * 400;
-        const translateY = (nodesX - pose.x) * 400;
+        const translateX = -(pose.y - targetNode.pose.translation.y) * 400;
+        const translateY = (targetNodesX - pose.x) * 400;
         transform = `translate(${ translateX }px, ${ translateY }px) rotate(${ -pose.rotation - 180 }deg)`;
       } else {
         transform = `translate(${ (-pose.y * 100) / 4 }px, ${ (-pose.x * 100) / 4 }px) rotate(${ -pose.rotation - 360 }deg)`;
@@ -112,10 +101,14 @@
   <div class="field" style:display={ !isInRange && !isRobotXLocked ? "block" : "none" }>
     <div class="center"></div>
     <div class="barrier"
-      style:bottom={ `${(nodesX * 100) / 4}px` } 
+      style:bottom={ `${(targetNodesX * 100) / 4}px` }
+      style:left={ alliance === Alliance.Red ? "0px" : null } 
+      style:right={ alliance === Alliance.Blue ? "0px" : null } 
       style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" }></div>
     <div class="barrier"
-      style:top={ `${(nodesX * 100) / 4}px` } 
+      style:top={ `${(targetNodesX * 100) / 4}px` } 
+      style:left={ alliance === Alliance.Red ? "0px" : null } 
+      style:right={ alliance === Alliance.Blue ? "0px" : null } 
       style:background={ alliance === Alliance.Blue ? "#CC0000" : "#0000CC" }></div>
     <div class="robot" style:transform={ transform }>
       <div class="arrow">
@@ -129,21 +122,21 @@
   <div class="zone">
     <div class="slot" 
       style:opacity={ isInRange ? 1 : 0 }>
-      <div class="slotNum">{ targetNode?.slot ?? "" }</div>
       <div class="nodeType">
-        { #if targetNode?.type === NodeType.Cone }
+        { #if targetNode?.nodeType === NodeType.Cone }
           <Cone width=100 height=100 fill="#E88800" stroke="#E88800" />
-        { :else if targetNode?.type === NodeType.Cube }
+        { :else if targetNode?.nodeType === NodeType.Cube }
           <Cube width=100 height=100 fill="#5D33D5" stroke="#5D33D5" />
         { /if }
       </div>
+      <div class="slotNum">{ targetNode?.slot ?? "" }</div>
     </div>
     <div class="barrier" 
       style:opacity={ isInRange ? 1 : 0 } 
       style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="target"
       style:opacity={ isInRange ? 1 : 0 } 
-      style:width={ targetNode?.type === NodeType.Cube ? "160px" : "20px" } />
+      style:width={ targetNode?.nodeType === NodeType.Cube ? "184px" : "24px" } />
     <div class="robot"
       style:display={ isInRange || isRobotXLocked ? "block" : "none" }
       style:background={ isAligned ? "#00CC00" : "transparent" }
@@ -159,7 +152,7 @@
         <CaretDown
           stroke="#FFFFFFCC"
           fill="transparent"
-          width=178 height=178 />
+          width=200 height=200 />
       </div>
       <div 
         class="xconfig" 
@@ -192,7 +185,6 @@
 
       .barrier {
         position: absolute;
-        right: 0px;
         width: 138px;
         height: 2px;
       }
@@ -236,14 +228,13 @@
         height: 140px;
         font-size: 120px;
         line-height: 140px;
-        border: 1px solid #FFFFFF;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
 
         .slotNum {
-          margin-left: 10px;
+          margin-left: 20px;
         }
 
         .nodeType {
@@ -277,7 +268,8 @@
 
         .arrow {
           position: absolute;
-          bottom: -128px;
+          bottom: -142px;
+          left: -11px;
         }
 
         .xconfig {

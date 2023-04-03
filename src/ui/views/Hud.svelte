@@ -21,8 +21,9 @@
   <div class="primary">
     <Tile class="widget">
       <DriveInfo 
-        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
         isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }
+        nodes={ networkTables.topics.get("/SmartDashboard/Drive/Vision/Nodes") }
+        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
         isXConfiguration={ networkTables.topics.get("/SmartDashboard/Drive/Swerve/IsXConfiguration") } />
     </Tile>
     <Tile class="widget">
