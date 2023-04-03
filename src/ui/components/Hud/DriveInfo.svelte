@@ -3,6 +3,8 @@
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
+  import Cone from "carbon-icons-svelte/lib/TrafficCone.svelte";
+  import Cube from "carbon-icons-svelte/lib/Cube.svelte";
   import { 
     NetworkTablesTopic,
     Pose,
@@ -25,19 +27,19 @@
     type: NodeType;
   }
 
-  const nodesX = 1.760;
+  const nodesX = 1.747;
 
   const nodes = {
     [Alliance.Blue]: [
-      { y: 0.594, slot: 1, type: NodeType.Cone }, // 0.594
-      { y: 1.140, slot: 2, type: NodeType.Cube }, // 1.140
-      { y: 1.686, slot: 3, type: NodeType.Cone }, // 1.686
-      { y: 2.232, slot: 4, type: NodeType.Cone }, // 2.232
-      { y: 2.778, slot: 5, type: NodeType.Cube }, // 2.778
-      { y: 3.324, slot: 6, type: NodeType.Cone }, // 3.324
-      { y: 3.870, slot: 7, type: NodeType.Cone }, // 3.870
-      { y: 4.416, slot: 8, type: NodeType.Cube }, // 4.416
-      { y: 4.962, slot: 9, type: NodeType.Cone }  // 4.962
+      { y: 0.490, slot: 1, type: NodeType.Cone }, // 0.594
+      { y: 1.050, slot: 2, type: NodeType.Cube }, // 1.140
+      { y: 1.600, slot: 3, type: NodeType.Cone }, // 1.686
+      { y: 2.126, slot: 4, type: NodeType.Cone }, // 2.232
+      { y: 2.721, slot: 5, type: NodeType.Cube }, // 2.778
+      { y: 3.264, slot: 6, type: NodeType.Cone }, // 3.324
+      { y: 3.830, slot: 7, type: NodeType.Cone }, // 3.870
+      { y: 4.426, slot: 8, type: NodeType.Cube }, // 4.416
+      { y: 4.990, slot: 9, type: NodeType.Cone }  // 4.962
     ] as Node[],
     [Alliance.Red]: [
       { y: 3.053, slot: 9, type: NodeType.Cone }, // 3.053
@@ -80,21 +82,19 @@
 
     if (!isRobotXLocked) {
       targetNode = null;
-      if (Utils.isNumberInRange(pose.x, nodesX - 0.3, nodesX + 0.3)) {
-        let index = 0;
+      if (Utils.isNumberInRange(pose.x, nodesX - 0.5, nodesX + 0.5)) {
         for (const node of nodes[alliance]) {
-          if (Utils.isNumberInRange(pose.y, node.y - 0.2, node.y + 0.2)) {
+          if (Utils.isNumberInRange(pose.y, node.y - 0.25, node.y + 0.25)) {
             targetNode = node;
             break;
           }
-          index += 1;
         }
       }
       isInRange = targetNode != null;
       if (isInRange) {
-        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - (targetNode.type === NodeType.Cone ? 0.05 : 0.1), targetNode.y + (targetNode.type === NodeType.Cone ? 0.05 : 0.1));
-        isVerticalAligned = Utils.isNumberInRange(pose.x, nodesX - 0.05, nodesX + 0.05);
-        isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 177, 184);
+        isHorizontalAligned = Utils.isNumberInRange(pose.y, targetNode.y - (targetNode.type === NodeType.Cone ? 0.07 : 0.2), targetNode.y + (targetNode.type === NodeType.Cone ? 0.07 : 0.2));
+        isVerticalAligned = Utils.isNumberInRange(pose.x, nodesX - 0.07, nodesX + 0.07);
+        isRotationAligned = Utils.isNumberInRange(Math.abs(pose.rotation), 176, 184);
         isAligned = isHorizontalAligned && isVerticalAligned && isRotationAligned;
         const translateX = -(pose.y - targetNode.y) * 400;
         const translateY = (nodesX - pose.x) * 400;
@@ -110,6 +110,13 @@
 
 <div class="main">
   <div class="field" style:display={ !isInRange && !isRobotXLocked ? "block" : "none" }>
+    <div class="center"></div>
+    <div class="barrier"
+      style:bottom={ `${(nodesX * 100) / 4}px` } 
+      style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" }></div>
+    <div class="barrier"
+      style:top={ `${(nodesX * 100) / 4}px` } 
+      style:background={ alliance === Alliance.Blue ? "#CC0000" : "#0000CC" }></div>
     <div class="robot" style:transform={ transform }>
       <div class="arrow">
         <CaretUp
@@ -121,33 +128,42 @@
   </div>
   <div class="zone">
     <div class="slot" 
-      style:display={ isInRange ? "block" : "none" }>
-      <span>{ targetNode?.slot ?? "" }</span>
+      style:opacity={ isInRange ? 1 : 0 }>
+      <div class="slotNum">{ targetNode?.slot ?? "" }</div>
+      <div class="nodeType">
+        { #if targetNode?.type === NodeType.Cone }
+          <Cone width=100 height=100 fill="#E88800" stroke="#E88800" />
+        { :else if targetNode?.type === NodeType.Cube }
+          <Cube width=100 height=100 fill="#5D33D5" stroke="#5D33D5" />
+        { /if }
+      </div>
     </div>
     <div class="barrier" 
-      style:display={ isInRange ? "block" : "none"} 
+      style:opacity={ isInRange ? 1 : 0 } 
       style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" } />
     <div class="target"
       style:opacity={ isInRange ? 1 : 0 } 
       style:width={ targetNode?.type === NodeType.Cube ? "160px" : "20px" } />
     <div class="robot"
       style:display={ isInRange || isRobotXLocked ? "block" : "none" }
+      style:background={ isAligned ? "#00CC00" : "transparent" }
+      style:border-color={ isAligned ? "#00CC00" : "" }
       style:transform={ transform }>
       <div class="checkmark">
         <CheckmarkFilled
-          fill={ isAligned ? "#00CC00" : "transparent" }
+          fill={ isAligned ? "#000000" : "transparent" }
           width=128
           height=128 />
       </div>
       <div class="arrow">
         <CaretDown
-          stroke="#FFFFFF99"
+          stroke="#FFFFFFCC"
           fill="transparent"
           width=178 height=178 />
       </div>
       <div 
         class="xconfig" 
-        style:display={ isRobotXLocked ? "block" : "none" }>
+        style:opacity={ isRobotXLocked ? 1 : 0 }>
         <div class="wheel frontLeft"></div>
         <div class="wheel frontRight"></div>
         <div class="wheel rearLeft"></div>
@@ -173,6 +189,21 @@
       width: 200px;
       height: 413px;
       border: 1px solid #CCCCCC;
+
+      .barrier {
+        position: absolute;
+        right: 0px;
+        width: 138px;
+        height: 2px;
+      }
+
+      .center {
+        position: absolute;
+        top: 206.5px;
+        width: 100%;
+        height: 2px;
+        background: #666666;
+      }
 
       .robot {
         position: absolute;
@@ -200,14 +231,24 @@
 
       .slot {
         position: absolute;
-        text-align: center;
-        top: 60px;
-        width: 160px;
+        top: 40px;
+        width: 220px;
         height: 140px;
         font-size: 120px;
         line-height: 140px;
         border: 1px solid #FFFFFF;
-        opacity: .25;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .slotNum {
+          margin-left: 10px;
+        }
+
+        .nodeType {
+          margin-top: 15px;
+        }
       }
 
       .barrier {

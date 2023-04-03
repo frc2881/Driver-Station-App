@@ -44,7 +44,7 @@
                 topPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
                 (Utils.isNumberInRange(topPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
               }
-              width=100 height=100 />
+              width=120 height=120 />
           </div>
           <div class="value" class:enabled={ topPressureCurrent?.value <= pressureMinimum?.value }>{ formatValue(topPressureCurrent?.value ?? 0) }</div>
         </div>
@@ -62,7 +62,7 @@
                 leftPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
                 (Utils.isNumberInRange(leftPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
               }
-              width=100 height=100 />
+              width=120 height=120 />
           </div>
           <div class="value" class:enabled={ leftPressureCurrent?.value <= pressureMinimum?.value }>{ formatValue(leftPressureCurrent?.value ?? 0) }</div>
         </div>
@@ -79,7 +79,7 @@
                 rightPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
                 (Utils.isNumberInRange(rightPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
               }
-              width=100 height=100 />
+              width=120 height=120 />
           </div>
           <div class="value" class:enabled={ rightPressureCurrent?.value <= pressureMinimum?.value }>{ formatValue(rightPressureCurrent?.value ?? 0) }</div>
         </div>
@@ -97,7 +97,7 @@
                 bottomPressureCurrent?.value <= pressureMinimum?.value ? "#00CC00" :
                 (Utils.isNumberInRange(bottomPressureCurrent?.value, pressureMinimum?.value, pressureAmbient) ? "#CC6633" : "#CC0000")
               }
-              width=100 height=100 />
+              width=120 height=120 />
           </div>
           <div class="value" class:enabled={ bottomPressureCurrent?.value <= pressureMinimum?.value }>{ formatValue(bottomPressureCurrent?.value ?? 0) }</div>
         </div>
@@ -106,8 +106,8 @@
     <div>
       <svelte:component 
         this={ isEnabled?.value ? CheckmarkFilled : CloseFilled }
-        fill={ isEnabled?.value ? "#00CC00" : "#CC0000" }
-        width=140 height=140 />
+        fill={ isEnabled?.value ? "#CCCCCC" : "#CC0000" }
+        width=120 height=120 />
     </div>
   </div>
 </div>
@@ -144,7 +144,7 @@
 
           .value {
             padding: 0 0px 4px 0;
-            font-size: 120%;
+            font-size: 18px;
 
             &.enabled {
               color: #000000;
