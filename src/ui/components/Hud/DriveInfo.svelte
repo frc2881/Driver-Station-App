@@ -58,10 +58,6 @@
       [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
     }
 
-    pose.x = 1.75;
-    pose.y = 6.875;
-    pose.rotation = 180;
-    
     isRobotXLocked = isXConfiguration?.value as boolean;
 
     if (!isRobotXLocked) {
