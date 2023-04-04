@@ -49,6 +49,7 @@
 		--app-color-pink-40: #FF69B466;
 		--app-color-green: #00CC00;
 		--app-color-red: #CC0000;
+		--app-color-blue: #0000CC;
 		--app-color-yellow: #CCCC00;
 		--app-color-charcoal: #666666;
 		--app-color-smoke: #999999;

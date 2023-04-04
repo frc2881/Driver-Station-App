@@ -41,7 +41,7 @@
   let isRotationAligned: boolean = false;
   let transform: string = null;
   let isRobotXLocked: boolean = false;
-  let targetNodesX: number = 0;
+  let targetNodesX: number = 1.75;
 
   $: _nodes = nodes?.value;
   $: targetNodes = JSON.parse(_nodes ?? null) ?? [];

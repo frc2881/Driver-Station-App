@@ -37,7 +37,7 @@
           value: e.detail.selectedItem.text
         }]);
       } } />
-    <div class="active"><h3>{ active?.value }</h3></div>
+    <div class="active"><h2>{ active?.value }</h2></div>
   </div>
 
 </div>
@@ -56,10 +56,11 @@
     .active {
       display: flex;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
       height: 100%;
-      padding: 60px 20px;
-      text-align: center;
+      padding: 40px 10px;
+      text-align: left;
+      color: var(--app-color-green);
     }
 
   }

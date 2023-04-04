@@ -7,8 +7,9 @@
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
-  import SendableChooser from "../components/SendableChooser.svelte";
+  import AllianceInfo from "../components/Dashboard/AllianceInfo.svelte";
   import BatteryInfo from "../components/Dashboard/BatteryInfo.svelte";
+  import SendableChooser from "../components/SendableChooser.svelte";
   import VisionInfo from "../components/Dashboard/VisionInfo.svelte";
 
   let networkTables: NetworkTables;
@@ -22,6 +23,11 @@
       <RobotInfo 
         mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
         status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }/>
+    </div>
+    <div class="center">
+      <AllianceInfo 
+        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }
+        stationNumber={ networkTables.topics.get("/FMSInfo/StationNumber") } />
     </div>
     <div class="right">
       <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/BatteryVoltage") } />
@@ -69,7 +75,7 @@
     
     .info {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       height: 100px;
       padding: 0 20px;
 
@@ -77,6 +83,12 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+      }
+
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .right {
