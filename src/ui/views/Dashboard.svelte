@@ -14,6 +14,30 @@
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
+
+  let gridsViewVideoSource: HTMLVideoElement = null;
+
+  $: { 
+    if (networkTables.isConnected) {
+      if (gridsViewVideoSource === null) {
+        loadGridsViewVideoStream();
+      }
+    } else {
+      gridsViewVideoSource = null;
+    }
+  }
+
+  const loadGridsViewVideoStream = async (): Promise<void> => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          deviceId: "a26f8ac5a9a88d07130215f0c517c2550c972b480868f0b011f0eb69945e525c"
+        }
+      });
+      gridsViewVideoSource.srcObject = stream;
+      gridsViewVideoSource.play();
+    } catch (e) {}
+  }
 </script>
 
 <main>
@@ -53,6 +77,9 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
+    <div class="gridsViewVideo">
+      <video bind:this={ gridsViewVideoSource } />
+    </div>
   </div>
 { :else }
   <div class="inlineNotification">
@@ -99,6 +126,7 @@
     }
 
     .widgets {
+      postion: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 350px;
@@ -121,6 +149,16 @@
             }
           }
         }
+      }
+
+      .gridsViewVideo {
+        position: absolute;
+        left: 520px;
+        width: 880px;
+        height: 720px;
+        display: flex;
+        justify-content: center;
+        background: var(--cds-ui-background);
       }
     }
   }
