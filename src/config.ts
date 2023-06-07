@@ -21,9 +21,9 @@ export namespace Configuration {
       "/LiveWindow"
     ],
     CAMERA_STREAMS: {
-      [CameraName.Driver]: "http://10.28.81.18:1186/?action=stream",
-      [CameraName.Left]: "http://10.28.81.18:1184/?action=stream",
-      [CameraName.Right]: "http://10.28.81.18:1182/?action=stream"
+      [CameraName.Front]: "http://10.28.81.18:1182/?action=stream",
+      [CameraName.Back]: "http://10.28.81.18:1184/?action=stream",
+      [CameraName.Driver]: "http://10.28.81.18:1182/?action=stream"
     },
     MATCH_TIME_TRIGGERS: {
       WARNING: 35,

@@ -52,7 +52,7 @@ export enum Alliance {
 }
 
 export enum CameraName {
-  Driver = "DRIVER",
-  Left = "LEFT",
-  Right = "RIGHT"
+  Front = "FRONT",
+  Back = "BACK",
+  Driver = "DRIVER"
 }

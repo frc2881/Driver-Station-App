@@ -5,17 +5,17 @@
     Pose
   } from "../../../common";
 
-  export let photonVisionLeftCameraHasTarget: NetworkTablesTopic;
-  export let photonVisionRightCameraHasTarget: NetworkTablesTopic;
+  export let photonVisionFrontCameraHasTarget: NetworkTablesTopic;
+  export let photonVisionBackCameraHasTarget: NetworkTablesTopic;
   export let robotPose: NetworkTablesTopic;
 
-  let hasTargetLeftCamera: boolean = false;
-  let hasTargetRightCamera: boolean = false;
+  let hasTargetFrontCamera: boolean = false;
+  let hasTargetBackCamera: boolean = false;
   let pose: Pose = { x: 0, y: 0, rotation: 0 };
 
   $: {
-    hasTargetLeftCamera = photonVisionLeftCameraHasTarget?.value as boolean;
-    hasTargetRightCamera = photonVisionRightCameraHasTarget?.value as boolean;
+    hasTargetFrontCamera = photonVisionFrontCameraHasTarget?.value as boolean;
+    hasTargetBackCamera = photonVisionBackCameraHasTarget?.value as boolean;
     
     pose.x = 0;
     pose.y = 0;
@@ -32,13 +32,13 @@
   <div class="cameras">
     <div class="camera">
       <CenterSquare
-        fill={ hasTargetLeftCamera ? "#00CC00" : "#333333" }
+        fill={ hasTargetFrontCamera ? "#00CC00" : "#333333" }
         width=140
         height=140 />
     </div>
     <div class="camera">
       <CenterSquare
-        fill={ hasTargetRightCamera ? "#00CC00" : "#333333" }
+        fill={ hasTargetBackCamera ? "#00CC00" : "#333333" }
         width=140
         height=140 />
     </div>

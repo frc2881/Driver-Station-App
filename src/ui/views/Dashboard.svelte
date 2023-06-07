@@ -68,8 +68,8 @@
     <Tile class="widget"></Tile>
     <Tile class="widget">
       <VisionInfo 
-        photonVisionLeftCameraHasTarget={ networkTables.topics.get("/photonvision/LEFT/hasTarget") }
-        photonVisionRightCameraHasTarget={ networkTables.topics.get("/photonvision/RIGHT/hasTarget") }
+        photonVisionFrontCameraHasTarget={ networkTables.topics.get("/photonvision/FRONT/hasTarget") }
+        photonVisionBackCameraHasTarget={ networkTables.topics.get("/photonvision/BACK/hasTarget") }
         robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
       />
     </Tile>
@@ -78,7 +78,9 @@
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <div class="gridsViewVideo">
-      <video bind:this={ gridsViewVideoSource } />
+      <video bind:this={ gridsViewVideoSource }>
+        <track kind="captions"/>
+      </video>
     </div>
   </div>
 { :else }
