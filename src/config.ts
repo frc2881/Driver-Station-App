@@ -23,7 +23,7 @@ export namespace Configuration {
     CAMERA_STREAMS: {
       [CameraName.Front]: "http://10.28.81.18:1182/?action=stream",
       [CameraName.Back]: "http://10.28.81.18:1184/?action=stream",
-      [CameraName.Driver]: "http://10.28.81.18:1182/?action=stream"
+      [CameraName.Driver]: "http://10.28.81.18:1181/?action=stream"
     },
     MATCH_TIME_TRIGGERS: {
       WARNING: 35,

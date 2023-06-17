@@ -30,7 +30,7 @@
       <CameraStream 
         stream={ Configuration.Settings.CAMERA_STREAMS.DRIVER }
         isConnected={ networkTables.isConnected }
-        width={ "800px" } height={ "600px" } />
+        width={ "800px" } height={ "450px" } />
     </Tile>
     <Tile class="widget">
       <Suction
