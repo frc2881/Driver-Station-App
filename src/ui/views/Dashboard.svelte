@@ -38,6 +38,14 @@
       gridsViewVideoSource.play();
     } catch (e) {}
   }
+
+  const toggleControllerMap = (target: EventTarget): void => {
+    if (!document.fullscreenElement) {
+      (target as HTMLElement).requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
 </script>
 
 <main>
@@ -73,10 +81,30 @@
         robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
       />
     </Tile>
+    <Tile class="widget">
+      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+        <img 
+          src="./assets/controller-map-driver.png" 
+          style="width:80%;cursor:pointer;filter:invert(1);"
+          alt="Driver Controller Map"
+          on:click={ (e) => { toggleControllerMap(e.target); } }
+          on:keypress={ (e) => { toggleControllerMap(e.target); } }
+        />
+      </div>
+    </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+        <img 
+          src="./assets/controller-map-manipulator.png" 
+          style="width:80%;cursor:pointer;filter:invert(1);"
+          alt="Manipulator Controller Map"
+          on:click={ (e) => { toggleControllerMap(e.target); } }
+          on:keypress={ (e) => { toggleControllerMap(e.target); } }
+        />
+      </div>
+    </Tile>
     <div class="gridsViewVideo">
       <video bind:this={ gridsViewVideoSource }>
         <track kind="captions"/>

@@ -6,6 +6,7 @@
     "outDir": "app",
     "target": "ESNext",
     "module": "CommonJS",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
