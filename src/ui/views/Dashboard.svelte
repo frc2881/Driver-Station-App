@@ -4,6 +4,7 @@
     InlineNotification, 
     SkeletonPlaceholder 
   } from "carbon-components-svelte";
+  import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
@@ -37,6 +38,10 @@
       gridsViewVideoSource.srcObject = stream;
       gridsViewVideoSource.play();
     } catch (e) {}
+  }
+
+  const toggleGridsViewVideo = (): void => {
+    gridsViewVideoSource.classList.toggle("hidden");
   }
 
   const toggleControllerMap = (target: EventTarget): void => {
@@ -82,31 +87,39 @@
       />
     </Tile>
     <Tile class="widget">
-      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+      <div 
+        style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
+        on:click={ (e) => { toggleControllerMap(e.target); } }
+        on:keypress={ (e) => { toggleControllerMap(e.target); } }>
         <img 
           src="./assets/controller-map-driver.png" 
           style="width:80%;cursor:pointer;filter:invert(1);"
           alt="Driver Controller Map"
-          on:click={ (e) => { toggleControllerMap(e.target); } }
-          on:keypress={ (e) => { toggleControllerMap(e.target); } }
         />
       </div>
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget">
-      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+      <div 
+        style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
+        on:click={ (e) => { toggleControllerMap(e.target); } }
+        on:keypress={ (e) => { toggleControllerMap(e.target); } }>
         <img 
           src="./assets/controller-map-manipulator.png" 
           style="width:80%;cursor:pointer;filter:invert(1);"
           alt="Manipulator Controller Map"
-          on:click={ (e) => { toggleControllerMap(e.target); } }
-          on:keypress={ (e) => { toggleControllerMap(e.target); } }
         />
       </div>
     </Tile>
-    <div class="gridsViewVideo">
-      <video bind:this={ gridsViewVideoSource }>
+    <div 
+      class="gridsViewVideo"
+      on:click={ (e) => { toggleGridsViewVideo(); } }
+      on:keypress={ (e) => { toggleGridsViewVideo(); } }>
+      <div class="icon"><Video_02 class="watermark" /></div>
+      <video 
+        bind:this={ gridsViewVideoSource }
+        class="hidden">
         <track kind="captions"/>
       </video>
     </div>
@@ -183,12 +196,31 @@
 
       .gridsViewVideo {
         position: absolute;
-        left: 520px;
-        width: 880px;
+        left: 495px;
+        width: 930px;
         height: 720px;
         display: flex;
         justify-content: center;
         background: var(--cds-ui-background);
+
+        video {
+          z-index: 2;
+        }
+        .icon {
+          position: absolute;
+          top: 45%;
+          z-index: 1;
+
+          :global {
+            .watermark {
+              width: 48px;
+              height: 48px;
+              transform: scale(4);
+              fill: var(--app-color-pink);
+              opacity: 0.2;
+            }
+          }
+        }
       }
     }
   }
