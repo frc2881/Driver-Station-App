@@ -4,7 +4,7 @@ import { CameraName } from "./common/enums";
 export namespace Configuration {
   export const Settings = {
     Defaults: {
-      NT_SERVER_ADDRESS: "127.0.0.1",
+      NT_SERVER_ADDRESS: "10.28.81.2",
       NT_VERSION: 4
     },
     APP_SERVER_PORT: 2881,

@@ -4,6 +4,7 @@
     InlineNotification, 
     SkeletonPlaceholder 
   } from "carbon-components-svelte";
+  import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
@@ -41,7 +42,6 @@
 
   const toggleGridsViewVideo = (): void => {
     gridsViewVideoSource.classList.toggle("hidden");
-    console.log(gridsViewVideoSource.classList);
   }
 
   const toggleControllerMap = (target: EventTarget): void => {
@@ -116,6 +116,7 @@
       class="gridsViewVideo"
       on:click={ (e) => { toggleGridsViewVideo(); } }
       on:keypress={ (e) => { toggleGridsViewVideo(); } }>
+      <div class="icon"><Video_02 class="watermark" /></div>
       <video 
         bind:this={ gridsViewVideoSource }
         class="hidden">
@@ -195,12 +196,31 @@
 
       .gridsViewVideo {
         position: absolute;
-        left: 520px;
-        width: 880px;
+        left: 495px;
+        width: 930px;
         height: 720px;
         display: flex;
         justify-content: center;
         background: var(--cds-ui-background);
+
+        video {
+          z-index: 2;
+        }
+        .icon {
+          position: absolute;
+          top: 45%;
+          z-index: 1;
+
+          :global {
+            .watermark {
+              width: 48px;
+              height: 48px;
+              transform: scale(4);
+              fill: var(--app-color-pink);
+              opacity: 0.2;
+            }
+          }
+        }
       }
     }
   }
