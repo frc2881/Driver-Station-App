@@ -39,6 +39,11 @@
     } catch (e) {}
   }
 
+  const toggleGridsViewVideo = (): void => {
+    gridsViewVideoSource.classList.toggle("hidden");
+    console.log(gridsViewVideoSource.classList);
+  }
+
   const toggleControllerMap = (target: EventTarget): void => {
     if (!document.fullscreenElement) {
       (target as HTMLElement).requestFullscreen();
@@ -82,31 +87,38 @@
       />
     </Tile>
     <Tile class="widget">
-      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+      <div 
+        style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
+        on:click={ (e) => { toggleControllerMap(e.target); } }
+        on:keypress={ (e) => { toggleControllerMap(e.target); } }>
         <img 
           src="./assets/controller-map-driver.png" 
           style="width:80%;cursor:pointer;filter:invert(1);"
           alt="Driver Controller Map"
-          on:click={ (e) => { toggleControllerMap(e.target); } }
-          on:keypress={ (e) => { toggleControllerMap(e.target); } }
         />
       </div>
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget">
-      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;">
+      <div 
+        style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
+        on:click={ (e) => { toggleControllerMap(e.target); } }
+        on:keypress={ (e) => { toggleControllerMap(e.target); } }>
         <img 
           src="./assets/controller-map-manipulator.png" 
           style="width:80%;cursor:pointer;filter:invert(1);"
           alt="Manipulator Controller Map"
-          on:click={ (e) => { toggleControllerMap(e.target); } }
-          on:keypress={ (e) => { toggleControllerMap(e.target); } }
         />
       </div>
     </Tile>
-    <div class="gridsViewVideo">
-      <video bind:this={ gridsViewVideoSource }>
+    <div 
+      class="gridsViewVideo"
+      on:click={ (e) => { toggleGridsViewVideo(); } }
+      on:keypress={ (e) => { toggleGridsViewVideo(); } }>
+      <video 
+        bind:this={ gridsViewVideoSource }
+        class="hidden">
         <track kind="captions"/>
       </video>
     </div>
