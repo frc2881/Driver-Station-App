@@ -81,8 +81,8 @@
     <Tile class="widget"></Tile>
     <Tile class="widget">
       <VisionInfo 
-        photonVisionFrontCameraHasTarget={ networkTables.topics.get("/photonvision/FRONT/hasTarget") }
-        photonVisionBackCameraHasTarget={ networkTables.topics.get("/photonvision/BACK/hasTarget") }
+        photonVisionFrontCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-01/hasTarget") }
+        photonVisionBackCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-02/hasTarget") }
         robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
       />
     </Tile>
@@ -118,8 +118,7 @@
       on:keypress={ (e) => { toggleGridsViewVideo(); } }>
       <div class="icon"><Video_02 class="watermark" /></div>
       <video 
-        bind:this={ gridsViewVideoSource }
-        class="hidden">
+        bind:this={ gridsViewVideoSource }>
         <track kind="captions"/>
       </video>
     </div>
