@@ -43,6 +43,8 @@
     font-weight: bold;
     color: var(--app-color-charcoal);
 
+    margin-top: -200px;
+
     &.inactive {
       color: var(--app-color-charcoal) !important;
     }

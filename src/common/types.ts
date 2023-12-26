@@ -37,6 +37,7 @@ export type AppWindowOptions = {
   isMinimized: boolean;
   isTransparent: boolean;
   isFrameless: boolean;
+  isFullscreen: boolean;
 }
 
 export type AppServerMessage = {

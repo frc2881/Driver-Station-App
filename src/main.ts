@@ -52,7 +52,8 @@ class Main {
       },
       isMinimized: secondaryDisplay === null,
       isTransparent: true,
-      isFrameless: true
+      isFrameless: true,
+      isFullscreen: secondaryDisplay !== null
     });
 
     this.createAppWindow(AppWindowType.Dashboard, {
@@ -65,7 +66,8 @@ class Main {
       },
       isMinimized: false,
       isTransparent: true,
-      isFrameless: true
+      isFrameless: true,
+      isFullscreen: false
     });
 
     this.createAppWindow(AppWindowType.Data, { 
@@ -78,7 +80,8 @@ class Main {
       } as Rectangle,
       isMinimized: !this._isDevMode,
       isTransparent: false,
-      isFrameless: false
+      isFrameless: false,
+      isFullscreen: false
     });
 
     if (this._isDevMode) {
@@ -87,7 +90,7 @@ class Main {
   }
 
   private createAppWindow = (type: AppWindowType, options: AppWindowOptions): void => {
-    const { title, bounds, isMinimized, isFrameless, isTransparent } = options;
+    const { title, bounds, isMinimized, isFrameless, isTransparent, isFullscreen } = options;
     const appWindow = new BrowserWindow({
       title: `Driver Station App - ${ title }`,
       width: bounds.width,
@@ -96,7 +99,7 @@ class Main {
       y: bounds.y,
       transparent: isTransparent,
       frame: !isFrameless,
-      fullscreen: type === AppWindowType.Hud,
+      fullscreen: isFullscreen,
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false,
