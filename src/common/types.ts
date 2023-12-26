@@ -9,13 +9,11 @@ import { ParsedArgs } from "minimist";
 
 export type AppArguments = ParsedArgs & {
   ntServerAddress: string;
-  ntVersion: number;
 }
 
 export type ConfigurationSettings = {
   Defaults: {
     NT_SERVER_ADDRESS: string;
-    NT_VERSION: number;
   };
   APP_SERVER_PORT: number;
   NT4_SERVER_PORT: number;

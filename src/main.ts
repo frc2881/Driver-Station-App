@@ -30,12 +30,11 @@ class Main {
 
     const args = minimist(process.argv, {
       default: { 
-        "ntServerAddress": Configuration.Settings.Defaults.NT_SERVER_ADDRESS,
-        "ntVersion": Configuration.Settings.Defaults.NT_VERSION 
+        "ntServerAddress": Configuration.Settings.Defaults.NT_SERVER_ADDRESS 
       }
     }) as AppArguments;
 
-    this._appServer = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }`, `--ntVersion=${ args.ntVersion }` ]);
+    this._appServer = fork(path.join(__dirname, "server/main.js"), [ `--ntServerAddress=${ args.ntServerAddress }` ]);
 
     await app.whenReady();
 

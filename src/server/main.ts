@@ -34,17 +34,11 @@ class Server {
     this._webSocketServer = new WebSocketServer({ port: Configuration.Settings.APP_SERVER_PORT, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
-    switch (args.ntVersion) {
-      case 4:
-        this._networkTablesService = new NetworkTables4Service({ 
-          address: args.ntServerAddress, 
-          port: Configuration.Settings.NT4_SERVER_PORT,
-          subscriptionTopics: Configuration.Settings.SUBSCRIPTIONS ?? ["/"]
-        });
-        break;
-      default:
-        throw new Error(`NT version ${ args.ntVersion } is invalid or not supported.`);
-    }
+    this._networkTablesService = new NetworkTables4Service({ 
+      address: args.ntServerAddress, 
+      port: Configuration.Settings.NT4_SERVER_PORT,
+      subscriptionTopics: Configuration.Settings.SUBSCRIPTIONS ?? ["/"]
+    });
     
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {
       this.broadcastMessage(AppServerMessageType.NetworkTablesService, e);
