@@ -4,7 +4,6 @@
     InlineNotification, 
     SkeletonPlaceholder 
   } from "carbon-components-svelte";
-  import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
@@ -15,34 +14,6 @@
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
-
-  let gridsViewVideoSource: HTMLVideoElement = null;
-
-  $: { 
-    if (networkTables.isConnected) {
-      if (gridsViewVideoSource === null) {
-        loadGridsViewVideoStream();
-      }
-    } else {
-      gridsViewVideoSource = null;
-    }
-  }
-
-  const loadGridsViewVideoStream = async (): Promise<void> => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          deviceId: "a26f8ac5a9a88d07130215f0c517c2550c972b480868f0b011f0eb69945e525c"
-        }
-      });
-      gridsViewVideoSource.srcObject = stream;
-      gridsViewVideoSource.play();
-    } catch (e) {}
-  }
-
-  const toggleGridsViewVideo = (): void => {
-    gridsViewVideoSource.classList.toggle("hidden");
-  }
 
   const toggleControllerMap = (target: EventTarget): void => {
     if (!document.fullscreenElement) {
@@ -59,7 +30,7 @@
     <div class="left">
       <RobotInfo 
         mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
-        status={ networkTables.topics.get("/SmartDashboard/Robot/Status") }/>
+        status={ networkTables.topics.get("/SmartDashboard/Robot/State") }/>
     </div>
     <div class="center">
       <AllianceInfo 
@@ -67,23 +38,33 @@
         stationNumber={ networkTables.topics.get("/FMSInfo/StationNumber") } />
     </div>
     <div class="right">
-      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/BatteryVoltage") } />
+      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/Battery/Voltage") } />
     </div>
   </div>
   <div class="widgets">
     <Tile class="widget">      
       <SendableChooser
         name="Auto Command"
-        options={ networkTables.topics.get("/SmartDashboard/Auto/Command/options") }
-        active={ networkTables.topics.get("/SmartDashboard/Auto/Command/active") } />
+        options={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/options") }
+        active={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/active") } />
     </Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">      
+      <SendableChooser
+        name="Speed Mode"
+        options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/options") }
+        active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/active") } />
+    </Tile>
+    <Tile class="widget">      
+      <SendableChooser
+        name="Orientation"
+        options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/options") }
+        active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/active") } />
+    </Tile>
     <Tile class="widget">
       <VisionInfo 
         photonVisionFrontCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-01/hasTarget") }
         photonVisionBackCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-02/hasTarget") }
-        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
+        robotPose={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Pose") }
       />
     </Tile>
     <Tile class="widget">
@@ -112,16 +93,6 @@
         />
       </div>
     </Tile>
-    <div 
-      class="gridsViewVideo"
-      on:click={ (e) => { toggleGridsViewVideo(); } }
-      on:keypress={ (e) => { toggleGridsViewVideo(); } }>
-      <div class="icon"><Video_02 class="watermark" /></div>
-      <video 
-        bind:this={ gridsViewVideoSource }>
-        <track kind="captions"/>
-      </video>
-    </div>
   </div>
 { :else }
   <div class="inlineNotification">
@@ -188,35 +159,6 @@
 
             .title {
               color: var(--app-color-smoke);
-            }
-          }
-        }
-      }
-
-      .gridsViewVideo {
-        position: absolute;
-        left: 495px;
-        width: 930px;
-        height: 720px;
-        display: flex;
-        justify-content: center;
-        background: var(--cds-ui-background);
-
-        video {
-          z-index: 2;
-        }
-        .icon {
-          position: absolute;
-          top: 45%;
-          z-index: 1;
-
-          :global {
-            .watermark {
-              width: 48px;
-              height: 48px;
-              transform: scale(4);
-              fill: var(--app-color-pink);
-              opacity: 0.2;
             }
           }
         }

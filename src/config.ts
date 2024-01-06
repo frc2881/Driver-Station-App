@@ -7,11 +7,10 @@ export namespace Configuration {
       NT_SERVER_ADDRESS: "10.28.81.2"
     },
     APP_SERVER_PORT: 2881,
-    NT4_SERVER_PORT: 5810,
+    NT_SERVER_PORT: 5810,
     WINDOW_MAX_WIDTH: 1920,
     WINDOW_MAX_HEIGHT: 1080,
     FRC_DS_APP_DOCKED_HEIGHT: 240,
-    FPGA_TIMESTAMP_TOPIC_NAME: "/SmartDashboard/Timing/FPGATimestamp",
     SUBSCRIPTIONS: [
       "/SmartDashboard",
       "/photonvision",

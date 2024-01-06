@@ -22,9 +22,9 @@
     <Tile class="widget">
       <DriveInfo 
         isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }
-        nodes={ networkTables.topics.get("/SmartDashboard/Drive/Vision/Nodes") }
-        robotPose={ networkTables.topics.get("/SmartDashboard/Drive/Pose") }
-        isXConfiguration={ networkTables.topics.get("/SmartDashboard/Drive/Swerve/IsXConfiguration") } />
+        nodes={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Vision/Nodes") }
+        robotPose={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Pose") }
+        isXConfiguration={ networkTables.topics.get("/SmartDashboard/Robot/Drive/State") } />
     </Tile>
     <Tile class="widget">
       <CameraStream 
@@ -34,20 +34,20 @@
     </Tile>
     <Tile class="widget">
       <Suction
-        isEnabled={ networkTables.topics.get("/SmartDashboard/Suction/IsEnabled") }
-        pressureMinimum={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Minimum") }
-        pressureTarget={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Target") }
-        pressureMaximum={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Maximum") }
-        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Current/Bottom") }
-        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Current/Top") }
-        leftPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Current/Left") }
-        rightPressureCurrent={ networkTables.topics.get("/SmartDashboard/Suction/Pressure/Current/Right") } />
+        isEnabled={ networkTables.topics.get("/SmartDashboard/Robot/Suction/IsEnabled") }
+        pressureMinimum={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Minimum") }
+        pressureTarget={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Target") }
+        pressureMaximum={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Maximum") }
+        bottomPressureCurrent={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Current/Bottom") }
+        topPressureCurrent={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Current/Top") }
+        leftPressureCurrent={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Current/Left") }
+        rightPressureCurrent={ networkTables.topics.get("/SmartDashboard/Robot/Suction/Pressure/Current/Right") } />
     </Tile>
   </div>
   <div class="secondary">
     <Tile class="widget">
       <GamePiece
-        lightsPattern={ networkTables.topics.get("/SmartDashboard/Lights/Pattern") } />
+        lightsPattern={ networkTables.topics.get("/SmartDashboard/Robot/Lights/Pattern") } />
     </Tile>
     <Tile class="widget">
       <MatchTime 
@@ -55,8 +55,8 @@
     </Tile>
     <Tile class="widget">
       <ArmPositions 
-        armTiltPosition={ networkTables.topics.get("/SmartDashboard/Arm/Tilt/Position") }
-        armExtendPosition={ networkTables.topics.get("/SmartDashboard/Arm/Extend/Position") } />
+        armTiltPosition={ networkTables.topics.get("/SmartDashboard/Robot/Arm/Tilt/Position") }
+        armExtendPosition={ networkTables.topics.get("/SmartDashboard/Robot/Arm/Extend/Position") } />
     </Tile>
   </div>
 { :else }

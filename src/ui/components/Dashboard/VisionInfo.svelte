@@ -2,7 +2,8 @@
   import CenterSquare from "carbon-icons-svelte/lib/CenterSquare.svelte";
   import { 
     NetworkTablesTopic,
-    Pose
+    Pose,
+    Utils
   } from "../../../common";
 
   export let photonVisionFrontCameraHasTarget: NetworkTablesTopic;
@@ -22,7 +23,10 @@
     pose.rotation = 0;
     
     if (robotPose?.value) {
-      [ pose.x, pose.y, pose.rotation ] = robotPose?.value as Array<number>;
+      const __pose = JSON.parse(robotPose.value);
+      pose.x = __pose.translation.x ?? 0;
+      pose.y = __pose.translation.y ?? 0;
+      pose.rotation = Utils.radiansToDegrees(__pose.rotation?.radians ?? 0);
     }
   }
 </script>

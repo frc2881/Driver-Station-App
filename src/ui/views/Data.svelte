@@ -280,7 +280,7 @@
   main {
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 0;
   }
 
   .topicName {
@@ -312,7 +312,7 @@
   }
 
   .inlineNotification {
-    margin: -1.5em 0 .5em 0;
+    padding: .75em 2em;
   }
 
 	.debug {

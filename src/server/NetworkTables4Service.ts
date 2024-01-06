@@ -32,6 +32,8 @@ export class NetworkTables4Service extends NetworkTablesService {
   private _serverRoundTripTime = Number.MAX_SAFE_INTEGER;
   private _pubuid: number = 0;
 
+  private _isServerPongReceived: boolean = false;
+
   private _networkTables = {
     address: "0.0.0.0",
 		isConnected: false,
@@ -47,8 +49,8 @@ export class NetworkTables4Service extends NetworkTablesService {
 
   private connect = (): void => {
     this._webSocket = new WebSocket(
-      `ws://${ this._networkTablesServiceOptions.address }:${ this._networkTablesServiceOptions.port }/nt/frc-driver-station-app`, 
-      ["networktables.first.wpi.edu"], 
+      `ws://${ this._networkTablesServiceOptions.address }:${ this._networkTablesServiceOptions.port }/nt/driver-station-app`, 
+      ["v4.1.networktables.first.wpi.edu", "rtt.networktables.first.wpi.edu"], 
       { skipUTF8Validation: true, handshakeTimeout: 30000 }
     );
     this._webSocket.binaryType = "arraybuffer";
@@ -56,6 +58,7 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._webSocket.on("close", this.onConnectionClosed);
     this._webSocket.on("message", this.onMessageReceived);
     this._webSocket.on("error", (e) => { console.log(e); });
+    this._webSocket.on("pong", (e) => { this._isServerPongReceived = true; });
   }
 
   public dispose = (): void => {
@@ -72,11 +75,15 @@ export class NetworkTables4Service extends NetworkTablesService {
     this._pubuid = 0;
   }
 
-  private onConnectionOpened = (): void => {
+  private onConnectionOpened = async (): Promise<void> => {
     this.reset();
     this._networkTables.isConnected = true;
     this.emit(NetworkTablesServiceMessageType.ConnectionChanged, this.getConnectionChangedMessage());
+    this.runServerPingPongChecks();
     this.runServerTimestampSynchronization();
+    while (!this._isServerTimeSynchronized) {
+      await Utils.wait(1);
+    } 
     this.subscribeTopics(this._networkTablesServiceOptions.subscriptionTopics);
   }
 
@@ -182,11 +189,18 @@ export class NetworkTables4Service extends NetworkTablesService {
       value: 0
     };
     while (this._networkTables.isConnected) {
-      this._isServerTimeSynchronized = false;
       topic.value = this.getLocalTimestamp();
       this._webSocket?.send(this.encodeBinaryDataFrame([topic]));
       await Utils.wait(3);
-      if (!this._isServerTimeSynchronized) {
+    }
+  }
+
+  private runServerPingPongChecks = async (): Promise<void> => {
+    while (this._networkTables.isConnected) {
+      this._isServerPongReceived = false;
+      this._webSocket?.ping();
+      await Utils.wait(3);
+      if (!this._isServerPongReceived) {
         this._webSocket?.terminate();
         break;
       }

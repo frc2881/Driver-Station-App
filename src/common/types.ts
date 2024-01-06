@@ -16,11 +16,10 @@ export type ConfigurationSettings = {
     NT_SERVER_ADDRESS: string;
   };
   APP_SERVER_PORT: number;
-  NT4_SERVER_PORT: number;
+  NT_SERVER_PORT: number;
   WINDOW_MAX_WIDTH: number;
   WINDOW_MAX_HEIGHT: number;
   FRC_DS_APP_DOCKED_HEIGHT: number;
-  FPGA_TIMESTAMP_TOPIC_NAME: string;
   SUBSCRIPTIONS: string[];
   CAMERA_STREAMS: Record<CameraName, string>;
   MATCH_TIME_TRIGGERS: {

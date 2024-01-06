@@ -36,7 +36,7 @@ class Server {
 
     this._networkTablesService = new NetworkTables4Service({ 
       address: args.ntServerAddress, 
-      port: Configuration.Settings.NT4_SERVER_PORT,
+      port: Configuration.Settings.NT_SERVER_PORT,
       subscriptionTopics: Configuration.Settings.SUBSCRIPTIONS ?? ["/"]
     });
     
