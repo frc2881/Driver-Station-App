@@ -43,6 +43,8 @@
   let isRobotXLocked: boolean = false;
   let targetNodesX: number = 1.75;
 
+  // NOTE: 0.74245 pixels per inch
+
   $: _nodes = nodes?.value;
   $: targetNodes = JSON.parse(_nodes ?? null) ?? [];
 
@@ -95,17 +97,9 @@
 
 <div class="main">
   <div class="field" style:display={ !isInRange && !isRobotXLocked ? "block" : "none" }>
-    <div class="center"></div>
-    <div class="barrier"
-      style:bottom={ `${(targetNodesX * 100) / 4}px` }
-      style:left={ alliance === Alliance.Red ? "0px" : null } 
-      style:right={ alliance === Alliance.Blue ? "0px" : null } 
-      style:background={ alliance === Alliance.Red ? "#CC0000" : "#0000CC" }></div>
-    <div class="barrier"
-      style:top={ `${(targetNodesX * 100) / 4}px` } 
-      style:left={ alliance === Alliance.Red ? "0px" : null } 
-      style:right={ alliance === Alliance.Blue ? "0px" : null } 
-      style:background={ alliance === Alliance.Blue ? "#CC0000" : "#0000CC" }></div>
+    <img
+      class={ `map ${ alliance === Alliance.Red ? "red" : "blue" }` }
+      src="./assets/field.png" />
     <div class="robot" style:transform={ transform }>
       <div class="arrow">
         <CaretUp
@@ -175,30 +169,22 @@
 
     .field {
       position: absolute;
-      width: 200px;
-      height: 413px;
-      border: 1px solid #CCCCCC;
+      width: 240px;
+      height: 484px;
 
-      .barrier {
-        position: absolute;
-        width: 138px;
-        height: 2px;
-      }
-
-      .center {
-        position: absolute;
-        top: 206.5px;
-        width: 100%;
-        height: 2px;
-        background: #666666;
+      .map {
+        width: 484px;
+        height: 240px;
+        &.red { transform: rotate(90deg) translate(121px, 121px); }
+        &.blue { transform: rotate(-90deg) translate(-121px, -121px); }
       }
 
       .robot {
         position: absolute;
         right: 0;
         bottom: 0;
-        width: 12px;
-        height: 13.5px;
+        width: 15.25px;
+        height: 17px;
         background-color: var(--app-color-pink);
 
         .arrow {

@@ -10,7 +10,7 @@ export namespace Configuration {
     NT_SERVER_PORT: 5810,
     WINDOW_MAX_WIDTH: 1920,
     WINDOW_MAX_HEIGHT: 1080,
-    FRC_DS_APP_DOCKED_HEIGHT: 240,
+    FRC_DS_APP_DOCKED_HEIGHT: 248,
     SUBSCRIPTIONS: [
       "/SmartDashboard",
       "/photonvision",
