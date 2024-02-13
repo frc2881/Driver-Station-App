@@ -36,7 +36,7 @@
 
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
-  const subscriptions = Configuration.Settings.SUBSCRIPTIONS;
+  const subscriptions = Configuration.Settings.NetworkTables.Subscriptions;
   let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? subscriptions;
   let isSubscriptionsModalOpen: boolean = false;
 
@@ -115,9 +115,9 @@
   }
 
   $: topics = Array.from(networkTables.topics.values())
-      .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
-      .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
-      .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
+    .reverse()
+    .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
+    .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)));
 
   $: selectedRowIds = selectedTopicNames.map(topicName => networkTables.topics.get(topicName)?.id);
 
@@ -143,7 +143,7 @@
   }
 
   $: {
-    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/IsAllTelemetryEnabled")?.value ?? false;
+    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/Robot/IsAllTelemetryEnabled")?.value ?? false;
   }
 </script>
 
@@ -170,7 +170,7 @@
           <ToolbarMenuItem on:click={ () => { 
             updateNetworkTablesTopics([{ 
               id: 0, 
-              name: "/SmartDashboard/IsAllTelemetryEnabled", 
+              name: "/SmartDashboard/Robot/IsAllTelemetryEnabled", 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
             }]) } }>

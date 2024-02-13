@@ -28,7 +28,7 @@ export const NetworkTablesStore = writable(networkTables);
 // TODO: create map for topic names
 
 export const connectNetworkTablesStore = (appWindowType: AppWindowType): void => {
-  webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.APP_SERVER_PORT }/ws?appWindowType=${ appWindowType }`);
+  webSocket = new WebSocket(`ws://127.0.0.1:${ Configuration.Settings.Networking.AppPort }/ws?appWindowType=${ appWindowType }`);
 	webSocket.binaryType = "arraybuffer";
 	webSocket.onmessage = (e) => onMessageReceived(e);
 	webSocket.onerror = (e) => { console.log(e); }

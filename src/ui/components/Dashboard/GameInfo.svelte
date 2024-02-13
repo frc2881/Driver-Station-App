@@ -1,14 +1,15 @@
 <script lang="ts">
   import { 
-    NetworkTablesTopic
+    NetworkTablesTopic,
+    Alliance
 	} from "../../../common";
 
-  export let isRedAlliance: NetworkTablesTopic;
+  export let alliance: NetworkTablesTopic;
   export let stationNumber: NetworkTablesTopic;
 </script>
 
 <div class="main">
-  <div class="value" style:background={ isRedAlliance?.value ? "#CC0000" : "#0000CC" }>
+  <div class="value" style:background={ alliance?.value === Alliance.Red ? "#CC0000" : "#0000CC" }>
     <h3>{ stationNumber?.value ?? "" }</h3>
   </div> 
 </div>

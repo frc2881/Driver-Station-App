@@ -41,6 +41,7 @@
       width: 160px;
       padding: 5px 0;
       border: 1px solid var(--app-color-charcoal);
+      text-transform: uppercase;
 
       &.active {
         background: var(--app-color-smoke);

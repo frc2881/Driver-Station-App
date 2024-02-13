@@ -7,7 +7,6 @@
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
-  import DriveInfo from "../components/Hud/DriveInfo.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
@@ -17,15 +16,10 @@
 { #if networkTables.isConnected }
   <div class="primary">
     <Tile class="widget">
-      <DriveInfo 
-        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }
-        nodes={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Vision/Nodes") }
-        robotPose={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Pose") }
-        isXConfiguration={ networkTables.topics.get("/SmartDashboard/Robot/Drive/State") } />
     </Tile>
     <Tile class="widget">
       <CameraStream 
-        stream={ Configuration.Settings.CAMERA_STREAMS.DRIVER }
+        stream={ Configuration.Settings.Cameras.Front }
         isConnected={ networkTables.isConnected }
         width={ "800px" } height={ "450px" } />
     </Tile>
@@ -37,7 +31,7 @@
     </Tile>
     <Tile class="widget">
       <MatchTime 
-        matchTime={ networkTables.topics.get("/SmartDashboard/Timing/MatchTime") } />
+        matchTime={ networkTables.topics.get("/SmartDashboard/Robot/Game/MatchTime") } />
     </Tile>
     <Tile class="widget">
     </Tile>

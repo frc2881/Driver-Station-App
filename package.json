@@ -1,7 +1,7 @@
 {
   "name": "frc-driver-station-app",
   "description": "FRC driver station app for HUD, dashboard, and NT data inspection",
-  "version": "1.0.0",
+  "version": "2024.1.0",
   "author": "frc2881",
   "license": "MIT",
   "private": true,
@@ -19,9 +19,9 @@
     "dev": "npm-run-all build --parallel start watch"
   },
   "build": {
-    "appId": "FRC.DriverStationApp.1.0.0",
+    "appId": "FRC.DriverStationApp.2024.1.0",
     "productName": "FRCDriverStationApp",
-    "copyright": "Copyright (c) 2023 FRC Team 2881",
+    "copyright": "Copyright (c) FRC Team 2881",
     "win": {
       "target": "portable",
       "artifactName": "${productName}-${version}.${ext}",
@@ -34,41 +34,41 @@
     "@msgpack/msgpack": "^2.8.0",
     "minimist": "^1.2.8",
     "dayjs": "^1.11.10",
-    "plotly.js-basic-dist-min": "^2.27.1"
+    "plotly.js-basic-dist-min": "^2.29.0"
   },
   "devDependencies": {
     "@types/ws": "^8.5.10",
     "@types/minimist": "^1.2.5",
     "npm-run-all": "^4.1.5",
     "fs-extra": "^11.2.0",
-    "electron": "^28.1.0",
+    "electron": "^28.2.2",
     "electron-packager": "^17.1.2",
     "electron-builder": "^24.9.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "@tsconfig/svelte": "^5.0.2",
-    "rollup": "^4.9.2",
+    "rollup": "^4.9.6",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-svelte": "^7.1.6",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
-    "postcss": "^8.4.32",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "postcss": "^8.4.35",
     "postcss-nesting": "^12.0.2",
     "postcss-url": "^10.1.3",
     "@types/postcss-url": "^10.0.4",
-    "svelte": "^4.2.8",
+    "svelte": "^4.2.10",
     "svelte-preprocess": "^5.1.3",
     "carbon-preprocess-svelte": "^0.10.0",
-    "carbon-components-svelte": "^0.82.7",
+    "carbon-components-svelte": "^0.82.9",
     "carbon-icons-svelte": "^12.4.2",
-    "carbon-pictograms-svelte": "^12.9.2",
+    "carbon-pictograms-svelte": "^12.10.0",
     "svelte-plotly.js": "^0.3.2",
-    "@types/plotly.js": "^2.12.32"
+    "@types/plotly.js": "^2.29.0"
   },
   "volta": {
-    "node": "18.17.1",
-    "pnpm": "8.13.1"
+    "node": "20.11.0",
+    "pnpm": "8.15.1"
   }
 }

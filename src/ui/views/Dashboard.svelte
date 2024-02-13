@@ -7,10 +7,11 @@
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
-  import AllianceInfo from "../components/Dashboard/AllianceInfo.svelte";
+  import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import BatteryInfo from "../components/Dashboard/BatteryInfo.svelte";
-  import SendableChooser from "../components/SendableChooser.svelte";
-  import VisionInfo from "../components/Dashboard/VisionInfo.svelte";
+  import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
+  import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
+  import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
 
   let networkTables: NetworkTables;
   $: { networkTables = $NetworkTablesStore; }
@@ -33,56 +34,37 @@
         status={ networkTables.topics.get("/SmartDashboard/Robot/State") }/>
     </div>
     <div class="center">
-      <AllianceInfo 
-        isRedAlliance={ networkTables.topics.get("/FMSInfo/IsRedAlliance") }
-        stationNumber={ networkTables.topics.get("/FMSInfo/StationNumber") } />
+      <GameInfo 
+        alliance={ networkTables.topics.get("/SmartDashboard/Robot/Game/Alliance") }
+        stationNumber={ networkTables.topics.get("/SmartDashboard/Robot/Game/StationNumber") } />
     </div>
     <div class="right">
-      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/Battery/Voltage") } />
+      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage") } />
     </div>
   </div>
   <div class="widgets">
-    <Tile class="widget">      
-      <SendableChooser
-        name="Auto Command"
-        options={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/options") }
-        active={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/active") } />
-    </Tile>
-    <Tile class="widget">      
-      <SendableChooser
-        name="Speed Mode"
-        options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/options") }
-        active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/active") } />
-    </Tile>
-    <Tile class="widget">      
-      <SendableChooser
-        name="Orientation"
-        options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/options") }
-        active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/active") } />
+    <Tile class="widget">
     </Tile>
     <Tile class="widget">
-      <VisionInfo 
-        photonVisionFrontCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-01/hasTarget") }
-        photonVisionBackCameraHasTarget={ networkTables.topics.get("/photonvision/Arducam-OV9281-2881-02/hasTarget") }
-        robotPose={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Pose") }
-      />
+      <PoseInfo 
+        rearSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets") }
+        sideSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets") }
+        frontSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Front/HasTargets") }
+        poseTopic={ networkTables.topics.get("/SmartDashboard/Robot/Pose") }
+      />         
     </Tile>
     <Tile class="widget">
-      <div 
-        style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
-        on:click={ (e) => { toggleControllerMap(e.target); } }
-        on:keypress={ (e) => { toggleControllerMap(e.target); } }>
-        <img 
-          src="./assets/controller-map-driver.png" 
-          style="width:80%;cursor:pointer;filter:invert(1);"
-          alt="Driver Controller Map"
-        />
-      </div>
+      <AutoSettings />
+    </Tile>
+    <Tile class="widget">
+    </Tile>
+    <Tile class="widget">
+      <DriveSettings />
     </Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget"></Tile>
     <Tile class="widget">
-      <div 
+      <!-- <div 
         style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#000000;"
         on:click={ (e) => { toggleControllerMap(e.target); } }
         on:keypress={ (e) => { toggleControllerMap(e.target); } }>
@@ -91,7 +73,7 @@
           style="width:80%;cursor:pointer;filter:invert(1);"
           alt="Manipulator Controller Map"
         />
-      </div>
+      </div> -->
     </Tile>
   </div>
 { :else }
@@ -111,18 +93,18 @@
   main {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
     
     .info {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      height: 100px;
+      height: 90px;
       padding: 0 20px;
 
       .left {
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        gap: 1.25em;
       }
 
       .center {
@@ -150,17 +132,6 @@
       :global {
         .widget {
           padding: 2em;
-
-          .main {
-            display: grid;
-            grid-template-rows: 50px auto;
-            width: 100%;
-            height: 100%;
-
-            .title {
-              color: var(--app-color-smoke);
-            }
-          }
         }
       }
     }

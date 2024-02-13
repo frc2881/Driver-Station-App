@@ -2,30 +2,33 @@ import { Rectangle } from "electron";
 import { 
   AppServerMessageType,
   NetworkTablesServiceMessageType,
-  NetworkTablesDataType,
-  CameraName
+  NetworkTablesDataType
 } from "./enums";
 import { ParsedArgs } from "minimist";
 
-export type AppArguments = ParsedArgs & {
-  ntServerAddress: string;
+export type ConfigurationSettings = {
+  Networking: {
+    ServerAddress: string;
+    ServerPort: number;
+    AppPort: number;
+  };
+  NetworkTables: {
+    Subscriptions: string[];
+  };
+  Cameras: Record<string, string>;
+  MatchTimeTriggers: {
+    Warning: number;
+    Critical: number;
+  };
+  Windows: {
+    MaxWidth: number;
+    MaxHeight: number;
+    DockedHeight: number;
+  };
 }
 
-export type ConfigurationSettings = {
-  Defaults: {
-    NT_SERVER_ADDRESS: string;
-  };
-  APP_SERVER_PORT: number;
-  NT_SERVER_PORT: number;
-  WINDOW_MAX_WIDTH: number;
-  WINDOW_MAX_HEIGHT: number;
-  FRC_DS_APP_DOCKED_HEIGHT: number;
-  SUBSCRIPTIONS: string[];
-  CAMERA_STREAMS: Record<CameraName, string>;
-  MATCH_TIME_TRIGGERS: {
-    WARNING: number;
-    CRITICAL: number;
-  }
+export type AppArguments = ParsedArgs & {
+  serverAddress: string;
 }
 
 export type AppWindowOptions = {
@@ -88,7 +91,12 @@ export type Pose2d = {
   rotation: { radians: number; }
 }
 
-export type Pose = {
+export type Pose3d = {
+  translation: { x: number; y: number; z: number }
+  rotation: { quaternion: { W: number; X: number; Y: number; Z: number; } }
+}
+
+export type PoseInfo = {
   x: number;
   y: number;
   rotation: number;

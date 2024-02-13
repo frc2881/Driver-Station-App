@@ -5,6 +5,8 @@
     NetworkTablesTopic
 	} from "../../../common";
 
+  const { MatchTimeTriggers } = Configuration.Settings;
+
   export let matchTime: NetworkTablesTopic;
 
   let time = 0;
@@ -22,12 +24,12 @@
   class:warning={ 
     Utils.isNumberInRange(
       time, 
-      Configuration.Settings.MATCH_TIME_TRIGGERS.CRITICAL, 
-      Configuration.Settings.MATCH_TIME_TRIGGERS.WARNING
+      MatchTimeTriggers.Critical, 
+      MatchTimeTriggers.Warning
     ) }
   class:critical={ 
     Utils.isNumberInRange(
-      time, 1, Configuration.Settings.MATCH_TIME_TRIGGERS.CRITICAL
+      time, 1, MatchTimeTriggers.Critical
     ) }>
   <div class="time">{ time }</div>
 </div>

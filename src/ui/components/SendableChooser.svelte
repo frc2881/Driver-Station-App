@@ -4,6 +4,7 @@
   import { updateNetworkTablesTopics } from "../stores/NetworkTables";
 
   export let name: string;
+  export let inline: boolean = false;
   export let options: NetworkTablesTopic;
   export let active: NetworkTablesTopic;
 
@@ -24,44 +25,23 @@
 </script>
 
 <div class="main">
-  <div class="title"><h4>{ name }</h4></div>
-  <div>
-    <Dropdown
-      selectedId={ selectedItemId }
-      items={ items }
-      on:select={ (e) => {
-        updateNetworkTablesTopics([{
-          id: 0,
-          name: active.name.replace("/active", "/selected"),
-          type: active.type,
-          value: e.detail.selectedItem.text
-        }]);
-      } } />
-    <div class="active"><h2>{ active?.value }</h2></div>
-  </div>
-
+  <Dropdown
+    type={ inline ? "inline" : "default" }
+    titleText={ name }
+    selectedId={ selectedItemId }
+    items={ items }
+    on:select={ (e) => {
+      updateNetworkTablesTopics([{
+        id: 0,
+        name: active.name.replace("/active", "/selected"),
+        type: active.type,
+        value: e.detail.selectedItem.text
+      }]);
+    } } />
 </div>
 
 <style lang="postcss">
   .main {
-    display: grid;
-    grid-template-rows: 50px auto;
-    width: 100%;
-    height: 100%;
-
-    .title {
-      color: var(--app-color-smoke);
-    }
-
-    .active {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      height: 100%;
-      padding: 40px 10px;
-      text-align: left;
-      color: var(--app-color-green);
-    }
-
+    margin-bottom: 1em;
   }
 </style>

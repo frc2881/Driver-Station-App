@@ -1,31 +1,34 @@
+import { Camera } from "./common/enums";
 import { ConfigurationSettings } from "./common/types";
-import { CameraName } from "./common/enums";
 
 export namespace Configuration {
-  export const Settings = {
-    Defaults: {
-      NT_SERVER_ADDRESS: "10.28.81.2"
+  export const Settings: ConfigurationSettings = {
+    Networking: {
+      ServerAddress: "127.0.0.1",
+      ServerPort: 5810,
+      AppPort: 2881
     },
-    APP_SERVER_PORT: 2881,
-    NT_SERVER_PORT: 5810,
-    WINDOW_MAX_WIDTH: 1920,
-    WINDOW_MAX_HEIGHT: 1080,
-    FRC_DS_APP_DOCKED_HEIGHT: 248,
-    SUBSCRIPTIONS: [
-      "/SmartDashboard",
-      "/photonvision",
-      "/CameraPublisher",
-      "/FMSInfo",
-      "/LiveWindow"
-    ],
-    CAMERA_STREAMS: {
-      [CameraName.Front]: "http://10.28.81.18:1182/?action=stream",
-      [CameraName.Back]: "http://10.28.81.18:1184/?action=stream",
-      [CameraName.Driver]: "http://10.28.81.18:1182/?action=stream"
+    NetworkTables: {
+      Subscriptions: [
+        "/SmartDashboard",
+        "/photonvision",
+        "/FMSInfo",
+        "/LiveWindow"
+      ]
     },
-    MATCH_TIME_TRIGGERS: {
-      WARNING: 35,
-      CRITICAL: 10
+    Cameras: {
+      [Camera.Front]: "http://10.28.81.6:1182/?action=stream",
+      [Camera.Rear]: "http://10.28.81.6:1184/?action=stream",
+      [Camera.Side]: "http://10.28.81.6:1186/?action=stream"
+    },
+    MatchTimeTriggers: {
+      Warning: 35,
+      Critical: 10
+    },
+    Windows: {
+      MaxWidth: 1920,
+      MaxHeight: 1080,
+      DockedHeight: 248
     }
-  } as ConfigurationSettings
+  }
 }

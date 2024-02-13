@@ -1,12 +1,7 @@
-export enum Platform {
-  Windows = "win32",
-  macOS = "darwin"
-}
-
 export enum AppWindowType {
-  Hud = "HUD",
-  Dashboard = "DASHBOARD",
-  Data = "DATA"
+  Hud = "Hud",
+  Dashboard = "Dashboard",
+  Data = "Data"
 }
 
 export enum AppServerMessageType {
@@ -34,25 +29,25 @@ export enum NetworkTablesDataType {
 }
 
 export enum RobotMode {
-  Disabled = "DISABLED",
-  Auto = "AUTO",
-  Teleop = "TELEOP",
-  Test = "TEST"
+  Disabled = "Disabled",
+  Auto = "Auto",
+  Teleop = "Teleop",
+  Test = "Test"
 }
 
 export enum RobotStatus {
-  Disabled = "DISABLED",
-  Enabled = "ENABLED",
-  Estopped = "ESTOPPED"
+  Disabled = "Disabled",
+  Enabled = "Enabled",
+  Estopped = "EStopped"
 }
 
 export enum Alliance {
-  Red = "RED",
-  Blue = "BLUE"
+  Red = "Red",
+  Blue = "Blue"
 }
 
-export enum CameraName {
-  Front = "FRONT",
-  Back = "BACK",
-  Driver = "DRIVER"
+export enum Camera {
+  Front = "Front",
+  Rear = "Rear",
+  Side = "Side"
 }

@@ -10,7 +10,7 @@
   export let voltage: NetworkTablesTopic;
 
   const formatVoltage = (voltage: number): string => {
-    return voltage.toFixed(2);
+    return voltage?.toFixed(2);
   }
 </script>
 
