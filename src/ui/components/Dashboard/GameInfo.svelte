@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { 
-    NetworkTablesTopic,
-    Alliance
-	} from "../../../common";
+  import { Alliance } from "../../../common";
 
-  export let alliance: NetworkTablesTopic;
-  export let stationNumber: NetworkTablesTopic;
+  export let alliance: Alliance;
+  export let stationNumber: number;
 </script>
 
 <div class="main">
-  <div class="value" style:background={ alliance?.value === Alliance.Red ? "#CC0000" : "#0000CC" }>
-    <h3>{ stationNumber?.value ?? "" }</h3>
+  <div class="value { alliance?.toLowerCase() }">
+    <h3>{ stationNumber ?? 0 }</h3>
   </div> 
 </div>
 
@@ -27,5 +24,8 @@
       width: 42px;
       height: 42px;
     }
+
+    .blue { background-color: #0000CC; }
+    .red { background-color: #CC0000; }
   }
 </style>

@@ -36,8 +36,7 @@
 
   let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
 
-  const subscriptions = Configuration.Settings.NetworkTables.Subscriptions;
-  let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? subscriptions;
+  let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? Configuration.Settings.NetworkTables.Subscriptions;
   let isSubscriptionsModalOpen: boolean = false;
 
   let graphModalTopicName: string = null;
@@ -217,7 +216,7 @@
   bind:open={ isSubscriptionsModalOpen }
   on:submit={ () => { isSubscriptionsModalOpen = false; } }
   on:close={ onSubscriptionsModalClosed }>
-  {#each subscriptions as subscription}
+  {#each Configuration.Settings.NetworkTables.Subscriptions as subscription}
     <Checkbox bind:group={ selectedSubscriptions } labelText={ subscription } value = { subscription } />
   {/each}
 </Modal>

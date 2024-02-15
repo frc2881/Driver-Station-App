@@ -1,28 +1,25 @@
 <script lang="ts">
+  import { RobotMode, RobotState } from "../../../common";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
   import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
-  import { 
-    NetworkTablesTopic,
-    RobotStatus
-	} from "../../../common";
 
-  export let mode: NetworkTablesTopic;
-  export let status: NetworkTablesTopic;
+  export let state: RobotState;
+  export let mode: RobotMode;
 </script>
 
 <div class="main">
   <div 
     class="mode" 
-    class:active={ status?.value === RobotStatus.Enabled }>
-    <h3>{ status?.value === RobotStatus.Estopped ? "ESTOP" : mode?.value }</h3>
+    class:active={ state === RobotState.Enabled }>
+    <h3>{ state === RobotState.Estopped ? "ESTOP" : mode }</h3>
   </div>
   <div class="status">
-    { #if status?.value === RobotStatus.Enabled }
+    { #if state === RobotState.Enabled }
       <CheckmarkFilled width=48 height=48 fill="#00CC00" />
-    { :else if status?.value === RobotStatus.Disabled }
+    { :else if state === RobotState.Disabled }
       <CloseFilled width=48 height=48 fill="#CC0000" />
-    { :else if status?.value === RobotStatus.Estopped }
+    { :else if state === RobotState.Estopped }
       <WarningAltFilled width=48 height=48 fill="#CCCC00" />
     { /if } 
   </div>
@@ -45,7 +42,7 @@
 
       &.active {
         background: var(--app-color-smoke);
-        color: #000000;
+        color: var(--app-color-black);
       }
     }
 

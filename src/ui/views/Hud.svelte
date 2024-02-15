@@ -1,46 +1,38 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
   import { Configuration } from "../../config";
-  import { 
-    NetworkTables
-	} from "../../common";
+  import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
 
-  let networkTables: NetworkTables;
-  $: { networkTables = $NetworkTablesStore; }
+  const { Topics } = Configuration.Settings.NetworkTables;
+
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
 </script>
 
 <main>
-{ #if networkTables.isConnected }
+{ #if nt.isConnected }
   <div class="primary">
+    <Tile class="widget"></Tile>
     <Tile class="widget">
+      <CameraStream stream={ Configuration.Settings.CameraStreams.Front } width={ "800px" } height={ "450px" } />
     </Tile>
-    <Tile class="widget">
-      <CameraStream 
-        stream={ Configuration.Settings.Cameras.Front }
-        isConnected={ networkTables.isConnected }
-        width={ "800px" } height={ "450px" } />
-    </Tile>
-    <Tile class="widget">
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
   <div class="secondary">
+    <Tile class="widget"></Tile>
     <Tile class="widget">
+      <MatchTime matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
-    <Tile class="widget">
-      <MatchTime 
-        matchTime={ networkTables.topics.get("/SmartDashboard/Robot/Game/MatchTime") } />
-    </Tile>
-    <Tile class="widget">
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
 { :else }
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
-      subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
+      subtitle={`Attempting to restart connection to ${ nt.address } ...`}
       kind="warning-alt"
       lowContrast
       hideCloseButton />

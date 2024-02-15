@@ -1,26 +1,25 @@
 import { Rectangle } from "electron";
-import { 
-  AppServerMessageType,
-  NetworkTablesServiceMessageType,
-  NetworkTablesDataType
-} from "./enums";
+import { AppServerMessageType, NetworkTablesServiceMessageType, NetworkTablesDataType } from "./enums";
 import { ParsedArgs } from "minimist";
 
 export type ConfigurationSettings = {
-  Networking: {
+  NetworkTables: {
     ServerAddress: string;
     ServerPort: number;
-    AppPort: number;
-  };
-  NetworkTables: {
     Subscriptions: string[];
+    Topics: Record<string, string>;
   };
-  Cameras: Record<string, string>;
-  MatchTimeTriggers: {
+  CameraStreams: Record<string, string>;
+  MatchTime: {
     Warning: number;
     Critical: number;
   };
-  Windows: {
+  BatteryVoltage: {
+    Low: number;
+    Warning: number;
+    Critical: number;
+  };
+  Layout: {
     MaxWidth: number;
     MaxHeight: number;
     DockedHeight: number;

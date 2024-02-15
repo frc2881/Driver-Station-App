@@ -30,7 +30,7 @@ class Main {
 
     const args = minimist(process.argv, {
       default: { 
-        "serverAddress": Configuration.Settings.Networking.ServerAddress 
+        "serverAddress": Configuration.Settings.NetworkTables.ServerAddress 
       }
     }) as AppArguments;
 
@@ -66,7 +66,7 @@ class Main {
     const displays = screen.getAllDisplays();
     const secondaryDisplay = displays.length === 2 ? displays[1] : null;
 
-    const { Windows } = Configuration.Settings
+    const { Layout } = Configuration.Settings;
 
     let options!: AppWindowOptions;
     switch (type) {
@@ -76,8 +76,8 @@ class Main {
           bounds:{ 
             x: 0, 
             y: secondaryDisplay?.bounds.y ?? 0,
-            width: Windows.MaxWidth, 
-            height: Windows.MaxHeight 
+            width: Layout.MaxWidth, 
+            height: Layout.MaxHeight 
           },
           isMinimized: secondaryDisplay === null,
           isTransparent: true,
@@ -91,8 +91,8 @@ class Main {
           bounds: { 
             x: 0, 
             y: 0, 
-            width: Windows.MaxWidth, 
-            height: Windows.MaxHeight - Windows.DockedHeight 
+            width: Layout.MaxWidth, 
+            height: Layout.MaxHeight - Layout.DockedHeight 
           },
           isMinimized: false,
           isTransparent: true,
@@ -106,8 +106,8 @@ class Main {
           bounds: { 
             x: 0, 
             y: 0, 
-            width: Windows.MaxWidth, 
-            height: Windows.MaxHeight - Windows.DockedHeight
+            width: Layout.MaxWidth, 
+            height: Layout.MaxHeight - Layout.DockedHeight
           } as Rectangle,
           isMinimized: false,
           isTransparent: false,

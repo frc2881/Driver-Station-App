@@ -59,9 +59,9 @@
     </div>
   </div>
   <div class="pose">
-    <div>x: { poseInfo?.x?.toFixed(3) }</div>
-    <div>y: { poseInfo?.y?.toFixed(3) }</div>
-    <div>r: { poseInfo?.rotation?.toFixed(2) }</div>
+    <div>x: { poseInfo.x.toFixed(3) }</div>
+    <div>y: { poseInfo.y.toFixed(3) }</div>
+    <div>r: { poseInfo.rotation.toFixed(2) }</div>
   </div>
 </div>
 
@@ -95,10 +95,7 @@
       justify-content: center;
       font-size: 22px;
       margin-top: 2em;
-
-      & div {
-        margin: 0 5px;
-      }
+      gap: 1em;
     }
   }
 </style>

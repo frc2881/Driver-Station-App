@@ -35,7 +35,7 @@ export enum RobotMode {
   Test = "Test"
 }
 
-export enum RobotStatus {
+export enum RobotState {
   Disabled = "Disabled",
   Enabled = "Enabled",
   Estopped = "EStopped"
@@ -44,10 +44,4 @@ export enum RobotStatus {
 export enum Alliance {
   Red = "Red",
   Blue = "Blue"
-}
-
-export enum Camera {
-  Front = "Front",
-  Rear = "Rear",
-  Side = "Side"
 }

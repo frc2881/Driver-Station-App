@@ -31,12 +31,12 @@ class Server {
   private init = async (): Promise<void> => {
     const args = minimist(process.argv) as AppArguments;
 
-    this._webSocketServer = new WebSocketServer({ port: Configuration.Settings.Networking.AppPort, skipUTF8Validation: true });
+    this._webSocketServer = new WebSocketServer({ port: 2881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
     this._networkTablesService = new NetworkTables4Service({ 
       address: args.serverAddress, 
-      port: Configuration.Settings.Networking.ServerPort,
+      port: Configuration.Settings.NetworkTables.ServerPort,
       subscriptionTopics: Configuration.Settings.NetworkTables.Subscriptions ?? ["/"]
     });
     

@@ -53,6 +53,8 @@
 		--app-color-yellow: #CCCC00;
 		--app-color-charcoal: #666666;
 		--app-color-smoke: #999999;
+		--app-color-black: #000000;
+		--app-color-white: #FFFFFF;
 	}
 
 	.hidden {

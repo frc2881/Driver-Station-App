@@ -3,10 +3,8 @@
   import { Utils } from "../../../common";
 
   export let stream: string;
-  export let isConnected: boolean;
   export let width: string;
   export let height: string;
-  export let translation: number = 0;
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
@@ -29,10 +27,9 @@
 <div class="main" style:width style:height>
   <div class="icon"><Video_02 class="watermark" /></div>
   <img 
-    src={ isConnected ? stream : transparentPixelImage } 
+    src={ stream } 
     bind:this={ image } 
-    on:error={ reloadStream } 
-    style:transform={ `translate(${ translation }px, 0)` }
+    on:error={ reloadStream }
     alt="" />
 </div>
 

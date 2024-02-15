@@ -33,8 +33,10 @@
       justify-content: center;
       height: 100%;
       margin-top: 3em;
-      text-align: left;
+      padding: 1em;
+      text-align: center;
       color: var(--app-color-green);
+      border: 1px solid var(--app-color-green);
     }
   }
 </style>

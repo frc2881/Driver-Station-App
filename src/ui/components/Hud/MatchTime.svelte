@@ -1,37 +1,30 @@
 <script lang="ts">
   import { Configuration } from "../../../config";
-  import { 
-    Utils,
-    NetworkTablesTopic
-	} from "../../../common";
+  import { Utils } from "../../../common";
 
-  const { MatchTimeTriggers } = Configuration.Settings;
+  const { MatchTime } = Configuration.Settings;
+  export let matchTime: number;
 
-  export let matchTime: NetworkTablesTopic;
-
-  let time = 0;
-
-  $: {
-    time = matchTime?.value ?? 0;
-    if (time === -1) { time = 0; }
+  $: { 
+    matchTime = matchTime === -1 ? 0 : matchTime; 
   }
 </script>
 
 <div 
   class="main"
-  class:inactive={ time === -1 }
-  class:normal={ time > 0 }
+  class:inactive={ matchTime === 0 }
+  class:normal={ matchTime > 0 }
   class:warning={ 
     Utils.isNumberInRange(
-      time, 
-      MatchTimeTriggers.Critical, 
-      MatchTimeTriggers.Warning
+      matchTime, 
+      MatchTime.Critical, 
+      MatchTime.Warning
     ) }
   class:critical={ 
     Utils.isNumberInRange(
-      time, 1, MatchTimeTriggers.Critical
+      matchTime, 1, MatchTime.Critical
     ) }>
-  <div class="time">{ time }</div>
+  <div class="time">{ matchTime }</div>
 </div>
 
 <style lang="postcss">

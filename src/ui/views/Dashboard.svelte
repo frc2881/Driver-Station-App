@@ -1,9 +1,6 @@
 <script lang="ts">
-  import { 
-    Tile, 
-    InlineNotification, 
-    SkeletonPlaceholder 
-  } from "carbon-components-svelte";
+  import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
+  import { Configuration } from "../../config";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
@@ -13,8 +10,10 @@
   import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
 
-  let networkTables: NetworkTables;
-  $: { networkTables = $NetworkTablesStore; }
+  const { Topics } = Configuration.Settings.NetworkTables;
+
+  let nt: NetworkTables = $NetworkTablesStore;
+  $: { nt = $NetworkTablesStore; }
 
   const toggleControllerMap = (target: EventTarget): void => {
     if (!document.fullscreenElement) {
@@ -26,20 +25,21 @@
 </script>
 
 <main>
-{ #if networkTables.isConnected }
+{ #if nt.isConnected }
   <div class="info">
     <div class="left">
       <RobotInfo 
-        mode={ networkTables.topics.get("/SmartDashboard/Robot/Mode") }
-        status={ networkTables.topics.get("/SmartDashboard/Robot/State") }/>
+        mode={ nt.topics.get(Topics.RobotMode)?.value } 
+        state={ nt.topics.get(Topics.RobotState)?.value } />
     </div>
     <div class="center">
       <GameInfo 
-        alliance={ networkTables.topics.get("/SmartDashboard/Robot/Game/Alliance") }
-        stationNumber={ networkTables.topics.get("/SmartDashboard/Robot/Game/StationNumber") } />
+        alliance={ nt.topics.get(Topics.Alliance)?.value } 
+        stationNumber={ nt.topics.get(Topics.StationNumber)?.value } />
     </div>
     <div class="right">
-      <BatteryInfo voltage={ networkTables.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage") } />
+      <BatteryInfo 
+        voltage={ nt.topics.get(Topics.BatteryVoltage)?.value } />
     </div>
   </div>
   <div class="widgets">
@@ -47,10 +47,10 @@
     </Tile>
     <Tile class="widget">
       <PoseInfo 
-        rearSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets") }
-        sideSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets") }
-        frontSensorHasTargetsTopic={ networkTables.topics.get("/SmartDashboard/Robot/Sensor/Pose/Front/HasTargets") }
-        poseTopic={ networkTables.topics.get("/SmartDashboard/Robot/Pose") }
+        rearSensorHasTargetsTopic={ nt.topics.get("/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets") }
+        sideSensorHasTargetsTopic={ nt.topics.get("/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets") }
+        frontSensorHasTargetsTopic={ nt.topics.get("/SmartDashboard/Robot/Sensor/Pose/Front/HasTargets") }
+        poseTopic={ nt.topics.get("/SmartDashboard/Robot/Pose") }
       />         
     </Tile>
     <Tile class="widget">
@@ -80,7 +80,7 @@
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
-      subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
+      subtitle={`Attempting to restart connection to ${ nt.address } ...`}
       kind="warning-alt"
       lowContrast
       hideCloseButton />
