@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { Configuration } from "../../../config";
   import { NetworkTables } from "../../../common";
   import { NetworkTablesStore } from "../../stores/NetworkTables";
   import SendableChooser from "../SendableChooser.svelte";
 
-  let networkTables: NetworkTables;
-  $: { networkTables = $NetworkTablesStore; }
+  const { Topics } = Configuration.Settings.NetworkTables;
+
+  let active = "";
+
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
+
+  $: { active = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? ""; }
 </script>
 
 <div class="main">
@@ -12,11 +19,13 @@
   <div>
     <SendableChooser
       name="Auto Command"
-      options={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/options") }
-      active={ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/active") } />
+      options={ nt.topics.get(`${Topics.AutoCommand}/options`) }
+      active={ nt.topics.get(`${Topics.AutoCommand}/active`) } />
   </div>
-  <div class="active">
-    <h3>{ networkTables.topics.get("/SmartDashboard/Robot/Auto/Command/active")?.value }</h3>
+  <div 
+    class="active"
+    class:none={ active === "None" }>
+    <h4>{ active }</h4>
   </div>
 </div>
 
@@ -37,6 +46,11 @@
       text-align: center;
       color: var(--app-color-green);
       border: 1px solid var(--app-color-green);
+
+      &.none {
+        color: var(--app-color-charcoal);
+        border-color: var(--app-color-charcoal);
+      }
     }
   }
 </style>

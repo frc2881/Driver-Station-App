@@ -10,18 +10,20 @@
 
   let image: HTMLImageElement;
 
-  const reloadStream = async (): Promise<void> => {
-    if (image) {
-      image.src = transparentPixelImage;
-      await Utils.wait(1);
-      image.src = stream;
-    }
-  }
-
   (async (): Promise<void> => {
-    await Utils.wait(30);
-    reloadStream();
+    while (true) {
+      if (image) {
+        setTransparentImage();
+        await Utils.wait(0.001);
+        image.src = `${ stream }?${ new Date().getTime() }`;
+      }
+      await Utils.wait(15);
+    }
   })();
+
+  const setTransparentImage = (): void => {
+    image.src = transparentPixelImage;
+  };
 </script>
 
 <div class="main" style:width style:height>
@@ -29,7 +31,7 @@
   <img 
     src={ stream } 
     bind:this={ image } 
-    on:error={ reloadStream }
+    on:error={ setTransparentImage }
     alt="" />
 </div>
 

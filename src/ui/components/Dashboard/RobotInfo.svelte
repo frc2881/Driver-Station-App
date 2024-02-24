@@ -12,7 +12,7 @@
   <div 
     class="mode" 
     class:active={ state === RobotState.Enabled }>
-    <h3>{ state === RobotState.Estopped ? "ESTOP" : mode }</h3>
+    <h3>{ state === RobotState.Estopped ? "ESTOP" : mode ?? "" }</h3>
   </div>
   <div class="status">
     { #if state === RobotState.Enabled }

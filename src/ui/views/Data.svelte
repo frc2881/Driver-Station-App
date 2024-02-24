@@ -27,8 +27,8 @@
     updateNetworkTablesTopics 
   } from "../stores/NetworkTables";
 
-  let networkTables: NetworkTables;
-  $: { networkTables = $NetworkTablesStore; }
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
 
   let isMetadataPropsEnabled: boolean = false;
   let isAllTelemetryEnabled: boolean = false;
@@ -72,7 +72,7 @@
   const openGraphModal = (topicName: string): void => {
     isGraphModalOpen = true;
     graphModalTopicName = topicName;
-    const topic = networkTables.topics.get(topicName);
+    const topic = nt.topics.get(topicName);
     graphModalData = [{
       name: topic.name,
       x: [ Utils.convertTimestamp(topic.timestamp) ],
@@ -113,17 +113,17 @@
     }
   }
 
-  $: topics = Array.from(networkTables.topics.values())
+  $: topics = Array.from(nt.topics.values())
     .reverse()
     .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
     .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)));
 
-  $: selectedRowIds = selectedTopicNames.map(topicName => networkTables.topics.get(topicName)?.id);
+  $: selectedRowIds = selectedTopicNames.map(topicName => nt.topics.get(topicName)?.id);
 
   $: {
     if (isGraphModalOpen) {
-      if (networkTables.isConnected) {
-        const topic = networkTables.topics.get(graphModalTopicName);
+      if (nt.isConnected) {
+        const topic = nt.topics.get(graphModalTopicName);
         if (topic.value !== graphModalData.at(0)["y"].at(-1).value) {
           graphModalData.at(0)["x"].push(Utils.convertTimestamp(topic.timestamp));
           graphModalData.at(0)["y"].push(topic.value);
@@ -142,12 +142,12 @@
   }
 
   $: {
-    isAllTelemetryEnabled = networkTables.topics.get("/SmartDashboard/Robot/IsAllTelemetryEnabled")?.value ?? false;
+    isAllTelemetryEnabled = nt.topics.get(Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled)?.value ?? false;
   }
 </script>
 
 <main>
-{ #if networkTables.isConnected }
+{ #if nt.isConnected }
   <DataTable
     headers={[
       { key: "name", value: "Name", width: "35%" },
@@ -169,13 +169,13 @@
           <ToolbarMenuItem on:click={ () => { 
             updateNetworkTablesTopics([{ 
               id: 0, 
-              name: "/SmartDashboard/Robot/IsAllTelemetryEnabled", 
+              name: Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled, 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
             }]) } }>
             { isAllTelemetryEnabled ? "Disable": "Enable" } Telemetry
           </ToolbarMenuItem>
-          <ToolbarMenuItem on:click={ () => { isDebugEnabled = !isDebugEnabled; networkTables = networkTables; } }>
+          <ToolbarMenuItem on:click={ () => { isDebugEnabled = !isDebugEnabled; nt = nt; } }>
             { isDebugEnabled ? "Hide": "Show" } Debug
           </ToolbarMenuItem>
         </ToolbarMenu>
@@ -200,7 +200,7 @@
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
-      subtitle={`Attempting to restart connection to ${ networkTables.address } ...`}
+      subtitle={`Attempting to restart connection to ${ nt.address } ...`}
       kind="warning-alt"
       lowContrast
       hideCloseButton />
@@ -265,14 +265,14 @@
       }} />
     <div class="movingAverage">
       Moving Average:
-      <span class="value">{ graphModalDataMovingAverage.toFixed(6) }</span>
+      <span class="value">{ graphModalDataMovingAverage?.toFixed(6) }</span>
       <span class="input"><NumberInput bind:value={ graphModalDataMovingAverageSamplesCount } step={ 50 } min={ 50 } max={ 3000 } size="sm" /></span>samples
     </div>
   </div>
 </Modal>
 
 { #if isDebugEnabled }
-<pre class="debug">{ Utils.stringifyNetworkTables(networkTables, 4) }</pre>
+<pre class="debug">{ Utils.stringifyNetworkTables(nt, 4) }</pre>
 { /if }
 
 <style lang="postcss">

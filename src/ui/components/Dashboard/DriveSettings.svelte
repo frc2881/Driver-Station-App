@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { Configuration } from "../../../config";
   import { NetworkTables } from "../../../common";
   import { NetworkTablesStore } from "../../stores/NetworkTables";
   import SendableChooser from "../../components/SendableChooser.svelte";
 
-  let networkTables: NetworkTables;
-  $: { networkTables = $NetworkTablesStore; }
+  const { Topics } = Configuration.Settings.NetworkTables;
+
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
 </script>
 
 <div class="main">
@@ -13,18 +16,18 @@
     <SendableChooser
       name="Orientation"
       inline
-      options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/options") }
-      active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/Orientation/active") } />
+      options={ nt.topics.get(`${Topics.DriveOrientation}/options`) }
+      active={ nt.topics.get(`${Topics.DriveOrientation}/active`) } />
     <SendableChooser
       name="Speed Mode"
       inline
-      options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/options") }
-      active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/SpeedMode/active") } />
+      options={ nt.topics.get(`${Topics.DriveSpeedMode}/options`) }
+      active={ nt.topics.get(`${Topics.DriveSpeedMode}/active`) } />
     <SendableChooser
       name="Drift Correction"
       inline
-      options={ networkTables.topics.get("/SmartDashboard/Robot/Drive/DriftCorrection/options") }
-      active={ networkTables.topics.get("/SmartDashboard/Robot/Drive/DriftCorrection/active") } />
+      options={ nt.topics.get(`${Topics.DriveDriftCorrection}/options`) }
+      active={ nt.topics.get(`${Topics.DriveDriftCorrection}/active`) } />
   </div>
 </div>
 

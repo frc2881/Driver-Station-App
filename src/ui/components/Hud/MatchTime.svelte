@@ -6,7 +6,7 @@
   export let matchTime: number;
 
   $: { 
-    matchTime = matchTime === -1 ? 0 : matchTime; 
+    matchTime = matchTime === -1 ? 0 : matchTime ?? 0; 
   }
 </script>
 

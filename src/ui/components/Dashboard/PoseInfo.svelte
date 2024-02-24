@@ -1,35 +1,23 @@
 <script lang="ts">
-  import CenterSquare from "carbon-icons-svelte/lib/CenterSquare.svelte";
+	import { CenterSquare, CenterCircle } from "carbon-icons-svelte";
   import { 
-    NetworkTablesTopic,
     Pose2d,
     PoseInfo,
     Utils
   } from "../../../common";
-	import { CircleFill, CircleSolid, CircleStroke, CenterCircle } from "carbon-icons-svelte";
 
-  export let rearSensorHasTargetsTopic: NetworkTablesTopic;
-  export let sideSensorHasTargetsTopic: NetworkTablesTopic;
-  export let frontSensorHasTargetsTopic: NetworkTablesTopic;
-  export let poseTopic: NetworkTablesTopic;
+  export let rearPoseSensorHasTargets: boolean;
+  export let sidePoseSensorHasTargets: boolean;
+  export let frontNoteObjectSensorHasTarget: boolean;
+  export let robotPose: string;
 
-  let rearSensorHasTargets: boolean = false;
-  let sideSensorHasTargets: boolean = false;
-  let frontSensorHasTargets: boolean = false;
-  let poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
+  const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
 
   $: {
-    rearSensorHasTargets = rearSensorHasTargetsTopic?.value as boolean;
-    sideSensorHasTargets = sideSensorHasTargetsTopic?.value as boolean;
-    frontSensorHasTargets = frontSensorHasTargetsTopic?.value as boolean;
-    
-    poseInfo = { x: 0, y: 0, rotation: 0 };
-    if (poseTopic?.value) {
-      const __pose = JSON.parse(poseTopic.value) as Pose2d;
-      poseInfo.x = __pose.translation.x ?? 0;
-      poseInfo.y = __pose.translation.y ?? 0;
-      poseInfo.rotation = Utils.radiansToDegrees(__pose.rotation?.radians ?? 0);
-    }
+    const __pose = JSON.parse(robotPose ?? "{}") as Pose2d;
+    poseInfo.x = typeof(__pose.translation?.x) === "number" ? __pose.translation?.x ?? 0 : 0;
+    poseInfo.y = typeof(__pose.translation?.y) === "number" ? __pose.translation?.y ?? 0 : 0;
+    poseInfo.rotation = Utils.radiansToDegrees(typeof(__pose.rotation?.radians) === "number" ? __pose?.rotation?.radians ?? 0 : 0);
   }
 </script>
 
@@ -38,30 +26,30 @@
   <div class="sensors">
     <div class="sensor">
       <CenterSquare
-        fill={ rearSensorHasTargets ? "#00CC00" : "#333333" }
+        fill={ rearPoseSensorHasTargets ? "#00CC00" : "#333333" }
         width=80
         height=80 />
       Rear
     </div>
     <div class="sensor">
       <CenterSquare
-        fill={ sideSensorHasTargets ? "#00CC00" : "#333333" }
+        fill={ sidePoseSensorHasTargets ? "#00CC00" : "#333333" }
         width=80
         height=80 />
       Side
     </div>
     <div class="sensor">
       <CenterCircle
-        fill={ frontSensorHasTargets ? "#F3481A" : "#333333" }
+        fill={ frontNoteObjectSensorHasTarget ? "#CC6600" : "#333333" }
         width=80
         height=80 />
       Front
     </div>
   </div>
   <div class="pose">
-    <div>x: { poseInfo.x.toFixed(3) }</div>
-    <div>y: { poseInfo.y.toFixed(3) }</div>
-    <div>r: { poseInfo.rotation.toFixed(2) }</div>
+    <div>x: { poseInfo.x?.toFixed(3) }</div>
+    <div>y: { poseInfo.y?.toFixed(3) }</div>
+    <div>r: { poseInfo.rotation?.toFixed(2) }</div>
   </div>
 </div>
 
