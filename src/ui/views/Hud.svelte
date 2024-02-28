@@ -5,6 +5,7 @@
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
+  import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
@@ -19,14 +20,22 @@
     <Tile class="widget">
       <CameraStream stream={ Configuration.Settings.CameraStreams.Front } width={ "800px" } height={ "450px" } />
     </Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+    </Tile>
   </div>
   <div class="secondary">
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <IntakeStatus 
+        intakeBeamBreakSensorHasTarget={ nt.topics.get(Topics.IntakeBeamBreakSensorHasTarget)?.value }
+        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
+        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
+        intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
+    </Tile>
     <Tile class="widget">
       <MatchTime matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+    </Tile>
   </div>
 { :else }
   <div class="inlineNotification">
@@ -44,7 +53,7 @@
 <style lang="postcss">
   main {
     display: grid;
-    grid-template-rows: 620px auto;
+    grid-template-rows: 540px auto;
     row-gap: 0px;
     width: 100vw;
     height: 100vh;

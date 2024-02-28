@@ -14,7 +14,7 @@ export type ConfigurationSettings = {
     Warning: number;
     Critical: number;
   };
-  BatteryVoltage: {
+  BatteryVoltageLevel: {
     Low: number;
     Warning: number;
     Critical: number;

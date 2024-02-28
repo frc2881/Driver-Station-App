@@ -3,7 +3,7 @@ import { ConfigurationSettings } from "./common";
 export namespace Configuration {
   export const Settings: ConfigurationSettings = {
     NetworkTables: {
-      ServerAddress: "10.28.81.2",
+      ServerAddress: "127.0.0.1",
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
@@ -18,15 +18,31 @@ export namespace Configuration {
         RobotState: "/SmartDashboard/Robot/State",
         Alliance: "/SmartDashboard/Robot/Game/Alliance",
         StationNumber: "/SmartDashboard/Robot/Game/StationNumber",
+        BatteryInfo: "/SmartDashboard/Robot/Power/Battery/Info",
         BatteryVoltage: "/SmartDashboard/Robot/Power/Battery/Voltage",
-        RobotPose: "/SmartDashboard/Robot/Pose",
+        TotalCurrent: "/SmartDashboard/Robot/Power/TotalCurrent",
         AutoCommand: "/SmartDashboard/Robot/Auto/Command",
+        DriveLockState: "/SmartDashboard/Robot/Drive/LockState",
+        DriveIdleMode: "/SmartDashboard/Robot/Drive/IdleMode",
         DriveOrientation: "/SmartDashboard/Robot/Drive/Orientation",
         DriveSpeedMode: "/SmartDashboard/Robot/Drive/SpeedMode",
         DriveDriftCorrection: "/SmartDashboard/Robot/Drive/DriftCorrection",
+        RobotPose: "/SmartDashboard/Robot/Pose",
+        TargetPose: "/SmartDashboard/Robot/Pose/Target/Pose",
+        TargetYaw: "/SmartDashboard/Robot/Pose/Target/Yaw",
+        TargetPitch: "/SmartDashboard/Robot/Pose/Target/Pitch",
         RearPoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets",
         SidePoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets",
-        FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget"
+        FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
+        IntakeBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BreamBreak/Intake/HasTarget",
+        LauncherBottomBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BreamBreak/LauncherBottom/HasTarget",
+        LauncherTopBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BreamBreak/LauncherTop/HasTarget",
+        LauncherArmPosition: "/SmartDashboard/Robot/Launcher/Arm/Position",
+        LauncherRollerTopSpeed: "/SmartDashboard/Robot/Launcher/Roller/Top/Speed",
+        LauncherRollerBottomSpeed: "/SmartDashboard/Robot/Launcher/Roller/Bottom/Speed",
+        IntakeBeltTopSpeed: "/SmartDashboard/Robot/Intake/Belt/Top/Speed",
+        IntakeBeltBottomSpeed: "/SmartDashboard/Robot/Intake/Belt/Bottom/Speed",
+        IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed"
       },
     },
     CameraStreams: {
@@ -38,7 +54,7 @@ export namespace Configuration {
       Warning: 35,
       Critical: 10
     },
-    BatteryVoltage: {
+    BatteryVoltageLevel: {
       Low: 12.3,
       Warning: 12.1,
       Critical: 11.9

@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 160px;
+      width: 180px;
       padding: 5px 0;
       border: 1px solid var(--app-color-charcoal);
       text-transform: uppercase;

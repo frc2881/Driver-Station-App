@@ -43,5 +43,11 @@
 <style lang="postcss">
   .main {
     margin-bottom: 1em;
+
+    :global {
+      .bx--label {
+        width: 120px;
+      }
+    }
   }
 </style>
