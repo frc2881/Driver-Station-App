@@ -3,7 +3,7 @@ import { ConfigurationSettings } from "./common";
 export namespace Configuration {
   export const Settings: ConfigurationSettings = {
     NetworkTables: {
-      ServerAddress: "127.0.0.1",
+      ServerAddress: "10.28.81.2",
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",

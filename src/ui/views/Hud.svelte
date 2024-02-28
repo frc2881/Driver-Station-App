@@ -5,6 +5,7 @@
   import { NetworkTablesStore } from "../stores/NetworkTables";
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
+  import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
@@ -16,7 +17,14 @@
 <main>
 { #if nt.isConnected }
   <div class="primary">
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <RobotAlignment
+        alliance={ nt.topics.get(Topics.Alliance)?.value }
+        robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
+        targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
+        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
+      />
+    </Tile>
     <Tile class="widget">
       <CameraStream stream={ Configuration.Settings.CameraStreams.Front } width={ "800px" } height={ "450px" } />
     </Tile>
