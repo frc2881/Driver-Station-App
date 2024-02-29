@@ -40,6 +40,7 @@ export namespace Configuration {
         LauncherBottomBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherBottom/HasTarget",
         LauncherTopBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherTop/HasTarget",
         LauncherArmPosition: "/SmartDashboard/Robot/Launcher/Arm/Position",
+        LauncherArmIsAlignedToTarget: "/SmartDashboard/Robot/Launcher/Arm/IsAlignedToTarget",
         LauncherRollerTopSpeed: "/SmartDashboard/Robot/Launcher/Roller/Top/Speed",
         LauncherRollerBottomSpeed: "/SmartDashboard/Robot/Launcher/Roller/Bottom/Speed",
         IntakeBeltTopSpeed: "/SmartDashboard/Robot/Intake/Belt/Top/Speed",

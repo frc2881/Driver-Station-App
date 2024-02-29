@@ -12,7 +12,7 @@
   const PIXELS_PER_METER: number = 29.0123;
   
   const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
-  let isLauncherAligned: boolean = false;
+  let isRobotAligned: boolean = false;
 
   $: {
     const __pose = JSON.parse(robotPose ?? "{}") as Pose2d;
@@ -20,7 +20,7 @@
     poseInfo.y = typeof(__pose.translation?.y) === "number" ? __pose.translation?.y ?? 0 : 0;
     poseInfo.rotation = Utils.radiansToDegrees(typeof(__pose.rotation?.radians) === "number" ? __pose?.rotation?.radians ?? 0 : 0);
 
-    isLauncherAligned = 
+    isRobotAligned = 
       launcherBottomBeamBreakSensorHasTarget && 
       launcherTopBeamBreakSensorHasTarget && 
       Math.abs(targetYaw - poseInfo.rotation) < 3.0;
@@ -40,8 +40,8 @@
     </div>
   </div>
   <div 
-    class="aligned"
-    class:active={ isLauncherAligned }>
+    class="alignment"
+    class:active={ isRobotAligned }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
 </div>
@@ -88,7 +88,7 @@
       }
     }
 
-    .aligned {
+    .alignment {
       position: absolute;
       width: 100%;
       height: 100%;

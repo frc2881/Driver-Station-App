@@ -6,6 +6,7 @@
   import CameraStream from "../components/Hud/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
+  import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
@@ -32,7 +33,14 @@
         width={ "800px" } 
         height={ "450px" } />
     </Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <LauncherAlignment 
+        launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
+        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
+        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
+        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value }
+        targetPitch={ nt.topics.get(Topics.TargetPitch)?.value } />
+    </Tile>
   </div>
   <div class="secondary">
     <Tile class="widget">
