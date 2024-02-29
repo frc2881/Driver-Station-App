@@ -13,7 +13,7 @@
 </script>
 
 <div class="main">
-  <div class="value info">{ batteryInfo ?? "2881|0001-A|2024-01" }</div>
+  <div class="value info">{ batteryInfo ?? "UNKNOWN" }</div>
   <div class="value totalCurrent">
     <h3>{ totalCurrent?.toFixed(2) ?? 0.00 }</h3>
     <ObservedLightning width=42 height=42 fill="#666666" style="margin-bottom:4px;"  />

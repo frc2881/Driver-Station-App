@@ -23,13 +23,16 @@
         robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
         launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
+        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
       />
     </Tile>
     <Tile class="widget">
-      <CameraStream stream={ Configuration.Settings.CameraStreams.Front } width={ "800px" } height={ "450px" } />
+      <CameraStream 
+        stream={ Configuration.Settings.CameraStreams.Front } 
+        width={ "800px" } 
+        height={ "450px" } />
     </Tile>
-    <Tile class="widget">
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
   <div class="secondary">
     <Tile class="widget">
@@ -40,10 +43,10 @@
         intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
     </Tile>
     <Tile class="widget">
-      <MatchTime matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
+      <MatchTime 
+        matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
-    <Tile class="widget">
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
 { :else }
   <div class="inlineNotification">

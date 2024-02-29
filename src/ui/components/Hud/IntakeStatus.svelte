@@ -34,7 +34,12 @@
     class:bottommiddle={ intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
     class:middle={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
     class:middletop={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }
-    class:top={ !intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }></div>
+    class:top={ !intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
+  </div>
+  <div 
+    class="zone"
+    class:active={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
+  </div>
   <div class="level">
     <div 
       class="direction"
@@ -51,6 +56,7 @@
 
 <style lang="postcss">
   .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,8 +117,21 @@
       &.bottom { margin-bottom: -2.5em; }
       &.bottommiddle { margin-bottom: 2em; }
       &.middle { margin-bottom: 7em; }
-      &.middletop { margin-bottom: 12em; }
+      &.middletop { margin-bottom: 11.5em; }
       &.top { margin-bottom: 16.5em; }
+    }
+
+    .zone {
+      position: absolute;
+      width: 240px;
+      height: 54px;
+      border: 2px dashed var(--app-color-charcoal);
+      margin-bottom: 11.5em;
+
+      &.active {
+        border-color: var(--app-color-green);
+        animation: pulse 500ms infinite ease;
+      }
     }
   }
 

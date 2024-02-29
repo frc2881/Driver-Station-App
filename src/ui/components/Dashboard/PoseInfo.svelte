@@ -6,10 +6,12 @@
     Utils
   } from "../../../common";
 
+  export let robotPose: string;
   export let rearPoseSensorHasTargets: boolean;
   export let sidePoseSensorHasTargets: boolean;
   export let frontNoteObjectSensorHasTarget: boolean;
-  export let robotPose: string;
+  export let targetYaw: number;
+  export let targetDistance: number;
 
   const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
 
@@ -47,9 +49,13 @@
     </div>
   </div>
   <div class="pose">
-    <div>x: { poseInfo.x?.toFixed(3) }</div>
-    <div>y: { poseInfo.y?.toFixed(3) }</div>
-    <div>r: { poseInfo.rotation?.toFixed(2) }</div>
+    <div>x: { poseInfo.x?.toFixed(3) } m</div>
+    <div>y: { poseInfo.y?.toFixed(3) } m</div>
+    <div>r: { poseInfo.rotation?.toFixed(2) } &deg;</div>
+  </div>
+  <div class="target">
+    <div>td: { targetDistance?.toFixed(3) ?? 0 } m</div>
+    <div>ty: { targetYaw?.toFixed(2) ?? 0 } &deg;</div>
   </div>
 </div>
 
@@ -66,8 +72,8 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 1em;
-      margin: 2em 0;
+      gap: 1.5em;
+      margin-top: 2em;
 
       .sensor {
         display: flex;
@@ -83,7 +89,17 @@
       justify-content: center;
       font-size: 22px;
       margin-top: 2em;
-      gap: 1em;
+      gap: .75em;
+    }
+
+    .target {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-top: 1.5em;
+      gap: .75em;
     }
   }
 </style>

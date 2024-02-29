@@ -6,8 +6,9 @@
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
-  import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
   import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
+  import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
+  import RobotResetStatus from "../components/Dashboard/RobotResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
@@ -50,13 +51,19 @@
     </Tile>
     <Tile class="widget">
       <PoseInfo 
+        robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         rearPoseSensorHasTargets={ nt.topics.get(Topics.RearPoseSensorHasTargets)?.value }
         sidePoseSensorHasTargets={ nt.topics.get(Topics.SidePoseSensorHasTargets)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        robotPose={ nt.topics.get(Topics.RobotPose)?.value }
+        targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
+        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value }
       /> 
     </Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <RobotResetStatus 
+        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value }
+        matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
+    </Tile>
     <Tile class="widget">
       <AutoSettings />
     </Tile>
