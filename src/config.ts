@@ -24,7 +24,6 @@ export namespace Configuration {
         TotalCurrent: "/SmartDashboard/Robot/Power/TotalCurrent",
         AutoCommand: "/SmartDashboard/Robot/Auto/Command",
         DriveLockState: "/SmartDashboard/Robot/Drive/LockState",
-        DriveIdleMode: "/SmartDashboard/Robot/Drive/IdleMode",
         DriveOrientation: "/SmartDashboard/Robot/Drive/Orientation",
         DriveSpeedMode: "/SmartDashboard/Robot/Drive/SpeedMode",
         DriveDriftCorrection: "/SmartDashboard/Robot/Drive/DriftCorrection",
