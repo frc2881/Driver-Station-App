@@ -28,6 +28,11 @@
       inline
       options={ nt.topics.get(`${Topics.DriveDriftCorrection}/options`) }
       active={ nt.topics.get(`${Topics.DriveDriftCorrection}/active`) } />
+    <SendableChooser
+      name="Intake Position"
+      inline
+      options={ nt.topics.get(`${Topics.LauncherArmIntakePosition}/options`) }
+      active={ nt.topics.get(`${Topics.LauncherArmIntakePosition}/active`) } />
   </div>
 </div>
 

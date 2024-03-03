@@ -63,16 +63,16 @@
     <!-- Operator -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: -----</div>
+      <div>LT: Launch (Amp)</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Run Launcher</div>
+      <div>RT: Launch (Speaker)</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Climber Rollers Out</div>
+      <div>LB: Align Amp</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Climber Rollers In</div>
+      <div>RB: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div>X: -----</div>
@@ -80,16 +80,16 @@
       <div>Press: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Align To Target</div>
-      <div>B: -----</div>
-      <div>Y: -----</div>
+      <div>A: Align Speaker</div>
+      <div>B: Climber Rollers In</div>
+      <div>Y: Climber Rollers Out</div>
       <div>X: Run Feeder</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div>L: Long Range</div>
       <div>U: Mid Range</div>
-      <div>R: Subwoofer</div>
-      <div>D: Amp</div>
+      <div>R: Short Range</div>
+      <div>D: Subwoofer</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div>X: -----</div>
