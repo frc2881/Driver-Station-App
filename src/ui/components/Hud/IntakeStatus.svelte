@@ -12,45 +12,53 @@
 </script>
 
 <div class="main">
-  <div class="level">
-    <div class="sensor"><LightFilled width="36" height="36" /></div>
-    <div class="beam" class:active={ !launcherTopBeamBreakSensorHasTarget }></div>
-    <div class="sensor"><Light width="36" height="36" /></div>
+  <div class="levels">
+    <div class="level">
+      <div class="sensor"><LightFilled width="36" height="36" /></div>
+      <div class="beam" class:active={ !launcherTopBeamBreakSensorHasTarget }></div>
+      <div class="sensor"><Light width="36" height="36" /></div>
+    </div>
+    <div class="level">
+      <div class="sensor"><LightFilled width="36" height="36" /></div>
+      <div class="beam" class:active={ !launcherBottomBeamBreakSensorHasTarget }></div>
+      <div class="sensor"><Light width="36" height="36" /></div>
+    </div>
+    <div class="level">
+      <div class="sensor"><LightFilled width="36" height="36" /></div>
+      <div class="beam" class:active={ !intakeBeamBreakSensorHasTarget }></div>
+      <div class="sensor"><Light width="36" height="36" /></div>
+    </div>
+    <div 
+      class="note" 
+      class:active={ intakeBeamBreakSensorHasTarget || launcherBottomBeamBreakSensorHasTarget || launcherTopBeamBreakSensorHasTarget }
+      class:bottom={ intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
+      class:bottommiddle={ intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
+      class:middle={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
+      class:middletop={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }
+      class:top={ !intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
+    </div>
+    <div 
+      class="zone"
+      class:active={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
+    </div>
   </div>
-  <div class="level">
-    <div class="sensor"><LightFilled width="36" height="36" /></div>
-    <div class="beam" class:active={ !launcherBottomBeamBreakSensorHasTarget }></div>
-    <div class="sensor"><Light width="36" height="36" /></div>
-  </div>
-  <div class="level">
-    <div class="sensor"><LightFilled width="36" height="36" /></div>
-    <div class="beam" class:active={ !intakeBeamBreakSensorHasTarget }></div>
-    <div class="sensor"><Light width="36" height="36" /></div>
-  </div>
-  <div 
-    class="note" 
-    class:active={ intakeBeamBreakSensorHasTarget || launcherBottomBeamBreakSensorHasTarget || launcherTopBeamBreakSensorHasTarget }
-    class:bottom={ intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
-    class:bottommiddle={ intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
-    class:middle={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
-    class:middletop={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }
-    class:top={ !intakeBeamBreakSensorHasTarget && !launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
-  </div>
-  <div 
-    class="zone"
-    class:active={ !intakeBeamBreakSensorHasTarget && launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
-  </div>
-  <div class="level">
+  <div class="motors">
     <div 
       class="direction"
-      class:active={ intakeRollerSpeed > 0 }><ArrowRight width="64" height="64" fill="#00CC00" /></div>
+      class:active={ intakeRollerSpeed > 0 }>
+      <ArrowRight width="64" height="64" fill="#00CC00" />
+      <div>REAR</div>
+    </div>
     <div 
       class="belts"
       class:front={ intakeRollerSpeed < 0 }
       class:rear={ intakeRollerSpeed > 0 }><HighSpeedDataTransport width="64" height="64" /></div>
     <div 
       class="direction"
-      class:active={ intakeRollerSpeed < 0 }><ArrowLeft width="64" height="64" fill="#00CC00" /></div>
+      class:active={ intakeRollerSpeed < 0 }>
+      <ArrowLeft width="64" height="64" fill="#00CC00" />
+      <div>FRONT</div>
+    </div>
   </div>
 </div>
 
@@ -65,25 +73,71 @@
     height: 100%;
     gap: 2em;
 
-    .level {
+    .levels {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2em;
+
+      .level {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1em;
+
+        .sensor {
+          opacity: 0.75;
+        }
+
+        .beam {
+          width: 240px;
+          height: 2px;
+          background: var(--app-color-charcoal);
+          opacity: 0;
+
+          &.active { opacity: 1; }
+        }
+      }
+
+      .note {
+        position: absolute;
+        width: 220px;
+        height: 32px;
+        background: #CC6633;
+        border-radius: 16px;
+        opacity: 0;
+
+        &.active { opacity: 1; }
+        &.bottom { bottom: 0; }
+        &.bottommiddle { bottom: 2.5em; }
+        &.middle { bottom: 5em; }
+        &.middletop { bottom: 7.5em; }
+        &.top { bottom: 10em; }
+      }
+
+      .zone {
+        position: absolute;
+        width: 240px;
+        height: 54px;
+        border: 4px dashed var(--app-color-charcoal);
+        bottom: 6.66em;
+
+        &.active {
+          border-color: var(--app-color-green);
+          animation: pulse 500ms infinite ease;
+        }
+      }
+    }
+
+    .motors {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       gap: 1em;
-
-      .sensor {
-        opacity: 0.75;
-      }
-
-      .beam {
-        width: 240px;
-        height: 2px;
-        background: var(--app-color-charcoal);
-        opacity: 0;
-
-        &.active { opacity: 1; }
-      }
 
       .belts {
         &.front {
@@ -96,41 +150,13 @@
 
       .direction {
         opacity: 0;
+        margin: 1em 1em 0 1em;
+        font-size: 200%;
 
         &.active {
           opacity: 1;
           animation: pulse 500ms infinite ease;
         }
-      }
-
-    }
-
-    .note {
-      position: absolute;
-      width: 220px;
-      height: 32px;
-      background: #CC6633;
-      border-radius: 16px;
-      opacity: 0;
-
-      &.active { opacity: 1; }
-      &.bottom { margin-bottom: -2.5em; }
-      &.bottommiddle { margin-bottom: 2em; }
-      &.middle { margin-bottom: 7em; }
-      &.middletop { margin-bottom: 11.5em; }
-      &.top { margin-bottom: 16.5em; }
-    }
-
-    .zone {
-      position: absolute;
-      width: 240px;
-      height: 54px;
-      border: 2px dashed var(--app-color-charcoal);
-      margin-bottom: 11.5em;
-
-      &.active {
-        border-color: var(--app-color-green);
-        animation: pulse 500ms infinite ease;
       }
     }
   }
