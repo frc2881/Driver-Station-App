@@ -8,6 +8,7 @@
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
+  import ClimberArmPosition from "../components/Hud/ClimberArmPosition.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
@@ -22,7 +23,7 @@
       <RobotAlignment
         alliance={ nt.topics.get(Topics.Alliance)?.value }
         robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
-        targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
+        isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
         launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
         launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
       />
@@ -36,16 +37,14 @@
     <Tile class="widget">
       <LauncherAlignment 
         launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
+        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value } 
         launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
-        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
-        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value }
-        targetPitch={ nt.topics.get(Topics.TargetPitch)?.value } />
+        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value } />
     </Tile>
   </div>
   <div class="secondary">
     <Tile class="widget">
       <IntakeStatus 
-        intakeBeamBreakSensorHasTarget={ nt.topics.get(Topics.IntakeBeamBreakSensorHasTarget)?.value }
         launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
         launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
         intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
@@ -54,7 +53,10 @@
       <MatchTime 
         matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <ClimberArmPosition 
+        climberArmPosition={ nt.topics.get(Topics.ClimberArmPosition)?.value }  />
+    </Tile>
   </div>
 { :else }
   <div class="inlineNotification">

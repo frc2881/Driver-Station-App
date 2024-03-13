@@ -7,6 +7,8 @@
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
+  import LauncherSettings from "../components/Dashboard/LauncherSettings.svelte";
+  import IntakeSettings from "../components/Dashboard/IntakeSettings.svelte";
   import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
   import RobotResetStatus from "../components/Dashboard/RobotResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
@@ -33,7 +35,7 @@
     </div>
     <div class="center">
       <div class="controller-map-button">
-        <button on:click={ () => { isControllerMapVisible = !isControllerMapVisible; } }>
+        <button on:click={ () => { isControllerMapVisible = true; } }>
           <img src="./assets/controller.png" alt="Controller Map" />
         </button>
       </div>
@@ -46,9 +48,7 @@
     </div>
   </div>
   <div class="widgets">
-    <Tile class="widget">
-      <DriveSettings />
-    </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget">
       <PoseInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
@@ -67,9 +67,15 @@
     <Tile class="widget">
       <AutoSettings />
     </Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <DriveSettings />
+    </Tile>
+    <Tile class="widget">
+      <IntakeSettings />
+    </Tile>
+    <Tile class="widget">
+      <LauncherSettings />
+    </Tile>
     <Tile class="widget"></Tile>
     <ControllerMap 
       isControllerMapVisible={ isControllerMapVisible } />

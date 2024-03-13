@@ -27,6 +27,7 @@ export namespace Configuration {
         DriveOrientation: "/SmartDashboard/Robot/Drive/Orientation",
         DriveSpeedMode: "/SmartDashboard/Robot/Drive/SpeedMode",
         DriveDriftCorrection: "/SmartDashboard/Robot/Drive/DriftCorrection",
+        DriveIsAlignedToTarget: "/SmartDashboard/Robot/Drive/IsAlignedToTarget",
         RobotPose: "/SmartDashboard/Robot/Pose",
         TargetPose: "/SmartDashboard/Robot/Pose/Target/Pose",
         TargetYaw: "/SmartDashboard/Robot/Pose/Target/Yaw",
@@ -35,7 +36,6 @@ export namespace Configuration {
         RearPoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets",
         SidePoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets",
         FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
-        IntakeBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/Intake/HasTarget",
         LauncherBottomBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherBottom/HasTarget",
         LauncherTopBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherTop/HasTarget",
         LauncherArmPosition: "/SmartDashboard/Robot/Launcher/Arm/Position",
@@ -43,9 +43,12 @@ export namespace Configuration {
         LauncherArmIsAlignedToTarget: "/SmartDashboard/Robot/Launcher/Arm/IsAlignedToTarget",
         LauncherRollerTopSpeed: "/SmartDashboard/Robot/Launcher/Roller/Top/Speed",
         LauncherRollerBottomSpeed: "/SmartDashboard/Robot/Launcher/Roller/Bottom/Speed",
-        IntakeBeltTopSpeed: "/SmartDashboard/Robot/Intake/Belt/Top/Speed",
-        IntakeBeltBottomSpeed: "/SmartDashboard/Robot/Intake/Belt/Bottom/Speed",
-        IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed"
+        IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed",
+        IntakeBeltsSpeed: "/SmartDashboard/Robot/Intake/Belts/IntakeSpeed",
+        IntakeWaitTime: "/SmartDashboard/Robot/Intake/Belts/IntakeWaitTime",
+        ClimberArmPosition: "/SmartDashboard/Robot/Climber/Arm/Position",
+        ClimberArmIsReadyForChainEngagement: "/SmartDashboard/Robot/Climber/Arm/IsReadyForChainEngagement",
+        ClimberArmIsReadyForStageClimb: "/SmartDashboard/Robot/Climber/Arm/IsReadyForStageClimb"
       },
     },
     CameraStreams: {

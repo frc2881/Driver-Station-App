@@ -5,29 +5,34 @@
 
   export let alliance: Alliance;
   export let robotPose: string;
-  export let targetYaw: number;
+  export let isAlignedToTarget: boolean;
   export let launcherBottomBeamBreakSensorHasTarget: boolean;
   export let launcherTopBeamBreakSensorHasTarget: boolean;
 
   const PIXELS_PER_METER: number = 29.0123;
   
   const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
-  let isRobotAligned: boolean = false;
+  let isReadyForLaunch: boolean = false;
 
   $: {
     const __pose = JSON.parse(robotPose ?? "{}") as Pose2d;
     poseInfo.x = typeof(__pose.translation?.x) === "number" ? __pose.translation?.x ?? 0 : 0;
     poseInfo.y = typeof(__pose.translation?.y) === "number" ? __pose.translation?.y ?? 0 : 0;
     poseInfo.rotation = Utils.radiansToDegrees(typeof(__pose.rotation?.radians) === "number" ? __pose?.rotation?.radians ?? 0 : 0);
-
-    isRobotAligned = 
+    
+    isReadyForLaunch = 
+      isAlignedToTarget &&
       launcherBottomBeamBreakSensorHasTarget && 
-      launcherTopBeamBreakSensorHasTarget && 
-      Math.abs(targetYaw - poseInfo.rotation) < 3.0;
+      !launcherTopBeamBreakSensorHasTarget;
   }
 </script>
 
 <div class="main">
+  <div 
+    class="alignment"
+    class:active={ isReadyForLaunch }>
+    <CheckmarkFilled width=380 height=380 fill="#00CC00" />
+  </div>
   <div class="field { alliance?.toLowerCase() }">
     <img src="./assets/field.png" />
     <div 
@@ -38,11 +43,6 @@
       <div class="arrow"><CaretDown width=21 height=21 /></div>
       <div class="line">&nbsp;</div>
     </div>
-  </div>
-  <div 
-    class="alignment"
-    class:active={ isRobotAligned }>
-    <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
 </div>
 
@@ -95,7 +95,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      opacity: 0.75;
+      opacity: 0;
       animation: pulse 500ms infinite ease;
 
       &.active {
@@ -105,7 +105,7 @@
   }
 
   @keyframes pulse {
-    0% { opacity: 0.75; }
-    100% { opacity: 0.25; }
+    0% { opacity: 0.5; }
+    100% { opacity: 0.1; }
   }
 </style>

@@ -7,22 +7,22 @@
 { #if isControllerMapVisible }
 <div 
   class="main"
-  on:click={ () => { isControllerMapVisible = !isControllerMapVisible; } }>
+  on:click={ () => { isControllerMapVisible = false; } }>
   <CloseOutline width=48 height=48 fill="#000000" style="position:absolute;top:1em;right:1em;" />
   <div class="controllers">
     <!-- Driver -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Intake Rear</div>
+      <div>LT: Run Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Intake Front</div>
+      <div>RT: Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Eject Rear</div>
+      <div>LB: Launch Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Eject Front</div>
+      <div>RB: Eject</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>X: Drive</div>
@@ -69,7 +69,7 @@
       <div>RT: Launch (Speaker)</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Align Amp</div>
+      <div>LB: Auto Align To Amp</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
       <div>RB: -----</div>
@@ -80,10 +80,10 @@
       <div>Press: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Align Speaker</div>
+      <div>A: Auto Align Launcher</div>
       <div>B: Climber Rollers In</div>
       <div>Y: Climber Rollers Out</div>
-      <div>X: Run Feeder</div>
+      <div>X: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div>L: Long Range</div>
@@ -97,7 +97,7 @@
       <div>Press: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
-      <div>Back: Reset Subsystems</div>
+      <div>Back: Reset Climber</div>
     </div>
     <div class="text right" style="right:325px;bottom:180px;">
       <div>Start: Reset Launcher</div>
