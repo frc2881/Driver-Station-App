@@ -12,6 +12,11 @@
     class:active={ climberArmIsReadyForStageClimb }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
+  <div class="chain">
+    <svg width="220" height="220">
+      <path d="M10,85 a60,60 0 0,0 100,0" stroke="#CCCCCC" stroke-width="4" stroke-dasharray="4" fill="transparent" />
+    </svg>
+  </div>
   <div class="climber">
     <div class="arm">
       <div class="track" style:height={ `${ 39 * 6 }px` }></div>
@@ -36,6 +41,7 @@
       align-items: flex-end;
       justify-content: center;
       height: 260px;
+      margin-left: 120px;
       gap: 3em;
 
       .arm {
@@ -48,6 +54,7 @@
           position: absolute;
           width: 10px;
           background: var(--app-color-charcoal);
+          opacity: 0.4;
         }
         .leadscrew {
           position: absolute;
@@ -62,6 +69,7 @@
       .position {
         display: flex;
         font-size: 250%;
+        width: 100px;
       }
     }
 
@@ -78,6 +86,13 @@
       &.active {
         display: flex;
       }
+    }
+
+    .chain {
+      position: absolute;
+      margin-top: -30px;
+      margin-left: 190px;
+      transform: scale(2);
     }
   }
 
