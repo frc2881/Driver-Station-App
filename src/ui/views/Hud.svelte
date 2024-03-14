@@ -55,7 +55,9 @@
     </Tile>
     <Tile class="widget">
       <ClimberArmPosition 
-        climberArmPosition={ nt.topics.get(Topics.ClimberArmPosition)?.value }  />
+        climberArmPosition={ nt.topics.get(Topics.ClimberArmPosition)?.value }
+        climberArmIsReadyForChainEngagement={ nt.topics.get(Topics.ClimberArmIsReadyForChainEngagement)?.value }
+        climberArmIsReadyForStageClimb={ nt.topics.get(Topics.ClimberArmIsReadyForStageClimb)?.value }  />
     </Tile>
   </div>
 { :else }

@@ -2,26 +2,21 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 
   export let climberArmPosition: number;
-
-  let isReadyForEngage: boolean = false;
-  let isReadyForClimb: boolean = false;
-
-  // 26, 31, 38.7
-
-  $: {
-    isReadyForEngage = climberArmPosition > 26;
-    isReadyForClimb = climberArmPosition > 38.5;
-  }
+  export let climberArmIsReadyForChainEngagement: boolean;
+  export let climberArmIsReadyForStageClimb: boolean;
 </script>
 
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isReadyForClimb }>
+    class:active={ climberArmIsReadyForStageClimb }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="climber">
-    <div class="leadscrew" class:active={ isReadyForEngage }></div>
+    <div class="arm">
+      <div class="track" style:height={ `${ 39 * 6 }px` }></div>
+      <div class="leadscrew" class:active={ climberArmIsReadyForChainEngagement } style:height={ `${climberArmPosition * 6}px` }></div>
+    </div>
     <div class="position">{ climberArmPosition?.toFixed(2) ?? 0 }</div>
   </div>
 </div>
@@ -40,16 +35,27 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      gap: 2em;
+      height: 260px;
+      gap: 3em;
 
-      .leadscrew {
+      .arm {
+        position: relative;
         display: flex;
-        width: 10px;
-        height: 160px;
-        background: var(--app-color-charcoal);
+        align-items: flex-end;
+        height: 100%;
 
-        &.active {
-          background: var(--app-color-green);
+        .track {
+          position: absolute;
+          width: 10px;
+          background: var(--app-color-charcoal);
+        }
+        .leadscrew {
+          position: absolute;
+          width: 10px;
+          background: var(--app-color-pink);
+          &.active {
+            background: var(--app-color-green);
+          }
         }
       }
 

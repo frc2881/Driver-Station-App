@@ -65,7 +65,7 @@
     .controls {
       display: flex;
       flex-direction: column;
-      gap: 1em;
+      gap: 2em;
     }
   }
 </style>
