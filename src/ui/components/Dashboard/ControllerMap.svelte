@@ -13,13 +13,13 @@
     <!-- Driver -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Run Shuttle</div>
+      <div>LT: Warmup Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Launch Shuttle</div>
+      <div>LB: -----</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
       <div>RB: Eject</div>
@@ -33,7 +33,7 @@
       <div>A: Align To Target</div>
       <div>B: Move To Climb</div>
       <div>Y: Climb</div>
-      <div>X: -----</div>
+      <div>X: Launch Shuttle</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div>L: -----</div>

@@ -14,12 +14,12 @@
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
+  let isControllerMapVisible: boolean = false;
+
   const { Topics } = Configuration.Settings.NetworkTables;
 
   let nt: NetworkTables = $NetworkTablesStore;
   $: { nt = $NetworkTablesStore; }
-
-  let isControllerMapVisible: boolean = false;
 </script>
 
 <main>
@@ -64,7 +64,7 @@
         hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value }
         matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
-    <Tile class="widget">
+    <Tile class="widget row-span-2">
       <AutoSettings />
     </Tile>
     <Tile class="widget">
@@ -76,9 +76,9 @@
     <Tile class="widget">
       <LauncherSettings />
     </Tile>
-    <Tile class="widget"></Tile>
+    <!-- <Tile class="widget"></Tile> -->
     <ControllerMap 
-      isControllerMapVisible={ isControllerMapVisible } />
+      bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>
 { :else }
   <div class="inlineNotification">
@@ -149,6 +149,10 @@
       :global {
         .widget {
           padding: 2em;
+
+          &.row-span-2 {
+            grid-row: span 2;
+          }
 
           .title {
             margin-bottom: 1.5em;
