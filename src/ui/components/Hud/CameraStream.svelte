@@ -17,7 +17,7 @@
         await Utils.wait(0.001);
         image.src = `${ stream }?${ new Date().getTime() }`;
       }
-      await Utils.wait(15);
+      await Utils.wait(60);
     }
   })();
 

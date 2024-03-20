@@ -4,8 +4,11 @@
   import { NetworkTablesStore } from "../../stores/NetworkTables";
   import SendableChooser from "../SendableChooser.svelte";
 
+  const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
   let activeCommand = "";
   let autoImage = "./assets/autos/0.jpg";
+  let image: HTMLImageElement;
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
@@ -17,6 +20,10 @@
       autoImage = `./assets/autos/${ activeCommand !== "None" ? activeCommand.replaceAll(" ", "").replaceAll(">", "-") : "0" }.jpg`;
     }
   }
+
+  const setTransparentImage = (): void => {
+    image.src = transparentPixelImage;
+  };
 </script>
 
 <div class="main">
@@ -33,7 +40,10 @@
     <h4>{ activeCommand }</h4>
   </div>
   <div class="auto">
-    <img src={ autoImage } />
+    <img 
+      src={ autoImage } 
+      bind:this={ image } 
+      on:error={ setTransparentImage } />
   </div>
 </div>
 

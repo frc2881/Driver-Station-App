@@ -7,8 +7,6 @@
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
-  import LauncherSettings from "../components/Dashboard/LauncherSettings.svelte";
-  import IntakeSettings from "../components/Dashboard/IntakeSettings.svelte";
   import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
   import RobotResetStatus from "../components/Dashboard/RobotResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
@@ -70,12 +68,8 @@
     <Tile class="widget">
       <DriveSettings />
     </Tile>
-    <Tile class="widget">
-      <IntakeSettings />
-    </Tile>
-    <Tile class="widget">
-      <LauncherSettings />
-    </Tile>
+    <Tile class="widget"></Tile>
+    <Tile class="widget"></Tile>
     <!-- <Tile class="widget"></Tile> -->
     <ControllerMap 
       bind:isControllerMapVisible={ isControllerMapVisible } />

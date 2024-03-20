@@ -34,41 +34,41 @@
     "@msgpack/msgpack": "^2.8.0",
     "minimist": "^1.2.8",
     "dayjs": "^1.11.10",
-    "plotly.js-basic-dist-min": "^2.30.0"
+    "plotly.js-basic-dist-min": "^2.30.1"
   },
   "devDependencies": {
     "@types/ws": "^8.5.10",
     "@types/minimist": "^1.2.5",
     "npm-run-all": "^4.1.5",
     "fs-extra": "^11.2.0",
-    "electron": "^29.1.1",
+    "electron": "^29.1.4",
     "electron-packager": "^17.1.2",
     "electron-builder": "^24.13.3",
     "tslib": "^2.6.2",
     "typescript": "^5.4.2",
     "@tsconfig/svelte": "^5.0.2",
-    "rollup": "^4.12.1",
+    "rollup": "^4.13.0",
     "rollup-plugin-css-only": "^4.5.2",
-    "rollup-plugin-svelte": "^7.1.6",
+    "rollup-plugin-svelte": "^7.2.0",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "postcss": "^8.4.35",
+    "postcss": "^8.4.37",
     "postcss-nesting": "^12.1.0",
     "postcss-url": "^10.1.3",
     "@types/postcss-url": "^10.0.4",
     "svelte": "^4.2.12",
     "svelte-preprocess": "^5.1.3",
     "carbon-preprocess-svelte": "^0.10.0",
-    "carbon-components-svelte": "^0.84.0",
-    "carbon-icons-svelte": "^12.5.0",
+    "carbon-components-svelte": "^0.84.1",
+    "carbon-icons-svelte": "^12.6.0",
     "carbon-pictograms-svelte": "^12.10.0",
     "svelte-plotly.js": "^0.3.2",
     "@types/plotly.js": "^2.29.2"
   },
   "volta": {
     "node": "20.11.1",
-    "pnpm": "8.15.4"
+    "pnpm": "8.15.5"
   }
 }
