@@ -1,14 +1,12 @@
 <script lang="ts">
   import { Configuration } from "../../../config";
-  import { NetworkTables } from "../../../common";
+  import { NetworkTables, Alliance } from "../../../common";
   import { NetworkTablesStore } from "../../stores/NetworkTables";
   import SendableChooser from "../SendableChooser.svelte";
 
-  const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+  export let alliance: Alliance;
 
   let activeCommand = "";
-  let autoImage = "./assets/autos/0.jpg";
-  let image: HTMLImageElement;
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
@@ -16,14 +14,7 @@
   $: { 
     nt = $NetworkTablesStore; 
     activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "";
-    if (activeCommand !== "") {
-      autoImage = `./assets/autos/${ activeCommand !== "None" ? activeCommand.replaceAll(" ", "").replaceAll(">", "-") : "0" }.jpg`;
-    }
   }
-
-  const setTransparentImage = (): void => {
-    image.src = transparentPixelImage;
-  };
 </script>
 
 <div class="main">
@@ -39,28 +30,25 @@
     class:none={ activeCommand === "None" }>
     <h4>{ activeCommand }</h4>
   </div>
-  <div class="auto">
-    <img 
-      src={ autoImage } 
-      bind:this={ image } 
-      on:error={ setTransparentImage } />
+  <div class="autos">
+    <img src="./assets/autos-{ alliance?.toLowerCase() ?? "blue" }.png" />
   </div>
 </div>
 
 <style lang="postcss">
   .main {
-    position: relative;
     .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
+
     .active {
       display: flex;
       align-items: flex-start;
       justify-content: center;
       height: 100%;
-      margin-top: 3em;
+      margin-top: 2em;
       padding: 1em;
       text-align: center;
       color: var(--app-color-green);
@@ -75,10 +63,10 @@
         border-color: var(--app-color-charcoal);
       }
     }
-    .auto {
-      width: 100%;
-      margin-top: 4em;
 
+    .autos {
+      width: 400px;
+      margin-top: 2em;
       img { width: 100%; }
     }
   }

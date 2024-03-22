@@ -63,7 +63,8 @@
         matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
     <Tile class="widget row-span-2">
-      <AutoSettings />
+      <AutoSettings
+        alliance={ nt.topics.get(Topics.Alliance)?.value } />
     </Tile>
     <Tile class="widget">
       <DriveSettings />
