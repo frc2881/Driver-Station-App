@@ -36,6 +36,8 @@ export namespace Configuration {
         RearPoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTargets",
         SidePoseSensorHasTargets: "/SmartDashboard/Robot/Sensor/Pose/Side/HasTargets",
         FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
+        FrontNoteObjectSensorTargetYaw: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Yaw",
+        FrontNoteObjectSensorTargetArea: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Area",
         LauncherBottomBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherBottom/HasTarget",
         LauncherTopBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherTop/HasTarget",
         LauncherArmPosition: "/SmartDashboard/Robot/Launcher/Arm/Position",

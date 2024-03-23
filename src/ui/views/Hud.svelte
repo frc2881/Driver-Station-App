@@ -8,7 +8,7 @@
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
-  import ClimberArmPosition from "../components/Hud/ClimberArmPosition.svelte";
+  import NoteAlignment from "../components/Hud/NoteAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
@@ -44,20 +44,20 @@
   </div>
   <div class="secondary">
     <Tile class="widget">
-      <IntakeStatus 
-        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
-        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
-        intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
+      <NoteAlignment 
+        frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
+        frontNoteObjectSensorTargetYaw={ nt.topics.get(Topics.FrontNoteObjectSensorTargetYaw)?.value }
+        frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
     </Tile>
     <Tile class="widget">
       <MatchTime 
         matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
     </Tile>
     <Tile class="widget">
-      <ClimberArmPosition 
-        climberArmPosition={ nt.topics.get(Topics.ClimberArmPosition)?.value }
-        climberArmIsReadyForChainEngagement={ nt.topics.get(Topics.ClimberArmIsReadyForChainEngagement)?.value }
-        climberArmIsReadyForStageClimb={ nt.topics.get(Topics.ClimberArmIsReadyForStageClimb)?.value }  />
+      <IntakeStatus 
+        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
+        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
+        intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
     </Tile>
   </div>
 { :else }

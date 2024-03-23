@@ -51,6 +51,7 @@
 		--app-color-red: #CC0000;
 		--app-color-blue: #0000CC;
 		--app-color-yellow: #CCCC00;
+		--app-color-orange: #CC6600;
 		--app-color-charcoal: #666666;
 		--app-color-smoke: #999999;
 		--app-color-black: #000000;
