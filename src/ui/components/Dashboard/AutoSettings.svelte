@@ -13,7 +13,7 @@
   let nt: NetworkTables;
   $: { 
     nt = $NetworkTablesStore; 
-    activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "";
+    activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None";
   }
 </script>
 
@@ -30,7 +30,8 @@
     class:none={ activeCommand === "None" }>
     <h4>{ activeCommand }</h4>
   </div>
-  <div class="autos">
+  <div 
+    class="autos">
     <img src="./assets/autos-{ alliance?.toLowerCase() ?? "blue" }.png" />
   </div>
 </div>
@@ -65,9 +66,14 @@
     }
 
     .autos {
+      background: var(--app-color-black);
       width: 400px;
+      height: 440px;
       margin-top: 2em;
-      img { width: 100%; }
+      img { 
+        width: 100%; 
+        transform: translateY(30px);
+      }
     }
   }
 </style>

@@ -44,10 +44,7 @@ export namespace Configuration {
         LauncherArmIsAlignedToTarget: "/SmartDashboard/Robot/Launcher/Arm/IsAlignedToTarget",
         LauncherRollerTopSpeed: "/SmartDashboard/Robot/Launcher/Roller/Top/Speed",
         LauncherRollerBottomSpeed: "/SmartDashboard/Robot/Launcher/Roller/Bottom/Speed",
-        IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed",
-        ClimberArmPosition: "/SmartDashboard/Robot/Climber/Arm/Position",
-        ClimberArmIsReadyForChainEngagement: "/SmartDashboard/Robot/Climber/Arm/IsReadyForChainEngagement",
-        ClimberArmIsReadyForStageClimb: "/SmartDashboard/Robot/Climber/Arm/IsReadyForStageClimb"
+        IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed"
       },
     },
     CameraStreams: {
