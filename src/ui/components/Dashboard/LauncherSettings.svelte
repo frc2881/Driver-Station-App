@@ -7,12 +7,11 @@
   import { updateNetworkTablesTopics } from "../../stores/NetworkTables";
   
   const { Topics } = Configuration.Settings.NetworkTables;
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
 
   let launcherArmIntakePositionTopic: NetworkTablesTopic;
-
-  let nt: NetworkTables;
   $: { 
-    nt = $NetworkTablesStore; 
     launcherArmIntakePositionTopic = nt.topics.get(`${Topics.LauncherArmIntakePosition}`);
   }
 </script>

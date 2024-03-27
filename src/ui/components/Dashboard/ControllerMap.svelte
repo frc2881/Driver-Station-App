@@ -10,19 +10,19 @@
   on:click={ () => { isControllerMapVisible = false; } }>
   <CloseOutline width=48 height=48 fill="#000000" style="position:absolute;top:1em;right:1em;" />
   <div class="controllers">
-    <!-- Driver -->
+    <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
       <div>LT: Warmup Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Intake</div>
+      <div>RT: Run Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: -----</div>
+      <div>LB: Eject</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Eject</div>
+      <div>RB: Launch (Shuttle)</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>X: Drive</div>
@@ -31,9 +31,9 @@
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
       <div>A: Align To Target</div>
-      <div>B: Move To Climb</div>
-      <div>Y: Climb</div>
-      <div>X: Launch Shuttle</div>
+      <div>B: Reload Intake</div>
+      <div>Y: -----</div>
+      <div>X: -----</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div>L: -----</div>
@@ -44,35 +44,36 @@
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>X: Rotate</div>
       <div>Y: -----</div>
-      <div>Press: -----</div>
+      <div>Press: Align To Target</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div>Start: -----</div>
+      <div>Start: Calibrate Gyro</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Reset gyro to desired field orientation after robot power cycle</li>
+          <li>Calibrate gyro immediately before match countdown and start of autonomous period begins</li>
+          <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
         </ul>
       </div>
     </div>
-    <!-- Operator -->
+    <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Launch (Amp)</div>
+      <div>LT: Align To Target</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
       <div>RT: Launch (Speaker)</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Auto Align To Amp</div>
+      <div>LB: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: -----</div>
+      <div>RB: Launch (Amp)</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div>X: -----</div>
@@ -80,9 +81,9 @@
       <div>Press: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Auto Align Launcher</div>
-      <div>B: Climber Rollers In</div>
-      <div>Y: Climber Rollers Out</div>
+      <div>A: -----</div>
+      <div>B: -----</div>
+      <div>Y: -----</div>
       <div>X: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
@@ -93,20 +94,20 @@
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div>X: -----</div>
-      <div>Y: Climber +/-</div>
+      <div>Y: -----</div>
       <div>Press: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
-      <div>Back: Reset Climber</div>
+      <div>Back: Reset Launcher</div>
     </div>
     <div class="text right" style="right:325px;bottom:180px;">
-      <div>Start: Reset Launcher</div>
+      <div>Start: -----</div>
     </div>
     <div class="text notes" style="right:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Always reset subsystem arm positions to zero after robot power cycle</li>
+          <li>Always reset launcher arm position to zero after robot power cycle</li>
         </ul>
       </div>
     </div>
@@ -162,8 +163,12 @@
           border: 1px solid var(--app-color-charcoal);
 
           ul {
-            margin: 10px 0 0 15px;
+            margin: 10px 0 0px 15px;
             list-style-type: square;
+
+            li {
+              margin-bottom: 10px;
+            }
           }
         }
       }

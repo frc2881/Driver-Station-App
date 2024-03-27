@@ -7,17 +7,18 @@
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
+  import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
-  import RobotResetStatus from "../components/Dashboard/RobotResetStatus.svelte";
+  import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
+  import TargetingData from "../components/Dashboard/TargetingData.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
-  let isControllerMapVisible: boolean = false;
-
   const { Topics } = Configuration.Settings.NetworkTables;
-
   let nt: NetworkTables = $NetworkTablesStore;
   $: { nt = $NetworkTablesStore; }
+
+  let isControllerMapVisible: boolean = false;
 </script>
 
 <main>
@@ -46,7 +47,29 @@
     </div>
   </div>
   <div class="widgets">
+    <Tile class="widget">
+      <DriveSettings />
+    </Tile>
+    <Tile class="widget">
+      <!-- <DriveInfo
+        swerveModuleFrontLeftMetrics={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftMetrics)?.value }
+        swerveModuleFrontRightMetrics={ nt.topics.get(Topics.DriveSwerveModuleFrontRightMetrics)?.value }
+        swerveModuleRearLeftMetrics={ nt.topics.get(Topics.DriveSwerveModuleRearLeftMetrics)?.value }
+        swerveModuleRearRightMetrics={ nt.topics.get(Topics.DriveSwerveModuleRearRightMetrics)?.value } /> -->
+    </Tile>
+    <Tile class="widget">
+      <TargetingData
+        launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
+    </Tile>
+    <Tile class="widget row-span-2">
+      <AutoSettings
+        alliance={ nt.topics.get(Topics.Alliance)?.value } />
+    </Tile>
     <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <ResetStatus 
+        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value } />
+    </Tile>
     <Tile class="widget">
       <PoseInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
@@ -54,23 +77,8 @@
         sidePoseSensorHasTargets={ nt.topics.get(Topics.SidePoseSensorHasTargets)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
-        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value }
-      /> 
+        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 
     </Tile>
-    <Tile class="widget">
-      <RobotResetStatus 
-        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value }
-        matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
-    </Tile>
-    <Tile class="widget row-span-2">
-      <AutoSettings
-        alliance={ nt.topics.get(Topics.Alliance)?.value } />
-    </Tile>
-    <Tile class="widget">
-      <DriveSettings />
-    </Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget"></Tile>
     <!-- <Tile class="widget"></Tile> -->
     <ControllerMap 
       bind:isControllerMapVisible={ isControllerMapVisible } />

@@ -3,18 +3,17 @@
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
 
   export let hasInitialReset: boolean;
-  export let matchTime: number;
 </script>
 
 <div class="main">
-  <div class="title"><h4>Resets</h4></div>
+  <div class="title"><h4>Reset</h4></div>
   <div class="status">
-    { #if !hasInitialReset && matchTime === -1 }
+    { #if !hasInitialReset }
       <div class="warning"><CloseFilled width=160 height=160 fill="#CC0000" /></div>
-      <div class="info">All subsystem arm mechanisms must be<br/><u>manually reset</u> prior to engagement!</div>
+      <div class="info">All subsystem mechanisms must be<br/><u>manually reset</u> prior to engagement!</div>
     { :else }
       <div><CheckmarkFilled width=160 height=160 fill="#009900" /></div>
-      <div class="info">All subsystem arm mechanisms<br/>are ready for engagement.</div>
+      <div class="info">All subsystem mechanisms<br/>are ready for engagement.</div>
     { /if } 
   </div>
 </div>

@@ -6,13 +6,12 @@
 
   export let alliance: Alliance;
 
-  let activeCommand = "";
-
   const { Topics } = Configuration.Settings.NetworkTables;
-
   let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
+
+  let activeCommand = "";
   $: { 
-    nt = $NetworkTablesStore; 
     activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None";
   }
 </script>

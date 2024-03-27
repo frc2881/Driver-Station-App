@@ -11,9 +11,29 @@
   import NoteAlignment from "../components/Hud/NoteAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
-
   let nt: NetworkTables;
   $: { nt = $NetworkTablesStore; }
+
+  let driverStationVideoSource: HTMLVideoElement = null;
+  $: {
+    if (nt.isConnected) {
+      if (driverStationVideoSource === null) {
+        loadDriverStationVideoStream();
+      }
+    } else {
+      driverStationVideoSource = null;
+    }
+  }
+
+  const loadDriverStationVideoStream = async (): Promise<void> => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { deviceId: { exact: "bdb8acb8f6bf37a768e63cb1563e47f30eeb9ce029220b66373ad138d3b36e07" } }
+      });
+      driverStationVideoSource.srcObject = stream;
+      driverStationVideoSource.play();
+    } catch (e) {}
+  }
 </script>
 
 <main>
@@ -32,7 +52,7 @@
       <CameraStream 
         stream={ Configuration.Settings.CameraStreams.Front } 
         width={ "800px" } 
-        height={ "450px" } />
+        height={ "520px" } />
     </Tile>
     <Tile class="widget">
       <LauncherAlignment 
@@ -50,8 +70,17 @@
         frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
     </Tile>
     <Tile class="widget">
-      <MatchTime 
-        matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
+      <div style="position:relative;background:#000000;">
+        <video 
+          style="width:800px;height:450px;"
+          bind:this={ driverStationVideoSource }>
+          <track kind="captions"/>
+        </video>
+        <div class="matchtime">
+          <MatchTime 
+            matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
+        </div>
+      </div>
     </Tile>
     <Tile class="widget">
       <IntakeStatus 
@@ -75,6 +104,7 @@
 
 <style lang="postcss">
   main {
+    position: relative;
     display: grid;
     grid-template-rows: 540px auto;
     row-gap: 0px;
@@ -91,6 +121,16 @@
     .secondary {
       display: grid;
       grid-template-columns: 540px 820px 540px;
+    }
+
+    .matchtime {
+      position: absolute;
+      top: 0;
+      width: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
     :global .widget {

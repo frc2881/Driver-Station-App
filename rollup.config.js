@@ -1,5 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
 import alias from "@rollup/plugin-alias";
 import commonjs from "@rollup/plugin-commonjs";
 import css from "rollup-plugin-css-only";
@@ -19,6 +20,10 @@ export default {
 		inlineDynamicImports: true
 	},
 	treeshake: false,
+	onwarn: (warning, warn) => {
+    if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids[0].includes("d3-")) { return; }
+    warn(warning);
+  },
 	plugins: [
 		typescript({
 			tsconfig: "./tsconfig-ui.json"
@@ -43,6 +48,10 @@ export default {
 				dev: true,
 				sourcemap: false
 			}
+		}),
+		replace({
+			preventAssignment: true,
+			"process.env.NODE_ENV": JSON.stringify("production"),
 		}),
 		alias({
 			entries: [

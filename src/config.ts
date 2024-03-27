@@ -7,7 +7,7 @@ export namespace Configuration {
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
-        "/photonvision",
+        //"/photonvision",
         "/FMSInfo",
         "/LiveWindow"
       ],
@@ -28,6 +28,10 @@ export namespace Configuration {
         DriveSpeedMode: "/SmartDashboard/Robot/Drive/SpeedMode",
         DriveDriftCorrection: "/SmartDashboard/Robot/Drive/DriftCorrection",
         DriveIsAlignedToTarget: "/SmartDashboard/Robot/Drive/IsAlignedToTarget",
+        // DriveSwerveModuleFrontLeftMetrics: "/SmartDashboard/Robot/Drive/SwerveModule/FrontLeft/Metrics",
+        // DriveSwerveModuleFrontRightMetrics: "/SmartDashboard/Robot/Drive/SwerveModule/FrontRight/Metrics",
+        // DriveSwerveModuleRearLeftMetrics: "/SmartDashboard/Robot/Drive/SwerveModule/RearLeft/Metrics",
+        // DriveSwerveModuleRearRightMetrics: "/SmartDashboard/Robot/Drive/SwerveModule/RearRight/Metrics",
         RobotPose: "/SmartDashboard/Robot/Pose",
         TargetPose: "/SmartDashboard/Robot/Pose/Target/Pose",
         TargetYaw: "/SmartDashboard/Robot/Pose/Target/Yaw",
@@ -42,6 +46,7 @@ export namespace Configuration {
         LauncherTopBeamBreakSensorHasTarget: "/SmartDashboard/Robot/Sensor/BeamBreak/LauncherTop/HasTarget",
         LauncherArmPosition: "/SmartDashboard/Robot/Launcher/Arm/Position",
         LauncherArmIsAlignedToTarget: "/SmartDashboard/Robot/Launcher/Arm/IsAlignedToTarget",
+        LauncherArmPositions: "/SmartDashboard/Robot/Launcher/Arm/Positions",
         LauncherRollerTopSpeed: "/SmartDashboard/Robot/Launcher/Roller/Top/Speed",
         LauncherRollerBottomSpeed: "/SmartDashboard/Robot/Launcher/Roller/Bottom/Speed",
         IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed"

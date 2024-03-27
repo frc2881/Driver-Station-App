@@ -7,13 +7,12 @@
   import { updateNetworkTablesTopics } from "../../stores/NetworkTables";
   
   const { Topics } = Configuration.Settings.NetworkTables;
+  let nt: NetworkTables;
+  $: { nt = $NetworkTablesStore; }
 
   let intakeBeltsSpeedTopic: NetworkTablesTopic;
   let intakeWaitTime: NetworkTablesTopic;
-
-  let nt: NetworkTables;
   $: { 
-    nt = $NetworkTablesStore; 
     intakeBeltsSpeedTopic = nt.topics.get(`${Topics.IntakeBeltsSpeed}`);
     intakeWaitTime = nt.topics.get(`${Topics.IntakeWaitTime}`);
   }

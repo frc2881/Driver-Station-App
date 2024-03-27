@@ -32,9 +32,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 100%;
-    font-size: 280px;
-    line-height: 280px;
+    font-size: 160px;
+    line-height: 160px;
     font-weight: bold;
     color: var(--app-color-charcoal);
 

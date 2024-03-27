@@ -5,13 +5,12 @@
   import SendableChooser from "../../components/SendableChooser.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
-
   let nt: NetworkTables;
   $: { nt = $NetworkTablesStore; }
 </script>
 
 <div class="main">
-  <div class="title"><h4>Drive</h4></div>
+  <div class="title"><h4>Drive Settings</h4></div>
   <div>
     <SendableChooser
       name="Orientation"
