@@ -2,7 +2,7 @@
   import { Configuration } from "../../../config";
   import { NetworkTables } from "../../../common";
   import { NetworkTablesStore } from "../../stores/NetworkTables";
-  import SendableChooser from "../../components/SendableChooser.svelte";
+  import SendableChooser from "../SendableChooser.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
@@ -10,10 +10,11 @@
 </script>
 
 <div class="main">
-  <div class="title"><h4>Drive Settings</h4></div>
-  <div>
+  <div class="title"><h4>Settings</h4></div>
+  <div class="category">
+    <div class="label">Drive</div>
     <SendableChooser
-      name="Orientation"
+      name="Orientation" 
       inline
       options={ nt.topics.get(`${Topics.DriveOrientation}/options`) }
       active={ nt.topics.get(`${Topics.DriveOrientation}/active`) } />
@@ -36,6 +37,18 @@
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
+    }
+    .category {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 1em;
+
+      .label {
+        padding-bottom: .5em;
+        margin-bottom: 1em;
+        font-size: 120%;
+        border-bottom: 2px solid var(--app-color-pink);
+      }
     }
   }
 </style>

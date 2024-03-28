@@ -6,7 +6,7 @@
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
-  import DriveSettings from "../components/Dashboard/DriveSettings.svelte";
+  import Settings from "../components/Dashboard/Settings.svelte";
   import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
   import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
@@ -47,8 +47,8 @@
     </div>
   </div>
   <div class="widgets">
-    <Tile class="widget">
-      <DriveSettings />
+    <Tile class="widget row-span-2">
+      <Settings />
     </Tile>
     <Tile class="widget">
       <DriveInfo
@@ -66,17 +66,12 @@
         swerveModuleRearRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearRightTurningPosition)?.value } />
     </Tile>
     <Tile class="widget">
-      <TargetingData
-        launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
+      <ResetStatus 
+        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value } />
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings
         alliance={ nt.topics.get(Topics.Alliance)?.value } />
-    </Tile>
-    <Tile class="widget"></Tile>
-    <Tile class="widget">
-      <ResetStatus 
-        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value } />
     </Tile>
     <Tile class="widget">
       <PoseInfo 
@@ -87,7 +82,10 @@
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 
     </Tile>
-    <!-- <Tile class="widget"></Tile> -->
+    <Tile class="widget">
+      <TargetingData
+        launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
+    </Tile>
     <ControllerMap 
       bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>

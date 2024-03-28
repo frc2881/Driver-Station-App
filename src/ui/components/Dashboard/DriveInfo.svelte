@@ -14,27 +14,39 @@
 </script>
 
 <div class="main">
-  <div class="title"><h4>Drive Performance</h4></div>
+  <div class="title"><h4>Drive</h4></div>
   <div class="swerveModules">
     <div class="swerveModule">
-      <div>{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(3) }</div>
-      <div class="line"></div>
-      <div>{ swerveModuleFrontLeftDrivingSpeedTarget?.toFixed(3) }</div>
+      <div>{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(2) }</div>
+      <div>{ swerveModuleFrontLeftDrivingSpeedTarget?.toFixed(2) }</div>
+      <div 
+        class="position"
+        style:transform={ `rotate(${ (swerveModuleFrontLeftTurningPosition ?? 0) + 90 }deg)` }>
+      </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(3) }</div>
-      <div class="line"></div>
-      <div>{ swerveModuleFrontRightDrivingSpeedTarget?.toFixed(3) }</div>
+      <div>{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(2) }</div>
+      <div>{ swerveModuleFrontRightDrivingSpeedTarget?.toFixed(2) }</div>
+      <div 
+        class="position"
+        style:transform={ `rotate(${ (swerveModuleFrontRightTurningPosition ?? 0) + 90 }deg)` }>
+      </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(3) }</div>
-      <div class="line"></div>
-      <div>{ swerveModuleRearLeftDrivingSpeedTarget?.toFixed(3) }</div>
+      <div>{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(2) }</div>
+      <div>{ swerveModuleRearLeftDrivingSpeedTarget?.toFixed(2) }</div>
+      <div 
+        class="position"
+        style:transform={ `rotate(${ (swerveModuleRearLeftTurningPosition ?? 0) + 90 }deg)` }>
+      </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleRearRightDrivingSpeedActual?.toFixed(3) }</div>
-      <div class="line"></div>
-      <div>{ swerveModuleRearRightDrivingSpeedTarget?.toFixed(3) }</div>
+      <div>{ swerveModuleRearRightDrivingSpeedActual?.toFixed(2) }</div>
+      <div>{ swerveModuleRearRightDrivingSpeedTarget?.toFixed(2) }</div>
+      <div 
+        class="position"
+        style:transform={ `rotate(${ (swerveModuleRearRightTurningPosition ?? 0) + 90 }deg)` }>
+      </div>
     </div>
   </div>
 </div>
@@ -56,20 +68,24 @@
       margin-top: 1em;
 
       .swerveModule {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 0.25em;
         width: 110px;
         height: 110px;
         border: 2px solid var(--app-color-pink);
         border-radius: 55px;
+        font-size: 120%;
 
-        .line {
-          width: 40px;
-          height: 1px;
-          background: var(--app-color-charcoal);
-          margin: 5px 0;
+        .position {
+          position: absolute;
+          width: 80px;
+          height: 5px;
+          background: var(--app-color-white);
+          opacity: 0.2;
         }
       }
     }
