@@ -1,32 +1,40 @@
 <script lang="ts">
-    export let swerveModuleFrontLeftMetrics: string;
-    export let swerveModuleFrontRightMetrics: string;
-    export let swerveModuleRearLeftMetrics: string;
-    export let swerveModuleRearRightMetrics: string;
+    export let swerveModuleFrontLeftDrivingSpeedTarget: number;
+    export let swerveModuleFrontLeftDrivingSpeedActual: number;
+    export let swerveModuleFrontLeftTurningPosition: number;
+    export let swerveModuleFrontRightDrivingSpeedTarget: number;
+    export let swerveModuleFrontRightDrivingSpeedActual: number;
+    export let swerveModuleFrontRightTurningPosition: number;
+    export let swerveModuleRearLeftDrivingSpeedTarget: number;
+    export let swerveModuleRearLeftDrivingSpeedActual: number;
+    export let swerveModuleRearLeftTurningPosition: number;
+    export let swerveModuleRearRightDrivingSpeedTarget: number;
+    export let swerveModuleRearRightDrivingSpeedActual: number;
+    export let swerveModuleRearRightTurningPosition: number;
 </script>
 
 <div class="main">
   <div class="title"><h4>Drive Performance</h4></div>
   <div class="swerveModules">
     <div class="swerveModule">
-      <div>{ 0 } m/s</div>
+      <div>{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(3) }</div>
       <div class="line"></div>
-      <div>{ 0 } rpm</div>
+      <div>{ swerveModuleFrontLeftDrivingSpeedTarget?.toFixed(3) }</div>
     </div>
     <div class="swerveModule">
-      <div>{ 0 } m/s</div>
+      <div>{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(3) }</div>
       <div class="line"></div>
-      <div>{ 0 } rpm</div>
+      <div>{ swerveModuleFrontRightDrivingSpeedTarget?.toFixed(3) }</div>
     </div>
     <div class="swerveModule">
-      <div>{ 0 } m/s</div>
+      <div>{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(3) }</div>
       <div class="line"></div>
-      <div>{ 0 } rpm</div>
+      <div>{ swerveModuleRearLeftDrivingSpeedTarget?.toFixed(3) }</div>
     </div>
     <div class="swerveModule">
-      <div>{ 0 } m/s</div>
+      <div>{ swerveModuleRearRightDrivingSpeedActual?.toFixed(3) }</div>
       <div class="line"></div>
-      <div>{ 0 } rpm</div>
+      <div>{ swerveModuleRearRightDrivingSpeedTarget?.toFixed(3) }</div>
     </div>
   </div>
 </div>

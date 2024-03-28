@@ -51,11 +51,19 @@
       <DriveSettings />
     </Tile>
     <Tile class="widget">
-      <!-- <DriveInfo
-        swerveModuleFrontLeftMetrics={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftMetrics)?.value }
-        swerveModuleFrontRightMetrics={ nt.topics.get(Topics.DriveSwerveModuleFrontRightMetrics)?.value }
-        swerveModuleRearLeftMetrics={ nt.topics.get(Topics.DriveSwerveModuleRearLeftMetrics)?.value }
-        swerveModuleRearRightMetrics={ nt.topics.get(Topics.DriveSwerveModuleRearRightMetrics)?.value } /> -->
+      <DriveInfo
+        swerveModuleFrontLeftDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedTarget)?.value }
+        swerveModuleFrontLeftDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedActual)?.value }
+        swerveModuleFrontLeftTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftTurningPosition)?.value } 
+        swerveModuleFrontRightDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleFrontRightDrivingSpeedTarget)?.value }
+        swerveModuleFrontRightDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleFrontRightDrivingSpeedActual)?.value }
+        swerveModuleFrontRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleFrontRightTurningPosition)?.value } 
+        swerveModuleRearLeftDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleRearLeftDrivingSpeedTarget)?.value }
+        swerveModuleRearLeftDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleRearLeftDrivingSpeedActual)?.value }
+        swerveModuleRearLeftTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearLeftTurningPosition)?.value } 
+        swerveModuleRearRightDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleRearRightDrivingSpeedTarget)?.value }
+        swerveModuleRearRightDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleRearRightDrivingSpeedActual)?.value }
+        swerveModuleRearRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearRightTurningPosition)?.value } />
     </Tile>
     <Tile class="widget">
       <TargetingData
