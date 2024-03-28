@@ -57,6 +57,7 @@
 
       &.info {
         margin: 3px 1.5em 0 0;
+        font-size: 120%;
       }
     }
   }

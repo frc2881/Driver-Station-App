@@ -1,51 +1,57 @@
 <script lang="ts">
-    export let swerveModuleFrontLeftDrivingSpeedTarget: number;
-    export let swerveModuleFrontLeftDrivingSpeedActual: number;
-    export let swerveModuleFrontLeftTurningPosition: number;
-    export let swerveModuleFrontRightDrivingSpeedTarget: number;
-    export let swerveModuleFrontRightDrivingSpeedActual: number;
-    export let swerveModuleFrontRightTurningPosition: number;
-    export let swerveModuleRearLeftDrivingSpeedTarget: number;
-    export let swerveModuleRearLeftDrivingSpeedActual: number;
-    export let swerveModuleRearLeftTurningPosition: number;
-    export let swerveModuleRearRightDrivingSpeedTarget: number;
-    export let swerveModuleRearRightDrivingSpeedActual: number;
-    export let swerveModuleRearRightTurningPosition: number;
+  import CaretUp from "carbon-icons-svelte/lib/CaretUp.svelte";
+
+  export let swerveModuleFrontLeftDrivingSpeedTarget: number;
+  export let swerveModuleFrontLeftDrivingSpeedActual: number;
+  export let swerveModuleFrontLeftTurningPosition: number;
+  export let swerveModuleFrontRightDrivingSpeedTarget: number;
+  export let swerveModuleFrontRightDrivingSpeedActual: number;
+  export let swerveModuleFrontRightTurningPosition: number;
+  export let swerveModuleRearLeftDrivingSpeedTarget: number;
+  export let swerveModuleRearLeftDrivingSpeedActual: number;
+  export let swerveModuleRearLeftTurningPosition: number;
+  export let swerveModuleRearRightDrivingSpeedTarget: number;
+  export let swerveModuleRearRightDrivingSpeedActual: number;
+  export let swerveModuleRearRightTurningPosition: number;
 </script>
 
 <div class="main">
   <div class="title"><h4>Drive</h4></div>
   <div class="swerveModules">
     <div class="swerveModule">
-      <div>{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(2) }</div>
-      <div>{ swerveModuleFrontLeftDrivingSpeedTarget?.toFixed(2) }</div>
+      <div class="value">{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(2) }</div>
+      <div class="delta">{ (swerveModuleFrontLeftDrivingSpeedTarget ? ((swerveModuleFrontLeftDrivingSpeedActual / swerveModuleFrontLeftDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
         class="position"
-        style:transform={ `rotate(${ (swerveModuleFrontLeftTurningPosition ?? 0) + 90 }deg)` }>
+        style:transform={ `rotate(${ (swerveModuleFrontLeftTurningPosition ?? 0) }deg)` }>
+        <div class="arrow"><CaretUp width=32 height=32 /></div>
       </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(2) }</div>
-      <div>{ swerveModuleFrontRightDrivingSpeedTarget?.toFixed(2) }</div>
+      <div class="value">{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(2) }</div>
+      <div class="delta">{ (swerveModuleFrontRightDrivingSpeedTarget ? ((swerveModuleFrontRightDrivingSpeedActual / swerveModuleFrontRightDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
         class="position"
-        style:transform={ `rotate(${ (swerveModuleFrontRightTurningPosition ?? 0) + 90 }deg)` }>
+        style:transform={ `rotate(${ (swerveModuleFrontRightTurningPosition ?? 0) }deg)` }>
+        <div class="arrow"><CaretUp width=32 height=32 /></div>
       </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(2) }</div>
-      <div>{ swerveModuleRearLeftDrivingSpeedTarget?.toFixed(2) }</div>
+      <div class="value">{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(2) }</div>
+      <div class="delta">{ (swerveModuleRearLeftDrivingSpeedTarget ? ((swerveModuleRearLeftDrivingSpeedActual / swerveModuleRearLeftDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
         class="position"
-        style:transform={ `rotate(${ (swerveModuleRearLeftTurningPosition ?? 0) + 90 }deg)` }>
+        style:transform={ `rotate(${ (swerveModuleRearLeftTurningPosition ?? 0) }deg)` }>
+        <div class="arrow"><CaretUp width=32 height=32 /></div>
       </div>
     </div>
     <div class="swerveModule">
-      <div>{ swerveModuleRearRightDrivingSpeedActual?.toFixed(2) }</div>
-      <div>{ swerveModuleRearRightDrivingSpeedTarget?.toFixed(2) }</div>
+      <div class="value">{ swerveModuleRearRightDrivingSpeedActual?.toFixed(2) }</div>
+      <div class="delta">{ (swerveModuleRearRightDrivingSpeedTarget ? ((swerveModuleRearRightDrivingSpeedActual / swerveModuleRearRightDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
         class="position"
-        style:transform={ `rotate(${ (swerveModuleRearRightTurningPosition ?? 0) + 90 }deg)` }>
+        style:transform={ `rotate(${ (swerveModuleRearRightTurningPosition ?? 0) }deg)` }>
+        <div class="arrow"><CaretUp width=32 height=32 /></div>
       </div>
     </div>
   </div>
@@ -80,12 +86,21 @@
         border-radius: 55px;
         font-size: 120%;
 
+        .value {
+          margin-top: 0.5em;
+        }
+
+        .delta {
+          font-size: 80%;
+        }
+
         .position {
           position: absolute;
-          width: 80px;
-          height: 5px;
-          background: var(--app-color-white);
-          opacity: 0.2;
+
+          .arrow {
+            color: var(--app-color-pink);
+            transform: translateY(-40px);
+          }
         }
       }
     }

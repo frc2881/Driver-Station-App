@@ -11,7 +11,7 @@
   import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
   import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
-  import TargetingData from "../components/Dashboard/TargetingData.svelte";
+  import TargetingInfo from "../components/Dashboard/TargetingInfo.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
@@ -83,7 +83,7 @@
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 
     </Tile>
     <Tile class="widget">
-      <TargetingData
+      <TargetingInfo
         launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
     </Tile>
     <ControllerMap 

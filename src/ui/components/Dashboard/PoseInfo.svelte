@@ -87,9 +87,9 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 150%;
       margin-top: 2em;
-      gap: .75em;
+      gap: 1em;
     }
 
     .target {
@@ -97,9 +97,9 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 120%;
       margin-top: 1.5em;
-      gap: .75em;
+      gap: 1.5em;
     }
   }
 </style>

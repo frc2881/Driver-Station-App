@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { LineChart } from "@carbon/charts-svelte";
+  import { ChartOptions, LineChart, ScaleTypes } from "@carbon/charts-svelte";
 
   export let launcherArmPositions: string;
 
-  const chartOptions: any = {
+  const chartOptions: ChartOptions = {
     axes: {
       bottom: {
         title: "Target Distance (m)",
         mapsTo: "distance",
-        scaleType: "linear",
+        scaleType: ScaleTypes.LINEAR,
         domain: [0, 7]
       },
       left: {
         title: "Launcher Position (in)",
         mapsTo: "position",
-        scaleType: "linear",
+        scaleType: ScaleTypes.LINEAR,
         domain: [0, 15]
       }
     },

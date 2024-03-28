@@ -27,7 +27,7 @@
   <div 
     class="active"
     class:none={ activeCommand === "None" }>
-    <h4>{ activeCommand }</h4>
+    { activeCommand }
   </div>
   <div 
     class="autos">
@@ -47,20 +47,20 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      height: 100%;
-      margin-top: 2em;
-      padding: 1em;
+      margin-top: 1em;
+      background: var(--app-color-pink);
+      border: 1px solid var(--app-color-pink);
+      color: var(--app-color-black);
       text-align: center;
-      color: var(--app-color-green);
-      border: 1px solid var(--app-color-green);
-
-      h4 {
-        font-weight: bold;
-      }
+      font-weight: bold;
+      font-size: 200%;
+      padding: 0.5em 0;
 
       &.none {
+        background: none;
+        border: 1px solid var(--app-color-charcoal);
         color: var(--app-color-charcoal);
-        border-color: var(--app-color-charcoal);
+        font-weight: normal;
       }
     }
 
@@ -69,6 +69,8 @@
       width: 400px;
       height: 440px;
       margin-top: 2em;
+      border: 1px solid var(--app-color-charcoal);
+      
       img { 
         width: 100%; 
         transform: translateY(30px);
