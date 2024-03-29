@@ -19,10 +19,10 @@
       <div>RT: Run Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Eject</div>
+      <div>LB: Launch (Shuttle)</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Launch (Shuttle)</div>
+      <div>RB: Eject</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>X: Drive</div>
@@ -31,8 +31,8 @@
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
       <div>A: Align To Target</div>
-      <div>B: Reload Intake</div>
-      <div>Y: -----</div>
+      <div>B: -----</div>
+      <div>Y: Reload Intake</div>
       <div>X: -----</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
@@ -64,16 +64,16 @@
     <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Align To Target</div>
+      <div>LT: Align To Speaker</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Launch (Speaker)</div>
+      <div>RT: Launch Speaker</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: -----</div>
+      <div>LB: Align To Amp</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Launch (Amp)</div>
+      <div>RB: Launch Amp</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div>X: -----</div>
@@ -81,15 +81,15 @@
       <div>Press: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: -----</div>
+      <div>A: Climber Down</div>
       <div>B: -----</div>
-      <div>Y: -----</div>
+      <div>Y: Climber Up</div>
       <div>X: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L: Long Range</div>
-      <div>U: Mid Range</div>
-      <div>R: Short Range</div>
+      <div>L: -----</div>
+      <div>U: Podium</div>
+      <div>R: -----</div>
       <div>D: Subwoofer</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
@@ -101,13 +101,14 @@
       <div>Back: Reset Launcher</div>
     </div>
     <div class="text right" style="right:325px;bottom:180px;">
-      <div>Start: -----</div>
+      <div>Start: Reset Climber</div>
     </div>
     <div class="text notes" style="right:60px;top:160px;">
       <div>
         Notes:
         <ul>
           <li>Always reset launcher arm position to zero after robot power cycle</li>
+          <li>Always reset climber arm position to zero after robot power cycle</li>
         </ul>
       </div>
     </div>
