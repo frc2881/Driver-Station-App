@@ -2,15 +2,15 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
 
-  export let hasInitialReset: boolean;
+  export let hasInitialZeroResets: boolean;
 </script>
 
 <div class="main">
   <div class="title"><h4>Reset</h4></div>
   <div class="status">
-    { #if !hasInitialReset }
+    { #if !hasInitialZeroResets }
       <div class="warning"><CloseFilled width=160 height=160 fill="#CC0000" /></div>
-      <div class="info">All subsystem mechanisms must be<br/><u>manually reset</u> prior to engagement!</div>
+      <div class="info">All subsystem mechanisms must be<br/><u>manually reset to zero positions</u> prior to engagement!</div>
     { :else }
       <div><CheckmarkFilled width=160 height=160 fill="#009900" /></div>
       <div class="info">All subsystem mechanisms<br/>are ready for engagement.</div>

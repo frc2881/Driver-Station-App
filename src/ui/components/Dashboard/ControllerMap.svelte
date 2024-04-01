@@ -33,13 +33,13 @@
       <div>A: Align To Target</div>
       <div>B: -----</div>
       <div>Y: Reload Intake</div>
-      <div>X: -----</div>
+      <div>X: Run Auto Climber</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
-      <div>L: -----</div>
-      <div>U: -----</div>
-      <div>R: -----</div>
-      <div>D: -----</div>
+      <div>L: Climber Start</div>
+      <div>U: Climber Up</div>
+      <div>R: Climber Unlock</div>
+      <div>D: Climber Down</div>
     </div>
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>X: Rotate</div>
@@ -58,6 +58,7 @@
         <ul>
           <li>Calibrate gyro immediately before match countdown and start of autonomous period begins</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
+          <li>Hold X button through end of match to secure climber position and lock</li>
         </ul>
       </div>
     </div>

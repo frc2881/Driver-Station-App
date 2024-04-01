@@ -140,7 +140,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(0, 0, 0, 0.75);
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
     :global .widget {

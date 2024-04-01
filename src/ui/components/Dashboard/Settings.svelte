@@ -28,6 +28,11 @@
       inline
       options={ nt.topics.get(`${Topics.DriveDriftCorrection}/options`) }
       active={ nt.topics.get(`${Topics.DriveDriftCorrection}/active`) } />
+    <SendableChooser
+      name="Idle Mode"
+      inline
+      options={ nt.topics.get(`${Topics.DriveIdleMode}/options`) }
+      active={ nt.topics.get(`${Topics.DriveIdleMode}/active`) } />
   </div>
 </div>
 

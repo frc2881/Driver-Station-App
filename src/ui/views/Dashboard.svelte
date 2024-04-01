@@ -67,7 +67,7 @@
     </Tile>
     <Tile class="widget">
       <ResetStatus 
-        hasInitialReset={ nt.topics.get(Topics.HasInitialReset)?.value } />
+        hasInitialZeroResets={ nt.topics.get(Topics.HasInitialZeroResets)?.value } />
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings
