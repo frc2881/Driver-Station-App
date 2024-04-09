@@ -67,7 +67,8 @@
     </Tile>
     <Tile class="widget">
       <ResetStatus 
-        hasInitialZeroResets={ nt.topics.get(Topics.HasInitialZeroResets)?.value } />
+        hasInitialZeroResets={ nt.topics.get(Topics.HasInitialZeroResets)?.value }
+        isGyroCalibrating={ nt.topics.get(Topics.IsGyroCalibrating)?.value } />
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings
@@ -77,9 +78,7 @@
       <PoseInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         rearPoseSensorHasTargets={ nt.topics.get(Topics.RearPoseSensorHasTargets)?.value }
-        rearPoseSensorAmbiguity={ nt.topics.get(Topics.RearPoseSensorAmbiguity)?.value }
         sidePoseSensorHasTargets={ nt.topics.get(Topics.SidePoseSensorHasTargets)?.value }
-        sidePoseSensorAmbiguity={ nt.topics.get(Topics.SidePoseSensorAmbiguity)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 

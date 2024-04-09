@@ -8,9 +8,7 @@
 
   export let robotPose: string;
   export let rearPoseSensorHasTargets: boolean;
-  export let rearPoseSensorAmbiguity: number;
   export let sidePoseSensorHasTargets: boolean;
-  export let sidePoseSensorAmbiguity: number;
   export let frontNoteObjectSensorHasTarget: boolean;
   export let targetYaw: number;
   export let targetDistance: number;
@@ -31,7 +29,6 @@
     <div class="sensor">
       <CenterSquare
         fill={ rearPoseSensorHasTargets ? "#00CC00" : "#333333" }
-        opacity={ rearPoseSensorAmbiguity > 0.2 ? 0.33 : 1 }
         width=80
         height=80 />
       Rear
@@ -39,7 +36,6 @@
     <div class="sensor">
       <CenterSquare
         fill={ sidePoseSensorHasTargets ? "#00CC00" : "#333333" }
-        opacity={ sidePoseSensorAmbiguity > 0.2 ? 0.33 : 1 }
         width=80
         height=80 />
       Side

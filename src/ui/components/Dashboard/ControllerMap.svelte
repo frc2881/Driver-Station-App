@@ -50,13 +50,12 @@
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div>Start: Calibrate Gyro</div>
+      <div>Start: -----</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Calibrate gyro immediately before match countdown and start of autonomous period begins</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
           <li>Hold X button through end of match to secure climber position and lock</li>
         </ul>
@@ -83,9 +82,9 @@
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
       <div>A: Climber Down</div>
-      <div>B: -----</div>
+      <div>B: Calibratte Gyro (Long)</div>
       <div>Y: Climber Up</div>
-      <div>X: -----</div>
+      <div>X: Calibrate Gyro (Short)</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div>L: -----</div>
@@ -108,6 +107,7 @@
       <div>
         Notes:
         <ul>
+          <li>Calibrate gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
           <li>Always reset launcher arm position to zero after robot power cycle</li>
           <li>Always reset climber arm position to zero after robot power cycle</li>
         </ul>
