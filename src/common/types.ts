@@ -86,17 +86,14 @@ export type NetworkTables = {
 }
 
 export type Pose2d = {
-  translation: { x: number; y: number; }
-  rotation: { radians: number; }
+  x: number;
+  y: number;
+  rotation: number;
 }
 
 export type Pose3d = {
-  translation: { x: number; y: number; z: number }
-  rotation: { quaternion: { W: number; X: number; Y: number; Z: number; } }
-}
-
-export type PoseInfo = {
   x: number;
   y: number;
+  z: number;
   rotation: number;
 }

@@ -77,8 +77,8 @@
     <Tile class="widget">
       <PoseInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
-        rearPoseSensorHasTargets={ nt.topics.get(Topics.RearPoseSensorHasTargets)?.value }
-        sidePoseSensorHasTargets={ nt.topics.get(Topics.SidePoseSensorHasTargets)?.value }
+        rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
+        sidePoseSensorHasTarget={ nt.topics.get(Topics.SidePoseSensorHasTarget)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 

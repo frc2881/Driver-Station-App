@@ -1,25 +1,20 @@
 <script lang="ts">
 	import { CenterSquare, CenterCircle } from "carbon-icons-svelte";
-  import { 
-    Pose2d,
-    PoseInfo,
-    Utils
-  } from "../../../common";
+  import { Pose2d } from "../../../common";
 
-  export let robotPose: string;
-  export let rearPoseSensorHasTargets: boolean;
-  export let sidePoseSensorHasTargets: boolean;
+  export let robotPose: [number, number, number];
+  export let rearPoseSensorHasTarget: boolean;
+  export let sidePoseSensorHasTarget: boolean;
   export let frontNoteObjectSensorHasTarget: boolean;
   export let targetYaw: number;
   export let targetDistance: number;
 
-  const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
+  let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
 
   $: {
-    const __pose = JSON.parse(robotPose ?? "{}") as Pose2d;
-    poseInfo.x = typeof(__pose.translation?.x) === "number" ? __pose.translation?.x ?? 0 : 0;
-    poseInfo.y = typeof(__pose.translation?.y) === "number" ? __pose.translation?.y ?? 0 : 0;
-    poseInfo.rotation = Utils.radiansToDegrees(typeof(__pose.rotation?.radians) === "number" ? __pose?.rotation?.radians ?? 0 : 0);
+    poseInfo.x = robotPose?.[0] ?? 0;
+    poseInfo.y = robotPose?.[1] ?? 0;
+    poseInfo.rotation = robotPose?.[2] ?? 0;
   }
 </script>
 
@@ -28,14 +23,14 @@
   <div class="sensors">
     <div class="sensor">
       <CenterSquare
-        fill={ rearPoseSensorHasTargets ? "#00CC00" : "#333333" }
+        fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
         width=80
         height=80 />
       Rear
     </div>
     <div class="sensor">
       <CenterSquare
-        fill={ sidePoseSensorHasTargets ? "#00CC00" : "#333333" }
+        fill={ sidePoseSensorHasTarget ? "#00CC00" : "#333333" }
         width=80
         height=80 />
       Side

@@ -1,24 +1,23 @@
 <script lang="ts">
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-	import { Alliance, Pose2d, PoseInfo, Utils } from "../../../common";
+	import { Alliance, Pose2d } from "../../../common";
 
   export let alliance: Alliance;
-  export let robotPose: string;
+  export let robotPose: [number, number, number];
   export let isAlignedToTarget: boolean;
   export let launcherBottomBeamBreakSensorHasTarget: boolean;
   export let launcherTopBeamBreakSensorHasTarget: boolean;
 
   const PIXELS_PER_METER: number = 29.0123;
   
-  const poseInfo: PoseInfo = { x: 0, y: 0, rotation: 0 };
+  let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
   let isReadyForLaunch: boolean = false;
 
   $: {
-    const __pose = JSON.parse(robotPose ?? "{}") as Pose2d;
-    poseInfo.x = typeof(__pose.translation?.x) === "number" ? __pose.translation?.x ?? 0 : 0;
-    poseInfo.y = typeof(__pose.translation?.y) === "number" ? __pose.translation?.y ?? 0 : 0;
-    poseInfo.rotation = Utils.radiansToDegrees(typeof(__pose.rotation?.radians) === "number" ? __pose?.rotation?.radians ?? 0 : 0);
+    poseInfo.x = robotPose?.[0] ?? 0;
+    poseInfo.y = robotPose?.[1] ?? 0;
+    poseInfo.rotation = robotPose?.[2] ?? 0;
     
     isReadyForLaunch = 
       isAlignedToTarget &&
