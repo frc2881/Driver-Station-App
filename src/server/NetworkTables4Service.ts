@@ -344,19 +344,19 @@ export class NetworkTables4Service extends NetworkTablesService {
   }
 }
 
-enum TextDataFrameMessageMethod {
-  Publish = "publish",
-  Unpublish = "unpublish",
-  SetProperties = "setproperties",
-  Subscribe = "subscribe",
-  Unsubscribe = "unsubscribe",
-  Announce = "announce",
-  Unannounce = "unannounce",
-  Properties = "properties"
-}
+const TextDataFrameMessageMethod = Object.freeze({
+  Publish: "publish",
+  Unpublish: "unpublish",
+  SetProperties: "setproperties",
+  Subscribe: "subscribe",
+  Unsubscribe: "unsubscribe",
+  Announce: "announce",
+  Unannounce: "unannounce",
+  Properties: "properties"
+})
 
 type TextDataFrameMessage = {
-  method: TextDataFrameMessageMethod;
+  method: (typeof TextDataFrameMessageMethod)[keyof typeof TextDataFrameMessageMethod];
   params: object;
 }
 
