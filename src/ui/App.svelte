@@ -44,6 +44,11 @@
 		font-display: swap;
 	}
 
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+
 	:root {
 		--app-color-pink: #FF69B4;
 		--app-color-pink-80: #FF69B4CC;

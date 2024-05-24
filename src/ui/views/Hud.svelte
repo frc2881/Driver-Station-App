@@ -133,7 +133,7 @@
       grid-template-columns: 540px 820px 540px;
     }
 
-    & > .matchtime {
+    & .matchtime {
       position: absolute;
       top: 0;
       width: 800px;
