@@ -54,15 +54,15 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
 
-    .sensors {
+    & .sensors {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -70,14 +70,14 @@
       gap: 1.5em;
       margin-top: 2em;
 
-      .sensor {
+      & .sensor {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
     }
 
-    .pose {
+    & .pose {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -87,7 +87,7 @@
       gap: 1em;
     }
 
-    .target {
+    & .target {
       display: flex;
       flex-direction: row;
       align-items: center;

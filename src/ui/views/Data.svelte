@@ -275,7 +275,7 @@
 <pre class="debug">{ Utils.stringifyNetworkTables(nt, 4) }</pre>
 { /if }
 
-<style lang="postcss">
+<style>
   main {
     display: flex;
     flex-direction: column;
@@ -290,19 +290,23 @@
   }
 
   .graphModal {
-    .movingAverage {
+    &.hidden {
+      display: none;
+    }
+
+    & .movingAverage {
       display: flex;
       flex-direction: row;
       align-items: center;
       margin: 30px 0 0 50px;
 
-      .value {
+      & .value {
         margin: 0 10px;
         font-weight: bold;
         font-size: 120%;
       }
 
-      .input {
+      & .input {
         margin: 0 10px;
         display: inline-block;
         width: 150px;

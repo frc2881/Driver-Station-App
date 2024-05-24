@@ -36,19 +36,20 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
-    .category {
+    
+    & .category {
       display: flex;
       flex-direction: column;
       margin: 2em 1em;
 
-      .label {
+      & .label {
         padding-bottom: .5em;
         margin-bottom: 1em;
         font-size: 120%;

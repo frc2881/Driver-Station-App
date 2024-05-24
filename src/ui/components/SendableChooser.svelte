@@ -40,12 +40,12 @@
     } } />
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     margin-bottom: 1em;
 
-    :global {
-      .bx--label {
+    & :global {
+      & .bx--label {
         width: 120px;
       }
     }

@@ -11,13 +11,13 @@
   </div> 
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .value {
+    & .value {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -25,7 +25,7 @@
       height: 42px;
     }
 
-    .blue { background-color: #0000CC; }
-    .red { background-color: #CC0000; }
+    & .blue { background-color: #0000CC; }
+    & .red { background-color: #CC0000; }
   }
 </style>

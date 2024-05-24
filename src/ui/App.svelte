@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Theme } from "carbon-components-svelte";
 	import "carbon-components-svelte/css/all.css";
-	import "@carbon/charts-svelte/styles.css";
+	import "@carbon/charts-svelte/styles.min.css";
 	import { AppWindowType } from "../common";
 	import { connectNetworkTablesStore } from "./stores/NetworkTables";
-	import Symbols from "./graphics/Symbols.svelte";
+	import Graphics from "./components/Graphics.svelte";
 	import Hud from "./views/Hud.svelte";
 	import Dashboard from "./views/Dashboard.svelte";
 	import Data from "./views/Data.svelte";
@@ -20,7 +20,7 @@
 	connectNetworkTablesStore(appWindowType);
 </script>
 
-<div style="display:none"><Symbols /></div>
+<div style="display:none"><Graphics /></div>
 
 <svelte:component this={ views[appWindowType] } />
 
@@ -33,14 +33,15 @@
   }}
 />
 
-<style global lang="postcss">
-	@font-face { font-family: "Roboto"; src: url("./fonts/Roboto-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
-	@font-face { font-family: "Roboto"; src: url("./fonts/Roboto-Bold.woff") format("woff"); font-weight: bold; font-style: normal; }
+<style global>
+	@font-face { font-family: "Roboto"; src: url("./assets/fonts/Roboto-Regular.woff") format("woff"); font-weight: normal; font-style: normal; }
+	@font-face { font-family: "Roboto"; src: url("./assets/fonts/Roboto-Bold.woff") format("woff"); font-weight: bold; font-style: normal; }
 
 	* {
 		font-family: "Roboto", sans-serif !important;
 		font-weight: normal;
 		-webkit-font-smoothing: antialiased !important;
+		font-display: swap;
 	}
 
 	:root {
@@ -58,8 +59,4 @@
 		--app-color-black: #000000;
 		--app-color-white: #FFFFFF;
 	}
-
-	.hidden {
-    display: none;
-  }
 </style>

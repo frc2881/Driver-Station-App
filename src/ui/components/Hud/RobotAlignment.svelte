@@ -33,7 +33,7 @@
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="field { alliance?.toLowerCase() }">
-    <img src="./assets/field.png" />
+    <img src="./assets/images/field.png" />
     <div 
       class="robot"
       style:left={ `${ poseInfo.x * PIXELS_PER_METER }px` }
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     display: flex;
     flex-direction: column;
@@ -55,16 +55,16 @@
     height: 100%;
     overflow: hidden;
 
-    .field {
+    & .field {
       width: 480px;
       transform: rotate(-90deg);
       
       &.blue { transform: rotate(-90deg); }
       &.red { transform: rotate(90deg); }
       
-      img { width: 100%; }
+      & img { width: 100%; }
 
-      .robot {
+      & .robot {
         position: absolute;
         width: 15.84px;
         height: 18.05px;
@@ -73,12 +73,12 @@
         align-items: center;
         justify-content: center;
 
-        .arrow {
+        & .arrow {
           transform: rotate(90deg) translateY(16px);
           color: var(--app-color-pink);
         }
 
-        .line {
+        & .line {
           width: 1px;
           background: var(--app-color-pink);
           height: 128px;
@@ -87,7 +87,7 @@
       }
     }
 
-    .alignment {
+    & .alignment {
       position: absolute;
       width: 100%;
       height: 100%;

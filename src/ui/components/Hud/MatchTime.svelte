@@ -27,7 +27,7 @@
   <div class="time">{ matchTime }</div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     display: flex;
     align-items: center;
@@ -57,7 +57,7 @@
       animation: pulse 750ms ease-in-out infinite;
     }
 
-    .time {
+    & .time {
       display: flex;
       justify-content: center;
       width: 100%;

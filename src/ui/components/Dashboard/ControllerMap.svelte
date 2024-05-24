@@ -117,7 +117,7 @@
 </div>
 { /if }
 
-<style lang="postcss">
+<style>
   .main {
     position: absolute;
     z-index: 9999;
@@ -129,13 +129,13 @@
     align-items: center;
     justify-content: center;
 
-    .controllers {
+    & .controllers {
       width: 1400px;
       height: 720px;
-      background-image: url("./assets/controllers.png");
+      background-image: url("./assets/images/controllers.png");
       background-position-y: 20px;
 
-      .text {
+      & .text {
         position: absolute;
         color: var(--app-color-black);
         display: flex;
@@ -164,11 +164,11 @@
           padding: 15px;
           border: 1px solid var(--app-color-charcoal);
 
-          ul {
+          & ul {
             margin: 10px 0 0px 15px;
             list-style-type: square;
 
-            li {
+            & li {
               margin-bottom: 10px;
             }
           }

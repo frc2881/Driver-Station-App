@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     position: relative;
     display: flex;
@@ -60,7 +60,7 @@
     height: 100%;
     gap: 3em;
 
-    .levels {
+    & .levels {
       position: relative;
       display: flex;
       flex-direction: column;
@@ -68,18 +68,18 @@
       justify-content: center;
       gap: 2em;
 
-      .level {
+      & .level {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
         gap: 1em;
 
-        .sensor {
+        & .sensor {
           opacity: 0.75;
         }
 
-        .beam {
+        & .beam {
           width: 240px;
           height: 2px;
           background: var(--app-color-charcoal);
@@ -89,7 +89,7 @@
         }
       }
 
-      .note {
+      & .note {
         position: absolute;
         width: 220px;
         height: 32px;
@@ -104,21 +104,21 @@
       }
     }
 
-    .motors {
+    & .motors {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       gap: 1em;
 
-      .belts {
+      & .belts {
         &.active {
           animation: belts 250ms infinite ease;
         }
       }
     }
 
-    .alignment {
+    & .alignment {
       position: absolute;
       width: 100%;
       height: 100%;

@@ -41,24 +41,20 @@
     "@types/minimist": "^1.2.5",
     "npm-run-all": "^4.1.5",
     "fs-extra": "^11.2.0",
-    "electron": "^30.0.6",
+    "electron": "^30.0.7",
     "electron-packager": "^17.1.2",
     "electron-builder": "^24.13.3",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "@tsconfig/svelte": "^5.0.4",
-    "rollup": "^4.17.2",
+    "rollup": "^4.18.0",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-svelte": "^7.2.0",
     "@rollup/plugin-alias": "^5.1.0",
-    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@rollup/plugin-replace": "^5.0.5",
-    "postcss": "^8.4.38",
-    "postcss-nesting": "^12.1.4",
-    "postcss-url": "^10.1.3",
-    "@types/postcss-url": "^10.0.4",
     "svelte": "^4.2.17",
     "svelte-preprocess": "^5.1.4",
     "carbon-preprocess-svelte": "^0.11.3",
@@ -74,6 +70,6 @@
   },
   "volta": {
     "node": "20.13.1",
-    "pnpm": "9.1.1"
+    "pnpm": "9.1.2"
   }
 }

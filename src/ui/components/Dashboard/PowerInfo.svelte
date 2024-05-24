@@ -32,14 +32,14 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 
-    .value {
+    & .value {
       display: flex;
       flex-direction: row;
       align-items: center;

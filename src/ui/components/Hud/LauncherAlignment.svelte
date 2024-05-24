@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     position: relative;
     display: flex;
@@ -44,11 +44,11 @@
     width: 100%;
     height: 100%;
 
-    .launcher {
+    & .launcher {
       position: relative;
       margin: 8em 4em 0 0;
 
-      .leadscrew {
+      & .leadscrew {
         display: flex;
         align-items: flex-end;
         position: absolute;
@@ -59,7 +59,7 @@
         background: var(--app-color-charcoal);
         transform: rotate(-10deg);
 
-        .position {
+        & .position {
           display: flex;
           flex: 1 0 auto;
           justify-content: center;
@@ -69,21 +69,21 @@
         }
       }
 
-      .arm {
+      & .arm {
         margin: 8em 4em 0 0;
         border-top: 40px solid transparent;
         border-bottom: 40px solid transparent; 
         border-right:180px solid var(--app-color-pink);
         transform-origin: 0 0;
 
-        .pitch {
+        & .pitch {
           padding: 1em;
           font-size: 150%;
         }
       }
     }
 
-    .alignment {
+    & .alignment {
       position: absolute;
       width: 100%;
       height: 100%;

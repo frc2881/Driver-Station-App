@@ -57,15 +57,15 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
 
-    .swerveModules {
+    & .swerveModules {
       display: grid;
       grid-template-columns: repeat(2, auto);
       gap: 1em;
@@ -73,7 +73,7 @@
       justify-content: center;
       margin-top: 1em;
 
-      .swerveModule {
+      & .swerveModule {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -86,21 +86,21 @@
         border-radius: 55px;
         font-size: 100%;
 
-        .value {
+        & .value {
           margin-top: 0.5em;
           z-index: 9999;
           font-size: 120%;
         }
 
-        .delta {
+        & .delta {
           font-size: 100%;
           z-index: 9999;
         }
 
-        .position {
+        & .position {
           position: absolute;
 
-          .line {
+          & .line {
             width: 3px;
             height: 80px;
             background: var(--app-color-pink);

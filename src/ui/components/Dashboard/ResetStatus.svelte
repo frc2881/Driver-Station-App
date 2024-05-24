@@ -12,7 +12,7 @@
   <div class="status">
     { #if !hasInitialZeroResets }
       <div class="warning"><CloseFilled width=160 height=160 fill="#CC0000" /></div>
-      <div class="info">All subsystem mechanisms must be<br/><u>manually reset to zero positions</u> prior to engagement!</div>
+      <div class="info">All subsystem mechanisms must be <br/><u>manually reset to zero positions</u><br/> prior to engagement!</div>
     { :else }
       { #if isGyroCalibrating }
         <div><WarningAltFilled width=160 height=160 fill="#CCCC00" /></div>
@@ -25,26 +25,26 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
     
-    .status {
+    & .status {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 2em 0;
       
-      .warning {
+      & .warning {
         animation: pulse 500ms infinite ease;
       }
 
-      .info {
+      & .info {
         margin: 1em 0;
         text-align: center;
         font-size: 120%;

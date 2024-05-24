@@ -43,14 +43,15 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
-    .chart {
+    
+    & .chart {
       width: 390px;
       height: 240px;
     }

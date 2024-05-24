@@ -31,19 +31,19 @@
   </div>
   <div 
     class="autos">
-    <img src="./assets/autos-{ alliance?.toLowerCase() ?? "blue" }.png" />
+    <img src="./assets/images/autos-{ alliance?.toLowerCase() ?? "blue" }.png" />
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
-    .title {
+    & .title {
       margin-bottom: 1.5em;
       border-bottom: 1px solid var(--app-color-charcoal);
       padding: 0px 3px;
     }
 
-    .active {
+    & .active {
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -64,14 +64,14 @@
       }
     }
 
-    .autos {
+    & .autos {
       background: var(--app-color-black);
       width: 400px;
       height: 440px;
       margin-top: 2em;
       border: 1px solid var(--app-color-charcoal);
       
-      img { 
+      & img { 
         width: 100%; 
         transform: translateY(30px);
       }

@@ -35,18 +35,18 @@
     alt="" />
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .icon {
+    & .icon {
       position: absolute;
 		  
-      :global {
-        .watermark {
+      & :global {
+        & .watermark {
           width: 48px;
           height: 48px;
           transform: scale(4);

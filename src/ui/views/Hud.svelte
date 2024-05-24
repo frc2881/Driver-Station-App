@@ -112,7 +112,7 @@
 { /if }
 </main>
 
-<style lang="postcss">
+<style>
   main {
     position: relative;
     display: grid;
@@ -123,17 +123,17 @@
     overflow: hidden;
     padding: 10px;
 
-    .primary {
+    & > .primary {
       display: grid;
       grid-template-columns: 540px 820px 540px;
     }
 
-    .secondary {
+    & > .secondary {
       display: grid;
       grid-template-columns: 540px 820px 540px;
     }
 
-    .matchtime {
+    & > .matchtime {
       position: absolute;
       top: 0;
       width: 800px;
@@ -143,11 +143,13 @@
       background-color: rgba(0, 0, 0, 0.5);
     }
 
-    :global .widget {
-      margin: 10px;
-      padding: 0px;
-      background: #1C1C1C;
-    }
+    & :global {
+      & .widget {
+        margin: 10px;
+        padding: 0px;
+        background: #1C1C1C;
+      }
+    } 
   }
 
   .inlineNotification {
@@ -160,15 +162,15 @@
     top: 50%;
     transform: translate(-128px, -128px);
 
-    :global {
-      .skeleton {
+    & :global {
+      & .skeleton {
         position: absolute;
         width: 256px;
         height: 256px;
       }
     }
 
-    .icon {
+    & .icon {
       position: absolute;
       width: 256px;
       height: 256px;

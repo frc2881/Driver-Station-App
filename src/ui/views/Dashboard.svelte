@@ -23,7 +23,7 @@
 
 <main>
 { #if nt.isConnected }
-  <div class="info">
+  <div class="header">
     <div class="left">
       <RobotInfo 
         mode={ nt.topics.get(Topics.RobotMode)?.value } 
@@ -35,7 +35,7 @@
     <div class="center">
       <div class="controller-map-button">
         <button on:click={ () => { isControllerMapVisible = true; } }>
-          <img src="./assets/controller.png" alt="Controller Map" />
+          <img src="./assets/images/controller.png" alt="Controller Map" />
         </button>
       </div>
     </div>
@@ -103,52 +103,52 @@
 { /if }
 </main>
 
-<style lang="postcss">
+<style>
   main {
     width: 100vw;
     height: 100vh;
     
-    .info {
+    & > .header {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       height: 90px;
       padding: 0 20px;
 
-      .left {
+      & .left {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         gap: 1.25em;
       }
 
-      .center {
+      & .center {
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
-      .right {
+      & .right {
         display: flex;
         align-items: center;
         justify-content: flex-end;
       }
 
-      .controller-map-button {
-        button {
+      & .controller-map-button {
+        & button {
           margin: 6px 0 0 0;
           padding: 0;
           background: transparent;
           border: none;
           cursor: pointer;
 
-          img {
+          & img {
             height: 42px;
           }
         }
       }
     }
 
-    .widgets {
+    & > .widgets {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 350px;
@@ -156,15 +156,15 @@
       row-gap: 20px;
       padding: 0 20px 20px 20px;
 
-      :global {
-        .widget {
+      & :global {
+        & .widget {
           padding: 2em;
 
           &.row-span-2 {
             grid-row: span 2;
           }
 
-          .title {
+          & .title {
             margin-bottom: 1.5em;
             border-bottom: 1px solid var(--app-color-charcoal);
             padding: 0px 3px;
@@ -184,15 +184,15 @@
     top: 50%;
     transform: translate(-128px, -128px);
 
-    :global {
-      .skeleton {
+    & :global {
+      & .skeleton {
         position: absolute;
         width: 256px;
         height: 256px;
       }
     }
 
-    .icon {
+    & .icon {
       position: absolute;
       width: 256px;
       height: 256px;

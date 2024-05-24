@@ -25,13 +25,13 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .mode {
+    & .mode {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,7 +46,7 @@
       }
     }
 
-    .status {
+    & .status {
       margin: 3px 0 0 20px;
     }
   }

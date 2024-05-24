@@ -24,7 +24,7 @@
     style:transform={ `translate(${ frontNoteObjectSensorTargetYaw * 9 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
 </div>
 
-<style lang="postcss">
+<style>
   .main {
     position: relative;
     display: flex;
@@ -35,7 +35,7 @@
     height: 100%;
     overflow: hidden;
 
-    .robot {
+    & .robot {
       position: absolute;
       bottom: -10px;
       width: 330px;
@@ -45,7 +45,7 @@
       border-bottom: none;
     }
 
-    .note {
+    & .note {
       display: none;
       position: absolute;
       top: 20px;
@@ -59,7 +59,7 @@
       }
     }
 
-    .alignment {
+    & .alignment {
       position: absolute;
       width: 100%;
       height: 100%;
