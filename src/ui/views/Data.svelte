@@ -14,7 +14,7 @@
     InlineNotification,
     NumberInput
   } from "carbon-components-svelte";
-  import Plot, { Data } from "svelte-plotly.js";
+  import { LineChart, LineChartOptions, ScaleTypes } from "@carbon/charts-svelte";
   import { Configuration } from "../../config";
   import { 
     Utils,
@@ -40,7 +40,7 @@
   let isSubscriptionsModalOpen: boolean = false;
 
   let graphModalTopicName: string = null;
-  let graphModalData: Data[] = [];
+  let graphModalChartData: any[] = [];
   let graphModalDataMovingAverageSamples: number[] = [];
   let graphModalDataMovingAverageSamplesCount: number = 50;
   let graphModalDataMovingAverage: number = 0;
@@ -73,18 +73,12 @@
     isGraphModalOpen = true;
     graphModalTopicName = topicName;
     const topic = nt.topics.get(topicName);
-    graphModalData = [{
-      name: topic.name,
-      x: [ Utils.convertTimestamp(topic.timestamp) ],
-      y: [ topic.value ],
-      type: "scattergl"
-    }];
   }
 
   const onGraphModalClosed = (): void => {
     isGraphModalOpen = false;
     graphModalTopicName = null;
-    graphModalData = [];
+    graphModalChartData = [];
     graphModalDataMovingAverageSamples = [];
     graphModalDataMovingAverage = 0;
   }
@@ -113,6 +107,33 @@
     }
   }
 
+  const graphModalChartOptions: LineChartOptions = {
+    axes: {
+      bottom: {
+        mapsTo: "timestamp",
+        scaleType: ScaleTypes.TIME
+      },
+      left: {
+        mapsTo: "value",
+        scaleType: ScaleTypes.LINEAR,
+        includeZero: false
+      }
+    },
+    timeScale: {
+      timeIntervalFormats: {
+        "15seconds": {
+          primary: "mm:ss",
+          secondary: "mm:ss"
+        }
+      }
+    },
+    toolbar: { enabled: false },
+    legend: { enabled: false },
+    theme: "g100",
+    color: { scale: { "values": "#FF69B4" } },
+    animations: false
+  };
+
   $: topics = Array.from(nt.topics.values())
     .reverse()
     .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
@@ -124,17 +145,13 @@
     if (isGraphModalOpen) {
       if (nt.isConnected) {
         const topic = nt.topics.get(graphModalTopicName);
-        if (topic.value !== graphModalData.at(0)["y"].at(-1).value) {
-          graphModalData.at(0)["x"].push(Utils.convertTimestamp(topic.timestamp));
-          graphModalData.at(0)["y"].push(topic.value);
-          graphModalData = graphModalData;
-
-          graphModalDataMovingAverageSamples.push(topic.value);
-          if (graphModalDataMovingAverageSamples.length > graphModalDataMovingAverageSamplesCount) {
-            graphModalDataMovingAverageSamples.shift();
-          }
-          graphModalDataMovingAverage = graphModalDataMovingAverageSamples.reduce((a, b) => a + b) / graphModalDataMovingAverageSamples.length;
+        graphModalChartData.push({ timestamp: Utils.convertTimestamp(topic.timestamp), value: topic.value, group: "values" });
+        graphModalChartData = graphModalChartData;
+        graphModalDataMovingAverageSamples.push(topic.value);
+        if (graphModalDataMovingAverageSamples.length > graphModalDataMovingAverageSamplesCount) {
+          graphModalDataMovingAverageSamples.shift();
         }
+        graphModalDataMovingAverage = graphModalDataMovingAverageSamples.reduce((a, b) => a + b) / graphModalDataMovingAverageSamples.length;
       } else {
         isGraphModalOpen = false;
       }
@@ -231,38 +248,11 @@
   on:close={ onGraphModalClosed }>
   <span class="noop"></span>
   <div class="graphModal" class:hidden={ !isGraphModalOpen }>
-    <Plot
-      data={ graphModalData }
-      config={{ responsive: true }}
-      fillParent="width"
-      layout={{
-        height: 600,
-        margin: { t: 60, b: 40 },
-        paper_bgcolor: "transparent",
-        plot_bgcolor: "transparent",
-        colorway: [ "#FF69B4", "#AA00FF", "#FFFFFF" ],
-        font: { color: "#FFFFFF" },
-        title: {
-          text: graphModalTopicName,
-          x: 0,
-          y: 1,
-          pad: { l: 20 }
-        },
-        hoverlabel: { font: { color: "#FFFFFF" } },
-        xaxis: {
-          gridcolor: "#666666",
-          tickformat: "%-H:%M:%S",
-          hoverformat: "%-H:%M:%S.%L",
-        },
-        yaxis: {
-          gridcolor: "#666666"
-        },
-        modebar: {
-          bgcolor: "transparent",
-          activecolor: "#FF69B4",
-          remove: [ "lasso2d", "pan2d", "pan3d", "autoScale2d" ]
-        }
-      }} />
+    <div class="chart">
+      <LineChart 
+        data={ graphModalChartData } 
+        options={ graphModalChartOptions } />
+    </div>
     <div class="movingAverage">
       Moving Average:
       <span class="value">{ graphModalDataMovingAverage?.toFixed(6) }</span>
@@ -292,6 +282,12 @@
   .graphModal {
     &.hidden {
       display: none;
+    }
+
+    & .chart {
+      margin: 2em;
+      width: 1240px;
+      height: 480px;
     }
 
     & .movingAverage {
