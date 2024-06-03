@@ -1,7 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
-import alias from "@rollup/plugin-alias";
 import commonjs from "@rollup/plugin-commonjs";
 import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
@@ -44,11 +43,6 @@ export default {
 			preventAssignment: true,
 			"process.env.NODE_ENV": JSON.stringify("production"),
 		}),
-		alias({
-			entries: [
-				{ find: "plotly.js-dist", replacement: "plotly.js-basic-dist-min" }
-			]
-    }),
 		css({ output: "bundle.css" }),
 		resolve({
 			browser: true,
