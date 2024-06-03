@@ -9,56 +9,56 @@ importers:
   .:
     dependencies:
       '@msgpack/msgpack':
-        specifier: ^2.8.0
+        specifier: 2.8.0
         version: 2.8.0
       dayjs:
-        specifier: ^1.11.11
+        specifier: 1.11.11
         version: 1.11.11
       minimist:
-        specifier: ^1.2.8
+        specifier: 1.2.8
         version: 1.2.8
       ws:
-        specifier: ^8.17.0
+        specifier: 8.17.0
         version: 8.17.0
     devDependencies:
       '@carbon/charts-svelte':
-        specifier: 1.16.1
-        version: 1.16.1(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)(svelte@4.2.17)
+        specifier: 1.16.3
+        version: 1.16.3(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)(svelte@4.2.17)
       '@rollup/plugin-alias':
-        specifier: ^5.1.0
+        specifier: 5.1.0
         version: 5.1.0(rollup@4.18.0)
       '@rollup/plugin-commonjs':
-        specifier: ^25.0.8
+        specifier: 25.0.8
         version: 25.0.8(rollup@4.18.0)
       '@rollup/plugin-node-resolve':
-        specifier: ^15.2.3
+        specifier: 15.2.3
         version: 15.2.3(rollup@4.18.0)
       '@rollup/plugin-replace':
-        specifier: ^5.0.5
+        specifier: 5.0.5
         version: 5.0.5(rollup@4.18.0)
       '@rollup/plugin-typescript':
-        specifier: ^11.1.6
+        specifier: 11.1.6
         version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.4.5)
       '@tsconfig/svelte':
-        specifier: ^5.0.4
+        specifier: 5.0.4
         version: 5.0.4
       '@types/minimist':
-        specifier: ^1.2.5
+        specifier: 1.2.5
         version: 1.2.5
       '@types/ws':
-        specifier: ^8.5.10
+        specifier: 8.5.10
         version: 8.5.10
       carbon-components-svelte:
-        specifier: ^0.85.0
+        specifier: 0.85.0
         version: 0.85.0
       carbon-icons-svelte:
-        specifier: ^12.8.0
+        specifier: 12.8.0
         version: 12.8.0
       carbon-pictograms-svelte:
-        specifier: ^12.11.0
+        specifier: 12.11.0
         version: 12.11.0
       carbon-preprocess-svelte:
-        specifier: ^0.11.3
+        specifier: 0.11.3
         version: 0.11.3
       d3:
         specifier: 7.9.0
@@ -70,40 +70,40 @@ importers:
         specifier: 0.12.3
         version: 0.12.3
       electron:
-        specifier: ^30.0.8
-        version: 30.0.8
+        specifier: 30.0.9
+        version: 30.0.9
       electron-builder:
-        specifier: ^24.13.3
+        specifier: 24.13.3
         version: 24.13.3(electron-builder-squirrel-windows@24.13.3(dmg-builder@24.13.3))
       electron-packager:
-        specifier: ^17.1.2
+        specifier: 17.1.2
         version: 17.1.2
       fs-extra:
-        specifier: ^11.2.0
+        specifier: 11.2.0
         version: 11.2.0
       npm-run-all:
-        specifier: ^4.1.5
+        specifier: 4.1.5
         version: 4.1.5
       rollup:
-        specifier: ^4.18.0
+        specifier: 4.18.0
         version: 4.18.0
       rollup-plugin-css-only:
-        specifier: ^4.5.2
+        specifier: 4.5.2
         version: 4.5.2(rollup@4.18.0)
       rollup-plugin-svelte:
-        specifier: ^7.2.0
+        specifier: 7.2.0
         version: 7.2.0(rollup@4.18.0)(svelte@4.2.17)
       svelte:
-        specifier: ^4.2.17
+        specifier: 4.2.17
         version: 4.2.17
       svelte-preprocess:
-        specifier: ^5.1.4
+        specifier: 5.1.4
         version: 5.1.4(postcss@8.4.38)(svelte@4.2.17)(typescript@5.4.5)
       tslib:
-        specifier: ^2.6.2
+        specifier: 2.6.2
         version: 2.6.2
       typescript:
-        specifier: ^5.4.5
+        specifier: 5.4.5
         version: 5.4.5
 
 packages:
@@ -115,13 +115,13 @@ packages:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
     engines: {node: '>=6.0.0'}
 
-  '@carbon/charts-svelte@1.16.1':
-    resolution: {integrity: sha512-3kWo8WhE/jXRte7r7XFtrPyWOEsFhIy/cXlhAKfHi1kqDnt7mxdwbhOOb8nGH4Fazv43MVH5phSRsbbGEXAK2Q==}
+  '@carbon/charts-svelte@1.16.3':
+    resolution: {integrity: sha512-BXfGiVzKMqlu3rNtqMA62l/ZMGdBWbGndtmh9shY4ePHHAnwo9eAc2BPIeFPJuta6VXtbV4nQIh5OvuN2HH+0g==}
     peerDependencies:
       svelte: ^3.31.0 || ^4.0.0
 
-  '@carbon/charts@1.16.1':
-    resolution: {integrity: sha512-A8yMpdWu2VFRWzSZELFCk1XHO31Mk562doTBMSQAhKeCRPl2HrevaRwGXuu6t9OwDBNSfMiLxUy/poe71C5ubQ==}
+  '@carbon/charts@1.16.3':
+    resolution: {integrity: sha512-a1UYhlPqUGGdluLrryNokTpQkVq/3O7d2VzAD9TDZ8p8/g8374SZmU4UVA0CEySvB2voyzkeFLxHN5d9hKEdSg==}
     peerDependencies:
       d3: ^7.0.0
       d3-cloud: ^1.2.5
@@ -132,8 +132,8 @@ packages:
       d3-sankey:
         optional: true
 
-  '@carbon/colors@11.21.0':
-    resolution: {integrity: sha512-qvVcguNL+rOfdOv7NsJPLh6uVvRycO0e3HDl3SD5B/QhviUu76tAHpm23xwe0BDqVHGnmC71xQsUKXL5rOsMPg==}
+  '@carbon/colors@11.22.0':
+    resolution: {integrity: sha512-IRbzstMpIhD1ULhfYhZ5ne7kIKdhQhiMeltWRPw+7wlFB5ezFoX+kX3ILqdz20CkcrpLu+TVKLD79Zv/+4RD6w==}
 
   '@carbon/telemetry@0.1.0':
     resolution: {integrity: sha512-kNWt0bkgPwGW0i5h7HFuljbKRXPvIhsKbB+1tEURAYLXoJg9iJLF1eGvWN5iVoFCS2zje4GR3OGOsvvKVe7Hlg==}
@@ -168,21 +168,16 @@ packages:
     engines: {node: '>=12.0.0'}
     hasBin: true
 
-  '@electron/universal@1.3.4':
-    resolution: {integrity: sha512-BdhBgm2ZBnYyYRLRgOjM5VHkyFItsbggJ0MHycOjKWdFGYwK97ZFXH54dTvUWEfha81vfvwr5On6XBjt99uDcg==}
-    engines: {node: '>=8.6'}
-
   '@electron/universal@1.5.1':
     resolution: {integrity: sha512-kbgXxyEauPJiQQUNG2VgUeyfQNFk6hBF11ISN2PNI6agUgPl55pv4eQmaqHzTAzchBvqZ2tQuRVaPStGf0mxGw==}
     engines: {node: '>=8.6'}
 
-  '@ibm/telemetry-js@1.2.1':
-    resolution: {integrity: sha512-ZNuqoclscha2RC089RBPkiGzv8g+mQfBOnHDJZEGBFrvsXg0B9lfRGFBSLzCuTR5nFDqVFYb6XqMRu36EiHIDA==}
-    engines: {node: '>=16', npm: '>=8'}
-    hasBin: true
-
   '@ibm/telemetry-js@1.5.1':
     resolution: {integrity: sha512-Hu8iJAy9UGvjWjpMmHTNgekr2+b44nvp37RxSdWogpkSO7bPajR3CbDvb0QWAvJ7KnW+VmB3aDi1rlNsIyrZVw==}
+    hasBin: true
+
+  '@ibm/telemetry-js@1.5.2':
+    resolution: {integrity: sha512-KyvaHbiNMDtz2k/9DltkK3YkWTyvz8y7Pq1sQ4cnXDMzHiEatOyxw3zZgK9li80tgUOYMQLck9DLewEuhvtg7w==}
     hasBin: true
 
   '@jridgewell/gen-mapping@0.3.3':
@@ -270,15 +265,6 @@ packages:
   '@rollup/pluginutils@4.2.1':
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
-
-  '@rollup/pluginutils@5.0.2':
-    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
 
   '@rollup/pluginutils@5.1.0':
     resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
@@ -413,9 +399,6 @@ packages:
 
   '@types/ms@0.7.31':
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
-
-  '@types/node@18.15.11':
-    resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
 
   '@types/node@20.11.20':
     resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
@@ -596,8 +579,8 @@ packages:
   carbon-components-svelte@0.85.0:
     resolution: {integrity: sha512-inJs4RE7ubiOafuiDkUkiV/np8ab63nzDNp+x2k+7kUhewtrYNTTyMHsMM/y2eQS042riXLzAxNsqF7MXm+kfA==}
 
-  carbon-components@10.58.14:
-    resolution: {integrity: sha512-rmzoeusMDICo/5hiXyuDMKU/Adf2tLyBEjUir7gh5FPbxhRophLw+C+veSc5i9nUs20jDdLoiW0hRGtVaNMHOA==}
+  carbon-components@10.58.15:
+    resolution: {integrity: sha512-w1ubGzeH+HdJotD+B2UgW8hUeTtp1CcXDcki20Il3er6BfLjEhQL5/XlXnJiDzRmB6NgozxOQEbjLPXbZSfiqA==}
 
   carbon-icons-svelte@12.8.0:
     resolution: {integrity: sha512-ops12PG2NucXc4fWaDP9ZmsN4oA4ofjwQvd3yJAbrRzLfrUw9uMyC5u7FVSujS6gLkPRIbdd+LekfZt+1kY/zg==}
@@ -931,8 +914,8 @@ packages:
     os: [darwin]
     hasBin: true
 
-  dompurify@3.1.3:
-    resolution: {integrity: sha512-5sOWYSNPaxz6o2MUPvtyxTTqR4D3L77pr5rUQoWgD5ROQtVIZQgJkXbo1DLlK3vj11YGw5+LnF4SYti4gZmwng==}
+  dompurify@3.1.5:
+    resolution: {integrity: sha512-lwG+n5h8QNpxtyrJW/gJWckL+1/DQiYMX8f7t8Z2AZTPw1esVrqjI63i7Zc2Gz0aKzLVMYC1V1PL/ky+aY/NgA==}
 
   dotenv-expand@5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
@@ -957,13 +940,14 @@ packages:
   electron-packager@17.1.2:
     resolution: {integrity: sha512-XofXdikjYI7MVBcnXeoOvRR+yFFFHOLs3J7PF5KYQweigtgLshcH4W660PsvHr4lYZ03JBpLyEcUB8DzHZ+BNw==}
     engines: {node: '>= 14.17.5'}
+    deprecated: Please use @electron/packager moving forward. There is no API change, just a package name change
     hasBin: true
 
   electron-publish@24.13.1:
     resolution: {integrity: sha512-2ZgdEqJ8e9D17Hwp5LEq5mLQPjqU3lv/IALvgp+4W8VeNhryfGhYEQC/PgDPMrnWUp+l60Ou5SJLsu+k4mhQ8A==}
 
-  electron@30.0.8:
-    resolution: {integrity: sha512-ivzXJJ/9gdb4oOw+5SDuaZpSInz8C+Z021dKZfFLMltKbDa4sSqt5cRBiUg7J36Z2kdus+Jai0bdHWutYE9wAA==}
+  electron@30.0.9:
+    resolution: {integrity: sha512-ArxgdGHVu3o5uaP+Tqj8cJDvU03R6vrGrOqiMs7JXLnvQHMqXJIIxmFKQAIdJW8VoT3ac3hD21tA7cPO10RLow==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -1135,10 +1119,12 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-agent@3.0.0:
     resolution: {integrity: sha512-PT6XReJ+D07JvGoxQMkT6qji/jVNfX/h364XHZOWeRzy64sSFr+xJ5OX7LI3b4MPQzdL4H8Y8M0xzPpsVMwA8Q==}
@@ -1227,6 +1213,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -1736,10 +1723,12 @@ packages:
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   roarr@2.15.4:
@@ -1800,11 +1789,6 @@ packages:
 
   semver@6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
-    hasBin: true
-
-  semver@7.3.8:
-    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
-    engines: {node: '>=10'}
     hasBin: true
 
   semver@7.5.4:
@@ -2137,25 +2121,25 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
 
-  '@carbon/charts-svelte@1.16.1(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)(svelte@4.2.17)':
+  '@carbon/charts-svelte@1.16.3(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)(svelte@4.2.17)':
     dependencies:
-      '@carbon/charts': 1.16.1(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)
-      '@ibm/telemetry-js': 1.5.1
+      '@carbon/charts': 1.16.3(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)
+      '@ibm/telemetry-js': 1.5.2
       svelte: 4.2.17
     transitivePeerDependencies:
       - d3
       - d3-cloud
       - d3-sankey
 
-  '@carbon/charts@1.16.1(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)':
+  '@carbon/charts@1.16.3(d3-cloud@1.2.7)(d3-sankey@0.12.3)(d3@7.9.0)':
     dependencies:
-      '@carbon/colors': 11.21.0
+      '@carbon/colors': 11.22.0
       '@carbon/utils-position': 1.3.0
-      '@ibm/telemetry-js': 1.5.1
-      carbon-components: 10.58.14
+      '@ibm/telemetry-js': 1.5.2
+      carbon-components: 10.58.15
       d3: 7.9.0
       date-fns: 3.6.0
-      dompurify: 3.1.3
+      dompurify: 3.1.5
       html-to-image: 1.11.11
       lodash-es: 4.17.21
       topojson-client: 3.1.0
@@ -2164,15 +2148,15 @@ snapshots:
       d3-cloud: 1.2.7
       d3-sankey: 0.12.3
 
-  '@carbon/colors@11.21.0':
+  '@carbon/colors@11.22.0':
     dependencies:
-      '@ibm/telemetry-js': 1.5.1
+      '@ibm/telemetry-js': 1.5.2
 
   '@carbon/telemetry@0.1.0': {}
 
   '@carbon/utils-position@1.3.0':
     dependencies:
-      '@ibm/telemetry-js': 1.5.1
+      '@ibm/telemetry-js': 1.5.2
 
   '@develar/schema-utils@2.6.5':
     dependencies:
@@ -2228,18 +2212,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/universal@1.3.4':
-    dependencies:
-      '@electron/asar': 3.2.3
-      '@malept/cross-spawn-promise': 1.1.1
-      debug: 4.3.4
-      dir-compare: 3.3.0
-      fs-extra: 9.1.0
-      minimatch: 3.1.2
-      plist: 3.0.6
-    transitivePeerDependencies:
-      - supports-color
-
   '@electron/universal@1.5.1':
     dependencies:
       '@electron/asar': 3.2.3
@@ -2252,9 +2224,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ibm/telemetry-js@1.2.1': {}
-
   '@ibm/telemetry-js@1.5.1': {}
+
+  '@ibm/telemetry-js@1.5.2': {}
 
   '@jridgewell/gen-mapping@0.3.3':
     dependencies:
@@ -2309,7 +2281,7 @@ snapshots:
 
   '@rollup/plugin-node-resolve@15.2.3(rollup@4.18.0)':
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@4.18.0)
+      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-builtin-module: 3.2.1
@@ -2338,14 +2310,6 @@ snapshots:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
-
-  '@rollup/pluginutils@5.0.2(rollup@4.18.0)':
-    dependencies:
-      '@types/estree': 1.0.5
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-    optionalDependencies:
-      rollup: 4.18.0
 
   '@rollup/pluginutils@5.1.0(rollup@4.18.0)':
     dependencies:
@@ -2449,8 +2413,6 @@ snapshots:
 
   '@types/ms@0.7.31': {}
 
-  '@types/node@18.15.11': {}
-
   '@types/node@20.11.20':
     dependencies:
       undici-types: 5.26.5
@@ -2474,7 +2436,7 @@ snapshots:
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 18.15.11
+      '@types/node': 20.11.20
 
   '@types/yauzl@2.10.0':
     dependencies:
@@ -2703,10 +2665,10 @@ snapshots:
 
   carbon-components-svelte@0.85.0:
     dependencies:
-      '@ibm/telemetry-js': 1.2.1
+      '@ibm/telemetry-js': 1.5.1
       flatpickr: 4.6.9
 
-  carbon-components@10.58.14:
+  carbon-components@10.58.15:
     dependencies:
       '@carbon/telemetry': 0.1.0
       flatpickr: 4.6.1
@@ -3086,7 +3048,7 @@ snapshots:
       verror: 1.10.1
     optional: true
 
-  dompurify@3.1.3: {}
+  dompurify@3.1.5: {}
 
   dotenv-expand@5.1.0: {}
 
@@ -3129,7 +3091,7 @@ snapshots:
       '@electron/get': 2.0.2
       '@electron/notarize': 1.2.3
       '@electron/osx-sign': 1.0.5
-      '@electron/universal': 1.3.4
+      '@electron/universal': 1.5.1
       cross-spawn-windows-exe: 1.2.0
       debug: 4.3.4
       extract-zip: 2.0.1
@@ -3142,7 +3104,7 @@ snapshots:
       plist: 3.0.6
       rcedit: 3.0.1
       resolve: 1.22.1
-      semver: 7.3.8
+      semver: 7.5.4
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - supports-color
@@ -3159,7 +3121,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@30.0.8:
+  electron@30.0.9:
     dependencies:
       '@electron/get': 2.0.2
       '@types/node': 20.11.20
@@ -4068,10 +4030,6 @@ snapshots:
   semver@5.7.1: {}
 
   semver@6.3.0: {}
-
-  semver@7.3.8:
-    dependencies:
-      lru-cache: 6.0.0
 
   semver@7.5.4:
     dependencies:
