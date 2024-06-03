@@ -3,7 +3,8 @@
   import { Configuration } from "../../config";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
-  import CameraStream from "../components/Hud/CameraStream.svelte";
+  import RobotCamera from "../components/Hud/RobotCamera.svelte";
+  import DriverStationCamera from "../components/Hud/DriverStationCamera.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
@@ -13,37 +14,6 @@
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
   $: { nt = $NetworkTablesStore; }
-
-  let driverStationVideoSource: HTMLVideoElement = null;
-  $: {
-    if (nt.isConnected) {
-      if (driverStationVideoSource === null) {
-        loadDriverStationVideoStream();
-      }
-    } else {
-      driverStationVideoSource = null;
-    }
-  }
-
-  const loadDriverStationVideoStream = async (): Promise<void> => {
-    try {
-      let deviceId: string;
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      for (const device of devices) {
-        if (device.label.includes("HD USB Camera")) {
-          deviceId = device.deviceId;
-          break;
-        }
-      }
-      if (deviceId) {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { deviceId: { exact: deviceId} }
-        });
-        driverStationVideoSource.srcObject = stream;
-        driverStationVideoSource.play();
-      }
-    } catch (e) {}
-  }
 </script>
 
 <main>
@@ -59,8 +29,8 @@
       />
     </Tile>
     <Tile class="widget">
-      <CameraStream 
-        stream={ Configuration.Settings.CameraStreams.Front } 
+      <RobotCamera
+        stream={ Configuration.Settings.Cameras.Robot.Front } 
         width={ "800px" } 
         height={ "520px" } />
     </Tile>
@@ -80,12 +50,13 @@
         frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
     </Tile>
     <Tile class="widget">
-      <div style="position:relative;background:#000000;overflow:hidden;">
-        <video 
-          style="width:800px;height:450px;transform:scale(1.333);"
-          bind:this={ driverStationVideoSource }>
-          <track kind="captions"/>
-        </video>
+      <div class="driverStationViewContainer">
+        <DriverStationCamera 
+          deviceLabel={ Configuration.Settings.Cameras.DriverStation }
+          width={ "800px" } 
+          height={ "450px" }
+          scale={ 1.333 }
+        />
         <div class="matchtime">
           <MatchTime 
             matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
@@ -133,14 +104,20 @@
       grid-template-columns: 540px 820px 540px;
     }
 
-    & .matchtime {
-      position: absolute;
-      top: 0;
-      width: 800px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.5);
+    & .driverStationViewContainer {
+      position: relative;
+      background: var(--app-color-black);
+      overflow: hidden;
+
+      & .matchtime {
+        position: absolute;
+        top: 0;
+        width: 800px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
     }
 
     & :global {

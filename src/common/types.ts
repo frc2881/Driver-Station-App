@@ -9,7 +9,10 @@ export type ConfigurationSettings = {
     Subscriptions: string[];
     Topics: Record<string, string>;
   };
-  CameraStreams: Record<string, string>;
+  Cameras: {
+    Robot: Record<string, string>;
+    DriverStation: string;
+  } 
   MatchTime: {
     Warning: number;
     Critical: number;

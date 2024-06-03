@@ -7,7 +7,7 @@ export namespace Configuration {
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
-        //"/photonvision",
+        "/photonvision",
         "/FMSInfo",
         "/LiveWindow"
       ],
@@ -47,7 +47,8 @@ export namespace Configuration {
         TargetPitch: "/SmartDashboard/Robot/Pose/Target/Pitch",
         TargetDistance: "/SmartDashboard/Robot/Pose/Target/Distance",
         RearPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTarget",
-        SidePoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Side/HasTarget",
+        LeftPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Left/HasTarget",
+        RightPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Right/HasTarget",
         FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
         FrontNoteObjectSensorTargetYaw: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Yaw",
         FrontNoteObjectSensorTargetArea: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Area",
@@ -61,10 +62,11 @@ export namespace Configuration {
         IntakeRollerSpeed: "/SmartDashboard/Robot/Intake/Roller/Speed"
       },
     },
-    CameraStreams: {
-      Front: "http://10.28.81.6:1182/?action=stream",
-      Rear: "http://10.28.81.6:1184/?action=stream",
-      Side: "http://10.28.81.6:1186/?action=stream"
+    Cameras: {
+      Robot: {
+        Front: "http://10.28.81.6:1182/?action=stream"
+      },
+      DriverStation: "HD USB Camera"
     },
     MatchTime: {
       Warning: 35,

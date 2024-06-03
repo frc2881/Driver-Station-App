@@ -78,7 +78,8 @@
       <PoseInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
-        sidePoseSensorHasTarget={ nt.topics.get(Topics.SidePoseSensorHasTarget)?.value }
+        leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
+        rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
         targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 

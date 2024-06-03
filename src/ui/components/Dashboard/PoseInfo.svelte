@@ -4,7 +4,8 @@
 
   export let robotPose: [number, number, number];
   export let rearPoseSensorHasTarget: boolean;
-  export let sidePoseSensorHasTarget: boolean;
+  export let leftPoseSensorHasTarget: boolean;
+  export let rightPoseSensorHasTarget: boolean;
   export let frontNoteObjectSensorHasTarget: boolean;
   export let targetYaw: number;
   export let targetDistance: number;
@@ -30,10 +31,17 @@
     </div>
     <div class="sensor">
       <CenterSquare
-        fill={ sidePoseSensorHasTarget ? "#00CC00" : "#333333" }
+        fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
         width=80
         height=80 />
-      Side
+      Left
+    </div>
+    <div class="sensor">
+      <CenterSquare
+        fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
+        width=80
+        height=80 />
+      Right
     </div>
     <div class="sensor">
       <CenterCircle
