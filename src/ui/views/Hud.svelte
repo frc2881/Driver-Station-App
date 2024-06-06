@@ -3,8 +3,7 @@
   import { Configuration } from "../../config";
   import { NetworkTables } from "../../common";
   import { NetworkTablesStore } from "../stores/NetworkTables";
-  import RobotCamera from "../components/Hud/RobotCamera.svelte";
-  import DriverStationCamera from "../components/Hud/DriverStationCamera.svelte";
+  import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
@@ -29,10 +28,10 @@
       />
     </Tile>
     <Tile class="widget">
-      <RobotCamera
-        stream={ Configuration.Settings.Cameras.Robot.Front } 
-        width={ "800px" } 
-        height={ "520px" } />
+      <CameraStream
+        streamInfo={ { url: Configuration.Settings.Cameras.Robot.Front } } 
+        width={ 800 } 
+        height={ 520 } />
     </Tile>
     <Tile class="widget">
       <LauncherAlignment 
@@ -51,10 +50,10 @@
     </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
-        <DriverStationCamera 
-          deviceLabel={ Configuration.Settings.Cameras.DriverStation }
-          width={ "800px" } 
-          height={ "450px" }
+        <CameraStream 
+          streamInfo={ { device: Configuration.Settings.Cameras.DriverStation } }
+          width={ 800 } 
+          height={ 450 }
           scale={ 1.333 }
         />
         <div class="matchtime">

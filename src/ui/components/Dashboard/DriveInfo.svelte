@@ -88,13 +88,13 @@
 
         & .value {
           margin-top: 0.5em;
-          z-index: 9999;
+          z-index: 1;
           font-size: 120%;
         }
 
         & .delta {
           font-size: 100%;
-          z-index: 9999;
+          z-index: 1;
         }
 
         & .position {

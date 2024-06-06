@@ -8,7 +8,7 @@
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import Settings from "../components/Dashboard/Settings.svelte";
   import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
-  import PoseInfo from "../components/Dashboard/PoseInfo.svelte";
+  import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
   import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
   import TargetingInfo from "../components/Dashboard/TargetingInfo.svelte";
@@ -75,7 +75,7 @@
         alliance={ nt.topics.get(Topics.Alliance)?.value } />
     </Tile>
     <Tile class="widget">
-      <PoseInfo 
+      <LocalizationInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
         leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
