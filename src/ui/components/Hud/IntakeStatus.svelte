@@ -3,15 +3,17 @@
   import LightFilled from "carbon-icons-svelte/lib/LightFilled.svelte";
   import HighSpeedDataTransport from "carbon-pictograms-svelte/lib/HighSpeedDataTransport.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import { Utils } from "../../../common";
 
-  export let launcherBottomBeamBreakSensorHasTarget: boolean;
-  export let launcherTopBeamBreakSensorHasTarget: boolean;
-  export let intakeRollerSpeed: number;
+  export let intakeDistanceSensorHasTarget: boolean;
+  export let launcherDistanceSensorHasTarget: boolean;
+  export let launcherDistanceSensorValue: number;
+  export let intakeSpeed: number;
 
   let isReadyForLaunch: boolean = false;
 
   $: {
-    isReadyForLaunch = launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget;
+    isReadyForLaunch = Utils.isNumberInRange(launcherDistanceSensorValue, 50, 70);
   }
 </script>
 
@@ -24,26 +26,26 @@
   <div class="levels">
     <div class="level">
       <div class="sensor"><LightFilled width="36" height="36" /></div>
-      <div class="beam" class:active={ !launcherTopBeamBreakSensorHasTarget }></div>
+      <div class="beam" class:active={ !launcherDistanceSensorHasTarget }></div>
       <div class="sensor"><Light width="36" height="36" /></div>
     </div>
     <div class="level">
       <div class="sensor"><LightFilled width="36" height="36" /></div>
-      <div class="beam" class:active={ !launcherBottomBeamBreakSensorHasTarget }></div>
+      <div class="beam" class:active={ !intakeDistanceSensorHasTarget }></div>
       <div class="sensor"><Light width="36" height="36" /></div>
     </div>
     <div 
       class="note"
-      class:active= { launcherBottomBeamBreakSensorHasTarget || launcherTopBeamBreakSensorHasTarget } 
-      class:middle={ launcherBottomBeamBreakSensorHasTarget && !launcherTopBeamBreakSensorHasTarget }
-      class:middletop={ launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }
-      class:top={ !launcherBottomBeamBreakSensorHasTarget && launcherTopBeamBreakSensorHasTarget }>
+      class:active= { intakeDistanceSensorHasTarget || launcherDistanceSensorHasTarget } 
+      class:middle={ intakeDistanceSensorHasTarget }
+      class:middletop={ launcherDistanceSensorHasTarget && isReadyForLaunch }
+      class:top={ launcherDistanceSensorHasTarget && !isReadyForLaunch }>
     </div>
   </div>
   <div class="motors">
     <div 
       class="belts"
-      class:active={ intakeRollerSpeed < 0 }>
+      class:active={ intakeSpeed < 0 }>
       <HighSpeedDataTransport width="96" height="96" />
     </div>
   </div>

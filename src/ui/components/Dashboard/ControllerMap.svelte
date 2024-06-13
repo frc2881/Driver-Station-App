@@ -13,10 +13,10 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Warmup Shuttle</div>
+      <div>LT: Run Intake Rear</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Run Intake</div>
+      <div>RT: Run Intake Front</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div>LB: Launch (Shuttle)</div>
@@ -33,10 +33,10 @@
       <div>A: Align To Target</div>
       <div>B: -----</div>
       <div>Y: Reload Intake</div>
-      <div>X: Run Auto Climber</div>
+      <div>X: Run Climber</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
-      <div>L: Climber Start</div>
+      <div>L: Climber Default</div>
       <div>U: Climber Up</div>
       <div>R: Climber Unlock</div>
       <div>D: Climber Down</div>
@@ -50,7 +50,7 @@
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div>Start: -----</div>
+      <div>Start: Calibrate Gyro</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
@@ -81,13 +81,13 @@
       <div>Press: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Climber Down</div>
-      <div>B: Calibratte Gyro (Long)</div>
-      <div>Y: Climber Up</div>
-      <div>X: Calibrate Gyro (Short)</div>
+      <div>A: -----</div>
+      <div>B: -----</div>
+      <div>Y: -----</div>
+      <div>X: -----</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L: -----</div>
+      <div>L: Shuttle</div>
       <div>U: Podium</div>
       <div>R: -----</div>
       <div>D: Subwoofer</div>

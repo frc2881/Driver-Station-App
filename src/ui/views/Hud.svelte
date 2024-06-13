@@ -64,9 +64,11 @@
     </Tile>
     <Tile class="widget">
       <IntakeStatus 
-        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
-        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
-        intakeRollerSpeed={ nt.topics.get(Topics.IntakeRollerSpeed)?.value } />
+        intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
+        intakeDistanceSensorHasTarget={ nt.topics.get(Topics.IntakeDistanceSensorHasTarget)?.value }
+        launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
+        launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }
+      />
     </Tile>
   </div>
 { :else }
