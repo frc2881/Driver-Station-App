@@ -49,12 +49,12 @@
 
     &.warning {
       color: var(--app-color-yellow);
-      animation: pulse 1000ms ease-in-out infinite;
+      animation: pulse-expand 1000ms ease-in-out infinite;
     }
 
     &.critical {
       color: var(--app-color-red);
-      animation: pulse 750ms ease-in-out infinite;
+      animation: pulse-expand 750ms ease-in-out infinite;
     }
 
     & .time {
@@ -63,10 +63,4 @@
       width: 100%;
     }
   }
-
-  @keyframes pulse {
-		0%    { opacity: 0.75; transform: scale(1);  }
-		50%   { opacity: 1; transform: scale(1.025); }
-		100%  { opacity: 0.75; transform: scale(1); }
-	}
 </style>

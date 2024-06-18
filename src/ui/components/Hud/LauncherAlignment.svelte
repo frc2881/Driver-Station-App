@@ -3,23 +3,12 @@
 
   export let launcherArmIsAlignedToTarget: boolean;
   export let launcherArmPosition: number;
-  export let launcherBottomBeamBreakSensorHasTarget: boolean;
-  export let launcherTopBeamBreakSensorHasTarget: boolean;
-
-  let isReadyForLaunch: boolean = false;
-
-  $: {
-    isReadyForLaunch = 
-      launcherArmIsAlignedToTarget &&
-      launcherBottomBeamBreakSensorHasTarget && 
-      !launcherTopBeamBreakSensorHasTarget;
-  }
 </script>
 
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isReadyForLaunch }>
+    class:active={ launcherArmIsAlignedToTarget }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="launcher">
@@ -92,15 +81,11 @@
       justify-content: center;
       opacity: 0;
       animation: pulse 500ms infinite ease;
+      z-index: 9999;
 
       &.active {
         display: flex;
       }
     }
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 0.1; }
   }
 </style>

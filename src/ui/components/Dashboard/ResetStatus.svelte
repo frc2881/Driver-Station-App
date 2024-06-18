@@ -51,9 +51,4 @@
       }
     }
   }
-
-  @keyframes pulse {
-    0% { opacity: 1; }
-    100% { opacity: 0.2; }
-  }
 </style>

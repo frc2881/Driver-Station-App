@@ -53,6 +53,7 @@ export namespace Configuration {
         FrontNoteObjectSensorTargetYaw: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Yaw",
         FrontNoteObjectSensorTargetArea: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Area",
         IntakeSpeed: "/SmartDashboard/Robot/Intake/Belts/Bottom/Speed",
+        IntakeIsAlignedForLaunch: "/SmartDashboard/Robot/Intake/IsAlignedForLaunch",
         IntakeDistanceSensorHasTarget: "/SmartDashboard/Robot/Sensor/Distance/Intake/HasTarget",
         LauncherDistanceSensorHasTarget: "/SmartDashboard/Robot/Sensor/Distance/Launcher/HasTarget",
         LauncherDistanceSensorValue: "/SmartDashboard/Robot/Sensor/Distance/Launcher/Value",

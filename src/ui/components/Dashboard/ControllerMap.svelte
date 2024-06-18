@@ -33,7 +33,7 @@
       <div>A: Align To Target</div>
       <div>B: -----</div>
       <div>Y: Reload Intake</div>
-      <div>X: Run Climber</div>
+      <div>X: Run Climber + Lock</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div>L: Climber Default</div>
@@ -56,6 +56,7 @@
       <div>
         Notes:
         <ul>
+          <li>Calibrate gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
           <li>Hold X button through end of match to secure climber position and lock</li>
         </ul>
@@ -70,7 +71,7 @@
       <div>RT: Launch Speaker</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Align To Amp</div>
+      <div>LB: -----</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
       <div>RB: Launch Amp</div>
@@ -89,7 +90,7 @@
     <div class="text" style="left:1025px;bottom:290px;">
       <div>L: Shuttle</div>
       <div>U: Podium</div>
-      <div>R: -----</div>
+      <div>R: Amp</div>
       <div>D: Subwoofer</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
@@ -107,7 +108,6 @@
       <div>
         Notes:
         <ul>
-          <li>Calibrate gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
           <li>Always reset launcher arm position to zero after robot power cycle</li>
           <li>Always reset climber arm position to zero after robot power cycle</li>
         </ul>

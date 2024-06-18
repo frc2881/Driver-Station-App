@@ -64,4 +64,21 @@
 		--app-color-black: #000000;
 		--app-color-white: #FFFFFF;
 	}
+
+	@keyframes pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.1; }
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+	@keyframes pulse-expand {
+		0%    { opacity: 0.75; transform: scale(1);  }
+		50%   { opacity: 1; transform: scale(1.05); }
+		100%  { opacity: 0.75; transform: scale(1); }
+	}
 </style>

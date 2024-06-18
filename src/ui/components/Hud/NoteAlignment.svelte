@@ -68,15 +68,11 @@
       justify-content: center;
       opacity: 0;
       animation: pulse 500ms infinite ease;
+      z-index: 9999;
 
       &.active {
         display: flex;
       }
     }
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 0.1; }
   }
 </style>

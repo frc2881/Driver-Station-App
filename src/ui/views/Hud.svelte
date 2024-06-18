@@ -23,8 +23,6 @@
         alliance={ nt.topics.get(Topics.Alliance)?.value }
         robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
         isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
-        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
-        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value }
       />
     </Tile>
     <Tile class="widget">
@@ -36,9 +34,7 @@
     <Tile class="widget">
       <LauncherAlignment 
         launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
-        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value } 
-        launcherBottomBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherBottomBeamBreakSensorHasTarget)?.value }
-        launcherTopBeamBreakSensorHasTarget={ nt.topics.get(Topics.LauncherTopBeamBreakSensorHasTarget)?.value } />
+        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value } />
     </Tile>
   </div>
   <div class="secondary">
@@ -65,6 +61,7 @@
     <Tile class="widget">
       <IntakeStatus 
         intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
+        intakeIsAlignedForLaunch={ nt.topics.get(Topics.IntakeIsAlignedForLaunch)?.value }
         intakeDistanceSensorHasTarget={ nt.topics.get(Topics.IntakeDistanceSensorHasTarget)?.value }
         launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
         launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }

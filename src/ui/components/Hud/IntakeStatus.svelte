@@ -5,22 +5,17 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import { Utils } from "../../../common";
 
+  export let intakeSpeed: number;
+  export let intakeIsAlignedForLaunch: boolean;
   export let intakeDistanceSensorHasTarget: boolean;
   export let launcherDistanceSensorHasTarget: boolean;
   export let launcherDistanceSensorValue: number;
-  export let intakeSpeed: number;
-
-  let isReadyForLaunch: boolean = false;
-
-  $: {
-    isReadyForLaunch = Utils.isNumberInRange(launcherDistanceSensorValue, 50, 70);
-  }
 </script>
 
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isReadyForLaunch }>
+    class:active={ intakeIsAlignedForLaunch }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="levels">
@@ -28,6 +23,7 @@
       <div class="sensor"><LightFilled width="36" height="36" /></div>
       <div class="beam" class:active={ !launcherDistanceSensorHasTarget }></div>
       <div class="sensor"><Light width="36" height="36" /></div>
+      <div class="distance">{ launcherDistanceSensorValue ?? "" }</div>
     </div>
     <div class="level">
       <div class="sensor"><LightFilled width="36" height="36" /></div>
@@ -37,16 +33,18 @@
     <div 
       class="note"
       class:active= { intakeDistanceSensorHasTarget || launcherDistanceSensorHasTarget } 
-      class:middle={ intakeDistanceSensorHasTarget }
-      class:middletop={ launcherDistanceSensorHasTarget && isReadyForLaunch }
-      class:top={ launcherDistanceSensorHasTarget && !isReadyForLaunch }>
+      class:bottom={ intakeDistanceSensorHasTarget }
+      class:middle={ launcherDistanceSensorHasTarget && !intakeIsAlignedForLaunch }
+      class:top={ launcherDistanceSensorHasTarget && intakeIsAlignedForLaunch }>
     </div>
   </div>
   <div class="motors">
     <div 
       class="belts"
-      class:active={ intakeSpeed < 0 }>
-      <HighSpeedDataTransport width="96" height="96" />
+      class:active={ intakeSpeed > 0 || intakeSpeed < 0 }
+      class:front={ intakeSpeed > 0 }
+      class:rear={ intakeSpeed < 0 }>
+      <HighSpeedDataTransport width="128" height="128" />
     </div>
   </div>
 </div>
@@ -71,6 +69,7 @@
       gap: 2em;
 
       & .level {
+        position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -89,6 +88,15 @@
 
           &.active { opacity: 1; }
         }
+
+        & .distance {
+          position: absolute;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          font-size: 150%;
+          z-index: 1;
+        }
       }
 
       & .note {
@@ -100,8 +108,8 @@
         opacity: 0;
 
         &.active { opacity: 1; }
-        &.middle { bottom: 0.25em; }
-        &.middletop { bottom: 2.75em; }
+        &.bottom { bottom: 0.25em; }
+        &.middle { bottom: 2.75em; }
         &.top { bottom: 5em; }
       }
     }
@@ -115,7 +123,13 @@
 
       & .belts {
         &.active {
-          animation: belts 250ms infinite ease;
+          color: var(--app-color-green);
+        }
+        &.front {
+          animation: rotate 250ms infinite ease;
+        }
+        &.rear {
+          animation: rotate reverse 250ms infinite ease;
         }
       }
     }
@@ -129,21 +143,11 @@
       justify-content: center;
       opacity: 0;
       animation: pulse 500ms infinite ease;
+      z-index: 9999;
 
       &.active {
         display: flex;
       }
     }
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 0.1; }
-  }
-
-  @keyframes belts {
-    0% { transform: rotate(0deg); }
-    50% { transform: rotate(180deg); }
-    100% { transform: rotate(360deg); }
   }
 </style>

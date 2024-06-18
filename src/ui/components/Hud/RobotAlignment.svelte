@@ -6,30 +6,22 @@
   export let alliance: Alliance;
   export let robotPose: [number, number, number];
   export let isAlignedToTarget: boolean;
-  export let launcherBottomBeamBreakSensorHasTarget: boolean;
-  export let launcherTopBeamBreakSensorHasTarget: boolean;
 
   const PIXELS_PER_METER: number = 29.0123;
   
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
-  let isReadyForLaunch: boolean = false;
 
   $: {
     poseInfo.x = robotPose?.[0] ?? 0;
     poseInfo.y = robotPose?.[1] ?? 0;
     poseInfo.rotation = robotPose?.[2] ?? 0;
-    
-    isReadyForLaunch = 
-      isAlignedToTarget &&
-      launcherBottomBeamBreakSensorHasTarget && 
-      !launcherTopBeamBreakSensorHasTarget;
   }
 </script>
 
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isReadyForLaunch }>
+    class:active={ isAlignedToTarget }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="field { alliance?.toLowerCase() }">
@@ -96,15 +88,11 @@
       justify-content: center;
       opacity: 0;
       animation: pulse 500ms infinite ease;
+      z-index: 9999;
 
       &.active {
         display: flex;
       }
     }
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 0.1; }
   }
 </style>
