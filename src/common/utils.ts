@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { addMilliseconds, format } from "date-fns";
 import { AppServerMessageType } from "./enums";
 import { AppServerMessage, NetworkTables } from "./types";
 
@@ -27,14 +27,15 @@ export namespace Utils {
     return value >= minValue && value <= maxValue;
   }
 
-  const baseTime = dayjs(0).startOf("d");
+  const baseTime = new Date();
+  baseTime.setHours(0, 0, 0, 0);
 
   export const formatTimestamp = (timestamp: number): string => {
-    return baseTime.add(timestamp / 1000, "ms").format("H:mm:ss.SSS");
+    return format(convertTimestamp(timestamp), "H:mm:ss.SSS");
   }
 
   export const convertTimestamp = (timestamp: number): Date => {
-    return baseTime.add(timestamp / 1000, "ms").toDate();
+    return timestamp ? addMilliseconds(baseTime, timestamp / 1000) : baseTime;
   }
 
   export const stringifyNetworkTables = (networkTables: NetworkTables, space?: string | number): string => {
