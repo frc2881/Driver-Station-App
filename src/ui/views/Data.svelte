@@ -137,7 +137,8 @@
   $: topics = Array.from(nt.topics.values())
     .reverse()
     .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
-    .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)));
+    .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
+    .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
 
   $: selectedRowIds = selectedTopicNames.map(topicName => nt.topics.get(topicName)?.id);
 
@@ -175,6 +176,7 @@
     rows={ topics }
     sortable
     selectable
+    size="short"
     bind:selectedRowIds
     on:click:row--select={ onRowSelectionChanged }>
     <Toolbar>
