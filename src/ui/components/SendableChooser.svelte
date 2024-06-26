@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dropdown } from "carbon-components-svelte";
-  import { NetworkTablesTopic } from "../../common";
-  import { updateNetworkTablesTopics } from "../stores/NetworkTables";
+  import { type NetworkTablesTopic } from "../../common/index.js";
+  import { updateNetworkTablesTopics } from "../stores/NetworkTables.js";
 
   export let name: string;
   export let inline: boolean = false;

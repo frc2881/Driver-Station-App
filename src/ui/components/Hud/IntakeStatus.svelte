@@ -3,7 +3,6 @@
   import LightFilled from "carbon-icons-svelte/lib/LightFilled.svelte";
   import HighSpeedDataTransport from "carbon-pictograms-svelte/lib/HighSpeedDataTransport.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-  import { Utils } from "../../../common";
 
   export let intakeSpeed: number;
   export let intakeIsAlignedForLaunch: boolean;

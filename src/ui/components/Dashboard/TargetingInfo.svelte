@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChartOptions, LineChart, ScaleTypes } from "@carbon/charts-svelte";
+  import { type ChartOptions, LineChart, ScaleTypes } from "@carbon/charts-svelte";
 
   export let launcherArmPositions: string;
 

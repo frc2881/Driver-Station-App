@@ -1,21 +1,20 @@
 import { WebSocketServer, WebSocket } from "ws";
-import { IncomingMessage } from "http";
+import type { IncomingMessage } from "http";
 import minimist from "minimist";
-import { Configuration } from "../config";
 import { 
-  Utils,
-  AppArguments, 
-  AppWindowType,
+  type AppArguments, 
+  type AppServerMessage,
+  type NetworkTablesServiceMessage,
+  type NetworkTablesConnectionChangedMessage,
+  type NetworkTablesTopicsUpdatedMessage,
+  type NetworkTablesTopicsRemovedMessage,
+  type AppWindowType,
   AppServerMessageType,
-  AppServerMessage,
   NetworkTablesServiceMessageType,
-  NetworkTablesServiceMessage,
-  NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage,
-  NetworkTablesTopicsRemovedMessage
-} from "../common";
-import { NetworkTablesService } from "./types";
-import { NetworkTables4Service } from "./NetworkTables4Service";
+  Utils,
+  Configuration
+} from "../common/index.js";
+import { NetworkTablesService } from "./NetworkTablesService.js";
 
 class Server {
   constructor() {
@@ -34,7 +33,7 @@ class Server {
     this._webSocketServer = new WebSocketServer({ port: 2881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
-    this._networkTablesService = new NetworkTables4Service({ 
+    this._networkTablesService = new NetworkTablesService({ 
       address: args.serverAddress, 
       port: Configuration.Settings.NetworkTables.ServerPort,
       subscriptionTopics: Configuration.Settings.NetworkTables.Subscriptions ?? ["/"]

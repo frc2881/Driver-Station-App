@@ -1,6 +1,6 @@
 import { addMilliseconds, format } from "date-fns";
-import { AppServerMessageType } from "./enums";
-import { AppServerMessage, NetworkTables } from "./types";
+import type { AppServerMessageType } from "./enums.js";
+import type { AppServerMessage, NetworkTables } from "./types.js";
 
 export namespace Utils {
 

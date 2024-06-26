@@ -1,19 +1,18 @@
 import { writable } from "svelte/store";
-import { Configuration } from "../../config";
 import { 
-  Utils,
+  type AppServerMessage,
+  type NetworkTables,
+  type NetworkTablesTopic,
+  type NetworkTablesTopics,
+  type NetworkTablesServiceMessage,
+  type NetworkTablesConnectionChangedMessage,
+  type NetworkTablesTopicsUpdatedMessage,
+  type NetworkTablesTopicsRemovedMessage,
+  NetworkTablesServiceMessageType,
   AppWindowType, 
   AppServerMessageType,
-  AppServerMessage,
-  NetworkTables,
-  NetworkTablesTopic,
-  NetworkTablesTopics,
-  NetworkTablesServiceMessageType,
-  NetworkTablesServiceMessage,
-  NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage,
-  NetworkTablesTopicsRemovedMessage
-} from "../../common";
+  Utils
+} from "../../common/index.js";
 
 let webSocket: WebSocket;
 

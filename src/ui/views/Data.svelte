@@ -14,18 +14,18 @@
     InlineNotification,
     NumberInput
   } from "carbon-components-svelte";
-  import { LineChart, LineChartOptions, ScaleTypes } from "@carbon/charts-svelte";
-  import { Configuration } from "../../config";
+  import { LineChart, type LineChartOptions, ScaleTypes } from "@carbon/charts-svelte";
   import { 
+    Configuration,
     Utils,
-    NetworkTables,
-    NetworkTablesTopic,
+    type NetworkTables,
+    type NetworkTablesTopic,
     NetworkTablesDataType
-	} from "../../common";
+	} from "../../common/index.js";
   import { 
     NetworkTablesStore, 
     updateNetworkTablesTopics 
-  } from "../stores/NetworkTables";
+  } from "../stores/NetworkTables.js";
 
   let nt: NetworkTables;
   $: { nt = $NetworkTablesStore; }

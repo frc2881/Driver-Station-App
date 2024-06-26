@@ -3,7 +3,7 @@
   import BatteryHalf from "carbon-icons-svelte/lib/BatteryHalf.svelte";
   import BatteryQuarter from "carbon-icons-svelte/lib/BatteryQuarter.svelte";
   import ObservedLightning from "carbon-icons-svelte/lib/ObservedLightning.svelte";
-  import { Configuration } from "../../../config";
+  import { Configuration } from "../../../common/index.js";
 
   const { BatteryVoltageLevel } = Configuration.Settings;
 

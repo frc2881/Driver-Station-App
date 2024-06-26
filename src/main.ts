@@ -1,14 +1,11 @@
-import { app, screen, Rectangle, BrowserWindow, Tray, Menu } from "electron";
-import * as path from "path";
+import { app, screen, type Rectangle, BrowserWindow, Tray, Menu } from "electron";
+import path from "path";
 import minimist from "minimist";
-import { fork, ChildProcess } from "child_process";
+import { fork, type ChildProcess } from "child_process";
 import { watch } from "fs";
-import { Configuration } from "./config";
-import { 
-  AppArguments, 
-  AppWindowType, 
-  AppWindowOptions 
-} from "./common";
+import type { AppArguments, AppWindowOptions } from "./common/types.js";
+import { AppWindowType } from "./common/enums.js";
+import { Configuration } from "./common/config.js"
 
 class Main {
   constructor() {
@@ -34,7 +31,7 @@ class Main {
       }
     }) as AppArguments;
 
-    this._appServer = fork(path.join(__dirname, "server/main.js"), [ `--serverAddress=${ args.serverAddress }` ]);
+    this._appServer = fork(path.join(import.meta.dirname, "server/main.js"), [ `--serverAddress=${ args.serverAddress }` ]);
 
     await app.whenReady();
 
@@ -141,7 +138,7 @@ class Main {
     if (isMinimized) { appWindow.minimize(); }
     appWindow.menuBarVisible = false;
     appWindow.loadFile(
-      path.join(__dirname, "ui/index.html"), 
+      path.join(import.meta.dirname, "ui/index.html"), 
       { query: { "appWindowType": type } }
     );
     this._appWindows.set(type, appWindow);
@@ -149,7 +146,7 @@ class Main {
 
   private startUiAutoReload = (): void => {
     watch(
-      path.join(__dirname, "ui"), { 
+      path.join(import.meta.dirname, "ui"), { 
         recursive: true, 
         signal: this._abortController.signal 
       }).on("change", () => {

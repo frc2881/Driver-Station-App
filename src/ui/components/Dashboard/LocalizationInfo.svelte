@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { CenterSquare, CenterCircle } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
-  import { Configuration } from "../../../config";
-  import { Pose2d } from "../../../common";
+  import { Configuration, type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
 
   export let robotPose: [number, number, number];

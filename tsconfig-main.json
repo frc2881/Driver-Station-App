@@ -5,10 +5,10 @@
   "compilerOptions": {
     "outDir": "app",
     "target": "ESNext",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": true,
     "strict": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,

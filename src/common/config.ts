@@ -1,4 +1,4 @@
-import { ConfigurationSettings } from "./common";
+import type { ConfigurationSettings } from "./types.js";
 
 export namespace Configuration {
   export const Settings: ConfigurationSettings = {

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { RobotMode, RobotState } from "../../../common";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
   import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
+  import { RobotMode, RobotState } from "../../../common/index.js";
 
   export let state: RobotState;
   export let mode: RobotMode;

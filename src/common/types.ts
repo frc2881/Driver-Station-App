@@ -1,6 +1,10 @@
-import { Rectangle } from "electron";
-import { AppServerMessageType, NetworkTablesServiceMessageType, NetworkTablesDataType } from "./enums";
-import { ParsedArgs } from "minimist";
+import type { Rectangle } from "electron";
+import type { ParsedArgs } from "minimist";
+import { 
+  AppServerMessageType, 
+  NetworkTablesServiceMessageType, 
+  NetworkTablesDataType 
+} from "./enums.js";
 
 export type ConfigurationSettings = {
   NetworkTables: {

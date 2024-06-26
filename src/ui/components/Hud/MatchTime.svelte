@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Configuration } from "../../../config";
-  import { Utils } from "../../../common";
+  import { Configuration, Utils } from "../../../common/index.js";
 
   const { MatchTime } = Configuration.Settings;
   export let matchTime: number;

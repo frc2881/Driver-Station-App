@@ -13,13 +13,13 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Run Intake Rear</div>
+      <div>LT: Intake Rear</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Run Intake Front</div>
+      <div>RT: Intake Front</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Launch (Shuttle)</div>
+      <div>LB: Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
       <div>RB: Eject</div>
@@ -30,10 +30,10 @@
       <div>Press: Lock</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
-      <div>A: Align To Target</div>
-      <div>B: -----</div>
+      <div>A: Align Target</div>
+      <div class="na">B: ----------</div>
       <div>Y: Reload Intake</div>
-      <div>X: Run Climber + Lock</div>
+      <div>X: Climb + Lock</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div>L: Climber Default</div>
@@ -43,8 +43,8 @@
     </div>
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>X: Rotate</div>
-      <div>Y: -----</div>
-      <div>Press: Align To Target</div>
+      <div class="na">Y: ----------</div>
+      <div>Press: Align Target</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
@@ -65,38 +65,38 @@
     <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Align To Speaker</div>
+      <div>LT: Align Speaker</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
       <div>RT: Launch Speaker</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: -----</div>
+      <div>LB: Align Amp</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
       <div>RB: Launch Amp</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
-      <div>X: -----</div>
+      <div class="na">X: ----------</div>
       <div>Y: Launcher +/-</div>
-      <div>Press: -----</div>
+      <div class="na">Press: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: -----</div>
-      <div>B: -----</div>
-      <div>Y: -----</div>
-      <div>X: -----</div>
+      <div class="na">A: ----------</div>
+      <div class="na">B: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L: Shuttle</div>
-      <div>U: Podium</div>
-      <div>R: Amp</div>
-      <div>D: Subwoofer</div>
+      <div>L: Align Shuttle</div>
+      <div>U: Align Podium</div>
+      <div class="na">R: ----------</div>
+      <div>D: Align Subwoofer</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
-      <div>X: -----</div>
-      <div>Y: -----</div>
-      <div>Press: -----</div>
+      <div class="na">X: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">Press: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
       <div>Back: Reset Launcher</div>
@@ -172,6 +172,10 @@
               margin-bottom: 10px;
             }
           }
+        }
+
+        & .na {
+          opacity: 0.25;
         }
       }
     }

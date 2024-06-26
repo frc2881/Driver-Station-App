@@ -1,6 +1,6 @@
 <script lang="ts">
   import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
-  import { CameraStreamInfo, Utils } from "../../common";
+  import { type CameraStreamInfo, Utils } from "../../common/index.js";
 
   export let streamInfo: CameraStreamInfo;
   export let width: number;

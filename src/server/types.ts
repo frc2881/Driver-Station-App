@@ -1,11 +1,10 @@
 import { EventEmitter } from "events";
-import { 
+import type { 
   NetworkTablesServiceMessageType,
   NetworkTablesConnectionChangedMessage,
   NetworkTablesTopicsUpdatedMessage,
-  NetworkTablesTopicsRemovedMessage,
-  NetworkTablesTopic
-} from "../common";
+  NetworkTablesTopicsRemovedMessage
+} from "../common/index.js";
 
 export type EmittedEvents = Record<string | symbol, (...args: any) => any>;
 
@@ -26,16 +25,4 @@ export type NetworkTablesServiceMessages = {
   [NetworkTablesServiceMessageType.ConnectionChanged]: (event: NetworkTablesConnectionChangedMessage) => void;
   [NetworkTablesServiceMessageType.TopicsUpdated]: (event: NetworkTablesTopicsUpdatedMessage) => void;
   [NetworkTablesServiceMessageType.TopicsRemoved]: (event: NetworkTablesTopicsRemovedMessage) => void;
-}
-
-export abstract class NetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
-  protected readonly _networkTablesServiceOptions: NetworkTablesServiceOptions;
-  constructor(options: NetworkTablesServiceOptions) {
-    super();
-    this._networkTablesServiceOptions = options;
-  }
-  public abstract dispose(): void;
-  public abstract getConnectionChangedMessage(): NetworkTablesConnectionChangedMessage;
-  public abstract getTopicsUpdatedMessage(): NetworkTablesTopicsUpdatedMessage;
-  public abstract updateTopics(topics: NetworkTablesTopic[]): void;
 }

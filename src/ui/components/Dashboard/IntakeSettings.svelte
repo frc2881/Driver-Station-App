@@ -1,10 +1,7 @@
 <script lang="ts">
   import { NumberInput } from "carbon-components-svelte";
-  import { Configuration } from "../../../config";
-  import { NetworkTables } from "../../../common";
-  import { NetworkTablesStore } from "../../stores/NetworkTables";
-  import { NetworkTablesTopic } from "../../../common";
-  import { updateNetworkTablesTopics } from "../../stores/NetworkTables";
+  import { Configuration, type NetworkTables, type NetworkTablesTopic } from "../../../common/index.js";
+  import { NetworkTablesStore, updateNetworkTablesTopics } from "../../stores/NetworkTables.js";
   
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;

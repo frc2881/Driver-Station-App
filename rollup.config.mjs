@@ -4,13 +4,13 @@ import replace from "@rollup/plugin-replace";
 import commonjs from "@rollup/plugin-commonjs";
 import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
-import sveltePreprocess from "svelte-preprocess";
+import { sveltePreprocess } from "svelte-preprocess";
 import { optimizeImports } from "carbon-preprocess-svelte";
 
 export default {
 	input: "src/ui/main.ts",
 	output: {
-		format: "iife",
+		format: "es",
 		name: "ui",
 		file: "app/ui/bundle.js",
 		sourcemap: false,
@@ -27,7 +27,7 @@ export default {
 		}),
 		svelte({
 			preprocess: [ 
-				sveltePreprocess(),
+				sveltePreprocess({ typescript: { tsconfigFile: "./tsconfig-ui.json" } }),
 				optimizeImports()
 			],
 			onwarn: (warning, handler) => {
@@ -35,7 +35,7 @@ export default {
 				handler(warning);
 			},
 			compilerOptions: { 
-				dev: true,
+				dev: false,
 				sourcemap: false
 			}
 		}),

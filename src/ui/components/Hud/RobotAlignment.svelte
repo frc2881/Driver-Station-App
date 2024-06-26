@@ -1,7 +1,7 @@
 <script lang="ts">
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-	import { Alliance, Pose2d } from "../../../common";
+	import { Alliance, type Pose2d } from "../../../common/index.js";
 
   export let alliance: Alliance;
   export let robotPose: [number, number, number];

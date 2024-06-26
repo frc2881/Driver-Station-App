@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Utils } from "../../../common";
+  import { Utils } from "../../../common/index.js";
 
   export let swerveModuleFrontLeftDrivingSpeedTarget: number;
   export let swerveModuleFrontLeftDrivingSpeedActual: number;

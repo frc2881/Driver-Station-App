@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { Configuration } from "../../../config";
-  import { NetworkTables, Alliance } from "../../../common";
-  import { NetworkTablesStore } from "../../stores/NetworkTables";
+  import { Configuration, type NetworkTables, Alliance } from "../../../common/index.js";
+  import { NetworkTablesStore } from "../../stores/NetworkTables.js";
   import SendableChooser from "../SendableChooser.svelte";
 
   export let alliance: Alliance;

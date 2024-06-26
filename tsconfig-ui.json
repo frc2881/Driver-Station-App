@@ -5,8 +5,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": true,
     "strict": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,

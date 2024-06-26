@@ -1,27 +1,30 @@
 import { performance } from "perf_hooks";
-import { WebSocket, RawData } from "ws";
+import { WebSocket, type RawData } from "ws";
 import { Encoder, Decoder } from "@msgpack/msgpack";
 import { 
-  Utils, 
-  NetworkTables,
-  NetworkTablesDataType,
-  NetworkTablesTopic,
-  NetworkTablesTopics,
+  type NetworkTables,
+  type NetworkTablesTopic,
+  type NetworkTablesTopics,
+  type NetworkTablesConnectionChangedMessage,
+  type NetworkTablesTopicsUpdatedMessage,
+  type NetworkTablesTopicsRemovedMessage,
+  NetworkTablesDataType, 
   NetworkTablesServiceMessageType,
-  NetworkTablesConnectionChangedMessage,
-  NetworkTablesTopicsUpdatedMessage,
-  NetworkTablesTopicsRemovedMessage
-} from "../common";
+  Utils
+} from "../common/index.js";
 import { 
-  NetworkTablesService,
-  NetworkTablesServiceOptions
-} from "./types";
+  type NetworkTablesServiceOptions,
+  type NetworkTablesServiceMessages,
+  TypedEventEmitter
+} from "./types.js";
 
-export class NetworkTables4Service extends NetworkTablesService {
+export class NetworkTablesService extends TypedEventEmitter<NetworkTablesServiceMessages> {
   constructor(options: NetworkTablesServiceOptions) {
-    super(options);
+    super();
+    this._networkTablesServiceOptions = options;
     this.init();
   }
+  protected readonly _networkTablesServiceOptions: NetworkTablesServiceOptions;
 
   private _webSocket!: WebSocket;
   private _decoder = new Decoder();

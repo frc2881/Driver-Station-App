@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Alliance } from "../../../common";
+  import { Alliance } from "../../../common/index.js";
 
   export let alliance: Alliance;
   export let stationNumber: number;
