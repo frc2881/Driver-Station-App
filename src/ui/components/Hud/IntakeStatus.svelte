@@ -5,7 +5,7 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 
   export let intakeSpeed: number;
-  export let intakeIsAlignedForLaunch: boolean;
+  export let intakeIsLaunchReady: boolean;
   export let intakeDistanceSensorHasTarget: boolean;
   export let launcherDistanceSensorHasTarget: boolean;
   export let launcherDistanceSensorValue: number;
@@ -14,7 +14,7 @@
 <div class="main">
   <div 
     class="alignment"
-    class:active={ intakeIsAlignedForLaunch }>
+    class:active={ intakeIsLaunchReady }>
     <CheckmarkFilled width=380 height=380 fill="#00CC00" />
   </div>
   <div class="levels">
@@ -33,8 +33,8 @@
       class="note"
       class:active= { intakeDistanceSensorHasTarget || launcherDistanceSensorHasTarget } 
       class:bottom={ intakeDistanceSensorHasTarget }
-      class:middle={ launcherDistanceSensorHasTarget && !intakeIsAlignedForLaunch }
-      class:top={ launcherDistanceSensorHasTarget && intakeIsAlignedForLaunch }>
+      class:middle={ launcherDistanceSensorHasTarget && !intakeIsLaunchReady }
+      class:top={ launcherDistanceSensorHasTarget && intakeIsLaunchReady }>
     </div>
   </div>
   <div class="motors">

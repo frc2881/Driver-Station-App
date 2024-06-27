@@ -60,7 +60,7 @@
     <Tile class="widget">
       <IntakeStatus 
         intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
-        intakeIsAlignedForLaunch={ nt.topics.get(Topics.IntakeIsAlignedForLaunch)?.value }
+        intakeIsLaunchReady={ nt.topics.get(Topics.IntakeIsLaunchReady)?.value }
         intakeDistanceSensorHasTarget={ nt.topics.get(Topics.IntakeDistanceSensorHasTarget)?.value }
         launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
         launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }
