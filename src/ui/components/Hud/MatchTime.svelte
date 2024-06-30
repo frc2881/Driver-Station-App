@@ -4,26 +4,28 @@
   const { MatchTime } = Configuration.Settings;
   export let matchTime: number;
 
+  let _matchTime = 0;
+
   $: { 
-    matchTime = matchTime === -1 ? 0 : matchTime ?? 0; 
+    _matchTime = Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0;
   }
 </script>
 
 <div 
   class="main"
-  class:inactive={ matchTime === 0 }
-  class:normal={ matchTime > 0 }
+  class:inactive={ _matchTime === 0 }
+  class:normal={ _matchTime > 0 }
   class:warning={ 
     Utils.isNumberInRange(
-      matchTime, 
+      _matchTime, 
       MatchTime.Critical, 
       MatchTime.Warning
     ) }
   class:critical={ 
     Utils.isNumberInRange(
-      matchTime, 1, MatchTime.Critical
+      _matchTime, 1, MatchTime.Critical
     ) }>
-  <div class="time">{ matchTime }</div>
+  <div class="time">{ _matchTime }</div>
 </div>
 
 <style>
@@ -37,6 +39,7 @@
     line-height: 160px;
     font-weight: bold;
     color: var(--app-color-charcoal);
+    z-index: 9999;
 
     &.inactive {
       color: var(--app-color-charcoal) !important;
