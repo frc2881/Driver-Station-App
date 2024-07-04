@@ -80,7 +80,7 @@
         leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
         rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        targetYaw={ nt.topics.get(Topics.TargetYaw)?.value }
+        targetHeading={ nt.topics.get(Topics.TargetHeading)?.value }
         targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 
     </Tile>
     <Tile class="widget">

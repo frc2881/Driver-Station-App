@@ -9,7 +9,7 @@
   export let leftPoseSensorHasTarget: boolean;
   export let rightPoseSensorHasTarget: boolean;
   export let frontNoteObjectSensorHasTarget: boolean;
-  export let targetYaw: number;
+  export let targetHeading: number;
   export let targetDistance: number;
 
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
@@ -91,7 +91,7 @@
   </div>
   <div class="target">
     <div>td: { targetDistance?.toFixed(3) ?? 0 } m</div>
-    <div>ty: { targetYaw?.toFixed(2) ?? 0 } &deg;</div>
+    <div>th: { targetHeading?.toFixed(2) ?? 0 } &deg;</div>
   </div>
 </div>
 

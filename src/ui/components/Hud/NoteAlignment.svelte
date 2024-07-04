@@ -2,12 +2,12 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 
   export let frontNoteObjectSensorHasTarget: boolean;
-  export let frontNoteObjectSensorTargetYaw: number;
+  export let frontNoteObjectSensorTargetHeading: number;
   export let frontNoteObjectSensorTargetArea: number;
 
   let isAlignedToTarget: boolean = false;
   $:{ 
-    isAlignedToTarget = frontNoteObjectSensorHasTarget && Math.abs(frontNoteObjectSensorTargetYaw) <= 3.0;
+    isAlignedToTarget = frontNoteObjectSensorHasTarget && Math.abs(frontNoteObjectSensorTargetHeading) <= 3.0;
   }
 </script>
 
@@ -21,7 +21,7 @@
   <div 
     class="note"
     class:active={ frontNoteObjectSensorHasTarget }
-    style:transform={ `translate(${ frontNoteObjectSensorTargetYaw * 9 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
+    style:transform={ `translate(${ frontNoteObjectSensorTargetHeading * 9 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
 </div>
 
 <style>

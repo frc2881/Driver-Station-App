@@ -40,7 +40,7 @@
     <Tile class="widget">
       <NoteAlignment 
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        frontNoteObjectSensorTargetYaw={ nt.topics.get(Topics.FrontNoteObjectSensorTargetYaw)?.value }
+        frontNoteObjectSensorTargetHeading={ nt.topics.get(Topics.FrontNoteObjectSensorTargetHeading)?.value }
         frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
     </Tile>
     <Tile class="widget">
