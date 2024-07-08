@@ -1,18 +1,10 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
+  "extends": "./tsconfig.json",
   "include": ["src/**/*"],
   "exclude": ["src/ui/*", "node_modules/*"],
   "compilerOptions": {
     "outDir": "app",
-    "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitOverride": true,
-    "forceConsistentCasingInFileNames": true,
-    "sourceMap": false
+    "moduleResolution": "NodeNext"
   }
 }

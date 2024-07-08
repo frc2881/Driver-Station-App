@@ -25,7 +25,7 @@
 </script>
 
 <div class="main">
-  <div class="title"><h4>Pose</h4></div>
+  <div class="title"><h4>Localization</h4></div>
   <div class="sensors">
     <div class="sensor">
       <button 

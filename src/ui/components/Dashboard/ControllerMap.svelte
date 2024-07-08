@@ -5,10 +5,12 @@
 </script>
 
 { #if isControllerMapVisible }
-<div 
-  class="main"
-  on:click={ () => { isControllerMapVisible = false; } }>
-  <CloseOutline width=48 height=48 fill="#000000" style="position:absolute;top:1em;right:1em;" />
+<div class="main">
+  <div class="close-button">
+    <button on:click={ () => { isControllerMapVisible = false; } }>
+      <CloseOutline width=48 height=48 fill="#000000" />
+    </button>
+  </div>
   <div class="controllers">
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
@@ -17,34 +19,35 @@
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Intake Front</div>
+      <div>(+ Launch)</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Shuttle</div>
+      <div>LB: Align Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Eject</div>
+      <div>RB: Eject Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
-      <div>X: Drive</div>
-      <div>Y: Drive</div>
+      <div>X: Drive L/R</div>
+      <div>Y: Drive F/B</div>
       <div>Press: Lock</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
-      <div>A: Align Target</div>
-      <div class="na">B: ----------</div>
+      <div>A: Align Amp</div>
+      <div>B: Align Subwoofer</div>
       <div>Y: Reload Intake</div>
       <div>X: Climb + Lock</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
-      <div>L: Climber Default</div>
-      <div>U: Climber Up</div>
-      <div>R: Climber Unlock</div>
-      <div>D: Climber Down</div>
+      <div>L: Climber Unlock</div>
+      <div>U: Climber Default</div>
+      <div class="na">R: ----------</div>
+      <div class="na">D: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>X: Rotate</div>
       <div class="na">Y: ----------</div>
-      <div>Press: Align Target</div>
+      <div>Press: Align Speaker</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
@@ -56,9 +59,10 @@
       <div>
         Notes:
         <ul>
-          <li>Calibrate gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
+          <li>Driver controller launch command requires a target alignment option to be held in combination</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
           <li>Hold X button through end of match to secure climber position and lock</li>
+          <li>Calibrate ADIS16470 gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
         </ul>
       </div>
     </div>
@@ -88,7 +92,7 @@
       <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L: Align Shuttle</div>
+      <div class="na">L: ----------</div>
       <div>U: Align Podium</div>
       <div class="na">R: ----------</div>
       <div>D: Align Subwoofer</div>
@@ -108,6 +112,7 @@
       <div>
         Notes:
         <ul>
+          <li>Operator controller launch command requires a target alignment option to be held in combination</li>
           <li>Always reset launcher arm position to zero after robot power cycle</li>
           <li>Always reset climber arm position to zero after robot power cycle</li>
         </ul>
@@ -128,6 +133,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & .close-button {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+
+      & button {
+        margin: 6px 0 0 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
 
     & .controllers {
       width: 1400px;

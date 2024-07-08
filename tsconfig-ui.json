@@ -1,17 +1,9 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
+  "extends": "./tsconfig.json",
   "include": ["src/ui/**/*", "src/common/**/*"],
   "exclude": ["node_modules/*"],
   "compilerOptions": {
-    "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitOverride": true,
-    "forceConsistentCasingInFileNames": true,
-    "sourceMap": false
+    "moduleResolution": "Bundler"
   }
 }

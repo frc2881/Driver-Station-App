@@ -13,7 +13,7 @@ export default {
 		format: "es",
 		name: "ui",
 		file: "app/ui/bundle.js",
-		sourcemap: false,
+		sourcemap: true,
 		inlineDynamicImports: true
 	},
 	treeshake: false,
@@ -36,7 +36,7 @@ export default {
 			},
 			compilerOptions: { 
 				dev: false,
-				sourcemap: false
+				sourcemap: true
 			}
 		}),
 		replace({

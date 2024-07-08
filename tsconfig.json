@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
+  }
+}
