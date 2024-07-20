@@ -6,16 +6,17 @@
 
   export let robotPose: [number, number, number];
   export let rearPoseSensorHasTarget: boolean;
+  export let rearPoseSensorTargetCount: number;
   export let leftPoseSensorHasTarget: boolean;
+  export let leftPoseSensorTargetCount: number;
   export let rightPoseSensorHasTarget: boolean;
+  export let rightPoseSensorTargetCount: number;
   export let frontNoteObjectSensorHasTarget: boolean;
-  export let targetHeading: number;
-  export let targetDistance: number;
 
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
   let isCameraStreamModalOpen: boolean = false;
-  let cameraStreamUrl: string = null;
-  let cameraStreamName: string = null;
+  let cameraStreamUrl: string = "";
+  let cameraStreamName: string = "";
 
   $: {
     poseInfo.x = robotPose?.[0] ?? 0;
@@ -39,6 +40,9 @@
           width=80
           height=80 />
         Rear
+        { #if rearPoseSensorHasTarget }
+        <div class="targetCount">{ rearPoseSensorTargetCount }</div>
+        { /if }
     </button>
     </div>
     <div class="sensor">
@@ -53,6 +57,9 @@
           width=80
           height=80 />
         Left
+        { #if leftPoseSensorHasTarget }
+        <div class="targetCount">{ leftPoseSensorTargetCount }</div>
+        { /if }
       </button>
     </div>
     <div class="sensor">
@@ -67,6 +74,9 @@
           width=80
           height=80 />
         Right
+        { #if rightPoseSensorHasTarget }
+        <div class="targetCount">{ rightPoseSensorTargetCount }</div>
+        { /if }
       </button>
     </div>
     <div class="sensor">
@@ -84,14 +94,10 @@
       </button>
     </div>
   </div>
-  <div class="pose">
+  <div class="poseInfo">
     <div>x: { poseInfo.x?.toFixed(3) } m</div>
     <div>y: { poseInfo.y?.toFixed(3) } m</div>
     <div>r: { poseInfo.rotation?.toFixed(2) } &deg;</div>
-  </div>
-  <div class="target">
-    <div>td: { targetDistance?.toFixed(3) ?? 0 } m</div>
-    <div>th: { targetHeading?.toFixed(2) ?? 0 } &deg;</div>
   </div>
 </div>
 
@@ -101,10 +107,10 @@
   size="lg"
   primaryButtonText="Close"
   bind:open={ isCameraStreamModalOpen }
-  on:submit={ () => { isCameraStreamModalOpen = false; cameraStreamUrl = null; cameraStreamName = null; } }>
+  on:submit={ () => { isCameraStreamModalOpen = false; cameraStreamUrl = ""; cameraStreamName = ""; } }>
   <div class="cameraStream">
     <CameraStream
-      streamInfo={ { url: cameraStreamUrl } } 
+      streamUrl={ cameraStreamUrl }
       width={ 960 } 
       height={ 540 } />
   </div>
@@ -132,33 +138,41 @@
         align-items: center;
 
         & button {
+          position: relative;
           padding: 0;
           border: none;
           background: transparent;
           color: var(--app-color-white);
           cursor: pointer;
+
+          & .targetCount {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: 4px;
+            top: 58px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: var(--app-color-black);
+            background: var(--app-color-white);
+            font-weight: bold;
+            opacity: .8;
+          }
         }
       }
     }
 
-    & .pose {
+    & .poseInfo {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
       font-size: 150%;
       margin-top: 2em;
       gap: 1em;
-    }
-
-    & .target {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      font-size: 120%;
-      margin-top: 1.5em;
-      gap: 1.5em;
     }
   }
 

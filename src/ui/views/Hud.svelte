@@ -1,11 +1,11 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
-  import { Configuration, type NetworkTables } from "../../common/index.js";
+  import { Alliance, Configuration, type NetworkTables } from "../../common/index.js";
   import { NetworkTablesStore } from "../stores/NetworkTables.js";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
-  import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
+  import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
   import NoteAlignment from "../components/Hud/NoteAlignment.svelte";
 
@@ -18,22 +18,29 @@
 { #if nt.isConnected }
   <div class="primary">
     <Tile class="widget">
-      <RobotAlignment
-        alliance={ nt.topics.get(Topics.Alliance)?.value }
-        robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
-        isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
+      <IntakeStatus 
+        intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
+        launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
+        launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }
+        intakeIsLoaded={ nt.topics.get(Topics.IntakeIsLoaded)?.value }
+        intakeIsLaunchReady={ nt.topics.get(Topics.IntakeIsLaunchReady)?.value }
       />
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamInfo={ { url: Configuration.Settings.Cameras.Robot.Front } } 
+        streamUrl={ Configuration.Settings.Cameras.Robot.Front }
         width={ 800 } 
         height={ 520 } />
     </Tile>
     <Tile class="widget">
-      <LauncherAlignment 
-        launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
-        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value } />
+      <RobotAlignment
+        alliance={ nt.topics.get(Topics.Alliance)?.value }
+        robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
+        isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
+        fieldLength={ nt.topics.get(Topics.FieldLength)?.value }
+        fieldWidth={ nt.topics.get(Topics.FieldWidth)?.value }
+        driveLength={ nt.topics.get(Topics.DriveLength)?.value }
+        driveWidth={ nt.topics.get(Topics.DriveWidth)?.value } />
     </Tile>
   </div>
   <div class="secondary">
@@ -46,7 +53,7 @@
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
-          streamInfo={ { device: Configuration.Settings.Cameras.DriverStation } }
+          deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
           width={ 800 } 
           height={ 450 }
           scale={ 1.333 }
@@ -58,12 +65,12 @@
       </div>
     </Tile>
     <Tile class="widget">
-      <IntakeStatus 
-        intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
-        intakeIsLaunchReady={ nt.topics.get(Topics.IntakeIsLaunchReady)?.value }
-        intakeDistanceSensorHasTarget={ nt.topics.get(Topics.IntakeDistanceSensorHasTarget)?.value }
-        launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
-        launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }
+      <LauncherStatus 
+        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value }
+        launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
+        launcherRollersTopSpeedDelta={ nt.topics.get(Topics.LauncherRollersTopSpeedDelta)?.value }
+        launcherRollersBottomSpeedDelta={ nt.topics.get(Topics.LauncherRollersBottomSpeedDelta)?.value }
+        launcherRollersIsLaunchReady={ nt.topics.get(Topics.LauncherRollersIsLaunchReady)?.value }
       />
     </Tile>
   </div>
@@ -105,6 +112,7 @@
       position: relative;
       background: var(--app-color-black);
       overflow: hidden;
+      height: 100%;
 
       & .matchtime {
         position: absolute;

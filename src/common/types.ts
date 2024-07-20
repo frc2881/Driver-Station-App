@@ -92,11 +92,6 @@ export type NetworkTables = {
   topics: NetworkTablesTopics;
 }
 
-export type CameraStreamInfo = {
-  url?: string;
-  device?: string;
-}
-
 export type Pose2d = {
   x: number;
   y: number;

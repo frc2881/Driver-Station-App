@@ -41,8 +41,7 @@
     <div class="right">
       <PowerInfo 
         batteryInfo={ nt.topics.get(Topics.BatteryInfo)?.value }
-        batteryVoltage={ nt.topics.get(Topics.BatteryVoltage)?.value }
-        totalCurrent={ nt.topics.get(Topics.TotalCurrent)?.value } />
+        batteryVoltage={ nt.topics.get(Topics.BatteryVoltage)?.value } />
     </div>
   </div>
   <div class="widgets">
@@ -77,14 +76,18 @@
       <LocalizationInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
+        rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
         leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
+        leftPoseSensorTargetCount={ nt.topics.get(Topics.LeftPoseSensorTargetCount)?.value }
         rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
-        frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        targetHeading={ nt.topics.get(Topics.TargetHeading)?.value }
-        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value } /> 
+        rightPoseSensorTargetCount={ nt.topics.get(Topics.RightPoseSensorTargetCount)?.value }
+        frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }  /> 
     </Tile>
     <Tile class="widget">
       <TargetingInfo
+        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value }
+        targetHeading={ nt.topics.get(Topics.TargetHeading)?.value }
+        targetPitch={ nt.topics.get(Topics.TargetPitch)?.value }
         launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
     </Tile>
     <ControllerMap 

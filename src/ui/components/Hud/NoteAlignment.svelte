@@ -15,7 +15,7 @@
   <div 
     class="alignment"
     class:active={ isAlignedToTarget }>
-    <CheckmarkFilled width=380 height=380 fill="#00CC00" />
+    <CheckmarkFilled width=540 height=540 fill="#00CC00" />
   </div>
   <div class="robot"></div>
   <div 

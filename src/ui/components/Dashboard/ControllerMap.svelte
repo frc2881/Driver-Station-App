@@ -15,7 +15,7 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Intake Rear</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Intake Front</div>

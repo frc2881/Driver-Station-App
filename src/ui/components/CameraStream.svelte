@@ -1,65 +1,60 @@
 <script lang="ts">
   import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
-  import { type CameraStreamInfo, Utils } from "../../common/index.js";
+  import { Utils } from "../../common/index.js";
 
-  export let streamInfo: CameraStreamInfo;
+  export let streamUrl: string = "";
+  export let deviceLabel: string = "";
   export let width: number;
   export let height: number;
   export let scale: number = 1;
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-  let image: HTMLImageElement = null;
-  let video: HTMLVideoElement = null;
+  let image: HTMLImageElement;
+  let video: HTMLVideoElement;
 
   const loadVideoStream = async (): Promise<void> => {
     try {
-      let deviceId: string;
       const devices = await navigator.mediaDevices.enumerateDevices();
       for (const device of devices) {
-        if (device.label.includes(streamInfo.device)) {
-          deviceId = device.deviceId;
+        if (device.label.includes(deviceLabel)) {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { deviceId: { exact: device.deviceId } }
+          });
+          video.srcObject = stream;
+          video.play();
           break;
         }
-      }
-      if (deviceId) {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { deviceId: { exact: deviceId } }
-        });
-        video.srcObject = stream;
-        video.play();
       }
     } catch (e) {}
   }
 
-  if (streamInfo.device) {
+  if (deviceLabel) {
     loadVideoStream();
   }
 
-  if (streamInfo.url) {
-    (async (): Promise<void> => {
-      while (true) {
-        if (image) {
-          image.src = transparentPixelImage;
-          await Utils.wait(0.01);
-          image.src = `${ streamInfo.url }?${ new Date().getTime() }`;
-        }
-        await Utils.wait(60);
-      }
-    })();
-  }
+  // if (streamUrl) {
+  //   (async (): Promise<void> => {
+  //     while (true) {
+  //       image.src = transparentPixelImage;
+  //       await Utils.wait(0.01);
+  //       image.src = `${ streamUrl }?${ new Date().getTime() }`;
+  //       await Utils.wait(60);
+  //     }
+  //   })();
+  // }
 </script>
 
 <div class="main" style={ `width:${width}px;height:${height}px;` }>
   <div class="icon"><Video_02 class="watermark" /></div>
-{ #if streamInfo.url }
+{ #if streamUrl }
   <img 
-    src={ streamInfo.url } 
+    src={ `${ streamUrl }?${ new Date().getTime() }` }
     bind:this={ image } 
     on:error={ () => { image.src = transparentPixelImage; } }
     alt="" />
 { /if }
-{ #if streamInfo.device }
+{ #if deviceLabel }
   <video 
     bind:this={ video }
     style={ `transform:scale(${ scale });` }>

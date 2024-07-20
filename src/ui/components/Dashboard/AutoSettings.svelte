@@ -68,7 +68,6 @@
       width: 400px;
       height: 440px;
       margin-top: 2em;
-      border: 1px solid var(--app-color-charcoal);
       
       & img { 
         width: 100%; 

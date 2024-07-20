@@ -1,15 +1,23 @@
 <script lang="ts">
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 
-  export let launcherArmIsAlignedToTarget: boolean;
   export let launcherArmPosition: number;
+  export let launcherArmIsAlignedToTarget: boolean;
+  export let launcherRollersTopSpeedDelta: number;
+  export let launcherRollersBottomSpeedDelta: number;
+  export let launcherRollersIsLaunchReady: boolean;
 </script>
 
 <div class="main">
   <div 
     class="alignment"
-    class:active={ launcherArmIsAlignedToTarget }>
-    <CheckmarkFilled width=380 height=380 fill="#00CC00" />
+    class:active={ launcherArmIsAlignedToTarget && launcherRollersIsLaunchReady }>
+    <CheckmarkFilled width=540 height=540 fill="#00CC00" />
+  </div>
+  <div style="position:absolute;top:0;right:0;width:80px;margin:2em;text-align:right;font-size:200%;">
+    <div>{ (launcherRollersTopSpeedDelta * 100).toFixed(1) }%</div>
+    <hr/>
+    <div>{ (launcherRollersBottomSpeedDelta * 100).toFixed(1) }%</div>
   </div>
   <div class="launcher">
     <div class="leadscrew">

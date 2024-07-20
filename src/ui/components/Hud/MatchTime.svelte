@@ -35,8 +35,8 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    font-size: 160px;
-    line-height: 160px;
+    font-size: 200px;
+    line-height: 200px;
     font-weight: bold;
     color: var(--app-color-charcoal);
     z-index: 9999;

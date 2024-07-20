@@ -3,8 +3,6 @@
   "include": ["src/**/*"],
   "exclude": ["src/ui/*", "node_modules/*"],
   "compilerOptions": {
-    "outDir": "app",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "outDir": "app"
   }
 }

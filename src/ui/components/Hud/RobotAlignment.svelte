@@ -6,9 +6,13 @@
   export let alliance: Alliance;
   export let robotPose: [number, number, number];
   export let isAlignedToTarget: boolean;
+  export let fieldLength: number;
+  export let fieldWidth: number;
+  export let driveLength: number;
+  export let driveWidth: number;
 
-  const PIXELS_PER_METER: number = 29.0123;
-  
+  const PIXELS_PER_METER: number = 100;
+
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
 
   $: {
@@ -22,17 +26,20 @@
   <div 
     class="alignment"
     class:active={ isAlignedToTarget }>
-    <CheckmarkFilled width=380 height=380 fill="#00CC00" />
+    <CheckmarkFilled width=540 height=540 fill="#00CC00" />
   </div>
-  <div class="field { alliance?.toLowerCase() }">
-    <img src="./assets/images/field.png" />
+  <div 
+    class="field { alliance?.toLowerCase() }" 
+    style:width={ `${fieldLength * PIXELS_PER_METER}px` } 
+    style:height={`${fieldWidth * PIXELS_PER_METER}px`}>
+    <img src="./assets/images/field.png" alt="Field" />
     <div 
       class="robot"
-      style:left={ `${ poseInfo.x * PIXELS_PER_METER }px` }
-      style:bottom={ `${ poseInfo.y * PIXELS_PER_METER }px` }
-      style:transform={ `translate(-9px, 6px) rotate(${ -poseInfo.rotation }deg)` }>
-      <div class="arrow"><CaretDown width=21 height=21 /></div>
-      <div class="line">&nbsp;</div>
+      style:width={ `${driveLength * PIXELS_PER_METER}px` } 
+      style:height={`${driveWidth * PIXELS_PER_METER}px`}
+      style:transform={ `translate(${ (poseInfo.x * PIXELS_PER_METER) - (driveLength * PIXELS_PER_METER ) / 2 }px, ${ -(poseInfo.y * PIXELS_PER_METER) + (driveWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -poseInfo.rotation }deg)` }>
+      <div class="line"></div>
+      <div class="front"><CaretDown width=64 height=64 /></div>
     </div>
   </div>
 </div>
@@ -48,33 +55,38 @@
     overflow: hidden;
 
     & .field {
-      width: 480px;
-      transform: rotate(-90deg);
-      
-      &.blue { transform: rotate(-90deg); }
-      &.red { transform: rotate(90deg); }
-      
-      & img { width: 100%; }
+      position: relative;
+      box-sizing: border-box;
+      transform: scale(25%);
+
+      &.blue { transform: rotate(-90deg) translateX(13.5%) scale(55%); }
+      &.red { transform: rotate(90deg) translateX(-13.5%) scale(55%); }
 
       & .robot {
         position: absolute;
-        width: 15.84px;
-        height: 18.05px;
-        background: var(--app-color-pink);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        & .arrow {
-          transform: rotate(90deg) translateY(16px);
-          color: var(--app-color-pink);
-        }
+        left: 0;
+        bottom: 0;
+        box-sizing: border-box;
+        background-color: var(--app-color-pink);
 
         & .line {
-          width: 1px;
-          background: var(--app-color-pink);
-          height: 128px;
-          transform: rotate(90deg) translateY(96px);
+          position: absolute;
+          box-sizing: border-box;
+          top: 50%;
+          left: 50%;
+          width: 640px;
+          height: 2px;
+          transform: translateX(-107%) translateY(-2px);
+          border: 2px dashed var(--app-color-white);
+        }
+
+        & .front {
+          position: absolute;
+          box-sizing: border-box;
+          top: 50%;
+          left: 50%;
+          transform: rotate(-90deg) translate(50%, 33%);
+          color: var(--app-color-white);
         }
       }
     }

@@ -1,6 +1,9 @@
 <script lang="ts">
   import { type ChartOptions, LineChart, ScaleTypes } from "@carbon/charts-svelte";
 
+  export let targetDistance: number;
+  export let targetHeading: number;
+  export let targetPitch: number;
   export let launcherArmPositions: string;
 
   const chartOptions: ChartOptions = {
@@ -41,6 +44,11 @@
       data={ chartData } 
       options={ chartOptions } />
   </div>
+  <div class="targetInfo">
+    <div>d: { targetDistance?.toFixed(3) } m</div>
+    <div>h: { targetHeading?.toFixed(2) } &deg;</div>
+    <div>p: { targetPitch?.toFixed(2) } &deg;</div>
+  </div>
 </div>
 
 <style>
@@ -52,8 +60,18 @@
     }
     
     & .chart {
-      width: 390px;
-      height: 240px;
+      width: 395px;
+      height: 170px;
+    }
+
+    & .targetInfo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 150%;
+      margin-top: 2em;
+      gap: 1em;
     }
   }
 </style>
