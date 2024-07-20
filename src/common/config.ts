@@ -7,7 +7,6 @@ export namespace Configuration {
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
-        "/photonvision",
         "/FMSInfo",
         "/LiveWindow"
       ],
@@ -73,6 +72,7 @@ export namespace Configuration {
     },
     Cameras: {
       Robot: {
+        Driver: "http://10.28.81.6:1188/?action=stream",
         Front: "http://10.28.81.6:1188/?action=stream",
         Rear: "http://10.28.81.6:1182/?action=stream",
         Left: "http://10.28.81.6:1186/?action=stream",

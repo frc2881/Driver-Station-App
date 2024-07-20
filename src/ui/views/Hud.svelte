@@ -28,7 +28,7 @@
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ Configuration.Settings.Cameras.Robot.Front }
+        streamUrl={ Configuration.Settings.Cameras.Robot.Driver }
         width={ 800 } 
         height={ 520 } />
     </Tile>
