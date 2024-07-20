@@ -139,6 +139,9 @@
 
         & button {
           position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           padding: 0;
           border: none;
           background: transparent;
