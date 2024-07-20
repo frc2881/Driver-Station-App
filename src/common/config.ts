@@ -67,9 +67,9 @@ export namespace Configuration {
     },
     Cameras: {
       Robot: {
-        Driver: "http://10.99.81.6:1186/?action=stream",
-        Front: "http://10.99.81.6:1184/?action=stream",
-        Rear: "http://10.99.81.6:1182/?action=stream"
+        Driver: "http://10.99.81.6:1182/?action=stream",
+        Front: "http://10.99.81.6:1186/?action=stream",
+        Rear: "http://10.99.81.6:1184/?action=stream"
       },
       DriverStation: "HD USB Camera"
     },
