@@ -74,7 +74,7 @@ class Main {
             x: 0, 
             y: secondaryDisplay?.bounds.y ?? 0,
             width: Layout.MaxWidth, 
-            height: Layout.MaxHeight 
+            height: Layout.MaxHeight
           },
           isMinimized: secondaryDisplay === null,
           isTransparent: true,

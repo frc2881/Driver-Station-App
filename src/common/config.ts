@@ -3,7 +3,7 @@ import type { ConfigurationSettings } from "./types.js";
 export namespace Configuration {
   export const Settings: ConfigurationSettings = {
     NetworkTables: {
-      ServerAddress: "10.28.81.2",
+      ServerAddress: "10.99.81.2",
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
@@ -47,13 +47,8 @@ export namespace Configuration {
         RobotPose: "/SmartDashboard/Robot/Localization/Pose",
         RearPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTarget",
         RearPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Rear/TargetCount",
-        LeftPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Left/HasTarget",
-        LeftPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Left/TargetCount",
-        RightPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Right/HasTarget",
-        RightPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Right/TargetCount",
-        FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
-        FrontNoteObjectSensorTargetHeading: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Heading",
-        FrontNoteObjectSensorTargetArea: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Area",
+        FrontPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Front/HasTarget",
+        FrontPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Front/TargetCount",
         TargetDistance: "/SmartDashboard/Robot/Localization/Target/Distance",
         TargetHeading: "/SmartDashboard/Robot/Localization/Target/Heading",
         TargetPitch: "/SmartDashboard/Robot/Localization/Target/Pitch",
@@ -72,11 +67,9 @@ export namespace Configuration {
     },
     Cameras: {
       Robot: {
-        Driver: "http://10.28.81.6:1188/?action=stream",
-        Front: "http://10.28.81.6:1188/?action=stream",
-        Rear: "http://10.28.81.6:1182/?action=stream",
-        Left: "http://10.28.81.6:1186/?action=stream",
-        Right: "http://10.28.81.6:1184/?action=stream"
+        Driver: "http://10.99.81.6:1186/?action=stream",
+        Front: "http://10.99.81.6:1184/?action=stream",
+        Rear: "http://10.99.81.6:1182/?action=stream"
       },
       DriverStation: "HD USB Camera"
     },

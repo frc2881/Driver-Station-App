@@ -7,11 +7,8 @@
   export let robotPose: [number, number, number];
   export let rearPoseSensorHasTarget: boolean;
   export let rearPoseSensorTargetCount: number;
-  export let leftPoseSensorHasTarget: boolean;
-  export let leftPoseSensorTargetCount: number;
-  export let rightPoseSensorHasTarget: boolean;
-  export let rightPoseSensorTargetCount: number;
-  export let frontNoteObjectSensorHasTarget: boolean;
+  export let frontPoseSensorHasTarget: boolean;
+  export let frontPoseSensorTargetCount: number;
 
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
   let isCameraStreamModalOpen: boolean = false;
@@ -49,48 +46,17 @@
       <button 
         on:click={ () => { 
           isCameraStreamModalOpen = true; 
-          cameraStreamUrl = Configuration.Settings.Cameras.Robot.Left; 
-          cameraStreamName = "Left" 
-        } }>
-        <CenterSquare
-          fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Left
-        { #if leftPoseSensorHasTarget }
-        <div class="targetCount">{ leftPoseSensorTargetCount }</div>
-        { /if }
-      </button>
-    </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
-          cameraStreamUrl = Configuration.Settings.Cameras.Robot.Right; 
-          cameraStreamName = "Right" 
-        } }>
-        <CenterSquare
-          fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Right
-        { #if rightPoseSensorHasTarget }
-        <div class="targetCount">{ rightPoseSensorTargetCount }</div>
-        { /if }
-      </button>
-    </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
           cameraStreamUrl = Configuration.Settings.Cameras.Robot.Front; 
           cameraStreamName = "Front" 
         } }>
-        <CenterCircle
-          fill={ frontNoteObjectSensorHasTarget ? "#CC6600" : "#333333" }
+        <CenterSquare
+          fill={ frontPoseSensorHasTarget ? "#00CC00" : "#333333" }
           width=80
           height=80 />
         Front
+        { #if frontPoseSensorHasTarget }
+        <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+        { /if }
       </button>
     </div>
   </div>
@@ -139,12 +105,15 @@
 
         & button {
           position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           padding: 0;
           border: none;
           background: transparent;
           color: var(--app-color-white);
           cursor: pointer;
-
+          
           & .targetCount {
             position: absolute;
             display: flex;

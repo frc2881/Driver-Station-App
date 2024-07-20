@@ -45,19 +45,19 @@
   </div>
   <div class="secondary">
     <Tile class="widget">
-      <NoteAlignment 
+      <!-- <NoteAlignment 
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
         frontNoteObjectSensorTargetHeading={ nt.topics.get(Topics.FrontNoteObjectSensorTargetHeading)?.value }
-        frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
+        frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } /> -->
     </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
-        <CameraStream 
+        <!-- <CameraStream 
           deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
           width={ 800 } 
           height={ 450 }
           scale={ 1.333 }
-        />
+        /> -->
         <div class="matchtime">
           <MatchTime 
             matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
@@ -97,6 +97,7 @@
     height: 100vh;
     overflow: hidden;
     padding: 10px;
+    transform: scale(.80) translateY(-125px);
 
     & > .primary {
       display: grid;
