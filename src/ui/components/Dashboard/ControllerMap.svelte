@@ -15,26 +15,26 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Align Speaker</div>
+      <div>LT: * Align Speaker</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Intake Front</div>
-      <div>(or Launch if aligned)</div>
+      <div>* Launch (if aligned)</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Align Shuttle</div>
+      <div>LB: * Align Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
       <div>RB: Eject Intake</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
-      <div>X: Drive L/R</div>
-      <div>Y: Drive F/B</div>
-      <div>Press: Lock</div>
+      <div>L-R: Drive L/R</div>
+      <div>U-D: Drive F/B</div>
+      <div>Hold: Lock</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
-      <div>A: Align Amp</div>
-      <div>B: Align Subwoofer</div>
+      <div>A: * Align Amp</div>
+      <div>B: * Align Subwoofer</div>
       <div>Y: Reload Intake</div>
       <div>X: Climb + Lock</div>
     </div>
@@ -45,24 +45,23 @@
       <div class="na">D: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:290px;">
-      <div>X: Rotate</div>
-      <div class="na">Y: ----------</div>
-      <div>Press: Align Speaker</div>
+      <div>L-R: Rotate</div>
+      <div class="na">U-D: ----------</div>
+      <div>Hold: Align Target</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div>Start: Calibrate Gyro *</div>
+      <div class="na">Start: ----------</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Driver controller launch command requires a target alignment option to be held in combination</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
           <li>Hold X button through end of match to secure climber position and lock</li>
-          <li>Calibrate ADIS16470 gyro (* if applicable) more than 4 seconds before match countdown and start of autonomous period begins</li>
+          <li>* Driver-only mode launch command requires a launcher alignment option to be held in combination</li>
         </ul>
       </div>
     </div>
@@ -81,9 +80,9 @@
       <div>RB: Launch Amp</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
-      <div class="na">X: ----------</div>
-      <div>Y: Launcher +/-</div>
-      <div class="na">Press: ----------</div>
+      <div class="na">L-R: ----------</div>
+      <div>U-D: Launcher U/D</div>
+      <div class="na">Hold: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
       <div class="na">A: ----------</div>
@@ -93,14 +92,14 @@
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div class="na">L: ----------</div>
-      <div>U: Align Podium</div>
-      <div class="na">R: ----------</div>
+      <div>U: Align Shuttle</div>
+      <div>R: Align Podium</div>
       <div>D: Align Subwoofer</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
-      <div class="na">X: ----------</div>
-      <div class="na">Y: ----------</div>
-      <div class="na">Press: ----------</div>
+      <div class="na">L-R: ----------</div>
+      <div class="na">U-D: ----------</div>
+      <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
       <div>Back: Reset Launcher</div>
@@ -112,9 +111,8 @@
       <div>
         Notes:
         <ul>
-          <li>Operator controller launch command requires a target alignment option to be held in combination</li>
-          <li>Always reset launcher arm position to zero after robot power cycle</li>
-          <li>Always reset climber arm position to zero after robot power cycle</li>
+          <li>Always reset launcher and climber arm positions to zero after robot power cycle, roboRIO reboot, or new robot code deployment</li>
+          <li>Operator controller launch command requires a launcher alignment option to be held in combination</li>
         </ul>
       </div>
     </div>
