@@ -1,11 +1,29 @@
 <script lang="ts">
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import { type ChartOptions, GaugeChart, ScaleTypes } from "@carbon/charts-svelte";
 
   export let launcherArmPosition: number;
   export let launcherArmIsAlignedToTarget: boolean;
   export let launcherRollersTopSpeedDelta: number;
   export let launcherRollersBottomSpeedDelta: number;
   export let launcherRollersIsLaunchReady: boolean;
+
+  const ANGLE_SCALE: number = 2;
+
+  const launcherRollersGaugeOptions: ChartOptions = {
+    toolbar: { enabled: false },
+    legend: { enabled: false },
+    theme: "g100",
+    height: "120px",
+    gauge: { type: "full", arcWidth: 8 },
+    color: { scale: { "value": "#FF69B4" } }
+  };
+
+  let launcherRollersSpeedDeltaGaugeData: any = { top: [{ group: "value", value: 0 }], bottom: [{ group: "value", value: 0 }]};
+  $: {
+    launcherRollersSpeedDeltaGaugeData.top[0].value = launcherRollersTopSpeedDelta;
+    launcherRollersSpeedDeltaGaugeData.bottom[0].value = launcherRollersBottomSpeedDelta;
+  }
 </script>
 
 <div class="main">
@@ -14,19 +32,14 @@
     class:active={ launcherArmIsAlignedToTarget && launcherRollersIsLaunchReady }>
     <CheckmarkFilled width=540 height=540 fill="#00CC00" />
   </div>
-  <div style="position:absolute;top:0;right:0;width:80px;margin:2em;text-align:right;font-size:200%;">
-    <div>{ (launcherRollersTopSpeedDelta * 100).toFixed(1) }%</div>
-    <hr/>
-    <div>{ (launcherRollersBottomSpeedDelta * 100).toFixed(1) }%</div>
-  </div>
   <div class="launcher">
-    <div class="leadscrew">
+    <div class="arm">
+      <div class="angle" style:transform={ `rotate(${ -((launcherArmPosition + 8) * ANGLE_SCALE) }deg)` }></div>
       <div class="position">{ launcherArmPosition?.toFixed(2) ?? 0 }</div>
     </div>
-    <div 
-      class="arm"
-      style:transform={ `rotate(${ -((launcherArmPosition + 8) * 2) }deg)` }>
-      <div class="pitch">&nbsp;</div>
+    <div class="rollers">
+      <GaugeChart data={ launcherRollersSpeedDeltaGaugeData.top } options={ launcherRollersGaugeOptions } />
+      <GaugeChart data={ launcherRollersSpeedDeltaGaugeData.bottom } options={ launcherRollersGaugeOptions } />
     </div>
   </div>
 </div>
@@ -42,41 +55,36 @@
     height: 100%;
 
     & .launcher {
-      position: relative;
-      margin: 8em 4em 0 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 2em;
 
-      & .leadscrew {
+      & .arm {
         display: flex;
-        align-items: flex-end;
-        position: absolute;
-        right: 130px;
-        top: -40px;
-        height: 240px;
-        width: 10px;
-        background: var(--app-color-charcoal);
-        transform: rotate(-10deg);
+        flex-direction: column;
+        gap: 1em;
+        margin-top: 9em;
+
+        & .angle {
+          width: 150px;
+          height: 30px;
+          background: var(--app-color-pink);
+          transform-origin: 0 0;
+          margin-left: 2em;
+          border-radius: 8px;
+        }
 
         & .position {
-          display: flex;
-          flex: 1 0 auto;
-          justify-content: center;
-          width: 80px;
-          transform: translate(-1.5em, 2em) rotate(10deg);
-          font-size: 250%;
+          font-size: 200%;
         }
       }
 
-      & .arm {
-        margin: 8em 4em 0 0;
-        border-top: 40px solid transparent;
-        border-bottom: 40px solid transparent; 
-        border-right:180px solid var(--app-color-pink);
-        transform-origin: 0 0;
-
-        & .pitch {
-          padding: 1em;
-          font-size: 150%;
-        }
+      & .rollers {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
       }
     }
 

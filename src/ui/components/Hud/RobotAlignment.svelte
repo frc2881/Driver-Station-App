@@ -68,6 +68,7 @@
         bottom: 0;
         box-sizing: border-box;
         background-color: var(--app-color-pink);
+        border-radius: 8px;
 
         & .line {
           position: absolute;

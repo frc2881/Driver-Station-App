@@ -46,16 +46,19 @@
     }
 
     & .note {
-      display: none;
       position: absolute;
       top: 20px;
       width: 160px;
       height: 160px;
       border-radius: 80px;
-      border: 20px solid var(--app-color-orange);
+      border: 20px solid var(--app-color-charcoal);
+      opacity: 0.1;
+      margin-top: 2em;
 
       &.active {
-        display: block;
+        border: 20px solid var(--app-color-orange);
+        opacity: 1;
+        margin-top: 0;
       }
     }
 

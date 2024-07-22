@@ -15,11 +15,11 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div class="na">LT: ----------</div>
+      <div>LT: Align Speaker</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Intake Front</div>
-      <div>(+ Launch)</div>
+      <div>(or Launch if aligned)</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div>LB: Align Shuttle</div>
@@ -53,7 +53,7 @@
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div>Start: Calibrate Gyro</div>
+      <div>Start: Calibrate Gyro *</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
@@ -62,7 +62,7 @@
           <li>Driver controller launch command requires a target alignment option to be held in combination</li>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
           <li>Hold X button through end of match to secure climber position and lock</li>
-          <li>Calibrate ADIS16470 gyro more than 4 seconds before match countdown and start of autonomous period begins</li>
+          <li>Calibrate ADIS16470 gyro (* if applicable) more than 4 seconds before match countdown and start of autonomous period begins</li>
         </ul>
       </div>
     </div>
