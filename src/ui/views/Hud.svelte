@@ -7,7 +7,6 @@
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
-  import NoteAlignment from "../components/Hud/NoteAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
@@ -44,20 +43,14 @@
     </Tile>
   </div>
   <div class="secondary">
-    <Tile class="widget">
-      <!-- <NoteAlignment 
-        frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        frontNoteObjectSensorTargetHeading={ nt.topics.get(Topics.FrontNoteObjectSensorTargetHeading)?.value }
-        frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } /> -->
-    </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
-        <!-- <CameraStream 
-          deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
+        <CameraStream 
+          deviceLabel={ Configuration.Settings.Cameras.Robot.Rear } 
           width={ 800 } 
-          height={ 450 }
-          scale={ 1.333 }
-        /> -->
+          height={ 520 }
+        />
         <div class="matchtime">
           <MatchTime 
             matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
