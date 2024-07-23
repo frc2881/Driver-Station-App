@@ -15,14 +15,14 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: * Align Speaker</div>
+      <div class="do">LT: * Align Speaker</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
+      <div class="do">* Launch (if aligned)</div>
       <div>RT: Intake Front</div>
-      <div>* Launch (if aligned)</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: * Align Shuttle</div>
+      <div class="do">LB: * Align Shuttle</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
       <div>RB: Eject Intake</div>
@@ -33,9 +33,9 @@
       <div>Hold: Lock</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
-      <div>A: * Align Amp</div>
-      <div>B: * Align Subwoofer</div>
-      <div>Y: * Align Podium</div>
+      <div class="do">A: * Align Amp</div>
+      <div class="do">B: * Align Subwoofer</div>
+      <div class="do">Y: * Align Podium</div>
       <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
@@ -192,6 +192,10 @@
 
         & .na {
           opacity: 0.25;
+        }
+
+        & .do {
+          color: var(--app-color-pink);
         }
       }
     }
