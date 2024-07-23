@@ -35,8 +35,8 @@
     <div class="text right" style="right:1025px;bottom:380px;">
       <div>A: * Align Amp</div>
       <div>B: * Align Subwoofer</div>
-      <div>Y: Reload Intake</div>
-      <div>X: * Align Podium</div>
+      <div>Y: * Align Podium</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
