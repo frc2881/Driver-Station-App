@@ -26,6 +26,7 @@
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
       <div>RB: Eject Intake</div>
+      <div>* +RT: Intake Rear</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>L-R: Drive L/R</div>
@@ -35,7 +36,7 @@
     <div class="text right" style="right:1025px;bottom:380px;">
       <div>A: * Align Amp</div>
       <div>B: * Align Subwoofer</div>
-      <div>Y: Reload Intake</div>
+      <div>Y: * Align Podium</div>
       <div>X: Climb + Lock</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
