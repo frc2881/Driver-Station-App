@@ -28,7 +28,8 @@
       class="note"
       class:active= { launcherDistanceSensorHasTarget } 
       class:bottom={ launcherDistanceSensorHasTarget && !intakeIsLoaded }
-      class:top={ launcherDistanceSensorHasTarget && intakeIsLoaded }>
+      class:top={ launcherDistanceSensorHasTarget && intakeIsLoaded }
+      class:launchReady={ intakeIsLaunchReady }>
     </div>
   </div>
   <div class="motors">
@@ -105,6 +106,8 @@
         &.active { opacity: 1; }
         &.bottom { bottom: -4em; }
         &.top { bottom: 0.25em; }
+
+        &.launchReady { animation: pulse-expand 500ms infinite ease; }
       }
     }
 
