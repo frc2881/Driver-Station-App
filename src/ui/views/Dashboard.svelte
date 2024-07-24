@@ -29,7 +29,8 @@
         state={ nt.topics.get(Topics.RobotState)?.value } />
       <GameInfo 
         alliance={ nt.topics.get(Topics.Alliance)?.value } 
-        stationNumber={ nt.topics.get(Topics.StationNumber)?.value } />
+        team={ nt.topics.get(Topics.Team)?.value }
+        station={ nt.topics.get(Topics.Station)?.value } />
     </div>
     <div class="center">
       <div class="controller-map-button">
