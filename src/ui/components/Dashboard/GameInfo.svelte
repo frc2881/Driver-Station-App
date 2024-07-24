@@ -2,12 +2,16 @@
   import { Alliance } from "../../../common/index.js";
 
   export let alliance: Alliance;
-  export let stationNumber: number;
+  export let team: number;
+  export let station: number;
 </script>
 
 <div class="main">
   <div class="value { alliance?.toLowerCase() }">
-    <h3>{ stationNumber ?? 0 }</h3>
+    <h3>{ station ?? 0 }</h3>
+  </div> 
+  <div class="value team">
+    <h3>{ team || "0000" }</h3>
   </div> 
 </div>
 
@@ -16,6 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 1.5em;
 
     & .value {
       display: flex;
@@ -25,7 +30,14 @@
       height: 42px;
     }
 
-    & .blue { background-color: #0000CC; }
-    & .red { background-color: #CC0000; }
+    & .blue { background-color: var(--app-color-blue); }
+    & .red { background-color: var(--app-color-red); }
+
+    & .team { 
+      width: auto;
+      padding: 0 1em;
+      background-color: var(--app-color-pink); 
+      color: var(--app-color-black); 
+    }
   }
 </style>
