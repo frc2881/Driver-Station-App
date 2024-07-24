@@ -47,7 +47,7 @@
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
-          deviceLabel={ Configuration.Settings.Cameras.Robot.Rear } 
+          streamUrl={ Configuration.Settings.Cameras.Robot.Rear } 
           width={ 800 } 
           height={ 520 }
         />
