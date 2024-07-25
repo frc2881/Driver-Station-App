@@ -89,8 +89,6 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    padding: 10px;
-    transform: scale(.80) translateY(-125px);
 
     & > .primary {
       display: grid;
@@ -152,6 +150,13 @@
       width: 256px;
       height: 256px;
       fill: var(--app-color-pink);
+    }
+  }
+
+  @media (height <= 960px) {
+    main {
+      transform: scale(.80) translateY(-90px);
+      overflow: visible;
     }
   }
 </style>
