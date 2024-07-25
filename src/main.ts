@@ -74,9 +74,9 @@ class Main {
             x: 0, 
             y: secondaryDisplay?.bounds.y ?? 0,
             width: Layout.MaxWidth, 
-            height: Layout.MaxHeight 
+            height: secondaryDisplay !== null ? Layout.MaxHeight : Layout.MaxHeight - Layout.DockedHeight
           },
-          isMinimized: secondaryDisplay === null,
+          isMinimized: false,
           isTransparent: true,
           isFrameless: true,
           isFullscreen: secondaryDisplay !== null
