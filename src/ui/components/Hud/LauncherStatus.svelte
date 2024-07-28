@@ -21,8 +21,8 @@
 
   let launcherRollersSpeedDeltaGaugeData: any = { top: [{ group: "value", value: 0 }], bottom: [{ group: "value", value: 0 }]};
   $: {
-    launcherRollersSpeedDeltaGaugeData.top[0].value = launcherRollersTopSpeedDelta;
-    launcherRollersSpeedDeltaGaugeData.bottom[0].value = launcherRollersBottomSpeedDelta;
+    launcherRollersSpeedDeltaGaugeData.top[0].value = launcherRollersTopSpeedDelta * 100;
+    launcherRollersSpeedDeltaGaugeData.bottom[0].value = launcherRollersBottomSpeedDelta * 100;
   }
 </script>
 
