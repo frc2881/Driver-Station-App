@@ -162,7 +162,7 @@
 
   @media (height <= 960px) {
     main {
-      transform: scale(.80) translateY(-90px);
+      transform: scale(.70) translateY(-120px);
       overflow: visible;
     }
   }
