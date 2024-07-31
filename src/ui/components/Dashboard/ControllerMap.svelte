@@ -61,7 +61,6 @@
         Notes:
         <ul>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
-          <li>Hold X button through end of match to secure climber position and lock</li>
           <li>* Driver-only mode launch command requires a launcher alignment option to be held in combination</li>
         </ul>
       </div>

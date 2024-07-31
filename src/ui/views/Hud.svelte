@@ -56,7 +56,7 @@
           deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
           width={ 810 } 
           height={ 440 }
-          scale={ 1.333 }
+          scale={ 1.5 }
         />
         <div class="matchtime">
           <MatchTime 
