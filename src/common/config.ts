@@ -27,6 +27,7 @@ export namespace Configuration {
         FieldWidth: "/SmartDashboard/Robot/Game/Field/Width",
         DriveLength: "/SmartDashboard/Robot/Drive/Chassis/Length",
         DriveWidth: "/SmartDashboard/Robot/Drive/Chassis/Width",
+        DriveSpeedMax: "/SmartDashboard/Robot/Drive/Speed/Max",
         DriveLockState: "/SmartDashboard/Robot/Drive/LockState",
         DriveOrientation: "/SmartDashboard/Robot/Drive/Orientation",
         DriveSpeedMode: "/SmartDashboard/Robot/Drive/SpeedMode",
