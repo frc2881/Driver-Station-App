@@ -51,6 +51,7 @@
     </Tile>
     <Tile class="widget">
       <DriveInfo
+        driveSpeedMax={ nt.topics.get(Topics.DriveSpeedMax)?.value }
         swerveModuleFrontLeftDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedTarget)?.value }
         swerveModuleFrontLeftDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedActual)?.value }
         swerveModuleFrontLeftTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftTurningPosition)?.value } 
