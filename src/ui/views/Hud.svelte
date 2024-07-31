@@ -16,7 +16,7 @@
 
 <main>
 { #if nt.isConnected }
-  <div class="primary">
+  <div class="row">
     <Tile class="widget">
       <IntakeStatus 
         intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
@@ -29,8 +29,8 @@
     <Tile class="widget">
       <CameraStream
         streamUrl={ Configuration.Settings.Cameras.Robot.Driver }
-        width={ 800 } 
-        height={ 520 } />
+        width={ 810 } 
+        height={ 530 } />
     </Tile>
     <Tile class="widget">
       <RobotAlignment
@@ -43,7 +43,7 @@
         driveWidth={ nt.topics.get(Topics.DriveWidth)?.value } />
     </Tile>
   </div>
-  <div class="secondary">
+  <div class="row">
     <Tile class="widget">
       <NoteAlignment 
         frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
@@ -54,8 +54,8 @@
       <div class="driverStationViewContainer">
         <CameraStream 
           deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
-          width={ 800 } 
-          height={ 450 }
+          width={ 810 } 
+          height={ 440 }
           scale={ 1.333 }
         />
         <div class="matchtime">
@@ -91,20 +91,16 @@
   main {
     position: relative;
     display: grid;
-    grid-template-rows: 540px auto;
-    row-gap: 0px;
+    grid-template-rows: 530px 530px;
+    row-gap: 10px;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 
-    & > .primary {
+    & > .row {
       display: grid;
-      grid-template-columns: 540px 820px 540px;
-    }
-
-    & > .secondary {
-      display: grid;
-      grid-template-columns: 540px 820px 540px;
+      grid-template-columns: 530px 810px 530px;
+      column-gap: 10px;
     }
 
     & .driverStationViewContainer {
@@ -116,7 +112,7 @@
       & .matchtime {
         position: absolute;
         top: 0;
-        width: 800px;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -127,7 +123,6 @@
 
     & :global {
       & .widget {
-        margin: 10px;
         padding: 0px;
         background: #1C1C1C;
       }
@@ -160,9 +155,10 @@
     }
   }
 
-  @media (height <= 960px) {
+  @media (height <= 840px) {
     main {
-      transform: scale(.70) translateY(-120px);
+      transform: scale(.75) translateY(-80px);
+      height: 75vh;
       overflow: visible;
     }
   }

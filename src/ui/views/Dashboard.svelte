@@ -115,14 +115,14 @@
     & > .header {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      height: 90px;
+      height: 100px;
       padding: 0 20px;
 
       & .left {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        gap: 1.25em;
+        gap: 1.5em;
       }
 
       & .center {
@@ -156,9 +156,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 350px;
-      column-gap: 20px;
-      row-gap: 20px;
-      padding: 0 20px 20px 20px;
+      column-gap: 10px;
+      row-gap: 10px;
+      padding: 0 20px;
 
       & :global {
         & .widget {

@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5em;
+    gap: 2em;
 
     & .value {
       display: flex;

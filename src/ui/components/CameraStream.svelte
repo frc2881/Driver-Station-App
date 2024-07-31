@@ -33,16 +33,18 @@
     loadVideoStream();
   }
 
-  // if (streamUrl) {
-  //   (async (): Promise<void> => {
-  //     while (true) {
-  //       image.src = transparentPixelImage;
-  //       await Utils.wait(0.01);
-  //       image.src = `${ streamUrl }?${ new Date().getTime() }`;
-  //       await Utils.wait(60);
-  //     }
-  //   })();
-  // }
+  if (streamUrl) {
+    (async (): Promise<void> => {
+      while (true) {
+        if (image!) {
+          image!.src = transparentPixelImage;
+          await Utils.wait(0.001);
+          image!.src = `${ streamUrl }?${ new Date().getTime() }`;
+        }
+        await Utils.wait(60);
+      }
+    })();
+  }
 </script>
 
 <div class="main" style={ `width:${width}px;height:${height}px;` }>
