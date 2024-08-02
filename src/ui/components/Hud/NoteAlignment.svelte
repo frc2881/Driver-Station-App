@@ -21,7 +21,7 @@
   <div 
     class="note"
     class:active={ frontNoteObjectSensorHasTarget }
-    style:transform={ `translate(${ frontNoteObjectSensorTargetHeading * 9 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
+    style:transform={ `translate(${ frontNoteObjectSensorTargetHeading * 6 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
 </div>
 
 <style>
