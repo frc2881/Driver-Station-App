@@ -12,25 +12,21 @@ export type ConfigurationSettings = {
     ServerPort: number;
     Subscriptions: string[];
     Topics: Record<string, string>;
-  };
-  Cameras: {
-    Robot: Record<string, string>;
-    DriverStation: string;
-  } 
+  }
   MatchTime: {
     Warning: number;
     Critical: number;
-  };
+  }
   BatteryVoltageLevel: {
     Low: number;
     Warning: number;
     Critical: number;
-  };
+  }
   Layout: {
     MaxWidth: number;
     MaxHeight: number;
     DockedHeight: number;
-  };
+  }
 }
 
 export type AppArguments = ParsedArgs & {

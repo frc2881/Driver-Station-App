@@ -80,7 +80,12 @@
         rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
         rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
         frontPoseSensorHasTarget={ nt.topics.get(Topics.FrontPoseSensorHasTarget)?.value }
-        frontPoseSensorTargetCount={ nt.topics.get(Topics.FrontPoseSensorTargetCount)?.value } /> 
+        frontPoseSensorTargetCount={ nt.topics.get(Topics.FrontPoseSensorTargetCount)?.value }
+        leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
+        leftPoseSensorTargetCount={ nt.topics.get(Topics.LeftPoseSensorTargetCount)?.value }
+        rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
+        rightPoseSensorTargetCount={ nt.topics.get(Topics.RightPoseSensorTargetCount)?.value }
+        cameraStreams={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null) } /> 
     </Tile>
     <Tile class="widget">
       <TargetingInfo

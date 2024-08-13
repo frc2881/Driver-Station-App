@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { CenterSquare, CenterCircle } from "carbon-icons-svelte";
+	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
-  import { Configuration, type Pose2d } from "../../../common/index.js";
+  import { type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
 
   export let robotPose: [number, number, number];
@@ -9,6 +9,11 @@
   export let rearPoseSensorTargetCount: number;
   export let frontPoseSensorHasTarget: boolean;
   export let frontPoseSensorTargetCount: number;
+  export let leftPoseSensorHasTarget: boolean;
+  export let leftPoseSensorTargetCount: number;
+  export let rightPoseSensorHasTarget: boolean;
+  export let rightPoseSensorTargetCount: number;
+  export let cameraStreams: Record<string, string>;
 
   let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
   let isCameraStreamModalOpen: boolean = false;
@@ -29,7 +34,7 @@
       <button 
         on:click={ () => { 
           isCameraStreamModalOpen = true; 
-          cameraStreamUrl = Configuration.Settings.Cameras.Robot.Rear; 
+          cameraStreamUrl = cameraStreams.Rear; 
           cameraStreamName = "Rear" 
         } }>
         <CenterSquare
@@ -46,7 +51,7 @@
       <button 
         on:click={ () => { 
           isCameraStreamModalOpen = true; 
-          cameraStreamUrl = Configuration.Settings.Cameras.Robot.Front; 
+          cameraStreamUrl = cameraStreams.Front; 
           cameraStreamName = "Front" 
         } }>
         <CenterSquare
@@ -56,6 +61,40 @@
         Front
         { #if frontPoseSensorHasTarget }
         <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+        { /if }
+      </button>
+    </div>
+    <div class="sensor">
+      <button 
+        on:click={ () => { 
+          isCameraStreamModalOpen = true; 
+          cameraStreamUrl = cameraStreams.Left; 
+          cameraStreamName = "Left" 
+        } }>
+        <CenterSquare
+          fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
+          width=80
+          height=80 />
+        Left
+        { #if leftPoseSensorHasTarget }
+        <div class="targetCount">{ leftPoseSensorTargetCount }</div>
+        { /if }
+      </button>
+    </div>
+    <div class="sensor">
+      <button 
+        on:click={ () => { 
+          isCameraStreamModalOpen = true; 
+          cameraStreamUrl = cameraStreams.Right; 
+          cameraStreamName = "Right" 
+        } }>
+        <CenterSquare
+          fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
+          width=80
+          height=80 />
+        Right
+        { #if rightPoseSensorHasTarget }
+        <div class="targetCount">{ rightPoseSensorTargetCount }</div>
         { /if }
       </button>
     </div>

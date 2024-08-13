@@ -27,7 +27,7 @@
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ Configuration.Settings.Cameras.Robot.Driver }
+        streamUrl={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null)?.Driver }
         width={ 810 } 
         height={ 530 } />
     </Tile>
@@ -47,7 +47,7 @@
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
-          streamUrl={ Configuration.Settings.Cameras.Robot.Rear } 
+          deviceLabel={ "HD USB Camera" } 
           width={ 810 } 
           height={ 530 }
         />

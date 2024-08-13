@@ -3,7 +3,7 @@ import type { ConfigurationSettings } from "./types.js";
 export namespace Configuration {
   export const Settings: ConfigurationSettings = {
     NetworkTables: {
-      ServerAddress: "10.99.81.2",
+      ServerAddress: "10.28.81.2",
       ServerPort: 5810,
       Subscriptions: [
         "/SmartDashboard",
@@ -51,6 +51,11 @@ export namespace Configuration {
         RearPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Rear/TargetCount",
         FrontPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Front/HasTarget",
         FrontPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Front/TargetCount",
+        LeftPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Left/HasTarget",
+        LeftPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Left/TargetCount",
+        RightPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Right/HasTarget",
+        RightPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Right/TargetCount",
+        CameraStreams: "/SmartDashboard/Robot/Sensor/Camera/Streams",
         TargetDistance: "/SmartDashboard/Robot/Localization/Target/Distance",
         TargetHeading: "/SmartDashboard/Robot/Localization/Target/Heading",
         TargetPitch: "/SmartDashboard/Robot/Localization/Target/Pitch",
@@ -66,14 +71,6 @@ export namespace Configuration {
         LauncherRollersBottomSpeedDelta: "/SmartDashboard/Robot/Launcher/Rollers/Bottom/Speed/Delta",
         LauncherRollersIsLaunchReady: "/SmartDashboard/Robot/Launcher/Rollers/IsLaunchReady"
       },
-    },
-    Cameras: {
-      Robot: {
-        Driver: "http://10.99.81.6:1182/?action=stream",
-        Front: "http://10.99.81.6:1186/?action=stream",
-        Rear: "http://10.99.81.6:1184/?action=stream"
-      },
-      DriverStation: "HD USB Camera"
     },
     MatchTime: {
       Warning: 35,
