@@ -8,7 +8,7 @@
   export let launcherRollersBottomSpeedDelta: number;
   export let launcherRollersIsLaunchReady: boolean;
 
-  const ANGLE_SCALE: number = 2;
+  const ANGLE_SCALE: number = 3.2;
 
   const launcherRollersGaugeOptions: ChartOptions = {
     toolbar: { enabled: false },

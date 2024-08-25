@@ -49,13 +49,13 @@ export namespace Configuration {
         RobotPose: "/SmartDashboard/Robot/Localization/Pose",
         RearPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Rear/HasTarget",
         RearPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Rear/TargetCount",
+        FrontPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Front/HasTarget",
+        FrontPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Front/TargetCount",
         LeftPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Left/HasTarget",
         LeftPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Left/TargetCount",
         RightPoseSensorHasTarget: "/SmartDashboard/Robot/Sensor/Pose/Right/HasTarget",
         RightPoseSensorTargetCount: "/SmartDashboard/Robot/Sensor/Pose/Right/TargetCount",
-        FrontNoteObjectSensorHasTarget: "/SmartDashboard/Robot/Sensor/Object/Front/Note/HasTarget",
-        FrontNoteObjectSensorTargetHeading: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Heading",
-        FrontNoteObjectSensorTargetArea: "/SmartDashboard/Robot/Sensor/Object/Front/Note/Target/Area",
+        CameraStreams: "/SmartDashboard/Robot/Sensor/Camera/Streams",
         TargetDistance: "/SmartDashboard/Robot/Localization/Target/Distance",
         TargetHeading: "/SmartDashboard/Robot/Localization/Target/Heading",
         TargetPitch: "/SmartDashboard/Robot/Localization/Target/Pitch",
@@ -71,16 +71,6 @@ export namespace Configuration {
         LauncherRollersBottomSpeedDelta: "/SmartDashboard/Robot/Launcher/Rollers/Bottom/Speed/Delta",
         LauncherRollersIsLaunchReady: "/SmartDashboard/Robot/Launcher/Rollers/IsLaunchReady"
       },
-    },
-    Cameras: {
-      Robot: {
-        Driver: "http://10.28.81.6:1188/?action=stream",
-        Front: "http://10.28.81.6:1188/?action=stream",
-        Rear: "http://10.28.81.6:1182/?action=stream",
-        Left: "http://10.28.81.6:1186/?action=stream",
-        Right: "http://10.28.81.6:1184/?action=stream"
-      },
-      DriverStation: "HD USB Camera"
     },
     MatchTime: {
       Warning: 35,

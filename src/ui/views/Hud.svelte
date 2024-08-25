@@ -7,7 +7,6 @@
   import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
-  import NoteAlignment from "../components/Hud/NoteAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
@@ -28,7 +27,7 @@
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ Configuration.Settings.Cameras.Robot.Driver }
+        streamUrl={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null)?.Driver }
         width={ 810 } 
         height={ 530 } />
     </Tile>
@@ -44,19 +43,13 @@
     </Tile>
   </div>
   <div class="row">
-    <Tile class="widget">
-      <NoteAlignment 
-        frontNoteObjectSensorHasTarget={ nt.topics.get(Topics.FrontNoteObjectSensorHasTarget)?.value }
-        frontNoteObjectSensorTargetHeading={ nt.topics.get(Topics.FrontNoteObjectSensorTargetHeading)?.value }
-        frontNoteObjectSensorTargetArea={ nt.topics.get(Topics.FrontNoteObjectSensorTargetArea)?.value } />
-    </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
-          deviceLabel={ Configuration.Settings.Cameras.DriverStation } 
+          deviceLabel={ "HD USB Camera" } 
           width={ 810 } 
-          height={ 440 }
-          scale={ 1.5 }
+          height={ 530 }
         />
         <div class="matchtime">
           <MatchTime 
