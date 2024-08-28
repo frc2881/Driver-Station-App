@@ -5,10 +5,10 @@
   import CameraStream from "../../components/CameraStream.svelte";
 
   export let robotPose: [number, number, number];
-  export let rearPoseSensorHasTarget: boolean;
-  export let rearPoseSensorTargetCount: number;
   export let frontPoseSensorHasTarget: boolean;
   export let frontPoseSensorTargetCount: number;
+  export let rearPoseSensorHasTarget: boolean;
+  export let rearPoseSensorTargetCount: number;
   export let leftPoseSensorHasTarget: boolean;
   export let leftPoseSensorTargetCount: number;
   export let rightPoseSensorHasTarget: boolean;
@@ -34,23 +34,6 @@
       <button 
         on:click={ () => { 
           isCameraStreamModalOpen = true; 
-          cameraStreamUrl = cameraStreams.Rear; 
-          cameraStreamName = "Rear" 
-        } }>
-        <CenterSquare
-          fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Rear
-        { #if rearPoseSensorHasTarget }
-        <div class="targetCount">{ rearPoseSensorTargetCount }</div>
-        { /if }
-    </button>
-    </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
           cameraStreamUrl = cameraStreams.Front; 
           cameraStreamName = "Front" 
         } }>
@@ -61,6 +44,23 @@
         Front
         { #if frontPoseSensorHasTarget }
         <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+        { /if }
+      </button>
+    </div>
+    <div class="sensor">
+      <button 
+        on:click={ () => { 
+          isCameraStreamModalOpen = true; 
+          cameraStreamUrl = cameraStreams.Rear; 
+          cameraStreamName = "Rear" 
+        } }>
+        <CenterSquare
+          fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
+          width=80
+          height=80 />
+        Rear
+        { #if rearPoseSensorHasTarget }
+        <div class="targetCount">{ rearPoseSensorTargetCount }</div>
         { /if }
       </button>
     </div>

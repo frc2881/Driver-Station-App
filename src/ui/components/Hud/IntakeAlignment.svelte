@@ -1,13 +1,13 @@
 <script lang="ts">
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 
-  export let frontNoteObjectSensorHasTarget: boolean;
-  export let frontNoteObjectSensorTargetHeading: number;
-  export let frontNoteObjectSensorTargetArea: number;
+  export let intakeObjectSensorHasTarget: boolean;
+  export let intakeObjectSensorTargetHeading: number;
+  export let intakeObjectSensorTargetArea: number;
 
   let isAlignedToTarget: boolean = false;
   $:{ 
-    isAlignedToTarget = frontNoteObjectSensorHasTarget && Math.abs(frontNoteObjectSensorTargetHeading) <= 3.0;
+    isAlignedToTarget = intakeObjectSensorHasTarget && Math.abs(intakeObjectSensorTargetHeading) <= 3.0;
   }
 </script>
 
@@ -20,8 +20,8 @@
   <div class="robot"></div>
   <div 
     class="note"
-    class:active={ frontNoteObjectSensorHasTarget }
-    style:transform={ `translate(${ frontNoteObjectSensorTargetHeading * 6 }px, ${ frontNoteObjectSensorTargetArea * 18 }px)` }></div>
+    class:active={ intakeObjectSensorHasTarget }
+    style:transform={ `translate(${ intakeObjectSensorTargetHeading * 6 }px, ${ intakeObjectSensorTargetArea * 18 }px)` }></div>
 </div>
 
 <style>

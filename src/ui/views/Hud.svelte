@@ -1,12 +1,13 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
-  import { Alliance, Configuration, type NetworkTables } from "../../common/index.js";
+  import { Configuration, type NetworkTables } from "../../common/index.js";
   import { NetworkTablesStore } from "../stores/NetworkTables.js";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
-  import RobotAlignment from "../components/Hud/RobotAlignment.svelte";
   import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
+  import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
   import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
+  import IntakeAlignment from "../components/Hud/IntakeAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
@@ -32,7 +33,7 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
-      <RobotAlignment
+      <LauncherAlignment
         alliance={ nt.topics.get(Topics.Alliance)?.value }
         robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
         isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
@@ -43,7 +44,12 @@
     </Tile>
   </div>
   <div class="row">
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      <IntakeAlignment 
+        intakeObjectSensorHasTarget={ nt.topics.get(Topics.IntakeObjectSensorHasTarget)?.value }
+        intakeObjectSensorTargetHeading={ nt.topics.get(Topics.IntakeObjectSensorTargetHeading)?.value }
+        intakeObjectSensorTargetArea={ nt.topics.get(Topics.IntakeObjectSensorTargetArea)?.value } />
+    </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 

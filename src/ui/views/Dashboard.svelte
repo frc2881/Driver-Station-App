@@ -77,10 +77,10 @@
     <Tile class="widget">
       <LocalizationInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
-        rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
-        rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
         frontPoseSensorHasTarget={ nt.topics.get(Topics.FrontPoseSensorHasTarget)?.value }
         frontPoseSensorTargetCount={ nt.topics.get(Topics.FrontPoseSensorTargetCount)?.value }
+        rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
+        rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
         leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
         leftPoseSensorTargetCount={ nt.topics.get(Topics.LeftPoseSensorTargetCount)?.value }
         rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
