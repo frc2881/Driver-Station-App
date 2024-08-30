@@ -29,80 +29,84 @@
 
 <div class="main">
   <div class="title"><h4>Localization</h4></div>
-  <div class="sensors">
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
-          cameraStreamUrl = cameraStreams.Front; 
-          cameraStreamName = "Front" 
-        } }>
-        <CenterSquare
-          fill={ frontPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Front
-        { #if frontPoseSensorHasTarget }
-        <div class="targetCount">{ frontPoseSensorTargetCount }</div>
-        { /if }
-      </button>
+  <div class="info">
+    <div class="robot">
+      <div class="sensor">
+        <button 
+          title="Front"
+          on:click={ () => { 
+            isCameraStreamModalOpen = true; 
+            cameraStreamUrl = cameraStreams.Front; 
+            cameraStreamName = "Front" 
+          } }>
+          <CenterSquare
+            fill={ frontPoseSensorHasTarget ? "#00CC00" : "#333333" }
+            width=60
+            height=60 />
+          { #if frontPoseSensorTargetCount > 1 }
+          <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+          { /if }
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:row;justify-content:center;gap:3em;">
+        <div class="sensor">
+          <button 
+            title="Left"
+            on:click={ () => { 
+              isCameraStreamModalOpen = true; 
+              cameraStreamUrl = cameraStreams.Left; 
+              cameraStreamName = "Left" 
+            } }>
+            <CenterSquare
+              fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
+              width=60
+              height=60 />
+            { #if leftPoseSensorTargetCount > 1 }
+            <div class="targetCount">{ leftPoseSensorTargetCount }</div>
+            { /if }
+          </button>
+        </div>
+        <div class="sensor">
+          <button 
+            title="Right"
+            on:click={ () => { 
+              isCameraStreamModalOpen = true; 
+              cameraStreamUrl = cameraStreams.Right; 
+              cameraStreamName = "Right" 
+            } }>
+            <CenterSquare
+              fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
+              width=60
+              height=60 />
+            { #if rightPoseSensorTargetCount > 1 }
+            <div class="targetCount">{ rightPoseSensorTargetCount }</div>
+            { /if }
+          </button>
+        </div>
+      </div>
+      <div class="sensor">
+        <button
+          title="Rear" 
+          on:click={ () => { 
+            isCameraStreamModalOpen = true; 
+            cameraStreamUrl = cameraStreams.Rear; 
+            cameraStreamName = "Rear" 
+          } }>
+          <CenterSquare
+            fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
+            width=60
+            height=60 />
+          { #if rearPoseSensorTargetCount > 1 }
+          <div class="targetCount">{ rearPoseSensorTargetCount }</div>
+          { /if }
+        </button>
+      </div>
     </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
-          cameraStreamUrl = cameraStreams.Rear; 
-          cameraStreamName = "Rear" 
-        } }>
-        <CenterSquare
-          fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Rear
-        { #if rearPoseSensorHasTarget }
-        <div class="targetCount">{ rearPoseSensorTargetCount }</div>
-        { /if }
-      </button>
+    <div class="poseInfo">
+      <div>x: { poseInfo.x?.toFixed(3) } m</div>
+      <div>y: { poseInfo.y?.toFixed(3) } m</div>
+      <div>h: { poseInfo.rotation?.toFixed(2) } &deg;</div>
     </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
-          cameraStreamUrl = cameraStreams.Left; 
-          cameraStreamName = "Left" 
-        } }>
-        <CenterSquare
-          fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Left
-        { #if leftPoseSensorHasTarget }
-        <div class="targetCount">{ leftPoseSensorTargetCount }</div>
-        { /if }
-      </button>
-    </div>
-    <div class="sensor">
-      <button 
-        on:click={ () => { 
-          isCameraStreamModalOpen = true; 
-          cameraStreamUrl = cameraStreams.Right; 
-          cameraStreamName = "Right" 
-        } }>
-        <CenterSquare
-          fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
-          width=80
-          height=80 />
-        Right
-        { #if rightPoseSensorHasTarget }
-        <div class="targetCount">{ rightPoseSensorTargetCount }</div>
-        { /if }
-      </button>
-    </div>
-  </div>
-  <div class="poseInfo">
-    <div>x: { poseInfo.x?.toFixed(3) } m</div>
-    <div>y: { poseInfo.y?.toFixed(3) } m</div>
-    <div>r: { poseInfo.rotation?.toFixed(2) } &deg;</div>
   </div>
 </div>
 
@@ -129,13 +133,21 @@
       padding: 0px 3px;
     }
 
-    & .sensors {
+    & .info {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      gap: 3.5em;
+    }
+
+    & .robot {
+      display: flex;
+      flex-direction: column;
       justify-content: center;
-      gap: 1.5em;
-      margin-top: 2em;
+      gap: .75em;
+      width: 215px;
+      height: 245px;
+      border: 6px solid var(--app-color-pink);
+      border-radius: 6px;
 
       & .sensor {
         display: flex;
@@ -158,13 +170,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            right: 4px;
-            top: 58px;
+            right: 0;
+            top: 40px;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            color: var(--app-color-black);
-            background: var(--app-color-white);
+            color: var(--app-color-white);
+            background: var(--app-color-charcoal);
             font-weight: bold;
             opacity: .8;
           }
@@ -174,12 +186,9 @@
 
     & .poseInfo {
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      flex-wrap: wrap;
       font-size: 150%;
-      margin-top: 2em;
       gap: 1em;
     }
   }
