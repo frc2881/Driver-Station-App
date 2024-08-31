@@ -103,9 +103,9 @@
       </div>
     </div>
     <div class="poseInfo">
-      <div>x: { poseInfo.x?.toFixed(3) } m</div>
-      <div>y: { poseInfo.y?.toFixed(3) } m</div>
-      <div>h: { poseInfo.rotation?.toFixed(2) } &deg;</div>
+      <div><span class="label">X</span>{ poseInfo.x?.toFixed(3) } m</div>
+      <div><span class="label">Y</span>{ poseInfo.y?.toFixed(3) } m</div>
+      <div><span class="label">Heading</span>{ poseInfo.rotation?.toFixed(2) } &deg;</div>
     </div>
   </div>
 </div>
@@ -146,8 +146,7 @@
       gap: .75em;
       width: 215px;
       height: 245px;
-      border: 6px solid var(--app-color-pink);
-      border-radius: 6px;
+      border: 2px solid var(--app-color-pink);
 
       & .sensor {
         display: flex;
@@ -188,8 +187,15 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 150%;
+      font-size: 180%;
       gap: 1em;
+
+      & .label {
+        display: block;
+        margin-bottom: .5em;
+        font-size: 14px;
+        color: var(--app-color-smoke);
+      }
     }
   }
 

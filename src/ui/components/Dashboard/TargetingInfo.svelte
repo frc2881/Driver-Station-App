@@ -45,9 +45,9 @@
       options={ chartOptions } />
   </div>
   <div class="targetInfo">
-    <div>d: { targetDistance?.toFixed(3) } m</div>
-    <div>h: { targetHeading?.toFixed(2) } &deg;</div>
-    <div>p: { targetPitch?.toFixed(2) } &deg;</div>
+    <div><span class="label">Distance</span>{ targetDistance?.toFixed(3) } m</div>
+    <div><span class="label">Heading</span>{ targetHeading?.toFixed(2) } &deg;</div>
+    <div><span class="label">Elevation</span>{ targetPitch?.toFixed(2) } &deg;</div>
   </div>
 </div>
 
@@ -61,7 +61,7 @@
     
     & .chart {
       width: 395px;
-      height: 170px;
+      height: 160px;
     }
 
     & .targetInfo {
@@ -69,9 +69,16 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      font-size: 150%;
-      margin-top: 2em;
-      gap: 1em;
+      font-size: 180%;
+      margin-top: 1.25em;
+      gap: 1.5em;
+
+      & .label {
+        display: block;
+        margin-bottom: .5em;
+        font-size: 14px;
+        color: var(--app-color-smoke);
+      }
     }
   }
 </style>

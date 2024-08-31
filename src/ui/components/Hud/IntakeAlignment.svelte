@@ -5,9 +5,13 @@
   export let intakeObjectSensorTargetHeading: number;
   export let intakeObjectSensorTargetArea: number;
 
+  const TARGET_HEADING_ALIGNMENT_TOLERANCE: number = 3.0;
+  const TARGET_HEADING_RATIO: number = 6.0;
+  const TARGET_AREA_RATIO: number = 18.0;
+
   let isAlignedToTarget: boolean = false;
   $:{ 
-    isAlignedToTarget = intakeObjectSensorHasTarget && Math.abs(intakeObjectSensorTargetHeading) <= 3.0;
+    isAlignedToTarget = intakeObjectSensorHasTarget && Math.abs(intakeObjectSensorTargetHeading) <= TARGET_HEADING_ALIGNMENT_TOLERANCE;
   }
 </script>
 
@@ -21,7 +25,7 @@
   <div 
     class="note"
     class:active={ intakeObjectSensorHasTarget }
-    style:transform={ `translate(${ intakeObjectSensorTargetHeading * 6 }px, ${ intakeObjectSensorTargetArea * 18 }px)` }></div>
+    style:transform={ intakeObjectSensorHasTarget ? `translate(${ intakeObjectSensorTargetHeading * TARGET_HEADING_RATIO }px, ${ intakeObjectSensorTargetArea * TARGET_AREA_RATIO }px)` : "" }></div>
 </div>
 
 <style>
