@@ -8,7 +8,7 @@
 <div class="main">
   <div class="close-button">
     <button on:click={ () => { isControllerMapVisible = false; } }>
-      <CloseOutline width=48 height=48 fill="#000000" />
+      <CloseOutline width=48 height=48 fill="#FFFFFF" />
     </button>
   </div>
   <div class="controllers">
@@ -36,7 +36,7 @@
       <div class="do">A: * Align Amp</div>
       <div class="do">B: * Align Subwoofer</div>
       <div class="do">Y: * Align Podium</div>
-      <div class="na">X: ----------</div>
+      <div>X: Climb U/D</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
@@ -87,10 +87,10 @@
       <div class="na">A: ----------</div>
       <div class="na">B: ----------</div>
       <div class="na">Y: ----------</div>
-      <div class="na">X: ----------</div>
+      <div>X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div class="na">L: ----------</div>
+      <div>L: Align Manual</div>
       <div>U: Align Shuttle</div>
       <div>R: Align Podium</div>
       <div>D: Align Subwoofer</div>
@@ -125,7 +125,7 @@
     z-index: 9999;
     width: 1880px;
     height: 720px;
-    background: #FFFFFF;
+    background: var(--app-color-black);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -153,12 +153,11 @@
 
       & .text {
         position: absolute;
-        color: var(--app-color-black);
+        color: var(--app-color-white);
         display: flex;
         flex-direction: column;
         gap: .25em;
         font-size: 13px;
-        font-weight: bold;
         transform: translateY(20px);
 
         &.title {
@@ -166,7 +165,6 @@
           padding: 5px 15px;
           border: 1px solid var(--app-color-charcoal);
           text-align: center;
-          background: var(--app-color-black);
           color: var(--app-color-white);
         }
 
@@ -191,7 +189,7 @@
         }
 
         & .na {
-          opacity: 0.25;
+          opacity: 0.5;
         }
 
         & .do {

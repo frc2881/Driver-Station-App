@@ -77,7 +77,8 @@
           left: 50%;
           width: 640px;
           height: 2px;
-          transform: translateX(-107%) translateY(-2px);
+          transform: translateX(-107%) translateY(-2px) rotate(-6deg);
+          transform-origin: 100%;
           border: 2px dashed var(--app-color-white);
         }
 

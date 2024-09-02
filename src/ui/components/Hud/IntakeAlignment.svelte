@@ -8,6 +8,7 @@
   const TARGET_HEADING_ALIGNMENT_TOLERANCE: number = 3.0;
   const TARGET_HEADING_RATIO: number = 6.0;
   const TARGET_AREA_RATIO: number = 18.0;
+  const SENSOR_OFFSET_PIXELS: number = 28;
 
   let isAlignedToTarget: boolean = false;
   $:{ 
@@ -25,7 +26,7 @@
   <div 
     class="note"
     class:active={ intakeObjectSensorHasTarget }
-    style:transform={ intakeObjectSensorHasTarget ? `translate(${ intakeObjectSensorTargetHeading * TARGET_HEADING_RATIO }px, ${ intakeObjectSensorTargetArea * TARGET_AREA_RATIO }px)` : "" }></div>
+    style:transform={ intakeObjectSensorHasTarget ? `translate(${ (intakeObjectSensorTargetHeading * TARGET_HEADING_RATIO) - SENSOR_OFFSET_PIXELS }px, ${ intakeObjectSensorTargetArea * TARGET_AREA_RATIO }px)` : "" }></div>
 </div>
 
 <style>

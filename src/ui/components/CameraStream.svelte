@@ -38,7 +38,7 @@
       while (true) {
         if (image!) {
           image!.src = transparentPixelImage;
-          await Utils.wait(0.001);
+          await Utils.wait(0.1);
           image!.src = `${ streamUrl }?${ new Date().getTime() }`;
         }
         await Utils.wait(60);
