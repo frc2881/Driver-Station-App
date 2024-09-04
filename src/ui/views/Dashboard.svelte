@@ -77,12 +77,16 @@
     <Tile class="widget">
       <LocalizationInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
+        frontPoseSensorIsConnected={ nt.topics.get(Topics.FrontPoseSensorIsConnected)?.value }
         frontPoseSensorHasTarget={ nt.topics.get(Topics.FrontPoseSensorHasTarget)?.value }
         frontPoseSensorTargetCount={ nt.topics.get(Topics.FrontPoseSensorTargetCount)?.value }
+        rearPoseSensorIsConnected={ nt.topics.get(Topics.RearPoseSensorIsConnected)?.value }
         rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
         rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
+        leftPoseSensorIsConnected={ nt.topics.get(Topics.LeftPoseSensorIsConnected)?.value }
         leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
         leftPoseSensorTargetCount={ nt.topics.get(Topics.LeftPoseSensorTargetCount)?.value }
+        rightPoseSensorIsConnected={ nt.topics.get(Topics.RightPoseSensorIsConnected)?.value }
         rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
         rightPoseSensorTargetCount={ nt.topics.get(Topics.RightPoseSensorTargetCount)?.value }
         cameraStreams={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null) } /> 

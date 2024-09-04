@@ -5,12 +5,16 @@
   import CameraStream from "../../components/CameraStream.svelte";
 
   export let robotPose: [number, number, number];
+  export let frontPoseSensorIsConnected: boolean;
   export let frontPoseSensorHasTarget: boolean;
   export let frontPoseSensorTargetCount: number;
+  export let rearPoseSensorIsConnected: boolean;
   export let rearPoseSensorHasTarget: boolean;
   export let rearPoseSensorTargetCount: number;
+  export let leftPoseSensorIsConnected: boolean;
   export let leftPoseSensorHasTarget: boolean;
   export let leftPoseSensorTargetCount: number;
+  export let rightPoseSensorIsConnected: boolean;
   export let rightPoseSensorHasTarget: boolean;
   export let rightPoseSensorTargetCount: number;
   export let cameraStreams: Record<string, string>;
@@ -40,7 +44,7 @@
             cameraStreamName = "Front" 
           } }>
           <CenterSquare
-            fill={ frontPoseSensorHasTarget ? "#00CC00" : "#333333" }
+            fill={ frontPoseSensorIsConnected ? frontPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
             width=60
             height=60 />
           { #if frontPoseSensorTargetCount > 1 }
@@ -58,7 +62,7 @@
               cameraStreamName = "Left" 
             } }>
             <CenterSquare
-              fill={ leftPoseSensorHasTarget ? "#00CC00" : "#333333" }
+              fill={ leftPoseSensorIsConnected ? leftPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
               width=60
               height=60 />
             { #if leftPoseSensorTargetCount > 1 }
@@ -75,7 +79,7 @@
               cameraStreamName = "Right" 
             } }>
             <CenterSquare
-              fill={ rightPoseSensorHasTarget ? "#00CC00" : "#333333" }
+              fill={ rightPoseSensorIsConnected ? rightPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
               width=60
               height=60 />
             { #if rightPoseSensorTargetCount > 1 }
@@ -93,7 +97,7 @@
             cameraStreamName = "Rear" 
           } }>
           <CenterSquare
-            fill={ rearPoseSensorHasTarget ? "#00CC00" : "#333333" }
+            fill={ rearPoseSensorIsConnected ? rearPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
             width=60
             height=60 />
           { #if rearPoseSensorTargetCount > 1 }
