@@ -87,7 +87,7 @@
       <div class="na">A: ----------</div>
       <div class="na">B: ----------</div>
       <div class="na">Y: ----------</div>
-      <div>X: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div>L: Align Manual</div>
@@ -163,9 +163,9 @@
         &.title {
           width: 250px;
           padding: 5px 15px;
-          border: 1px solid var(--app-color-charcoal);
+          background: var(--app-color-pink);
+          color: var(--app-color-black);
           text-align: center;
-          color: var(--app-color-white);
         }
 
         &.right {

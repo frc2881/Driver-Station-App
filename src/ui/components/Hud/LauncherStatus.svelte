@@ -9,6 +9,7 @@
   export let launcherRollersIsLaunchReady: boolean;
 
   const ANGLE_SCALE: number = 3.2;
+  const LAUNCHER_ARM_POSITION_OFFSET: number = 4.0;
 
   const launcherRollersGaugeOptions: ChartOptions = {
     toolbar: { enabled: false },
@@ -34,7 +35,7 @@
   </div>
   <div class="launcher">
     <div class="arm">
-      <div class="angle" style:transform={ `rotate(${ -((launcherArmPosition + 8) * ANGLE_SCALE) }deg)` }></div>
+      <div class="angle" style:transform={ `rotate(${ -((launcherArmPosition + LAUNCHER_ARM_POSITION_OFFSET) * ANGLE_SCALE) }deg)` }></div>
       <div class="position">{ launcherArmPosition?.toFixed(2) ?? 0 }</div>
     </div>
     <div class="rollers">
