@@ -1,15 +1,21 @@
 {
   "exclude": ["node_modules/*"],
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "strict": true,
-    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "sourceMap": true
   }
 }
