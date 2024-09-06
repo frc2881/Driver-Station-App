@@ -49,10 +49,10 @@
       margin: 2em 1em;
 
       & .label {
+        margin: 0 4em 1em 0;
         padding-bottom: .5em;
-        margin-bottom: 1em;
         font-size: 120%;
-        border-bottom: 2px solid var(--app-color-pink);
+        border-bottom: 4px solid var(--app-color-charcoal);
       }
     }
   }

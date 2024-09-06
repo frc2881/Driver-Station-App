@@ -45,6 +45,7 @@
       bottom: -10px;
       width: 330px;
       height: 80px;
+      background-color: var(--app-color-pink);
       border: 15px solid var(--app-color-pink);
       border-radius: 10px;
       border-bottom: none;

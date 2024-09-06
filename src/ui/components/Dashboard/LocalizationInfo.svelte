@@ -40,13 +40,16 @@
           title="Front"
           on:click={ () => { 
             isCameraStreamModalOpen = true; 
-            cameraStreamUrl = cameraStreams.Front; 
+            cameraStreamUrl = cameraStreams["Front"] ?? ""; 
             cameraStreamName = "Front" 
           } }>
           <CenterSquare
-            fill={ frontPoseSensorIsConnected ? frontPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
+            fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
             width=60
             height=60 />
+          { #if frontPoseSensorIsConnected }
+          <div class="connection"></div>
+          { /if }
           { #if frontPoseSensorTargetCount > 1 }
           <div class="targetCount">{ frontPoseSensorTargetCount }</div>
           { /if }
@@ -58,13 +61,16 @@
             title="Left"
             on:click={ () => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams.Left; 
+              cameraStreamUrl = cameraStreams["Left"] ?? ""; 
               cameraStreamName = "Left" 
             } }>
             <CenterSquare
-              fill={ leftPoseSensorIsConnected ? leftPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
+              fill={ leftPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=60
               height=60 />
+            { #if leftPoseSensorIsConnected }
+            <div class="connection"></div>
+            { /if }
             { #if leftPoseSensorTargetCount > 1 }
             <div class="targetCount">{ leftPoseSensorTargetCount }</div>
             { /if }
@@ -75,13 +81,16 @@
             title="Right"
             on:click={ () => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams.Right; 
+              cameraStreamUrl = cameraStreams["Right"] ?? ""; 
               cameraStreamName = "Right" 
             } }>
             <CenterSquare
-              fill={ rightPoseSensorIsConnected ? rightPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
+              fill={ rightPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=60
               height=60 />
+            { #if rightPoseSensorIsConnected }
+            <div class="connection"></div>
+            { /if }
             { #if rightPoseSensorTargetCount > 1 }
             <div class="targetCount">{ rightPoseSensorTargetCount }</div>
             { /if }
@@ -93,13 +102,16 @@
           title="Rear" 
           on:click={ () => { 
             isCameraStreamModalOpen = true; 
-            cameraStreamUrl = cameraStreams.Rear; 
+            cameraStreamUrl = cameraStreams["Rear"] ?? ""; 
             cameraStreamName = "Rear" 
           } }>
           <CenterSquare
-            fill={ rearPoseSensorIsConnected ? rearPoseSensorHasTarget ? "#00CC00" : "#666666" : "#990000" }
+            fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
             width=60
             height=60 />
+          { #if rearPoseSensorIsConnected }
+          <div class="connection"></div>
+          { /if }
           { #if rearPoseSensorTargetCount > 1 }
           <div class="targetCount">{ rearPoseSensorTargetCount }</div>
           { /if }
@@ -150,7 +162,7 @@
       gap: .75em;
       width: 215px;
       height: 245px;
-      border: 2px solid var(--app-color-pink);
+      border: 2px solid var(--app-color-charcoal);
 
       & .sensor {
         display: flex;
@@ -168,6 +180,20 @@
           color: var(--app-color-white);
           cursor: pointer;
           
+          & .connection {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 2px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--app-color-green);
+            opacity: .5;
+          }
+
           & .targetCount {
             position: absolute;
             display: flex;
