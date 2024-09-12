@@ -15,17 +15,16 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div class="do">LT: * Align Speaker</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div class="do">* Launch (if aligned)</div>
-      <div>RT: Intake Front</div>
+      <div class="na">RT: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div class="do">LB: * Align Shuttle</div>
+      <div class="na">LB: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Eject Intake</div>
+      <div class="na">RB: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>L-R: Drive L/R</div>
@@ -33,10 +32,10 @@
       <div>Hold: Lock</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
-      <div class="do">A: * Align Amp</div>
-      <div class="do">B: * Align Subwoofer</div>
-      <div class="do">Y: * Align Podium</div>
-      <div>X: Climb U/D</div>
+      <div class="na">A: ----------</div>
+      <div class="na">B: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
@@ -60,27 +59,26 @@
         Notes:
         <ul>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
-          <li>* Driver-only mode launch command requires a launcher alignment option to be held in combination</li>
         </ul>
       </div>
     </div>
     <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Align Speaker</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Launch Speaker</div>
+      <div class="na">RT: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Align Amp</div>
+      <div class="na">LB: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Launch Amp</div>
+      <div class="na">RB: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div class="na">L-R: ----------</div>
-      <div>U-D: Launcher U/D</div>
+      <div class="na">U-D: ----------</div>
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
@@ -90,10 +88,10 @@
       <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L: Align Manual</div>
-      <div>U: Align Shuttle</div>
-      <div>R: Align Podium</div>
-      <div>D: Align Subwoofer</div>
+      <div class="na">L: ----------</div>
+      <div class="na">U: ----------</div>
+      <div class="na">R: ----------</div>
+      <div class="na">D: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div class="na">L-R: ----------</div>
@@ -101,7 +99,7 @@
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
-      <div>Back: Reset Launcher</div>
+      <div class="na">Back: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:180px;">
       <div class="na">Start: ----------</div>
@@ -110,8 +108,7 @@
       <div>
         Notes:
         <ul>
-          <li>Always reset launcher arm position to zero after robot power cycle, roboRIO reboot, or new robot code deployment</li>
-          <li>Operator controller launch command requires a launcher alignment option to be held in combination</li>
+          <!-- <li></li> -->
         </ul>
       </div>
     </div>
