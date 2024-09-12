@@ -8,9 +8,7 @@
   import Settings from "../components/Dashboard/Settings.svelte";
   import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
-  import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
-  import TargetingInfo from "../components/Dashboard/TargetingInfo.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
@@ -66,15 +64,6 @@
         swerveModuleRearRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearRightTurningPosition)?.value } />
     </Tile>
     <Tile class="widget">
-      <ResetStatus 
-        hasInitialZeroResets={ nt.topics.get(Topics.HasInitialZeroResets)?.value }
-        isGyroCalibrating={ nt.topics.get(Topics.IsGyroCalibrating)?.value } />
-    </Tile>
-    <Tile class="widget row-span-2">
-      <AutoSettings
-        alliance={ nt.topics.get(Topics.Alliance)?.value } />
-    </Tile>
-    <Tile class="widget">
       <LocalizationInfo 
         robotPose={ nt.topics.get(Topics.RobotPose)?.value }
         frontPoseSensorIsConnected={ nt.topics.get(Topics.FrontPoseSensorIsConnected)?.value }
@@ -91,12 +80,13 @@
         rightPoseSensorTargetCount={ nt.topics.get(Topics.RightPoseSensorTargetCount)?.value }
         cameraStreams={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null) } /> 
     </Tile>
+    <Tile class="widget row-span-2">
+      <AutoSettings
+        alliance={ nt.topics.get(Topics.Alliance)?.value } />
+    </Tile>
     <Tile class="widget">
-      <TargetingInfo
-        targetDistance={ nt.topics.get(Topics.TargetDistance)?.value }
-        targetHeading={ nt.topics.get(Topics.TargetHeading)?.value }
-        targetPitch={ nt.topics.get(Topics.TargetPitch)?.value }
-        launcherArmPositions={ nt.topics.get(Topics.LauncherArmPositions)?.value } />
+    </Tile>
+    <Tile class="widget">
     </Tile>
     <ControllerMap 
       bind:isControllerMapVisible={ isControllerMapVisible } />

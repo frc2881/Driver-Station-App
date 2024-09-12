@@ -4,10 +4,7 @@
   import { NetworkTablesStore } from "../stores/NetworkTables.js";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
-  import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
-  import LauncherAlignment from "../components/Hud/LauncherAlignment.svelte";
-  import IntakeStatus from "../components/Hud/IntakeStatus.svelte";
-  import IntakeAlignment from "../components/Hud/IntakeAlignment.svelte";
+  import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
   let nt: NetworkTables;
@@ -18,22 +15,7 @@
 { #if nt.isConnected }
   <div class="row">
     <Tile class="widget">
-      <IntakeStatus 
-        intakeSpeed={ nt.topics.get(Topics.IntakeSpeed)?.value }
-        launcherDistanceSensorHasTarget={ nt.topics.get(Topics.LauncherDistanceSensorHasTarget)?.value }
-        launcherDistanceSensorValue={ nt.topics.get(Topics.LauncherDistanceSensorValue)?.value }
-        intakeIsLoaded={ nt.topics.get(Topics.IntakeIsLoaded)?.value }
-        intakeIsLaunchReady={ nt.topics.get(Topics.IntakeIsLaunchReady)?.value }
-      />
-    </Tile>
-    <Tile class="widget">
-      <CameraStream
-        streamUrl={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null)?.Driver }
-        width={ 810 } 
-        height={ 530 } />
-    </Tile>
-    <Tile class="widget">
-      <LauncherAlignment
+      <TargetAlignment
         alliance={ nt.topics.get(Topics.Alliance)?.value }
         robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
         isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
@@ -42,13 +24,17 @@
         driveLength={ nt.topics.get(Topics.DriveLength)?.value }
         driveWidth={ nt.topics.get(Topics.DriveWidth)?.value } />
     </Tile>
+    <Tile class="widget">
+      <CameraStream
+        streamUrl={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null)?.Driver }
+        width={ 810 } 
+        height={ 530 } />
+    </Tile>
+    <Tile class="widget">
+    </Tile>
   </div>
   <div class="row">
     <Tile class="widget">
-      <IntakeAlignment 
-        intakeObjectSensorHasTarget={ nt.topics.get(Topics.IntakeObjectSensorHasTarget)?.value }
-        intakeObjectSensorTargetHeading={ nt.topics.get(Topics.IntakeObjectSensorTargetHeading)?.value }
-        intakeObjectSensorTargetArea={ nt.topics.get(Topics.IntakeObjectSensorTargetArea)?.value } />
     </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
@@ -64,13 +50,6 @@
       </div>
     </Tile>
     <Tile class="widget">
-      <LauncherStatus 
-        launcherArmPosition={ nt.topics.get(Topics.LauncherArmPosition)?.value }
-        launcherArmIsAlignedToTarget={ nt.topics.get(Topics.LauncherArmIsAlignedToTarget)?.value }
-        launcherRollersTopSpeedDelta={ nt.topics.get(Topics.LauncherRollersTopSpeedDelta)?.value }
-        launcherRollersBottomSpeedDelta={ nt.topics.get(Topics.LauncherRollersBottomSpeedDelta)?.value }
-        launcherRollersIsLaunchReady={ nt.topics.get(Topics.LauncherRollersIsLaunchReady)?.value }
-      />
     </Tile>
   </div>
 { :else }
