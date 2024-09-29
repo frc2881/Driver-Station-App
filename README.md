@@ -32,6 +32,9 @@ _Note: more complete configuration and usage documentation is TBD_
 ### Data Explorer
 ![Data Explorer](screenshots/data-explorer.png)
 
+### Demo
+[![2881 Lady Cans | Behind the Bumpers | CRESCENDO](https://img.youtube.com/vi/B-pHaoalEUw/0.jpg)](https://youtu.be/B-pHaoalEUw?t=312)
+
 ## Tech Stack
 
 * [Electron](https://www.electronjs.org/)
