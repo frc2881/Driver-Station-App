@@ -4,7 +4,35 @@ Not Shuffleboard or Elastic. Just a modern web app hosted in Electron for the dr
 
 _Note: more complete configuration and usage documentation is TBD_
 
-## Stack
+## Views (2024.1.2 - Crescendo)
+
+### Dashboard (primary notebook screen docked to NI driver station app)
+* Robot, battery and game status indicators
+* Auto command selection and field traveral visulaization
+* Mechanism reset status indicator for robot safety
+* Drive train status and performance metrics
+* Robot localization and vision telemetry with AprilTag acquisition and pose estimation
+* Discreet robot configuration settings for drive and other subsystems
+
+![Dashboard](screenshots/dashboard.png)
+
+### HUD (heads-up display on secondary monitor for drive team)
+* Game piece intake status indicator with sensor values and internal position
+* External game piece object detection and intake alignment indicator
+* Floor-facing camera stream with object detection overlay
+* Driver station camera stream with fisheye view for driver station wall observation
+* Scoring target alignment visualization based on real-time localization data
+* Launcher subsystems status and performance indicators for elevation and speed
+
+![HUD (Heads-Up Display)](screenshots/hud.png)
+
+### Controller Map
+![Controller Map](screenshots/controller-map.png)
+
+### Data Explorer
+![Data Explorer](screenshots/data-explorer.png)
+
+## Tech Stack
 
 * [Electron](https://www.electronjs.org/)
 * [TypeScript](https://www.typescriptlang.org/)
