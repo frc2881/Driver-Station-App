@@ -12,6 +12,7 @@ _Note: more complete configuration and usage documentation is TBD_
 * Mechanism reset status indicator for robot safety
 * Drive train status and performance metrics
 * Robot localization and vision telemetry with AprilTag acquisition and pose estimation
+* Targeting calculation graph and status for linear interpolation between target distance and launcher elevation
 * Discreet robot configuration settings for drive and other subsystems
 
 ![Dashboard](screenshots/dashboard.png)
@@ -21,6 +22,7 @@ _Note: more complete configuration and usage documentation is TBD_
 * External game piece object detection and intake alignment indicator
 * Floor-facing camera stream with object detection overlay
 * Driver station camera stream with fisheye view for driver station wall observation
+* Current match time overlay
 * Scoring target alignment visualization based on real-time localization data
 * Launcher subsystems status and performance indicators for elevation and speed
 
