@@ -33,6 +33,14 @@
       options={ nt.topics.get(`${Topics.DriveIdleMode}/options`) }
       active={ nt.topics.get(`${Topics.DriveIdleMode}/active`) } />
   </div>
+  <div class="category">
+    <div class="label">Launcher</div>
+    <SendableChooser
+      name="Demo" 
+      inline
+      options={ nt.topics.get(`${Topics.LauncherIsDemoMode}/options`) }
+      active={ nt.topics.get(`${Topics.LauncherIsDemoMode}/active`) } />
+  </div>
 </div>
 
 <style>

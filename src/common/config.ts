@@ -66,6 +66,7 @@ export namespace Configuration {
         TargetDistance: "/SmartDashboard/Robot/Localization/Target/Distance",
         TargetHeading: "/SmartDashboard/Robot/Localization/Target/Heading",
         TargetPitch: "/SmartDashboard/Robot/Localization/Target/Pitch",
+        LauncherIsDemoMode: "/SmartDashboard/Robot/Launcher/IsDemoMode",
         IntakeSpeed: "/SmartDashboard/Robot/Intake/Speed",
         IntakeIsLoaded: "/SmartDashboard/Robot/Intake/IsLoaded",
         IntakeIsLaunchReady: "/SmartDashboard/Robot/Intake/IsLaunchReady",
