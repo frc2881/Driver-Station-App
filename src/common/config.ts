@@ -66,7 +66,6 @@ export namespace Configuration {
         TargetDistance: "/SmartDashboard/Robot/Localization/Target/Distance",
         TargetHeading: "/SmartDashboard/Robot/Localization/Target/Heading",
         TargetPitch: "/SmartDashboard/Robot/Localization/Target/Pitch",
-        LauncherIsDemoMode: "/SmartDashboard/Robot/Launcher/IsDemoMode",
         IntakeSpeed: "/SmartDashboard/Robot/Intake/Speed",
         IntakeIsLoaded: "/SmartDashboard/Robot/Intake/IsLoaded",
         IntakeIsLaunchReady: "/SmartDashboard/Robot/Intake/IsLaunchReady",
@@ -77,7 +76,8 @@ export namespace Configuration {
         LauncherArmIsAlignedToTarget: "/SmartDashboard/Robot/Launcher/Arm/IsAlignedToTarget",
         LauncherRollersTopSpeedDelta: "/SmartDashboard/Robot/Launcher/Rollers/Top/Speed/Delta",
         LauncherRollersBottomSpeedDelta: "/SmartDashboard/Robot/Launcher/Rollers/Bottom/Speed/Delta",
-        LauncherRollersIsLaunchReady: "/SmartDashboard/Robot/Launcher/Rollers/IsLaunchReady"
+        LauncherRollersIsLaunchReady: "/SmartDashboard/Robot/Launcher/Rollers/IsLaunchReady",
+        LauncherRollersSpeedMode: "/SmartDashboard/Robot/Launcher/Rollers/SpeedMode"
       },
     },
     MatchTime: {

@@ -36,10 +36,10 @@
   <div class="category">
     <div class="label">Launcher</div>
     <SendableChooser
-      name="Demo" 
+      name="Speed Mode" 
       inline
-      options={ nt.topics.get(`${Topics.LauncherIsDemoMode}/options`) }
-      active={ nt.topics.get(`${Topics.LauncherIsDemoMode}/active`) } />
+      options={ nt.topics.get(`${Topics.LauncherRollersSpeedMode}/options`) }
+      active={ nt.topics.get(`${Topics.LauncherRollersSpeedMode}/active`) } />
   </div>
 </div>
 
