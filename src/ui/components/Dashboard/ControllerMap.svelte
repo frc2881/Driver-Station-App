@@ -1,13 +1,17 @@
 <script lang="ts">
   import CloseOutline from "carbon-icons-svelte/lib/CloseOutline.svelte";
 
-  export let isControllerMapVisible = false;
+  interface Props {
+    isControllerMapVisible?: boolean;
+  }
+
+  let { isControllerMapVisible = $bindable(false) }: Props = $props();
 </script>
 
-{ #if isControllerMapVisible }
+{#if isControllerMapVisible}
 <div class="main">
   <div class="close-button">
-    <button on:click={ () => { isControllerMapVisible = false; } }>
+    <button onclick={() => { isControllerMapVisible = false; }}>
       <CloseOutline width=48 height=48 fill="#FFFFFF" />
     </button>
   </div>
@@ -114,7 +118,7 @@
     </div>
   </div>
 </div>
-{ /if }
+{/if}
 
 <style>
   .main {

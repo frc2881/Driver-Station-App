@@ -1,25 +1,39 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 	import { Alliance, type Pose2d } from "../../../common/index.js";
 
-  export let alliance: Alliance;
-  export let robotPose: [number, number, number];
-  export let isAlignedToTarget: boolean;
-  export let fieldLength: number;
-  export let fieldWidth: number;
-  export let driveLength: number;
-  export let driveWidth: number;
+  interface Props {
+    alliance: Alliance;
+    robotPose: [number, number, number];
+    isAlignedToTarget: boolean;
+    fieldLength: number;
+    fieldWidth: number;
+    driveLength: number;
+    driveWidth: number;
+  }
+
+  let {
+    alliance,
+    robotPose,
+    isAlignedToTarget,
+    fieldLength,
+    fieldWidth,
+    driveLength,
+    driveWidth
+  }: Props = $props();
 
   const PIXELS_PER_METER: number = 100;
 
-  let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
+  let poseInfo: Pose2d = $state({ x: 0, y: 0, rotation: 0 });
 
-  $: {
+  run(() => {
     poseInfo.x = robotPose?.[0] ?? 0;
     poseInfo.y = robotPose?.[1] ?? 0;
     poseInfo.rotation = robotPose?.[2] ?? 0;
-  }
+  });
 </script>
 
 <div class="main">

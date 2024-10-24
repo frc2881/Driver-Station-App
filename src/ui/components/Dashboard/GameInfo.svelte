@@ -1,9 +1,13 @@
 <script lang="ts">
   import { Alliance } from "../../../common/index.js";
 
-  export let alliance: Alliance;
-  export let team: number;
-  export let station: number;
+  interface Props {
+    alliance: Alliance;
+    team: number;
+    station: number;
+  }
+
+  let { alliance, team, station }: Props = $props();
 </script>
 
 <div class="main">

@@ -1,18 +1,16 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
-  import { Configuration, type NetworkTables } from "../../common/index.js";
-  import { NetworkTablesStore } from "../stores/NetworkTables.js";
+  import { Configuration } from "../../common/index.js";
+  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte.js";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
-  let nt: NetworkTables;
-  $: { nt = $NetworkTablesStore; }
 </script>
 
 <main>
-{ #if nt.isConnected }
+{#if nt.isConnected}
   <div class="row">
     <Tile class="widget">
       <TargetAlignment
@@ -52,7 +50,7 @@
     <Tile class="widget">
     </Tile>
   </div>
-{ :else }
+{:else}
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
@@ -62,7 +60,7 @@
       hideCloseButton />
   </div>
   <div class="watermark"><SkeletonPlaceholder class="skeleton" /><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
-{ /if }
+{/if}
 </main>
 
 <style>
@@ -99,11 +97,9 @@
       }
     }
 
-    & :global {
-      & .widget {
-        padding: 0px;
-        background: #1C1C1C;
-      }
+    & :global(.widget) {
+      padding: 0px;
+      background: #1C1C1C;
     } 
   }
 
@@ -117,12 +113,10 @@
     top: 50%;
     transform: translate(-128px, -128px);
 
-    & :global {
-      & .skeleton {
-        position: absolute;
-        width: 256px;
-        height: 256px;
-      }
+    & :global(.skeleton) {
+      position: absolute;
+      width: 256px;
+      height: 256px;
     }
 
     & .icon {

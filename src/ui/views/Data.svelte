@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
   import { 
     DataTable, 
     DataTableSkeleton,
@@ -14,43 +15,40 @@
     InlineNotification,
     NumberInput
   } from "carbon-components-svelte";
+	import { type DataTableRow } from 'carbon-components-svelte/src/DataTable/DataTable.svelte';
   import { LineChart, type LineChartOptions, ScaleTypes } from "@carbon/charts-svelte";
   import { 
     Configuration,
     Utils,
-    type NetworkTables,
     type NetworkTablesTopic,
     NetworkTablesDataType
 	} from "../../common/index.js";
   import { 
-    NetworkTablesStore, 
+    NetworkTablesService as nt, 
     updateNetworkTablesTopics 
-  } from "../stores/NetworkTables.js";
+  } from "../services/NetworkTables.svelte.js";
 
-  let nt: NetworkTables;
-  $: { nt = $NetworkTablesStore; }
+  let isMetadataPropsEnabled: boolean = $state(false);
+  let isAllTelemetryEnabled: boolean = $state(false);
+  let isDebugEnabled: boolean = $state(false);
 
-  let isMetadataPropsEnabled: boolean = false;
-  let isAllTelemetryEnabled: boolean = false;
-  let isDebugEnabled: boolean = false;
+  let selectedTopicNames: string[] = $state(JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames") ?? "{}") ?? []);
 
-  let selectedTopicNames: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedTopicNames")) ?? [];
+  let selectedSubscriptions: string[] = $state(JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions") ?? "null") ?? Configuration.Settings.NetworkTables.Subscriptions);
+  let isSubscriptionsModalOpen: boolean = $state(false);
 
-  let selectedSubscriptions: string[] = JSON.parse(window.localStorage.getItem("App.Data.SelectedSubscriptions")) ?? Configuration.Settings.NetworkTables.Subscriptions;
-  let isSubscriptionsModalOpen: boolean = false;
+  let graphModalTopicName: string = $state("");
+  let graphModalChartData: any[] = $state([]);
+  let graphModalDataMovingAverageSamples: number[] = $state([]);
+  let graphModalDataMovingAverageSamplesCount: number = $state(50);
+  let graphModalDataMovingAverage: number = $state(0);
+  let isGraphModalOpen: boolean = $state(false);
 
-  let graphModalTopicName: string = null;
-  let graphModalChartData: any[] = [];
-  let graphModalDataMovingAverageSamples: number[] = [];
-  let graphModalDataMovingAverageSamplesCount: number = 50;
-  let graphModalDataMovingAverage: number = 0;
-  let isGraphModalOpen: boolean = false;
-
-  let selectedRowIds: number[] = [];
+  let selectedRowIds: (number | undefined)[] = $state([]);
 
   type RowSelectionChanged = {
     selected: boolean;
-    row: NetworkTablesTopic;
+    row: DataTableRow;
   }
   
   const onRowSelectionChanged = (e: CustomEvent<RowSelectionChanged>): void => {
@@ -77,7 +75,7 @@
 
   const onGraphModalClosed = (): void => {
     isGraphModalOpen = false;
-    graphModalTopicName = null;
+    graphModalTopicName = "";
     graphModalChartData = [];
     graphModalDataMovingAverageSamples = [];
     graphModalDataMovingAverage = 0;
@@ -134,21 +132,23 @@
     animations: false
   };
 
-  $: topics = Array.from(nt.topics.values())
+  let topics = $derived(Array.from(nt.topics.values())
     .reverse()
     .filter(topic => isMetadataPropsEnabled || !topic.name.includes("."))
     .filter(topic => selectedSubscriptions.some(subscription => topic.name.startsWith(subscription)))
-    .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0));
+    .sort((a, b) => (selectedTopicNames.includes(b.name) ? 1 : 0) - (selectedTopicNames.includes(a.name) ? 1 : 0)));
 
-  $: selectedRowIds = selectedTopicNames.map(topicName => nt.topics.get(topicName)?.id);
+  run(() => {
+    selectedRowIds = selectedTopicNames.map(topicName => nt.topics.get(topicName)?.id);
+  });
 
-  $: {
+  run(() => {
     if (isGraphModalOpen) {
       if (nt.isConnected) {
         const topic = nt.topics.get(graphModalTopicName);
-        graphModalChartData.push({ timestamp: Utils.convertTimestamp(topic.timestamp), value: topic.value, group: "values" });
+        graphModalChartData.push({ timestamp: Utils.convertTimestamp(topic?.timestamp ?? 0), value: topic?.value, group: "values" });
         graphModalChartData = graphModalChartData;
-        graphModalDataMovingAverageSamples.push(topic.value);
+        graphModalDataMovingAverageSamples.push(topic?.value);
         if (graphModalDataMovingAverageSamples.length > graphModalDataMovingAverageSamplesCount) {
           graphModalDataMovingAverageSamples.shift();
         }
@@ -157,15 +157,15 @@
         isGraphModalOpen = false;
       }
     }
-  }
+  });
 
-  $: {
-    isAllTelemetryEnabled = nt.topics.get(Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled)?.value ?? false;
-  }
+  run(() => {
+    isAllTelemetryEnabled = nt.topics.get(Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled ?? "")?.value ?? false;
+  });
 </script>
 
 <main>
-{ #if nt.isConnected }
+{#if nt.isConnected}
   <DataTable
     headers={[
       { key: "name", value: "Name", width: "35%" },
@@ -188,34 +188,34 @@
           <ToolbarMenuItem on:click={ () => { 
             updateNetworkTablesTopics([{ 
               id: 0, 
-              name: Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled, 
+              name: Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled ?? "", 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
             }]) } }>
             { isAllTelemetryEnabled ? "Disable": "Enable" } Telemetry
           </ToolbarMenuItem>
-          <ToolbarMenuItem on:click={ () => { isDebugEnabled = !isDebugEnabled; nt = nt; } }>
+          <ToolbarMenuItem on:click={ () => { isDebugEnabled = !isDebugEnabled; } }>
             { isDebugEnabled ? "Hide": "Show" } Debug
           </ToolbarMenuItem>
         </ToolbarMenu>
       </ToolbarContent>
     </Toolbar>
-    <svelte:fragment slot="cell" let:row let:cell>
-      { #if cell.key === "name" }
+    <svelte:fragment slot="cell" let:row let:cell>  
+      {#if cell.key === "name"}
         <span class="topicName" title={ cell.value }>{ cell.value }</span>
-      { :else if cell.key === "timestamp" }
+      {:else if cell.key === "timestamp"}
         { Utils.formatTimestamp(cell.value) }
-      { :else if cell.key === "overflow" }
+      {:else if cell.key === "overflow"}
         <OverflowMenu flipped direction="top">
           <OverflowMenuItem on:click={ () => { } } disabled>Edit</OverflowMenuItem>
           <OverflowMenuItem on:click={ () => { openGraphModal(row.name) } } disabled={ !isGraphOptionEnabled(row.type) }>Graph</OverflowMenuItem>
         </OverflowMenu>
-      { :else }
+      {:else}
         <span title={ `<${ NetworkTablesDataType[row.type] }> ${ formatValue(cell.value, row.type) }` }>{ formatValue(cell.value, row.type) }</span>
-      { /if }
+      {/if}
     </svelte:fragment>
   </DataTable>
-{ :else }
+{:else}
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
@@ -225,7 +225,7 @@
       hideCloseButton />
   </div>
   <DataTableSkeleton headers={ [ "Name", "Value", "Timestamp" ] } rows={ 13 } showHeader={ false } showToolbar={ false } />
-{ /if }
+{/if}
 </main>
 
 <Modal
@@ -263,9 +263,9 @@
   </div>
 </Modal>
 
-{ #if isDebugEnabled }
+{#if isDebugEnabled }
 <pre class="debug">{ Utils.stringifyNetworkTables(nt, 4) }</pre>
-{ /if }
+{/if }
 
 <style>
   main {

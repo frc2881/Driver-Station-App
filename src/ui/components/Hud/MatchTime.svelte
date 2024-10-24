@@ -1,14 +1,20 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { Configuration, Utils } from "../../../common/index.js";
 
   const { MatchTime } = Configuration.Settings;
-  export let matchTime: number;
-
-  let _matchTime = 0;
-
-  $: { 
-    _matchTime = Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0;
+  interface Props {
+    matchTime: number;
   }
+
+  let { matchTime }: Props = $props();
+
+  let _matchTime = $state(0);
+
+  run(() => { 
+    _matchTime = Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0;
+  });
 </script>
 
 <div 

@@ -1,34 +1,55 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
 	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
   import { type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
 
-  export let robotPose: [number, number, number];
-  export let frontPoseSensorIsConnected: boolean;
-  export let frontPoseSensorHasTarget: boolean;
-  export let frontPoseSensorTargetCount: number;
-  export let rearPoseSensorIsConnected: boolean;
-  export let rearPoseSensorHasTarget: boolean;
-  export let rearPoseSensorTargetCount: number;
-  export let leftPoseSensorIsConnected: boolean;
-  export let leftPoseSensorHasTarget: boolean;
-  export let leftPoseSensorTargetCount: number;
-  export let rightPoseSensorIsConnected: boolean;
-  export let rightPoseSensorHasTarget: boolean;
-  export let rightPoseSensorTargetCount: number;
-  export let cameraStreams: Record<string, string>;
+  interface Props {
+    robotPose: [number, number, number];
+    frontPoseSensorIsConnected: boolean;
+    frontPoseSensorHasTarget: boolean;
+    frontPoseSensorTargetCount: number;
+    rearPoseSensorIsConnected: boolean;
+    rearPoseSensorHasTarget: boolean;
+    rearPoseSensorTargetCount: number;
+    leftPoseSensorIsConnected: boolean;
+    leftPoseSensorHasTarget: boolean;
+    leftPoseSensorTargetCount: number;
+    rightPoseSensorIsConnected: boolean;
+    rightPoseSensorHasTarget: boolean;
+    rightPoseSensorTargetCount: number;
+    cameraStreams: Record<string, string>;
+  }
 
-  let poseInfo: Pose2d = { x: 0, y: 0, rotation: 0 };
-  let isCameraStreamModalOpen: boolean = false;
-  let cameraStreamUrl: string = "";
-  let cameraStreamName: string = "";
+  let {
+    robotPose,
+    frontPoseSensorIsConnected,
+    frontPoseSensorHasTarget,
+    frontPoseSensorTargetCount,
+    rearPoseSensorIsConnected,
+    rearPoseSensorHasTarget,
+    rearPoseSensorTargetCount,
+    leftPoseSensorIsConnected,
+    leftPoseSensorHasTarget,
+    leftPoseSensorTargetCount,
+    rightPoseSensorIsConnected,
+    rightPoseSensorHasTarget,
+    rightPoseSensorTargetCount,
+    cameraStreams
+  }: Props = $props();
 
-  $: {
+  let poseInfo: Pose2d = $state({ x: 0, y: 0, rotation: 0 });
+  let isCameraStreamModalOpen: boolean = $state(false);
+  let cameraStreamUrl: string = $state("");
+  let cameraStreamName: string = $state("");
+
+  run(() => {
     poseInfo.x = robotPose?.[0] ?? 0;
     poseInfo.y = robotPose?.[1] ?? 0;
     poseInfo.rotation = robotPose?.[2] ?? 0;
-  }
+  });
 </script>
 
 <div class="main">
@@ -38,83 +59,83 @@
       <div class="sensor">
         <button 
           title="Front"
-          on:click={ () => { 
+          onclick={() => { 
             isCameraStreamModalOpen = true; 
             cameraStreamUrl = cameraStreams["Front"] ?? ""; 
             cameraStreamName = "Front" 
-          } }>
+          }}>
           <CenterSquare
             fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
             width=60
             height=60 />
-          { #if frontPoseSensorIsConnected }
+          {#if frontPoseSensorIsConnected}
           <div class="connection"></div>
-          { /if }
-          { #if frontPoseSensorTargetCount > 1 }
+          {/if}
+          {#if frontPoseSensorTargetCount > 1}
           <div class="targetCount">{ frontPoseSensorTargetCount }</div>
-          { /if }
+          {/if}
         </button>
       </div>
       <div style="display:flex;flex-direction:row;justify-content:center;gap:3em;">
         <div class="sensor">
           <button 
             title="Left"
-            on:click={ () => { 
+            onclick={() => { 
               isCameraStreamModalOpen = true; 
               cameraStreamUrl = cameraStreams["Left"] ?? ""; 
               cameraStreamName = "Left" 
-            } }>
+            }}>
             <CenterSquare
               fill={ leftPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=60
               height=60 />
-            { #if leftPoseSensorIsConnected }
+            {#if leftPoseSensorIsConnected}
             <div class="connection"></div>
-            { /if }
-            { #if leftPoseSensorTargetCount > 1 }
+            {/if}
+            {#if leftPoseSensorTargetCount > 1}
             <div class="targetCount">{ leftPoseSensorTargetCount }</div>
-            { /if }
+            {/if}
           </button>
         </div>
         <div class="sensor">
           <button 
             title="Right"
-            on:click={ () => { 
+            onclick={() => { 
               isCameraStreamModalOpen = true; 
               cameraStreamUrl = cameraStreams["Right"] ?? ""; 
               cameraStreamName = "Right" 
-            } }>
+            }}>
             <CenterSquare
               fill={ rightPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=60
               height=60 />
-            { #if rightPoseSensorIsConnected }
+            {#if rightPoseSensorIsConnected}
             <div class="connection"></div>
-            { /if }
-            { #if rightPoseSensorTargetCount > 1 }
+            {/if}
+            {#if rightPoseSensorTargetCount > 1}
             <div class="targetCount">{ rightPoseSensorTargetCount }</div>
-            { /if }
+            {/if}
           </button>
         </div>
       </div>
       <div class="sensor">
         <button
           title="Rear" 
-          on:click={ () => { 
+          onclick={() => { 
             isCameraStreamModalOpen = true; 
             cameraStreamUrl = cameraStreams["Rear"] ?? ""; 
             cameraStreamName = "Rear" 
-          } }>
+          }}>
           <CenterSquare
             fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
             width=60
             height=60 />
-          { #if rearPoseSensorIsConnected }
+          {#if rearPoseSensorIsConnected}
           <div class="connection"></div>
-          { /if }
-          { #if rearPoseSensorTargetCount > 1 }
+          {/if}
+          {#if rearPoseSensorTargetCount > 1}
           <div class="targetCount">{ rearPoseSensorTargetCount }</div>
-          { /if }
+          {/if}
         </button>
       </div>
     </div>

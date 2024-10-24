@@ -4,8 +4,12 @@
   import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
   import { RobotMode, RobotState } from "../../../common/index.js";
 
-  export let state: RobotState;
-  export let mode: RobotMode;
+  interface Props {
+    state: RobotState;
+    mode: RobotMode;
+  }
+
+  let { state, mode }: Props = $props();
 </script>
 
 <div class="main">
@@ -15,13 +19,13 @@
     <h3>{ state === RobotState.Estopped ? "ESTOP" : mode ?? "" }</h3>
   </div>
   <div class="status">
-    { #if state === RobotState.Enabled }
+    {#if state === RobotState.Enabled}
       <CheckmarkFilled width=48 height=48 fill="#00CC00" />
-    { :else if state === RobotState.Disabled }
+    {:else if state === RobotState.Disabled}
       <CloseFilled width=48 height=48 fill="#CC0000" />
-    { :else if state === RobotState.Estopped }
+    {:else if state === RobotState.Estopped}
       <WarningAltFilled width=48 height=48 fill="#CCCC00" />
-    { /if } 
+    {/if} 
   </div>
 </div>
 

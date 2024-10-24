@@ -3,7 +3,7 @@
 	import "carbon-components-svelte/css/all.css";
 	import "@carbon/charts-svelte/styles.min.css";
 	import { AppWindowType } from "../common/index.js";
-	import { connectNetworkTablesStore } from "./stores/NetworkTables.js";
+	import { connectNetworkTablesService } from "./services/NetworkTables.svelte.js";
 	import Graphics from "./components/Graphics.svelte";
 	import Hud from "./views/Hud.svelte";
 	import Dashboard from "./views/Dashboard.svelte";
@@ -17,12 +17,14 @@
 
 	const appWindowType = new URLSearchParams(window.location.search).get("appWindowType") as AppWindowType;
 
-	connectNetworkTablesStore(appWindowType);
+	connectNetworkTablesService(appWindowType);
+
+	const View = $derived(views[appWindowType]);
 </script>
 
 <div style="display:none"><Graphics /></div>
 
-<svelte:component this={ views[appWindowType] } />
+<View />
 
 <Theme
   theme="g100"

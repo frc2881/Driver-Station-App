@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { Configuration, type NetworkTables } from "../../../common/index.js";
-  import { NetworkTablesStore } from "../../stores/NetworkTables.js";
+  import { Configuration } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
   import SendableChooser from "../SendableChooser.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
-  let nt: NetworkTables;
-  $: { nt = $NetworkTablesStore; }
 </script>
 
 <div class="main">

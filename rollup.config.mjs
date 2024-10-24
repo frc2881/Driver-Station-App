@@ -17,9 +17,10 @@ export default {
 		inlineDynamicImports: true
 	},
 	treeshake: false,
-	onwarn: (warning, warn) => {
+	onwarn: (warning, handler) => {
     if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids[0].includes("d3-")) { return; }
-    warn(warning);
+		if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids[0].includes("svelte")) { return; }
+    handler(warning);
   },
 	plugins: [
 		typescript({
@@ -31,12 +32,13 @@ export default {
 				optimizeImports()
 			],
 			onwarn: (warning, handler) => {
+				if (warning.filename.startsWith("node_modules")) { return; }
 				if (warning.code.startsWith("a11y-")) { return; }
+				if (warning.code == "css_unused_selector") { return; }
 				handler(warning);
 			},
 			compilerOptions: { 
-				dev: false,
-				sourcemap: true
+				dev: false
 			}
 		}),
 		replace({

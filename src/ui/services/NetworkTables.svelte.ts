@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { SvelteMap } from "svelte/reactivity";
 import { 
   type AppServerMessage,
   type NetworkTables,
@@ -9,22 +9,20 @@ import {
   type NetworkTablesTopicsUpdatedMessage,
   type NetworkTablesTopicsRemovedMessage,
   NetworkTablesServiceMessageType,
-  AppWindowType, 
+  AppWindowType,
   AppServerMessageType,
   Utils
 } from "../../common/index.js";
 
 let webSocket: WebSocket;
 
-let networkTables: NetworkTables = {
+export let NetworkTablesService: NetworkTables = $state({
   address: "0.0.0.0",
   isConnected: false,
-  topics: new Map() as NetworkTablesTopics
-};
+  topics: new SvelteMap() as NetworkTablesTopics
+});
 
-export const NetworkTablesStore = writable(networkTables);
-
-export const connectNetworkTablesStore = (appWindowType: AppWindowType): void => {
+export const connectNetworkTablesService = (appWindowType: AppWindowType): void => {
   webSocket = new WebSocket(`ws://127.0.0.1:2881/ws?appWindowType=${ appWindowType }`);
 	webSocket.binaryType = "arraybuffer";
 	webSocket.onmessage = (e) => onMessageReceived(e);
@@ -56,7 +54,6 @@ const onMessageReceived = (e: MessageEvent): void => {
         default:
           break;
       }
-      NetworkTablesStore.set(networkTables);
       break;
     default:
       console.log("Server message:", AppServerMessageType[type], message);
@@ -66,22 +63,22 @@ const onMessageReceived = (e: MessageEvent): void => {
 
 const onNetworkTablesConnectionChanged = (e: NetworkTablesConnectionChangedMessage): void => {
   const { address, isConnected } = e.data;
-  networkTables.address = address;
-  networkTables.isConnected = isConnected;
+  NetworkTablesService.address = address;
+  NetworkTablesService.isConnected = isConnected;
   if (!isConnected) {
-    networkTables.topics.clear(); 
+    NetworkTablesService.topics.clear(); 
   }
 }
 
 const onNetworkTablesTopicsUpdated = (e: NetworkTablesTopicsUpdatedMessage): void => {
   for (const topic of e.data.topics) {
-    networkTables.topics.set(topic.name, topic);
+    NetworkTablesService.topics.set(topic.name, topic);
   }
 }
 
 const onNetworkTablesTopicsRemoved = (e: NetworkTablesTopicsRemovedMessage): void => {
   for (const topic of e.data.topics) {
-    networkTables.topics.delete(topic.name);
+    NetworkTablesService.topics.delete(topic.name);
   }
 }
 

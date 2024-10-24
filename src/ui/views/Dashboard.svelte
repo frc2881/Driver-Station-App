@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
-  import { Configuration, type NetworkTables } from "../../common/index.js";
-  import { NetworkTablesStore } from "../stores/NetworkTables.js";
+  import { Configuration } from "../../common/index.js";
+  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte.js";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
@@ -12,14 +12,12 @@
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;
-  let nt: NetworkTables = $NetworkTablesStore;
-  $: { nt = $NetworkTablesStore; }
 
-  let isControllerMapVisible: boolean = false;
+  let isControllerMapVisible: boolean = $state(false);
 </script>
 
 <main>
-{ #if nt.isConnected }
+{#if nt.isConnected}
   <div class="header">
     <div class="left">
       <RobotInfo 
@@ -32,7 +30,7 @@
     </div>
     <div class="center">
       <div class="controller-map-button">
-        <button on:click={ () => { isControllerMapVisible = true; } }>
+        <button onclick={() => { isControllerMapVisible = true; }}>
           <img src="./assets/images/controller.png" alt="Controller Map" />
         </button>
       </div>
@@ -91,7 +89,7 @@
     <ControllerMap 
       bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>
-{ :else }
+{:else}
   <div class="inlineNotification">
     <InlineNotification
       title="Robot Not Connected:"
@@ -101,7 +99,7 @@
       hideCloseButton />
   </div>
   <div class="watermark"><SkeletonPlaceholder class="skeleton" /><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
-{ /if }
+{/if}
 </main>
 
 <style>
@@ -157,19 +155,17 @@
       row-gap: 10px;
       padding: 0 20px;
 
-      & :global {
-        & .widget {
-          padding: 2em;
+      & :global(.widget) {
+        padding: 2em;
 
-          &.row-span-2 {
-            grid-row: span 2;
-          }
+        &:global(.row-span-2) {
+          grid-row: span 2;
+        }
 
-          & .title {
-            margin-bottom: 1.5em;
-            border-bottom: 1px solid var(--app-color-charcoal);
-            padding: 0px 3px;
-          }
+        & :global(.title) {
+          margin-bottom: 1.5em;
+          border-bottom: 1px solid var(--app-color-charcoal);
+          padding: 0px 3px;
         }
       }
     }
@@ -185,12 +181,10 @@
     top: 50%;
     transform: translate(-128px, -128px);
 
-    & :global {
-      & .skeleton {
-        position: absolute;
-        width: 256px;
-        height: 256px;
-      }
+    & :global(.skeleton) {
+      position: absolute;
+      width: 256px;
+      height: 256px;
     }
 
     & .icon {

@@ -2,16 +2,26 @@
   import Video_02 from "carbon-pictograms-svelte/lib/Video_02.svelte";
   import { Utils } from "../../common/index.js";
 
-  export let streamUrl: string = "";
-  export let deviceLabel: string = "";
-  export let width: number;
-  export let height: number;
-  export let scale: number = 1;
+  interface Props {
+    streamUrl?: string;
+    deviceLabel?: string;
+    width: number;
+    height: number;
+    scale?: number;
+  }
+
+  let {
+    streamUrl = "",
+    deviceLabel = "",
+    width,
+    height,
+    scale = 1
+  }: Props = $props();
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-  let image: HTMLImageElement;
-  let video: HTMLVideoElement;
+  let image: HTMLImageElement = $state();
+  let video: HTMLVideoElement = $state();
 
   const loadVideoStream = async (): Promise<void> => {
     try {
@@ -49,20 +59,20 @@
 
 <div class="main" style={ `width:${width}px;height:${height}px;` }>
   <div class="icon"><Video_02 class="watermark" /></div>
-{ #if streamUrl }
+{#if streamUrl}
   <img 
     src={ `${ streamUrl }?${ new Date().getTime() }` }
     bind:this={ image } 
-    on:error={ () => { image.src = transparentPixelImage; } }
+    onerror={() => { image.src = transparentPixelImage; }}
     alt="" />
-{ /if }
-{ #if deviceLabel }
+{/if}
+{#if deviceLabel}
   <video 
     bind:this={ video }
     style={ `transform:scale(${ scale });` }>
     <track kind="captions"/>
   </video>
-{ /if }
+{/if}
 </div>
 
 <style>
@@ -75,14 +85,12 @@
     & .icon {
       position: absolute;
 		  
-      & :global {
-        & .watermark {
-          width: 48px;
-          height: 48px;
-          transform: scale(4);
-          fill: var(--app-color-pink);
-          opacity: 0.2;
-        }
+      & :global(.watermark) {
+        width: 48px;
+        height: 48px;
+        transform: scale(4);
+        fill: var(--app-color-pink);
+        opacity: 0.2;
       }
     }
 

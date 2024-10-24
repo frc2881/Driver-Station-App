@@ -6,23 +6,27 @@
 
   const { BatteryVoltageLevel } = Configuration.Settings;
 
-  export let batteryInfo: string;
-  export let batteryVoltage: number;
+  interface Props {
+    batteryInfo: string;
+    batteryVoltage: number;
+  }
+
+  let { batteryInfo, batteryVoltage }: Props = $props();
 </script>
 
 <div class="main">
   <div class="value info">{ batteryInfo ?? "UNKNOWN" }</div>
   <div class="value voltage">
     <h3>{ batteryVoltage?.toFixed(2) ?? 0.00 }</h3>
-    { #if batteryVoltage >= BatteryVoltageLevel.Low }
+    {#if batteryVoltage >= BatteryVoltageLevel.Low}
       <BatteryFull width=64 height=64 fill="#00CC00" />
-    { :else if batteryVoltage >= BatteryVoltageLevel.Warning }
+    {:else if batteryVoltage >= BatteryVoltageLevel.Warning}
       <BatteryHalf width=64 height=64 fill="#CCCC00" />
-    { :else if batteryVoltage >= BatteryVoltageLevel.Critical }
+    {:else if batteryVoltage >= BatteryVoltageLevel.Critical}
       <BatteryHalf width=64 height=64 fill="#FF6600" />
-    { :else }
+    {:else}
       <BatteryQuarter width=64 height=64 fill="#CC0000" />
-    { /if }
+    {/if}
   </div>
 </div>
 

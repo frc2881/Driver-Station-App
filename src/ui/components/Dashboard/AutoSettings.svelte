@@ -1,18 +1,22 @@
 <script lang="ts">
-  import { Configuration, type NetworkTables, Alliance } from "../../../common/index.js";
-  import { NetworkTablesStore } from "../../stores/NetworkTables.js";
+  import { run } from 'svelte/legacy';
+
+  import { Configuration, type Alliance } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
   import SendableChooser from "../SendableChooser.svelte";
 
-  export let alliance: Alliance;
+  interface Props {
+    alliance: Alliance;
+  }
+
+  let { alliance }: Props = $props();
 
   const { Topics } = Configuration.Settings.NetworkTables;
-  let nt: NetworkTables;
-  $: { nt = $NetworkTablesStore; }
 
-  let activeCommand = "";
-  $: { 
+  let activeCommand = $state("");
+  run(() => { 
     activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None";
-  }
+  });
 </script>
 
 <div class="main">
@@ -30,7 +34,7 @@
   </div>
   <div 
     class="autos">
-    <img src="./assets/images/autos-{ alliance?.toLowerCase() ?? "blue" }.png" />
+    <img src="./assets/images/autos-{ alliance?.toLowerCase() ?? "blue" }.png" alt="" />
   </div>
 </div>
 

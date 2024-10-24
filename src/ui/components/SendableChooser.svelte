@@ -1,17 +1,28 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { Dropdown } from "carbon-components-svelte";
-  import { type NetworkTablesTopic } from "../../common/index.js";
-  import { updateNetworkTablesTopics } from "../stores/NetworkTables.js";
+  import { NetworkTablesDataType, type NetworkTablesTopic } from "../../common/index.js";
+  import { updateNetworkTablesTopics } from "../services/NetworkTables.svelte.js";
 
-  export let name: string;
-  export let inline: boolean = false;
-  export let options: NetworkTablesTopic;
-  export let active: NetworkTablesTopic;
+  interface Props {
+    name: string;
+    inline?: boolean;
+    options: NetworkTablesTopic | undefined;
+    active: NetworkTablesTopic | undefined;
+  }
 
-  let items: { id: number; text: string; }[] = [];
-  let selectedItemId = 0;
+  let {
+    name,
+    inline = false,
+    options,
+    active
+  }: Props = $props();
 
-  $: {
+  let items: { id: number; text: string; }[] = $state([]);
+  let selectedItemId = $state(0);
+
+  run(() => {
     if (options?.value && active?.value) {
       items = [];
       let id = 0;
@@ -21,7 +32,7 @@
         id += 1;
       }
     }
-  }
+  });
 </script>
 
 <div class="main">
@@ -33,8 +44,8 @@
     on:select={ (e) => {
       updateNetworkTablesTopics([{
         id: 0,
-        name: active.name.replace("/active", "/selected"),
-        type: active.type,
+        name: active?.name.replace("/active", "/selected") ?? "",
+        type: active?.type ?? NetworkTablesDataType.Raw,
         value: e.detail.selectedItem.text
       }]);
     } } />
@@ -44,10 +55,8 @@
   .main {
     margin-bottom: 1em;
 
-    & :global {
-      & .bx--label {
-        width: 120px;
-      }
+    & :global(.bx--label) {
+      width: 100px;
     }
   }
 </style>

@@ -1,23 +1,43 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { Utils } from "../../../common/index.js";
 
-  export let driveSpeedMax: number;
-  export let swerveModuleFrontLeftDrivingSpeedTarget: number;
-  export let swerveModuleFrontLeftDrivingSpeedActual: number;
-  export let swerveModuleFrontLeftTurningPosition: number;
-  export let swerveModuleFrontRightDrivingSpeedTarget: number;
-  export let swerveModuleFrontRightDrivingSpeedActual: number;
-  export let swerveModuleFrontRightTurningPosition: number;
-  export let swerveModuleRearLeftDrivingSpeedTarget: number;
-  export let swerveModuleRearLeftDrivingSpeedActual: number;
-  export let swerveModuleRearLeftTurningPosition: number;
-  export let swerveModuleRearRightDrivingSpeedTarget: number;
-  export let swerveModuleRearRightDrivingSpeedActual: number;
-  export let swerveModuleRearRightTurningPosition: number;
-
-  $: {
-    driveSpeedMax = driveSpeedMax ?? 1;
+  interface Props {
+    driveSpeedMax: number;
+    swerveModuleFrontLeftDrivingSpeedTarget: number;
+    swerveModuleFrontLeftDrivingSpeedActual: number;
+    swerveModuleFrontLeftTurningPosition: number;
+    swerveModuleFrontRightDrivingSpeedTarget: number;
+    swerveModuleFrontRightDrivingSpeedActual: number;
+    swerveModuleFrontRightTurningPosition: number;
+    swerveModuleRearLeftDrivingSpeedTarget: number;
+    swerveModuleRearLeftDrivingSpeedActual: number;
+    swerveModuleRearLeftTurningPosition: number;
+    swerveModuleRearRightDrivingSpeedTarget: number;
+    swerveModuleRearRightDrivingSpeedActual: number;
+    swerveModuleRearRightTurningPosition: number;
   }
+
+  let {
+    driveSpeedMax = $bindable(),
+    swerveModuleFrontLeftDrivingSpeedTarget,
+    swerveModuleFrontLeftDrivingSpeedActual,
+    swerveModuleFrontLeftTurningPosition,
+    swerveModuleFrontRightDrivingSpeedTarget,
+    swerveModuleFrontRightDrivingSpeedActual,
+    swerveModuleFrontRightTurningPosition,
+    swerveModuleRearLeftDrivingSpeedTarget,
+    swerveModuleRearLeftDrivingSpeedActual,
+    swerveModuleRearLeftTurningPosition,
+    swerveModuleRearRightDrivingSpeedTarget,
+    swerveModuleRearRightDrivingSpeedActual,
+    swerveModuleRearRightTurningPosition
+  }: Props = $props();
+
+  run(() => {
+    driveSpeedMax = driveSpeedMax ?? 1;
+  });
 </script>
 
 <div class="main">
