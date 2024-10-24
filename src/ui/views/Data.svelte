@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
   import { 
     DataTable, 
     DataTableSkeleton,
@@ -20,13 +20,12 @@
   import { 
     Configuration,
     Utils,
-    type NetworkTablesTopic,
     NetworkTablesDataType
 	} from "../../common/index.js";
   import { 
     NetworkTablesService as nt, 
     updateNetworkTablesTopics 
-  } from "../services/NetworkTables.svelte.js";
+  } from "../services/NetworkTables.svelte";
 
   let isMetadataPropsEnabled: boolean = $state(false);
   let isAllTelemetryEnabled: boolean = $state(false);

@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { Utils } from "../../../common/index.js";
 
   interface Props {
@@ -20,7 +18,7 @@
   }
 
   let {
-    driveSpeedMax = $bindable(),
+    driveSpeedMax,
     swerveModuleFrontLeftDrivingSpeedTarget,
     swerveModuleFrontLeftDrivingSpeedActual,
     swerveModuleFrontLeftTurningPosition,
@@ -34,10 +32,6 @@
     swerveModuleRearRightDrivingSpeedActual,
     swerveModuleRearRightTurningPosition
   }: Props = $props();
-
-  run(() => {
-    driveSpeedMax = driveSpeedMax ?? 1;
-  });
 </script>
 
 <div class="main">
@@ -45,7 +39,7 @@
   <div class="swerveModules">
     <div 
       class="swerveModule" 
-      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleFrontLeftDrivingSpeedActual / driveSpeedMax) * 100 }%, transparent ${ (swerveModuleFrontLeftDrivingSpeedActual / driveSpeedMax) * 100 }%)` }>
+      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleFrontLeftDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%, transparent ${ (swerveModuleFrontLeftDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%)` }>
       <div class="value">{ swerveModuleFrontLeftDrivingSpeedActual?.toFixed(3) }</div>
       <div class="delta">{ (swerveModuleFrontLeftDrivingSpeedTarget ? ((swerveModuleFrontLeftDrivingSpeedActual / swerveModuleFrontLeftDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
@@ -56,7 +50,7 @@
     </div>
     <div 
       class="swerveModule"
-      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleFrontRightDrivingSpeedActual / driveSpeedMax) * 100 }%, transparent ${ (swerveModuleFrontRightDrivingSpeedActual / driveSpeedMax) * 100 }%)` }>
+      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleFrontRightDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%, transparent ${ (swerveModuleFrontRightDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%)` }>
       <div class="value">{ swerveModuleFrontRightDrivingSpeedActual?.toFixed(3) }</div>
       <div class="delta">{ (swerveModuleFrontRightDrivingSpeedTarget ? ((swerveModuleFrontRightDrivingSpeedActual / swerveModuleFrontRightDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
@@ -67,7 +61,7 @@
     </div>
     <div 
       class="swerveModule"
-      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleRearLeftDrivingSpeedActual / driveSpeedMax) * 100 }%, transparent ${ (swerveModuleRearLeftDrivingSpeedActual / driveSpeedMax) * 100 }%)` }>
+      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleRearLeftDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%, transparent ${ (swerveModuleRearLeftDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%)` }>
       <div class="value">{ swerveModuleRearLeftDrivingSpeedActual?.toFixed(3) }</div>
       <div class="delta">{ (swerveModuleRearLeftDrivingSpeedTarget ? ((swerveModuleRearLeftDrivingSpeedActual / swerveModuleRearLeftDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 
@@ -78,7 +72,7 @@
     </div>
     <div 
       class="swerveModule"
-      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleRearRightDrivingSpeedActual / driveSpeedMax) * 100 }%, transparent ${ (swerveModuleRearRightDrivingSpeedActual / driveSpeedMax) * 100 }%)` }>
+      style:background={ `linear-gradient(0deg, rgba(0, 204, 0, 0.33) ${ (swerveModuleRearRightDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%, transparent ${ (swerveModuleRearRightDrivingSpeedActual / (driveSpeedMax ?? 1)) * 100 }%)` }>
       <div class="value">{ swerveModuleRearRightDrivingSpeedActual?.toFixed(3) }</div>
       <div class="delta">{ (swerveModuleRearRightDrivingSpeedTarget ? ((swerveModuleRearRightDrivingSpeedActual / swerveModuleRearRightDrivingSpeedTarget) * 100) : 0).toFixed(1) }%</div>
       <div 

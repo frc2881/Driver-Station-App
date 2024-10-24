@@ -1,7 +1,7 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
   import { Configuration } from "../../common/index.js";
-  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte.js";
+  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";

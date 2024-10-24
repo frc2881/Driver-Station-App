@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { Dropdown } from "carbon-components-svelte";
   import { NetworkTablesDataType, type NetworkTablesTopic } from "../../common/index.js";
-  import { updateNetworkTablesTopics } from "../services/NetworkTables.svelte.js";
+  import { updateNetworkTablesTopics } from "../services/NetworkTables.svelte";
 
   interface Props {
     name: string;
@@ -19,18 +17,29 @@
     active
   }: Props = $props();
 
-  let items: { id: number; text: string; }[] = $state([]);
-  let selectedItemId = $state(0);
-
-  run(() => {
+  let items: { id: number; text: string; }[] = $derived.by(() => {
     if (options?.value && active?.value) {
-      items = [];
+      const __items = [];
       let id = 0;
       for (const option of options?.value as Array<string>) {
-        items.push({ id, text: option });
-        if (option === active?.value) { selectedItemId = id; }
+        __items.push({ id, text: option });
         id += 1;
       }
+      return __items;
+    } else {
+      return [];
+    }
+  });
+
+  let selectedItemId = $derived.by(() => {
+    if (options?.value && active?.value) {
+      let id = 0;
+      for (const option of options?.value as Array<string>) {
+        if (option === active?.value) { return id; }
+        id += 1;
+      }
+    } else {
+      return 0;
     }
   });
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Configuration } from "../../../common/index.js";
-  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
   import SendableChooser from "../SendableChooser.svelte";
 
   const { Topics } = Configuration.Settings.NetworkTables;

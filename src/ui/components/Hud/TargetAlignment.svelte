@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 	import { Alliance, type Pose2d } from "../../../common/index.js";
@@ -27,12 +25,10 @@
 
   const PIXELS_PER_METER: number = 100;
 
-  let poseInfo: Pose2d = $state({ x: 0, y: 0, rotation: 0 });
-
-  run(() => {
-    poseInfo.x = robotPose?.[0] ?? 0;
-    poseInfo.y = robotPose?.[1] ?? 0;
-    poseInfo.rotation = robotPose?.[2] ?? 0;
+  let poseInfo: Pose2d = $derived({ 
+    x: robotPose?.[0] ?? 0, 
+    y: robotPose?.[1] ?? 0, 
+    rotation: robotPose?.[2] ?? 0 
   });
 </script>
 

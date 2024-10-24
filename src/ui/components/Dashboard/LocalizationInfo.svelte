@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
 	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
@@ -40,16 +40,14 @@
     cameraStreams
   }: Props = $props();
 
-  let poseInfo: Pose2d = $state({ x: 0, y: 0, rotation: 0 });
+  let poseInfo: Pose2d = $derived({ 
+    x: robotPose?.[0] ?? 0, 
+    y: robotPose?.[1] ?? 0, 
+    rotation: robotPose?.[2] ?? 0 
+  });
   let isCameraStreamModalOpen: boolean = $state(false);
   let cameraStreamUrl: string = $state("");
   let cameraStreamName: string = $state("");
-
-  run(() => {
-    poseInfo.x = robotPose?.[0] ?? 0;
-    poseInfo.y = robotPose?.[1] ?? 0;
-    poseInfo.rotation = robotPose?.[2] ?? 0;
-  });
 </script>
 
 <div class="main">

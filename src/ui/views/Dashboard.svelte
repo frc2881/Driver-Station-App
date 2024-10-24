@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
   import { Configuration } from "../../common/index.js";
-  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte.js";
+  import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";

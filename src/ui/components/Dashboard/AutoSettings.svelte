@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { Configuration, type Alliance } from "../../../common/index.js";
-  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
   import SendableChooser from "../SendableChooser.svelte";
 
   interface Props {
@@ -13,10 +11,7 @@
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
-  let activeCommand = $state("");
-  run(() => { 
-    activeCommand = nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None";
-  });
+  let activeCommand = $derived(nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None");
 </script>
 
 <div class="main">
