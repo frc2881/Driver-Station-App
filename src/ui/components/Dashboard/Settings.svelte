@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Configuration } from "../../../common/index.js";
+  import { Configuration, Topic } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
   import SendableChooser from "../SendableChooser.svelte";
 
@@ -13,23 +13,23 @@
     <SendableChooser
       name="Orientation" 
       inline
-      options={ nt.topics.get(`${Topics.DriveOrientation}/options`) }
-      active={ nt.topics.get(`${Topics.DriveOrientation}/active`) } />
+      options={ nt.topics.get(`${Topics[Topic.DriveOrientation]}/options`) }
+      active={ nt.topics.get(`${Topics[Topic.DriveOrientation]}/active`) } />
     <SendableChooser
       name="Speed Mode"
       inline
-      options={ nt.topics.get(`${Topics.DriveSpeedMode}/options`) }
-      active={ nt.topics.get(`${Topics.DriveSpeedMode}/active`) } />
+      options={ nt.topics.get(`${Topics[Topic.DriveSpeedMode]}/options`) }
+      active={ nt.topics.get(`${Topics[Topic.DriveSpeedMode]}/active`) } />
     <SendableChooser
       name="Drift Correction"
       inline
-      options={ nt.topics.get(`${Topics.DriveDriftCorrection}/options`) }
-      active={ nt.topics.get(`${Topics.DriveDriftCorrection}/active`) } />
+      options={ nt.topics.get(`${Topics[Topic.DriveDriftCorrection]}/options`) }
+      active={ nt.topics.get(`${Topics[Topic.DriveDriftCorrection]}/active`) } />
     <SendableChooser
       name="Idle Mode"
       inline
-      options={ nt.topics.get(`${Topics.DriveIdleMode}/options`) }
-      active={ nt.topics.get(`${Topics.DriveIdleMode}/active`) } />
+      options={ nt.topics.get(`${Topics[Topic.DriveIdleMode]}/options`) }
+      active={ nt.topics.get(`${Topics[Topic.DriveIdleMode]}/active`) } />
   </div>
 </div>
 

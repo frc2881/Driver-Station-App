@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
-  import { Configuration } from "../../common/index.js";
+  import { Configuration, Topic } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
@@ -21,12 +21,12 @@
   <div class="header">
     <div class="left">
       <RobotInfo 
-        mode={ nt.topics.get(Topics.RobotMode)?.value } 
-        state={ nt.topics.get(Topics.RobotState)?.value } />
+        mode={ nt.topics.get(Topics[Topic.RobotMode])?.value } 
+        state={ nt.topics.get(Topics[Topic.RobotState])?.value } />
       <GameInfo 
-        alliance={ nt.topics.get(Topics.Alliance)?.value } 
-        team={ nt.topics.get(Topics.Team)?.value }
-        station={ nt.topics.get(Topics.Station)?.value } />
+        alliance={ nt.topics.get(Topics[Topic.Alliance])?.value } 
+        team={ nt.topics.get(Topics[Topic.Team])?.value }
+        station={ nt.topics.get(Topics[Topic.Station])?.value } />
     </div>
     <div class="center">
       <div class="controller-map-button">
@@ -37,8 +37,8 @@
     </div>
     <div class="right">
       <PowerInfo 
-        batteryInfo={ nt.topics.get(Topics.BatteryInfo)?.value }
-        batteryVoltage={ nt.topics.get(Topics.BatteryVoltage)?.value } />
+        batteryInfo={ nt.topics.get(Topics[Topic.BatteryInfo])?.value }
+        batteryVoltage={ nt.topics.get(Topics[Topic.BatteryVoltage])?.value } />
     </div>
   </div>
   <div class="widgets">
@@ -47,40 +47,40 @@
     </Tile>
     <Tile class="widget">
       <DriveInfo
-        driveSpeedMax={ nt.topics.get(Topics.DriveSpeedMax)?.value }
-        swerveModuleFrontLeftDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedTarget)?.value }
-        swerveModuleFrontLeftDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftDrivingSpeedActual)?.value }
-        swerveModuleFrontLeftTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleFrontLeftTurningPosition)?.value } 
-        swerveModuleFrontRightDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleFrontRightDrivingSpeedTarget)?.value }
-        swerveModuleFrontRightDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleFrontRightDrivingSpeedActual)?.value }
-        swerveModuleFrontRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleFrontRightTurningPosition)?.value } 
-        swerveModuleRearLeftDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleRearLeftDrivingSpeedTarget)?.value }
-        swerveModuleRearLeftDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleRearLeftDrivingSpeedActual)?.value }
-        swerveModuleRearLeftTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearLeftTurningPosition)?.value } 
-        swerveModuleRearRightDrivingSpeedTarget={ nt.topics.get(Topics.DriveSwerveModuleRearRightDrivingSpeedTarget)?.value }
-        swerveModuleRearRightDrivingSpeedActual={ nt.topics.get(Topics.DriveSwerveModuleRearRightDrivingSpeedActual)?.value }
-        swerveModuleRearRightTurningPosition={ nt.topics.get(Topics.DriveSwerveModuleRearRightTurningPosition)?.value } />
+        driveSpeedMax={ nt.topics.get(Topics[Topic.DriveSpeedMax])?.value }
+        swerveModuleFrontLeftDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftDrivingSpeedTarget])?.value }
+        swerveModuleFrontLeftDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftDrivingSpeedActual])?.value }
+        swerveModuleFrontLeftTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftTurningPosition])?.value } 
+        swerveModuleFrontRightDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightDrivingSpeedTarget])?.value }
+        swerveModuleFrontRightDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightDrivingSpeedActual])?.value }
+        swerveModuleFrontRightTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightTurningPosition])?.value } 
+        swerveModuleRearLeftDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftDrivingSpeedTarget])?.value }
+        swerveModuleRearLeftDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftDrivingSpeedActual])?.value }
+        swerveModuleRearLeftTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftTurningPosition])?.value } 
+        swerveModuleRearRightDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightDrivingSpeedTarget])?.value }
+        swerveModuleRearRightDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightDrivingSpeedActual])?.value }
+        swerveModuleRearRightTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightTurningPosition])?.value } />
     </Tile>
     <Tile class="widget">
       <LocalizationInfo 
-        robotPose={ nt.topics.get(Topics.RobotPose)?.value }
-        frontPoseSensorIsConnected={ nt.topics.get(Topics.FrontPoseSensorIsConnected)?.value }
-        frontPoseSensorHasTarget={ nt.topics.get(Topics.FrontPoseSensorHasTarget)?.value }
-        frontPoseSensorTargetCount={ nt.topics.get(Topics.FrontPoseSensorTargetCount)?.value }
-        rearPoseSensorIsConnected={ nt.topics.get(Topics.RearPoseSensorIsConnected)?.value }
-        rearPoseSensorHasTarget={ nt.topics.get(Topics.RearPoseSensorHasTarget)?.value }
-        rearPoseSensorTargetCount={ nt.topics.get(Topics.RearPoseSensorTargetCount)?.value }
-        leftPoseSensorIsConnected={ nt.topics.get(Topics.LeftPoseSensorIsConnected)?.value }
-        leftPoseSensorHasTarget={ nt.topics.get(Topics.LeftPoseSensorHasTarget)?.value }
-        leftPoseSensorTargetCount={ nt.topics.get(Topics.LeftPoseSensorTargetCount)?.value }
-        rightPoseSensorIsConnected={ nt.topics.get(Topics.RightPoseSensorIsConnected)?.value }
-        rightPoseSensorHasTarget={ nt.topics.get(Topics.RightPoseSensorHasTarget)?.value }
-        rightPoseSensorTargetCount={ nt.topics.get(Topics.RightPoseSensorTargetCount)?.value }
-        cameraStreams={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null) } /> 
+        robotPose={ nt.topics.get(Topics[Topic.RobotPose])?.value }
+        frontPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontPoseSensorIsConnected])?.value }
+        frontPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontPoseSensorHasTarget])?.value }
+        frontPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontPoseSensorTargetCount])?.value }
+        rearPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearPoseSensorIsConnected])?.value }
+        rearPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearPoseSensorHasTarget])?.value }
+        rearPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearPoseSensorTargetCount])?.value }
+        leftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.LeftPoseSensorIsConnected])?.value }
+        leftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.LeftPoseSensorHasTarget])?.value }
+        leftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.LeftPoseSensorTargetCount])?.value }
+        rightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RightPoseSensorIsConnected])?.value }
+        rightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RightPoseSensorHasTarget])?.value }
+        rightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RightPoseSensorTargetCount])?.value }
+        cameraStreams={ JSON.parse(nt.topics.get(Topics[Topic.CameraStreams])?.value ?? null) } /> 
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings
-        alliance={ nt.topics.get(Topics.Alliance)?.value } />
+        alliance={ nt.topics.get(Topics[Topic.Alliance])?.value } />
     </Tile>
     <Tile class="widget">
     </Tile>

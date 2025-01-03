@@ -1,6 +1,6 @@
 <script lang="ts">
   import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
-  import { Configuration } from "../../common/index.js";
+  import { Configuration, Topic } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
@@ -14,17 +14,17 @@
   <div class="row">
     <Tile class="widget">
       <TargetAlignment
-        alliance={ nt.topics.get(Topics.Alliance)?.value }
-        robotPose={ nt.topics.get(Topics.RobotPose)?.value } 
-        isAlignedToTarget={ nt.topics.get(Topics.DriveIsAlignedToTarget)?.value }
-        fieldLength={ nt.topics.get(Topics.FieldLength)?.value }
-        fieldWidth={ nt.topics.get(Topics.FieldWidth)?.value }
-        driveLength={ nt.topics.get(Topics.DriveLength)?.value }
-        driveWidth={ nt.topics.get(Topics.DriveWidth)?.value } />
+        alliance={ nt.topics.get(Topics[Topic.Alliance])?.value }
+        robotPose={ nt.topics.get(Topics[Topic.RobotPose])?.value } 
+        isAlignedToTarget={ nt.topics.get(Topics[Topic.DriveIsAlignedToTarget])?.value }
+        fieldLength={ nt.topics.get(Topics[Topic.FieldLength])?.value }
+        fieldWidth={ nt.topics.get(Topics[Topic.FieldWidth])?.value }
+        driveLength={ nt.topics.get(Topics[Topic.DriveLength])?.value }
+        driveWidth={ nt.topics.get(Topics[Topic.DriveWidth])?.value } />
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ JSON.parse(nt.topics.get(Topics.CameraStreams)?.value ?? null)?.Driver }
+        streamUrl={ JSON.parse(nt.topics.get(Topics[Topic.CameraStreams])?.value ?? null)?.Driver }
         width={ 810 } 
         height={ 530 } />
     </Tile>
@@ -43,7 +43,7 @@
         />
         <div class="matchtime">
           <MatchTime 
-            matchTime={ nt.topics.get(Topics.MatchTime)?.value } />
+            matchTime={ nt.topics.get(Topics[Topic.MatchTime])?.value } />
         </div>
       </div>
     </Tile>

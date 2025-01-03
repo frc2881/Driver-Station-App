@@ -3,7 +3,8 @@ import type { ParsedArgs } from "minimist";
 import { 
   AppServerMessageType, 
   NetworkTablesServiceMessageType, 
-  NetworkTablesDataType 
+  NetworkTablesDataType,
+  Topic
 } from "./enums.js";
 
 export type ConfigurationSettings = {
@@ -11,7 +12,7 @@ export type ConfigurationSettings = {
     ServerAddress: string;
     ServerPort: number;
     Subscriptions: string[];
-    Topics: Record<string, string>;
+    Topics: Record<Topic, string>;
   }
   MatchTime: {
     Warning: number;

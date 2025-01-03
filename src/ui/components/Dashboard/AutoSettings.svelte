@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Configuration, type Alliance } from "../../../common/index.js";
+  import { Configuration, Topic, type Alliance } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
   import SendableChooser from "../SendableChooser.svelte";
 
@@ -11,7 +11,7 @@
 
   const { Topics } = Configuration.Settings.NetworkTables;
 
-  let activeCommand = $derived(nt.topics.get(`${Topics.AutoCommand}/active`)?.value ?? "None");
+  let activeCommand = $derived(nt.topics.get(`${Topics[Topic.AutoCommand]}/active`)?.value ?? "None");
 </script>
 
 <div class="main">
@@ -19,8 +19,8 @@
   <div>
     <SendableChooser
       name="Auto Command"
-      options={ nt.topics.get(`${Topics.AutoCommand}/options`) }
-      active={ nt.topics.get(`${Topics.AutoCommand}/active`) } />
+      options={ nt.topics.get(`${Topics[Topic.AutoCommand]}/options`) }
+      active={ nt.topics.get(`${Topics[Topic.AutoCommand]}/active`) } />
   </div>
   <div 
     class="active"

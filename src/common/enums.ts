@@ -1,3 +1,21 @@
+export enum RobotMode {
+  Disabled = "Disabled",
+  Auto = "Auto",
+  Teleop = "Teleop",
+  Test = "Test"
+}
+
+export enum RobotState {
+  Disabled = "Disabled",
+  Enabled = "Enabled",
+  Estopped = "EStopped"
+}
+
+export enum Alliance {
+  Red = "Red",
+  Blue = "Blue"
+}
+
 export enum AppWindowType {
   Hud = "Hud",
   Dashboard = "Dashboard",
@@ -28,20 +46,56 @@ export enum NetworkTablesDataType {
   StringArray = 20
 }
 
-export enum RobotMode {
-  Disabled = "Disabled",
-  Auto = "Auto",
-  Teleop = "Teleop",
-  Test = "Test"
-}
-
-export enum RobotState {
-  Disabled = "Disabled",
-  Enabled = "Enabled",
-  Estopped = "EStopped"
-}
-
-export enum Alliance {
-  Red = "Red",
-  Blue = "Blue"
+export enum Topic {
+  IsAllTelemetryEnabled,
+  MatchTime,
+  RobotMode,
+  RobotState,
+  Alliance,
+  Team,
+  Station,
+  AutoCommand,
+  BatteryInfo,
+  BatteryVoltage,
+  IsGyroCalibrating,
+  FieldLength,
+  FieldWidth,
+  DriveLength,
+  DriveWidth,
+  DriveSpeedMax,
+  DriveLockState,
+  DriveOrientation,
+  DriveSpeedMode,
+  DriveDriftCorrection,
+  DriveIdleMode,
+  DriveIsAlignedToTarget,
+  DriveSwerveModuleFrontLeftDrivingSpeedTarget,
+  DriveSwerveModuleFrontLeftDrivingSpeedActual,
+  DriveSwerveModuleFrontLeftTurningPosition,
+  DriveSwerveModuleFrontRightDrivingSpeedTarget,
+  DriveSwerveModuleFrontRightDrivingSpeedActual,
+  DriveSwerveModuleFrontRightTurningPosition,
+  DriveSwerveModuleRearLeftDrivingSpeedTarget,
+  DriveSwerveModuleRearLeftDrivingSpeedActual,
+  DriveSwerveModuleRearLeftTurningPosition,
+  DriveSwerveModuleRearRightDrivingSpeedTarget,
+  DriveSwerveModuleRearRightDrivingSpeedActual,
+  DriveSwerveModuleRearRightTurningPosition,
+  RobotPose,
+  FrontPoseSensorIsConnected,
+  FrontPoseSensorHasTarget,
+  FrontPoseSensorTargetCount,
+  RearPoseSensorIsConnected,
+  RearPoseSensorHasTarget,
+  RearPoseSensorTargetCount,
+  LeftPoseSensorIsConnected,
+  LeftPoseSensorHasTarget,
+  LeftPoseSensorTargetCount,
+  RightPoseSensorIsConnected,
+  RightPoseSensorHasTarget,
+  RightPoseSensorTargetCount,
+  CameraStreams,
+  TargetDistance,
+  TargetHeading,
+  TargetPitch
 }

@@ -19,6 +19,7 @@
   import { LineChart, type LineChartOptions, ScaleTypes } from "@carbon/charts-svelte";
   import { 
     Configuration,
+    Topic,
     Utils,
     NetworkTablesDataType
 	} from "../../common/index.js";
@@ -159,7 +160,7 @@
   });
 
   run(() => {
-    isAllTelemetryEnabled = nt.topics.get(Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled ?? "")?.value ?? false;
+    isAllTelemetryEnabled = nt.topics.get(Configuration.Settings.NetworkTables.Topics[Topic.IsAllTelemetryEnabled] ?? "")?.value ?? false;
   });
 </script>
 
@@ -187,7 +188,7 @@
           <ToolbarMenuItem on:click={ () => { 
             updateNetworkTablesTopics([{ 
               id: 0, 
-              name: Configuration.Settings.NetworkTables.Topics.IsAllTelemetryEnabled ?? "", 
+              name: Configuration.Settings.NetworkTables.Topics[Topic.IsAllTelemetryEnabled] ?? "", 
               type: NetworkTablesDataType.Boolean, 
               value: !isAllTelemetryEnabled 
             }]) } }>
