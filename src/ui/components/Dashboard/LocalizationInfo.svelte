@@ -54,27 +54,27 @@
   <div class="title"><h4>Localization</h4></div>
   <div class="info">
     <div class="robot">
-      <div class="sensor">
-        <button 
-          title="Front"
-          onclick={() => { 
-            isCameraStreamModalOpen = true; 
-            cameraStreamUrl = cameraStreams["Front"] ?? ""; 
-            cameraStreamName = "Front" 
-          }}>
-          <CenterSquare
-            fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
-            width=60
-            height=60 />
-          {#if frontPoseSensorIsConnected}
-          <div class="connection"></div>
-          {/if}
-          {#if frontPoseSensorTargetCount > 1}
-          <div class="targetCount">{ frontPoseSensorTargetCount }</div>
-          {/if}
-        </button>
-      </div>
-      <div style="display:flex;flex-direction:row;justify-content:center;gap:3em;">
+      <div class="sensors">
+        <div class="sensor">
+          <button 
+            title="Front"
+            onclick={() => { 
+              isCameraStreamModalOpen = true; 
+              cameraStreamUrl = cameraStreams["Front"] ?? ""; 
+              cameraStreamName = "Front" 
+            }}>
+            <CenterSquare
+              fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              width=60
+              height=60 />
+            {#if frontPoseSensorIsConnected}
+            <div class="connection"></div>
+            {/if}
+            {#if frontPoseSensorTargetCount > 1}
+            <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+            {/if}
+          </button>
+        </div>
         <div class="sensor">
           <button 
             title="Left"
@@ -115,26 +115,26 @@
             {/if}
           </button>
         </div>
-      </div>
-      <div class="sensor">
-        <button
-          title="Rear" 
-          onclick={() => { 
-            isCameraStreamModalOpen = true; 
-            cameraStreamUrl = cameraStreams["Rear"] ?? ""; 
-            cameraStreamName = "Rear" 
-          }}>
-          <CenterSquare
-            fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
-            width=60
-            height=60 />
-          {#if rearPoseSensorIsConnected}
-          <div class="connection"></div>
-          {/if}
-          {#if rearPoseSensorTargetCount > 1}
-          <div class="targetCount">{ rearPoseSensorTargetCount }</div>
-          {/if}
-        </button>
+        <div class="sensor">
+          <button
+            title="Rear" 
+            onclick={() => { 
+              isCameraStreamModalOpen = true; 
+              cameraStreamUrl = cameraStreams["Rear"] ?? ""; 
+              cameraStreamName = "Rear" 
+            }}>
+            <CenterSquare
+              fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              width=60
+              height=60 />
+            {#if rearPoseSensorIsConnected}
+            <div class="connection"></div>
+            {/if}
+            {#if rearPoseSensorTargetCount > 1}
+            <div class="targetCount">{ rearPoseSensorTargetCount }</div>
+            {/if}
+          </button>
+        </div>
       </div>
     </div>
     <div class="poseInfo">
@@ -183,50 +183,59 @@
       height: 245px;
       border: 2px solid var(--app-color-charcoal);
 
-      & .sensor {
+      & .sensors {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5em;
 
-        & button {
-          position: relative;
+        & .sensor {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 0;
-          border: none;
-          background: transparent;
-          color: var(--app-color-white);
-          cursor: pointer;
-          
-          & .connection {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            left: 2px;
-            top: 2px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--app-color-green);
-            opacity: .5;
-          }
 
-          & .targetCount {
-            position: absolute;
+          & button {
+            position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            right: 0;
-            top: 40px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            padding: 0;
+            border: none;
+            background: transparent;
             color: var(--app-color-white);
-            background: var(--app-color-charcoal);
-            font-weight: bold;
-            opacity: .8;
+            cursor: pointer;
+            
+            & .connection {
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              left: 2px;
+              top: 2px;
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background: var(--app-color-green);
+              opacity: .5;
+            }
+
+            & .targetCount {
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              right: 0;
+              top: 40px;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              color: var(--app-color-white);
+              background: var(--app-color-charcoal);
+              font-weight: bold;
+              opacity: .8;
+            }
           }
         }
       }

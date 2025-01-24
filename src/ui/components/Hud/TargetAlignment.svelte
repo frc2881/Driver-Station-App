@@ -48,7 +48,6 @@
       style:width={ `${driveLength * PIXELS_PER_METER}px` } 
       style:height={`${driveWidth * PIXELS_PER_METER}px`}
       style:transform={ `translate(${ (poseInfo.x * PIXELS_PER_METER) - (driveLength * PIXELS_PER_METER ) / 2 }px, ${ -(poseInfo.y * PIXELS_PER_METER) + (driveWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -poseInfo.rotation }deg)` }>
-      <div class="line"></div>
       <div class="front"><CaretDown width=64 height=64 /></div>
     </div>
   </div>
@@ -79,18 +78,6 @@
         box-sizing: border-box;
         background-color: var(--app-color-pink);
         border-radius: 8px;
-
-        & .line {
-          position: absolute;
-          box-sizing: border-box;
-          top: 50%;
-          left: 50%;
-          width: 640px;
-          height: 2px;
-          transform: translateX(-107%) translateY(-2px) rotate(-6deg);
-          transform-origin: 100%;
-          border: 2px dashed var(--app-color-white);
-        }
 
         & .front {
           position: absolute;

@@ -27,10 +27,10 @@
     class:none={ activeCommand === "None" }>
     { activeCommand }
   </div>
-  <div 
+  <!-- <div 
     class="autos">
     <img src="./assets/images/autos-{ alliance?.toLowerCase() ?? "blue" }.png" alt="" />
-  </div>
+  </div> -->
 </div>
 
 <style>

@@ -94,8 +94,5 @@ export enum Topic {
   RightPoseSensorIsConnected,
   RightPoseSensorHasTarget,
   RightPoseSensorTargetCount,
-  CameraStreams,
-  TargetDistance,
-  TargetHeading,
-  TargetPitch
+  CameraStreams
 }
