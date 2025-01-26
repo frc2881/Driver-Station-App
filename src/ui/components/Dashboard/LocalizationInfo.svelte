@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from "svelte/legacy";
-
 	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
   import { type Pose2d } from "../../../common/index.js";
@@ -65,8 +63,8 @@
             }}>
             <CenterSquare
               fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=60
-              height=60 />
+              width=80
+              height=80 />
             {#if frontPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
@@ -85,8 +83,8 @@
             }}>
             <CenterSquare
               fill={ leftPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=60
-              height=60 />
+              width=80
+              height=80 />
             {#if leftPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
@@ -105,8 +103,8 @@
             }}>
             <CenterSquare
               fill={ rightPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=60
-              height=60 />
+              width=80
+              height=80 />
             {#if rightPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
@@ -125,8 +123,8 @@
             }}>
             <CenterSquare
               fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=60
-              height=60 />
+              width=80
+              height=80 />
             {#if rearPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
@@ -178,10 +176,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: .75em;
       width: 215px;
       height: 245px;
-      border: 2px solid var(--app-color-charcoal);
 
       & .sensors {
         display: flex;
@@ -189,7 +185,7 @@
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 1.5em;
+        gap: 1em;
 
         & .sensor {
           display: flex;

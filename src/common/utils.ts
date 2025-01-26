@@ -1,6 +1,6 @@
 import { addMilliseconds, format } from "date-fns";
 import type { AppServerMessageType } from "./enums.js";
-import type { AppServerMessage, NetworkTables } from "./types.js";
+import type { AppServerMessage, NetworkTables, Pose2d } from "./types.js";
 
 export namespace Utils {
 
@@ -25,6 +25,10 @@ export namespace Utils {
 
   export const isNumberInRange = (value: number, minValue: number, maxValue: number): boolean => {
     return value >= minValue && value <= maxValue;
+  }
+
+  export const getDistance = (robotPose: Pose2d, targetPose: Pose2d) => {
+    return Math.sqrt(((targetPose.x - robotPose.x) ** 2) + ((targetPose.y - robotPose.y) ** 2));
   }
 
   const baseTime = new Date();
