@@ -43,10 +43,12 @@
   };
 
   const getTargetZone = (robotPose: Pose2d): string | null => {
-    for (const targetKey in targetZones[alliance]) {
-      const { x, y, distance } = targetZones[alliance][targetKey] as { x: number, y: number, distance: number };
-      if (Utils.getDistance(robotPose, { x, y, rotation: 0 }) < distance) {
-        return targetKey;
+    if (robotPose.x > 0 || robotPose.y > 0) {
+      for (const targetKey in targetZones[alliance]) {
+        const { x, y, distance } = targetZones[alliance][targetKey] as { x: number, y: number, distance: number };
+        if (Utils.getDistance(robotPose, { x, y, rotation: 0 }) < distance) {
+          return targetKey;
+        }
       }
     }
     return null;
@@ -128,12 +130,12 @@
           box-sizing: border-box;
           top: 50%;
           left: 50%;
-          width: 120px;
+          width: 140px;
           height: 2px;
           transform: translateX(-100%) translateY(-2px) rotate(180deg);
           transform-origin: 100%;
           border: 2px dashed var(--app-color-white);
-          opacity: 0.25;
+          opacity: 0.75;
         }
 
         & .front {

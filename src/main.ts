@@ -1,4 +1,4 @@
-import { app, screen, type Rectangle, BrowserWindow, Tray, Menu } from "electron";
+import { app, screen, ipcMain, type Rectangle, BrowserWindow, Tray, Menu } from "electron";
 import path from "path";
 import minimist from "minimist";
 import { fork, type ChildProcess } from "child_process";
@@ -37,9 +37,11 @@ class Main {
 
     const tray = new Tray(`resources/${ !this._isDevMode ? "app.asar/resources/" : "" }app-icon.png`);
     tray.setContextMenu(Menu.buildFromTemplate([
-      { label: "Open Data Explorer", click: () => { this.openAppWindow(AppWindowType.Data); }},
+      { label: "Open Data View", click: () => { this.openAppWindow(AppWindowType.Data); }},
       { label: "Exit", click: () => { app.quit(); }}
     ]));
+
+    ipcMain.on("openDataView", (e, m) => { this.openAppWindow(AppWindowType.Data); });
 
     this.openAppWindow(AppWindowType.Hud);
     this.openAppWindow(AppWindowType.Dashboard);
@@ -132,7 +134,8 @@ class Main {
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false,
-        zoomFactor: 1
+        zoomFactor: 1,
+        preload: path.join(import.meta.dirname, "ui/preload.js")
       }
     });
     if (isMinimized) { appWindow.minimize(); }

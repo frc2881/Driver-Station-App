@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
+  import { DataTable } from "carbon-icons-svelte";
   import { Configuration, Topic } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
@@ -32,6 +33,11 @@
       <div class="controller-map-button">
         <button onclick={() => { isControllerMapVisible = true; }}>
           <img src="./assets/images/controller.png" alt="Controller Map" />
+        </button>
+      </div>
+      <div class="data-view-button">
+        <button onclick={() => { (window as any).driverStationApp.openDataView(); }}>
+          <DataTable fill={ "#FF69B4" } width=52 height=52 />
         </button>
       </div>
     </div>
@@ -124,6 +130,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 1.5em;
       }
 
       & .right {
@@ -132,7 +139,7 @@
         justify-content: flex-end;
       }
 
-      & .controller-map-button {
+      & .controller-map-button, .data-view-button {
         & button {
           margin: 6px 0 0 0;
           padding: 0;
