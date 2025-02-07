@@ -7,12 +7,10 @@
 	import Graphics from "./components/Graphics.svelte";
 	import Hud from "./views/Hud.svelte";
 	import Dashboard from "./views/Dashboard.svelte";
-	import Data from "./views/Data.svelte";
 
 	const views = {
 		[AppWindowType.Hud]: Hud,
-		[AppWindowType.Dashboard]: Dashboard,
-		[AppWindowType.Data]: Data
+		[AppWindowType.Dashboard]: Dashboard
 	}
 
 	const appWindowType = new URLSearchParams(window.location.search).get("appWindowType") as AppWindowType;

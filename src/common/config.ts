@@ -7,9 +7,7 @@ export namespace Configuration {
       ServerAddress: "10.28.81.2",
       ServerPort: 5810,
       Subscriptions: [
-        "/SmartDashboard",
-        "/FMSInfo",
-        "/LiveWindow"
+        "/SmartDashboard"
       ],
       Topics: {
         [Topic.IsAllTelemetryEnabled]: "/SmartDashboard/Robot/IsAllTelemetryEnabled",

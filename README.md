@@ -31,9 +31,6 @@ _Note: more complete configuration and usage documentation is TBD_
 ### Controller Map
 ![Controller Map](screenshots/controller-map.png)
 
-### Data Explorer
-![Data Explorer](screenshots/data-explorer.png)
-
 ### Demo
 [![2881 Lady Cans | Behind the Bumpers | CRESCENDO](https://img.youtube.com/vi/B-pHaoalEUw/0.jpg)](https://youtu.be/B-pHaoalEUw?t=312)
 

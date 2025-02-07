@@ -1,7 +1,7 @@
 import { app, screen, ipcMain, type Rectangle, BrowserWindow, Tray, Menu } from "electron";
 import path from "path";
 import minimist from "minimist";
-import { fork, type ChildProcess } from "child_process";
+import { fork, execFile, type ChildProcess } from "child_process";
 import { watch } from "fs";
 import type { AppArguments, AppWindowOptions } from "./common/types.js";
 import { AppWindowType } from "./common/enums.js";
@@ -35,13 +35,9 @@ class Main {
 
     await app.whenReady();
 
-    const tray = new Tray(`resources/${ !this._isDevMode ? "app.asar/resources/" : "" }app-icon.png`);
-    tray.setContextMenu(Menu.buildFromTemplate([
-      { label: "Open Data View", click: () => { this.openAppWindow(AppWindowType.Data); }},
-      { label: "Exit", click: () => { app.quit(); }}
-    ]));
-
-    ipcMain.on("openDataView", (e, m) => { this.openAppWindow(AppWindowType.Data); });
+    ipcMain.on("openDataView", (e, m) => { 
+      execFile("C:\\Users\\Public\\wpilib\\2025\\advantagescope\\AdvantageScope (WPILib).exe");
+    });
 
     this.openAppWindow(AppWindowType.Hud);
     this.openAppWindow(AppWindowType.Dashboard);
@@ -96,21 +92,6 @@ class Main {
           isMinimized: false,
           isTransparent: true,
           isFrameless: true,
-          isFullscreen: false
-        };
-        break;
-      case AppWindowType.Data:
-        options = { 
-          title: "Data Explorer",
-          bounds: { 
-            x: 0, 
-            y: 0, 
-            width: Layout.MaxWidth, 
-            height: Layout.MaxHeight - Layout.DockedHeight
-          } as Rectangle,
-          isMinimized: false,
-          isTransparent: false,
-          isFrameless: false,
           isFullscreen: false
         };
         break;

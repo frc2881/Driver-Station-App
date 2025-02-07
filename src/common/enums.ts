@@ -18,8 +18,7 @@ export enum Alliance {
 
 export enum AppWindowType {
   Hud = "Hud",
-  Dashboard = "Dashboard",
-  Data = "Data"
+  Dashboard = "Dashboard"
 }
 
 export enum AppServerMessageType {
