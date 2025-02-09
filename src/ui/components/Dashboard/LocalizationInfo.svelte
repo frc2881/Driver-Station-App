@@ -6,35 +6,35 @@
 
   interface Props {
     robotPose: [number, number, number];
-    frontPoseSensorIsConnected: boolean;
-    frontPoseSensorHasTarget: boolean;
-    frontPoseSensorTargetCount: number;
-    rearPoseSensorIsConnected: boolean;
-    rearPoseSensorHasTarget: boolean;
-    rearPoseSensorTargetCount: number;
-    leftPoseSensorIsConnected: boolean;
-    leftPoseSensorHasTarget: boolean;
-    leftPoseSensorTargetCount: number;
-    rightPoseSensorIsConnected: boolean;
-    rightPoseSensorHasTarget: boolean;
-    rightPoseSensorTargetCount: number;
+    frontRightPoseSensorIsConnected: boolean;
+    frontRightPoseSensorHasTarget: boolean;
+    frontRightPoseSensorTargetCount: number;
+    frontLeftPoseSensorIsConnected: boolean;
+    frontLeftPoseSensorHasTarget: boolean;
+    frontLeftPoseSensorTargetCount: number;
+    rearRightPoseSensorIsConnected: boolean;
+    rearRightPoseSensorHasTarget: boolean;
+    rearRightPoseSensorTargetCount: number;
+    rearLeftPoseSensorIsConnected: boolean;
+    rearLeftPoseSensorHasTarget: boolean;
+    rearLeftPoseSensorTargetCount: number;
     cameraStreams: Record<string, string>;
   }
 
   let {
     robotPose,
-    frontPoseSensorIsConnected,
-    frontPoseSensorHasTarget,
-    frontPoseSensorTargetCount,
-    rearPoseSensorIsConnected,
-    rearPoseSensorHasTarget,
-    rearPoseSensorTargetCount,
-    leftPoseSensorIsConnected,
-    leftPoseSensorHasTarget,
-    leftPoseSensorTargetCount,
-    rightPoseSensorIsConnected,
-    rightPoseSensorHasTarget,
-    rightPoseSensorTargetCount,
+    frontRightPoseSensorIsConnected: frontRightPoseSensorIsConnected,
+    frontRightPoseSensorHasTarget: frontRightPoseSensorHasTarget,
+    frontRightPoseSensorTargetCount: frontRightPoseSensorTargetCount,
+    frontLeftPoseSensorIsConnected: frontLeftPoseSensorIsConnected,
+    frontLeftPoseSensorHasTarget: frontLeftPoseSensorHasTarget,
+    frontLeftPoseSensorTargetCount: frontLeftPoseSensorTargetCount,
+    rearRightPoseSensorIsConnected: rearRightPoseSensorIsConnected,
+    rearRightPoseSensorHasTarget: rearRightPoseSensorHasTarget,
+    rearRightPoseSensorTargetCount: rearRightPoseSensorTargetCount,
+    rearLeftPoseSensorIsConnected: rearLeftPoseSensorIsConnected,
+    rearLeftPoseSensorHasTarget: rearLeftPoseSensorHasTarget,
+    rearLeftPoseSensorTargetCount: rearLeftPoseSensorTargetCount,
     cameraStreams
   }: Props = $props();
 
@@ -55,81 +55,81 @@
       <div class="sensors">
         <div class="sensor">
           <button 
-            title="Front"
+            title="FrontLeft"
             onclick={() => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["Front"] ?? ""; 
-              cameraStreamName = "Front" 
+              cameraStreamUrl = cameraStreams["FrontLeft"] ?? ""; 
+              cameraStreamName = "FrontLeft" 
             }}>
             <CenterSquare
-              fill={ frontPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              fill={ frontLeftPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=80
               height=80 />
-            {#if frontPoseSensorIsConnected}
+            {#if frontLeftPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
-            {#if frontPoseSensorTargetCount > 1}
-            <div class="targetCount">{ frontPoseSensorTargetCount }</div>
+            {#if frontLeftPoseSensorTargetCount > 1}
+            <div class="targetCount">{ frontLeftPoseSensorTargetCount }</div>
             {/if}
           </button>
         </div>
         <div class="sensor">
           <button 
-            title="Left"
+            title="FrontRight"
             onclick={() => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["Left"] ?? ""; 
-              cameraStreamName = "Left" 
+              cameraStreamUrl = cameraStreams["FrontRight"] ?? ""; 
+              cameraStreamName = "FrontRight" 
             }}>
             <CenterSquare
-              fill={ leftPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              fill={ frontRightPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=80
               height=80 />
-            {#if leftPoseSensorIsConnected}
+            {#if frontRightPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
-            {#if leftPoseSensorTargetCount > 1}
-            <div class="targetCount">{ leftPoseSensorTargetCount }</div>
+            {#if frontRightPoseSensorTargetCount > 1}
+            <div class="targetCount">{ frontRightPoseSensorTargetCount }</div>
             {/if}
           </button>
         </div>
         <div class="sensor">
           <button 
-            title="Right"
+            title="RearLeft"
             onclick={() => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["Right"] ?? ""; 
-              cameraStreamName = "Right" 
+              cameraStreamUrl = cameraStreams["RearLeft"] ?? ""; 
+              cameraStreamName = "RearLeft" 
             }}>
             <CenterSquare
-              fill={ rightPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              fill={ rearLeftPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=80
               height=80 />
-            {#if rightPoseSensorIsConnected}
+            {#if rearLeftPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
-            {#if rightPoseSensorTargetCount > 1}
-            <div class="targetCount">{ rightPoseSensorTargetCount }</div>
+            {#if rearLeftPoseSensorTargetCount > 1}
+            <div class="targetCount">{ rearLeftPoseSensorTargetCount }</div>
             {/if}
           </button>
         </div>
         <div class="sensor">
           <button
-            title="Rear" 
+            title="RearRight" 
             onclick={() => { 
               isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["Rear"] ?? ""; 
-              cameraStreamName = "Rear" 
+              cameraStreamUrl = cameraStreams["RearRight"] ?? ""; 
+              cameraStreamName = "RearRight" 
             }}>
             <CenterSquare
-              fill={ rearPoseSensorHasTarget ? "#00CC00" : "#666666" }
+              fill={ rearRightPoseSensorHasTarget ? "#00CC00" : "#666666" }
               width=80
               height=80 />
-            {#if rearPoseSensorIsConnected}
+            {#if rearRightPoseSensorIsConnected}
             <div class="connection"></div>
             {/if}
-            {#if rearPoseSensorTargetCount > 1}
-            <div class="targetCount">{ rearPoseSensorTargetCount }</div>
+            {#if rearRightPoseSensorTargetCount > 1}
+            <div class="targetCount">{ rearRightPoseSensorTargetCount }</div>
             {/if}
           </button>
         </div>

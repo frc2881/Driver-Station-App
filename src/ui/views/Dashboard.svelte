@@ -70,18 +70,18 @@
     <Tile class="widget">
       <LocalizationInfo 
         robotPose={ nt.topics.get(Topics[Topic.RobotPose])?.value }
-        frontPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontPoseSensorIsConnected])?.value }
-        frontPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontPoseSensorHasTarget])?.value }
-        frontPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontPoseSensorTargetCount])?.value }
-        rearPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearPoseSensorIsConnected])?.value }
-        rearPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearPoseSensorHasTarget])?.value }
-        rearPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearPoseSensorTargetCount])?.value }
-        leftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.LeftPoseSensorIsConnected])?.value }
-        leftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.LeftPoseSensorHasTarget])?.value }
-        leftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.LeftPoseSensorTargetCount])?.value }
-        rightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RightPoseSensorIsConnected])?.value }
-        rightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RightPoseSensorHasTarget])?.value }
-        rightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RightPoseSensorTargetCount])?.value }
+        frontRightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontRightPoseSensorIsConnected])?.value }
+        frontRightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontRightPoseSensorHasTarget])?.value }
+        frontRightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontRightPoseSensorTargetCount])?.value }
+        frontLeftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorIsConnected])?.value }
+        frontLeftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorHasTarget])?.value }
+        frontLeftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorTargetCount])?.value }
+        rearRightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearRightPoseSensorIsConnected])?.value }
+        rearRightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearRightPoseSensorHasTarget])?.value }
+        rearRightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearRightPoseSensorTargetCount])?.value }
+        rearLeftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearLeftPoseSensorIsConnected])?.value }
+        rearLeftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearLeftPoseSensorHasTarget])?.value }
+        rearLeftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearLeftPoseSensorTargetCount])?.value }
         cameraStreams={ JSON.parse(nt.topics.get(Topics[Topic.CameraStreams])?.value ?? null) } /> 
     </Tile>
     <Tile class="widget row-span-2">
