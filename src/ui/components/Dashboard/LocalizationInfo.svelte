@@ -5,7 +5,7 @@
   import CameraStream from "../../components/CameraStream.svelte";
 
   interface Props {
-    robotPose: string;
+    robotPose: number[];
     frontRightPoseSensorIsConnected: boolean;
     frontRightPoseSensorHasTarget: boolean;
     frontRightPoseSensorTargetCount: number;
@@ -38,7 +38,7 @@
     cameraStreams
   }: Props = $props();
 
-  let robotPose_: Pose2d = $derived(JSON.parse(robotPose ?? "{}"));
+  let robotPose_: Pose2d = $derived({ x: robotPose?.[0] ?? 0, y: robotPose?.[1] ?? 0, rotation: robotPose?.[2] ?? 0 });
   let isCameraStreamModalOpen: boolean = $state(false);
   let cameraStreamUrl: string = $state("");
   let cameraStreamName: string = $state("");

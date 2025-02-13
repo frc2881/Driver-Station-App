@@ -1,6 +1,5 @@
 import { SvelteMap } from "svelte/reactivity";
 import { 
-  type AppServerMessage,
   type NetworkTables,
   type NetworkTablesTopic,
   type NetworkTablesTopics,
