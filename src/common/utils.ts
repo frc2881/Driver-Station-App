@@ -8,15 +8,12 @@ export namespace Utils {
     await new Promise(r => setTimeout(r, time * 1000));
   }
 
-  const textDecoder = new TextDecoder();
-  const textEncoder = new TextEncoder();
-
-  export const decodeAppServerMessage = (data: Uint8Array | ArrayBuffer): AppServerMessage => {
-    return JSON.parse(textDecoder.decode(data)) as AppServerMessage;
+  export const deserializeAppServerMessage = (data: string): AppServerMessage => {
+    return JSON.parse(data) as AppServerMessage;
   }
 
-  export const encodeAppServerMessage = (type: AppServerMessageType, message: Record<string, any>): Uint8Array => {
-    return textEncoder.encode(JSON.stringify(<AppServerMessage>{ type, message }));
+  export const serializeAppServerMessage = (type: AppServerMessageType, message: Record<string, any>): string => {
+    return JSON.stringify(<AppServerMessage>{ type, message });
   }
 
   export const radiansToDegrees = (radians: number): number => {

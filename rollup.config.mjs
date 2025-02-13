@@ -13,10 +13,10 @@ export default {
 		format: "es",
 		name: "ui",
 		file: "app/ui/bundle.js",
-		sourcemap: true,
+		sourcemap: false,
 		inlineDynamicImports: true
 	},
-	treeshake: false,
+	treeshake: true,
 	onwarn: (warning, handler) => {
     if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids[0].includes("d3-")) { return; }
 		if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids[0].includes("svelte")) { return; }
@@ -37,20 +37,18 @@ export default {
 				if (warning.code == "css_unused_selector") { return; }
 				handler(warning);
 			},
-			compilerOptions: { 
-				dev: false
-			}
+			compilerOptions: { dev: false }
 		}),
 		replace({
 			preventAssignment: true,
 			"process.env.NODE_ENV": JSON.stringify("production"),
 		}),
-		css({ output: "bundle.css" }),
+		css({ output: "bundle.css", sourcemap: false }),
 		resolve({
 			browser: true,
 			dedupe: ["svelte"]
 		}),
-		commonjs()
+		commonjs({ sourceMap: false })
 	],
 	watch: {
 		clearScreen: false

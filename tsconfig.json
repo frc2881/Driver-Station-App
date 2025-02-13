@@ -16,6 +16,6 @@
     "forceConsistentCasingInFileNames": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "sourceMap": true
+    "sourceMap": false
   }
 }

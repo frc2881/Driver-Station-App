@@ -38,7 +38,7 @@ export const updateNetworkTablesTopics = (topics: NetworkTablesTopic[]): void =>
 }
 
 const onMessageReceived = (e: MessageEvent): void => {
-  const { type, message } = Utils.decodeAppServerMessage(e.data as Uint8Array) as AppServerMessage;
+  const { type, message } = Utils.deserializeAppServerMessage(e.data as string);
   switch (type) {
     case AppServerMessageType.NetworkTablesService:
       switch ((message as NetworkTablesServiceMessage).type) {
@@ -83,7 +83,7 @@ const onNetworkTablesTopicsRemoved = (e: NetworkTablesTopicsRemovedMessage): voi
 }
 
 const sendServerMessage = (type: AppServerMessageType, message: Object): void => {
-  const appServerMessage = Utils.encodeAppServerMessage(type, message);
+  const appServerMessage = Utils.serializeAppServerMessage(type, message);
   if (webSocket.readyState === WebSocket.OPEN) {
     webSocket.send(appServerMessage);
   }

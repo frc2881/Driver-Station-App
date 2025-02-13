@@ -72,8 +72,8 @@ class Server {
     }
   }
 
-  private onMessageReceived = (data: ArrayBuffer): void => {
-    const { type, message } = Utils.decodeAppServerMessage(data) as AppServerMessage;
+  private onMessageReceived = (data: string): void => {
+    const { type, message } = Utils.deserializeAppServerMessage(data);
     switch (type) {
 			case AppServerMessageType.NetworkTablesService:
 				switch ((message as NetworkTablesServiceMessage).type) {
@@ -92,17 +92,17 @@ class Server {
   }
 
   private sendMessage = (type: AppServerMessageType, message: Object, connection: WebSocket): void => {
-    const serverMessage = Utils.encodeAppServerMessage(type, message);
+    const serverMessage = Utils.serializeAppServerMessage(type, message);
     if (connection.readyState === WebSocket.OPEN) {
-      connection.send(serverMessage, { binary: true });
+      connection.send(serverMessage, { binary: false });
     }
   }
 
   private broadcastMessage = (type: AppServerMessageType, message: Object): void => {
-    const serverMessage = Utils.encodeAppServerMessage(type, message);
+    const serverMessage = Utils.serializeAppServerMessage(type, message);
     for (const connection of this._appWindowConnections.values()) {
       if (connection.readyState === WebSocket.OPEN) {
-        connection.send(serverMessage, { binary: true });
+        connection.send(serverMessage, { binary: false });
       }
     }
   }
