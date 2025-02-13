@@ -5,7 +5,7 @@
 
   interface Props {
     alliance: Alliance;
-    robotPose: [number, number, number];
+    robotPose: string;
     isAlignedToTarget: boolean;
     fieldLength: number;
     fieldWidth: number;
@@ -54,13 +54,8 @@
     return null;
   }
 
-  let poseInfo: Pose2d = $derived({ 
-    x: robotPose?.[0] ?? 0, 
-    y: robotPose?.[1] ?? 0, 
-    rotation: robotPose?.[2] ?? 0 
-  });
-
-  let targetZone: string | null = $derived(getTargetZone(poseInfo))
+  let robotPose_: Pose2d = $derived(JSON.parse(robotPose ?? "{}"));
+  let targetZone: string | null = $derived(getTargetZone(robotPose_))
 </script>
 <div class="main">
   <div 
@@ -77,7 +72,7 @@
       class="robot"
       style:width={ `${driveLength * PIXELS_PER_METER}px` } 
       style:height={`${driveWidth * PIXELS_PER_METER}px`}
-      style:transform={ `translate(${ (poseInfo.x * PIXELS_PER_METER) - (driveLength * PIXELS_PER_METER ) / 2 }px, ${ -(poseInfo.y * PIXELS_PER_METER) + (driveWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -poseInfo.rotation }deg)` }>
+      style:transform={ `translate(${ (robotPose_?.x * PIXELS_PER_METER) - (driveLength * PIXELS_PER_METER ) / 2 }px, ${ -(robotPose_?.y * PIXELS_PER_METER) + (driveWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
       <div class="line"></div>
       <div class="front"><CaretDown width=64 height=64 /></div>
     </div>

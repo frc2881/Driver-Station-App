@@ -5,7 +5,7 @@
   import CameraStream from "../../components/CameraStream.svelte";
 
   interface Props {
-    robotPose: [number, number, number];
+    robotPose: string;
     frontRightPoseSensorIsConnected: boolean;
     frontRightPoseSensorHasTarget: boolean;
     frontRightPoseSensorTargetCount: number;
@@ -38,11 +38,7 @@
     cameraStreams
   }: Props = $props();
 
-  let poseInfo: Pose2d = $derived({ 
-    x: robotPose?.[0] ?? 0, 
-    y: robotPose?.[1] ?? 0, 
-    rotation: robotPose?.[2] ?? 0 
-  });
+  let robotPose_: Pose2d = $derived(JSON.parse(robotPose ?? "{}"));
   let isCameraStreamModalOpen: boolean = $state(false);
   let cameraStreamUrl: string = $state("");
   let cameraStreamName: string = $state("");
@@ -136,9 +132,9 @@
       </div>
     </div>
     <div class="poseInfo">
-      <div><span class="label">X</span>{ poseInfo.x?.toFixed(3) } m</div>
-      <div><span class="label">Y</span>{ poseInfo.y?.toFixed(3) } m</div>
-      <div><span class="label">Heading</span>{ poseInfo.rotation?.toFixed(2) } &deg;</div>
+      <div><span class="label">X</span>{ robotPose_.x?.toFixed(3) } m</div>
+      <div><span class="label">Y</span>{ robotPose_.y?.toFixed(3) } m</div>
+      <div><span class="label">Heading</span>{ robotPose_.rotation?.toFixed(2) } &deg;</div>
     </div>
   </div>
 </div>
