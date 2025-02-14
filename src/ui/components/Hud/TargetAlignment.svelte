@@ -5,7 +5,7 @@
 
   interface Props {
     alliance: Alliance;
-    robotPose: number[];
+    robotPose: object;
     isAlignedToTarget: boolean;
     fieldLength: number;
     fieldWidth: number;
@@ -54,7 +54,7 @@
     return null;
   }
 
-  let robotPose_: Pose2d = $derived({ x: robotPose?.[0] ?? 0, y: robotPose?.[1] ?? 0, rotation: robotPose?.[2] ?? 0 });
+  let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
   let targetZone: string | null = $derived(getTargetZone(robotPose_))
 </script>
 <div class="main">

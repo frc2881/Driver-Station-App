@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
-  import { type Pose2d } from "../../../common/index.js";
+  import { Utils, type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
 
   interface Props {
-    robotPose: number[];
+    robotPose: object;
     frontRightPoseSensorIsConnected: boolean;
     frontRightPoseSensorHasTarget: boolean;
     frontRightPoseSensorTargetCount: number;
@@ -38,7 +38,7 @@
     cameraStreams
   }: Props = $props();
 
-  let robotPose_: Pose2d = $derived({ x: robotPose?.[0] ?? 0, y: robotPose?.[1] ?? 0, rotation: robotPose?.[2] ?? 0 });
+  let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
   let isCameraStreamModalOpen: boolean = $state(false);
   let cameraStreamUrl: string = $state("");
   let cameraStreamName: string = $state("");

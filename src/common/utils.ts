@@ -24,6 +24,18 @@ export namespace Utils {
     return value >= minValue && value <= maxValue;
   }
 
+  export const decodePose2dFromStruct = (pose: object): Pose2d => {
+    if (pose) {
+      const array = new Uint8Array(Object.values(pose));
+      return {
+        x: new DataView(array.slice(0, 8).buffer).getFloat64(0, true),
+        y: new DataView(array.slice(8, 16).buffer).getFloat64(0, true),
+        rotation: radiansToDegrees(new DataView(array.slice(16, 24).buffer).getFloat64(0, true))
+      };
+    }
+    return { x: 0, y: 0, rotation: 0 };
+  }
+
   export const getDistance = (robotPose: Pose2d, targetPose: Pose2d) => {
     return Math.sqrt(((targetPose.x - robotPose.x) ** 2) + ((targetPose.y - robotPose.y) ** 2));
   }

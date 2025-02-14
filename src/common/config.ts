@@ -44,7 +44,7 @@ export namespace Configuration {
         [Topic.DriveSwerveModuleRearRightDrivingSpeedTarget]: "/SmartDashboard/Robot/Drive/Modules/RearRight/Driving/Speed/Target",
         [Topic.DriveSwerveModuleRearRightDrivingSpeedActual]: "/SmartDashboard/Robot/Drive/Modules/RearRight/Driving/Speed/Actual",
         [Topic.DriveSwerveModuleRearRightTurningPosition]: "/SmartDashboard/Robot/Drive/Modules/RearRight/Turning/Position",
-        [Topic.RobotPose]: "/SmartDashboard/Robot/Localization/Pose/Data",
+        [Topic.RobotPose]: "/SmartDashboard/Robot/Localization/Pose",
         [Topic.FrontRightPoseSensorIsConnected]: "/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected",
         [Topic.FrontRightPoseSensorHasTarget]: "/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget",
         [Topic.FrontRightPoseSensorTargetCount]: "/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount",
