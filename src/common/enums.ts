@@ -93,5 +93,13 @@ export enum Topic {
   RearLeftPoseSensorIsConnected,
   RearLeftPoseSensorHasTarget,
   RearLeftPoseSensorTargetCount,
-  CameraStreams
+  CameraStreams,
+  ElevatorPositionLowerStage,
+  ElevatorPositionUpperStage,
+  ArmPosition,
+  WristPosition,
+  HandGripperIsEnabled,
+  HandGripperIsHolding,
+  HandSuctionIsEnabled,
+  HandSuctionIsHolding
 }

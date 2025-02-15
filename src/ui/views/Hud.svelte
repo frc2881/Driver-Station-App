@@ -29,6 +29,13 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
+      <div style="padding:3em;font-size:200%;display:flex;flex-direction:column;gap:1.5em;">
+        <div>Elevator: { (nt.topics.get(Topics[Topic.ElevatorPositionUpperStage])?.value as number)?.toFixed(3) } + { (nt.topics.get(Topics[Topic.ElevatorPositionLowerStage])?.value as number)?.toFixed(3) }</div>
+        <div>Arm: { (nt.topics.get(Topics[Topic.ArmPosition])?.value as number)?.toFixed(3) }</div>
+        <div>Wrist: { nt.topics.get(Topics[Topic.WristPosition])?.value }</div>
+        <div>Gripper: { (nt.topics.get(Topics[Topic.HandGripperIsEnabled])?.value as boolean) ? ((nt.topics.get(Topics[Topic.HandGripperIsHolding])?.value as boolean) ? "Holding" : "Enabled") : "Disabled" }</div>
+        <div>Suction: { (nt.topics.get(Topics[Topic.HandSuctionIsEnabled])?.value as boolean) ? ((nt.topics.get(Topics[Topic.HandSuctionIsHolding])?.value as boolean) ? "Holding" : "Enabled") : "Disabled" }</div>
+      </div>
     </Tile>
   </div>
   <div class="row">

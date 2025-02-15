@@ -57,7 +57,15 @@ export namespace Configuration {
         [Topic.RearLeftPoseSensorIsConnected]: "/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected",
         [Topic.RearLeftPoseSensorHasTarget]: "/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget",
         [Topic.RearLeftPoseSensorTargetCount]: "/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount",
-        [Topic.CameraStreams]: "/SmartDashboard/Robot/Sensors/Camera/Streams"
+        [Topic.CameraStreams]: "/SmartDashboard/Robot/Sensors/Camera/Streams",
+        [Topic.ElevatorPositionLowerStage]: "/SmartDashboard/Robot/Elevator/Position/LowerStage",
+        [Topic.ElevatorPositionUpperStage]: "/SmartDashboard/Robot/Elevator/Position/UpperStage",
+        [Topic.ArmPosition]: "/SmartDashboard/Robot/Arm/Position",
+        [Topic.WristPosition]: "/SmartDashboard/Robot/Wrist/Position",
+        [Topic.HandGripperIsEnabled]: "/SmartDashboard/Robot/Hand/Gripper/IsEnabled",
+        [Topic.HandGripperIsHolding]: "/SmartDashboard/Robot/Hand/Gripper/IsHolding",
+        [Topic.HandSuctionIsEnabled]: "/SmartDashboard/Robot/Hand/Suction/IsEnabled",
+        [Topic.HandSuctionIsHolding]: "/SmartDashboard/Robot/Hand/Suction/IsHolding"
       },
     },
     MatchTime: {
