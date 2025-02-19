@@ -1,37 +1,21 @@
 <script lang="ts">
   import { Utils } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  interface Props {
-    driveSpeedMax: number;
-    swerveModuleFrontLeftDrivingSpeedTarget: number;
-    swerveModuleFrontLeftDrivingSpeedActual: number;
-    swerveModuleFrontLeftTurningPosition: number;
-    swerveModuleFrontRightDrivingSpeedTarget: number;
-    swerveModuleFrontRightDrivingSpeedActual: number;
-    swerveModuleFrontRightTurningPosition: number;
-    swerveModuleRearLeftDrivingSpeedTarget: number;
-    swerveModuleRearLeftDrivingSpeedActual: number;
-    swerveModuleRearLeftTurningPosition: number;
-    swerveModuleRearRightDrivingSpeedTarget: number;
-    swerveModuleRearRightDrivingSpeedActual: number;
-    swerveModuleRearRightTurningPosition: number;
-  }
-
-  let {
-    driveSpeedMax,
-    swerveModuleFrontLeftDrivingSpeedTarget,
-    swerveModuleFrontLeftDrivingSpeedActual,
-    swerveModuleFrontLeftTurningPosition,
-    swerveModuleFrontRightDrivingSpeedTarget,
-    swerveModuleFrontRightDrivingSpeedActual,
-    swerveModuleFrontRightTurningPosition,
-    swerveModuleRearLeftDrivingSpeedTarget,
-    swerveModuleRearLeftDrivingSpeedActual,
-    swerveModuleRearLeftTurningPosition,
-    swerveModuleRearRightDrivingSpeedTarget,
-    swerveModuleRearRightDrivingSpeedActual,
-    swerveModuleRearRightTurningPosition
-  }: Props = $props();
+  let driveLockState = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/LockState")?.value as string);
+  let driveSpeedMax = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Speed/Max")?.value as number);
+  let swerveModuleFrontLeftDrivingSpeedTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Driving/Speed/Target")?.value as number);
+  let swerveModuleFrontLeftDrivingSpeedActual = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Driving/Speed/Actual")?.value as number);
+  let swerveModuleFrontLeftTurningPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Turning/Position")?.value as number);
+  let swerveModuleFrontRightDrivingSpeedTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontRight/Driving/Speed/Target")?.value as number);
+  let swerveModuleFrontRightDrivingSpeedActual = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontRight/Driving/Speed/Actual")?.value as number);
+  let swerveModuleFrontRightTurningPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontRight/Turning/Position")?.value as number);
+  let swerveModuleRearLeftDrivingSpeedTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearLeft/Driving/Speed/Target")?.value as number);
+  let swerveModuleRearLeftDrivingSpeedActual = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearLeft/Driving/Speed/Actual")?.value as number);
+  let swerveModuleRearLeftTurningPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearLeft/Turning/Position")?.value as number);
+  let swerveModuleRearRightDrivingSpeedTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearRight/Driving/Speed/Target")?.value as number);
+  let swerveModuleRearRightDrivingSpeedActual = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearRight/Driving/Speed/Actual")?.value as number);
+  let swerveModuleRearRightTurningPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/RearRight/Turning/Position")?.value as number);
 </script>
 
 <div class="main">

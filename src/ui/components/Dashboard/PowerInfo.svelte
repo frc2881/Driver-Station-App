@@ -3,15 +3,13 @@
   import BatteryHalf from "carbon-icons-svelte/lib/BatteryHalf.svelte";
   import BatteryQuarter from "carbon-icons-svelte/lib/BatteryQuarter.svelte";
   import { Configuration } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   const { BatteryVoltageLevel } = Configuration.Settings;
 
-  interface Props {
-    batteryInfo: string;
-    batteryVoltage: number;
-  }
-
-  let { batteryInfo, batteryVoltage }: Props = $props();
+  let batteryInfo = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Info")?.value as string);
+  let batteryVoltage = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage")?.value as number);
+  let isBrownedOut = $derived(nt.topics.get("/SmartDashboard/Robot/Power/IsBrownedOut")?.value as boolean);
 </script>
 
 <div class="main">

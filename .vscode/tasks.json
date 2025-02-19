@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Project: Install",
+      "type": "shell",
+      "command": "npm install", 
+      "problemMatcher": []
+    },
+    {
+      "label": "Project: Run Development (Robot)",
+      "type": "shell",
+      "command": "npm run dev", 
+      "problemMatcher": []
+    },
+    {
+      "label": "Project: Run Development (Simulator)",
+      "type": "shell",
+      "command": "npm run dev:local",
+      "problemMatcher": []
+    },
+    {
+      "label": "Project: Package",
+      "type": "shell",
+      "command": "npm run package",
+      "problemMatcher": []
+    }
+  ]
+}

@@ -35,10 +35,6 @@ class Main {
 
     await app.whenReady();
 
-    ipcMain.on("openDataView", (e, m) => { 
-      execFile("C:\\Users\\Public\\wpilib\\2025\\advantagescope\\AdvantageScope (WPILib).exe");
-    });
-
     this.openAppWindow(AppWindowType.Hud);
     this.openAppWindow(AppWindowType.Dashboard);
 

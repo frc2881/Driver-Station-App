@@ -67,8 +67,9 @@
 	}
 
 	@keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 0.1; }
+    0% { opacity: 1.0; }
+		50% { opacity: 1.0; }
+    100% { opacity: 0.25; }
   }
 
   @keyframes rotate {

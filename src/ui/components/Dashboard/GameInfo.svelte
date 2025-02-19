@@ -1,13 +1,10 @@
 <script lang="ts">
   import { Alliance } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  interface Props {
-    alliance: Alliance;
-    team: number;
-    station: number;
-  }
-
-  let { alliance, team, station }: Props = $props();
+  let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
+  let team = $derived(nt.topics.get("/SmartDashboard/Game/Team")?.value as number);
+  let station = $derived(nt.topics.get("/SmartDashboard/Game/Station")?.value as number);
 </script>
 
 <div class="main">

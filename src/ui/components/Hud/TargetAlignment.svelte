@@ -2,26 +2,15 @@
   import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
 	import { Alliance, type Pose2d, Utils } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  interface Props {
-    alliance: Alliance;
-    robotPose: object;
-    isAlignedToTarget: boolean;
-    fieldLength: number;
-    fieldWidth: number;
-    driveLength: number;
-    driveWidth: number;
-  }
-
-  let {
-    alliance,
-    robotPose,
-    isAlignedToTarget,
-    fieldLength,
-    fieldWidth,
-    driveLength,
-    driveWidth
-  }: Props = $props();
+  let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
+  let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
+  let fieldLength = $derived(nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number);
+  let fieldWidth = $derived(nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number);
+  let driveLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Length")?.value as number);
+  let driveWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Width")?.value as number);
+  let isAlignedToTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTarget")?.value as boolean);
 
   const PIXELS_PER_METER: number = 100;
 
@@ -55,13 +44,13 @@
   }
 
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
-  let targetZone: string | null = $derived(getTargetZone(robotPose_))
+  let targetZone: string | null = $derived(getTargetZone(robotPose_));
 </script>
 <div class="main">
   <div 
     class="alignment"
     class:active={ isAlignedToTarget }>
-    <CheckmarkFilled width=540 height=540 fill="#00CC00" />
+    <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div 
     class="field { alliance?.toLowerCase() } { targetZone }"
@@ -81,6 +70,7 @@
 
 <style>
   .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,6 +78,18 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+
+    & .alignment {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.25;
+      &.active { display: flex; }
+      & .checkmark { animation: pulse 500ms infinite ease-out; }
+    }
 
     & .field {
       position: relative;
@@ -141,22 +143,6 @@
           transform: rotate(-90deg) translate(50%, 25%);
           color: var(--app-color-white);
         }
-      }
-    }
-
-    & .alignment {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      animation: pulse 500ms infinite ease;
-      z-index: 9999;
-
-      &.active {
-        display: flex;
       }
     }
   }

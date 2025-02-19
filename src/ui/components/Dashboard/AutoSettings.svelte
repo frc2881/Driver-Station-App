@@ -1,17 +1,10 @@
 <script lang="ts">
-  import { Configuration, Topic, type Alliance } from "../../../common/index.js";
-  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
+  import { type Alliance } from "../../../common/index.js";
   import SendableChooser from "../SendableChooser.svelte";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
-  interface Props {
-    alliance: Alliance;
-  }
-
-  let { alliance }: Props = $props();
-
-  const { Topics } = Configuration.Settings.NetworkTables;
-
-  let activeCommand = $derived(nt.topics.get(`${Topics[Topic.AutoCommand]}/active`)?.value ?? "None");
+  let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
+  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/Command/active")?.value ?? "None");
 </script>
 
 <div class="main">
@@ -19,18 +12,14 @@
   <div>
     <SendableChooser
       name="Auto Command"
-      options={ nt.topics.get(`${Topics[Topic.AutoCommand]}/options`) }
-      active={ nt.topics.get(`${Topics[Topic.AutoCommand]}/active`) } />
+      options={ nt.topics.get("/SmartDashboard/Robot/Auto/Command/options") }
+      active={ nt.topics.get("/SmartDashboard/Robot/Auto/Command/active") } />
   </div>
   <div 
     class="active"
     class:none={ activeCommand === "None" }>
     { activeCommand }
   </div>
-  <!-- <div 
-    class="autos">
-    <img src="./assets/images/autos-{ alliance?.toLowerCase() ?? "blue" }.png" alt="" />
-  </div> -->
 </div>
 
 <style>
@@ -59,18 +48,6 @@
         border: 1px solid var(--app-color-charcoal);
         color: var(--app-color-charcoal);
         font-weight: normal;
-      }
-    }
-
-    & .autos {
-      background: var(--app-color-black);
-      width: 400px;
-      height: 440px;
-      margin-top: 2em;
-      
-      & img { 
-        width: 100%; 
-        transform: translateY(30px);
       }
     }
   }

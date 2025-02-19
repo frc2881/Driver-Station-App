@@ -3,42 +3,29 @@
   import { Modal } from "carbon-components-svelte";
   import { Utils, type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  interface Props {
-    robotPose: object;
-    frontRightPoseSensorIsConnected: boolean;
-    frontRightPoseSensorHasTarget: boolean;
-    frontRightPoseSensorTargetCount: number;
-    frontLeftPoseSensorIsConnected: boolean;
-    frontLeftPoseSensorHasTarget: boolean;
-    frontLeftPoseSensorTargetCount: number;
-    rearRightPoseSensorIsConnected: boolean;
-    rearRightPoseSensorHasTarget: boolean;
-    rearRightPoseSensorTargetCount: number;
-    rearLeftPoseSensorIsConnected: boolean;
-    rearLeftPoseSensorHasTarget: boolean;
-    rearLeftPoseSensorTargetCount: number;
-    cameraStreams: Record<string, string>;
-  }
+  let frontLeftPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/IsConnected")?.value as boolean);
+  let frontLeftPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/HasTarget")?.value as boolean);
+  let frontLeftPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/TargetCount")?.value as number);
 
-  let {
-    robotPose,
-    frontRightPoseSensorIsConnected: frontRightPoseSensorIsConnected,
-    frontRightPoseSensorHasTarget: frontRightPoseSensorHasTarget,
-    frontRightPoseSensorTargetCount: frontRightPoseSensorTargetCount,
-    frontLeftPoseSensorIsConnected: frontLeftPoseSensorIsConnected,
-    frontLeftPoseSensorHasTarget: frontLeftPoseSensorHasTarget,
-    frontLeftPoseSensorTargetCount: frontLeftPoseSensorTargetCount,
-    rearRightPoseSensorIsConnected: rearRightPoseSensorIsConnected,
-    rearRightPoseSensorHasTarget: rearRightPoseSensorHasTarget,
-    rearRightPoseSensorTargetCount: rearRightPoseSensorTargetCount,
-    rearLeftPoseSensorIsConnected: rearLeftPoseSensorIsConnected,
-    rearLeftPoseSensorHasTarget: rearLeftPoseSensorHasTarget,
-    rearLeftPoseSensorTargetCount: rearLeftPoseSensorTargetCount,
-    cameraStreams
-  }: Props = $props();
+  let frontRightPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected")?.value as boolean);
+  let frontRightPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget")?.value as boolean);
+  let frontRightPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount")?.value as number);
 
+  let rearLeftPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected")?.value as boolean);
+  let rearLeftPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget")?.value as boolean);
+  let rearLeftPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount")?.value as number);
+
+  let rearRightPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/IsConnected")?.value as boolean);
+  let rearRightPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean);
+  let rearRightPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number);
+
+  let cameraStreams = $derived(JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value) ?? "{}" as any);
+
+  let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
+  
   let isCameraStreamModalOpen: boolean = $state(false);
   let cameraStreamUrl: string = $state("");
   let cameraStreamName: string = $state("");

@@ -1,12 +1,9 @@
 <script lang="ts">
   import { Configuration, Utils } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   const { MatchTime } = Configuration.Settings;
-  interface Props {
-    matchTime: number;
-  }
-
-  let { matchTime }: Props = $props();
+  let matchTime = $derived(nt.topics.get("/SmartDashboard/Game/MatchTime")?.value as number);
   let _matchTime = $derived(Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0);
 </script>
 

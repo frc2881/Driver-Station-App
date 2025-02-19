@@ -4,7 +4,6 @@ import {
   AppServerMessageType, 
   NetworkTablesServiceMessageType, 
   NetworkTablesDataType,
-  Topic
 } from "./enums.js";
 
 export type ConfigurationSettings = {
@@ -12,7 +11,6 @@ export type ConfigurationSettings = {
     ServerAddress: string;
     ServerPort: number;
     Subscriptions: string[];
-    Topics: Record<Topic, string>;
   }
   MatchTime: {
     Warning: number;

@@ -1,7 +1,5 @@
 <script lang="ts">
   import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
-  import { DataTable } from "carbon-icons-svelte";
-  import { Configuration, Topic } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
@@ -10,9 +8,8 @@
   import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
+  import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
-
-  const { Topics } = Configuration.Settings.NetworkTables;
 
   let isControllerMapVisible: boolean = $state(false);
 </script>
@@ -21,13 +18,8 @@
 {#if nt.isConnected}
   <div class="header">
     <div class="left">
-      <RobotInfo 
-        mode={ nt.topics.get(Topics[Topic.RobotMode])?.value } 
-        state={ nt.topics.get(Topics[Topic.RobotState])?.value } />
-      <GameInfo 
-        alliance={ nt.topics.get(Topics[Topic.Alliance])?.value } 
-        team={ nt.topics.get(Topics[Topic.Team])?.value }
-        station={ nt.topics.get(Topics[Topic.Station])?.value } />
+      <RobotInfo />
+      <GameInfo />
     </div>
     <div class="center">
       <div class="controller-map-button">
@@ -35,16 +27,9 @@
           <img src="./assets/images/controller.png" alt="Controller Map" />
         </button>
       </div>
-      <div class="data-view-button">
-        <button onclick={() => { (window as any).driverStationApp.openDataView(); }}>
-          <DataTable fill={ "#FF69B4" } width=52 height=52 />
-        </button>
-      </div>
     </div>
     <div class="right">
-      <PowerInfo 
-        batteryInfo={ nt.topics.get(Topics[Topic.BatteryInfo])?.value }
-        batteryVoltage={ nt.topics.get(Topics[Topic.BatteryVoltage])?.value } />
+      <PowerInfo />
     </div>
   </div>
   <div class="widgets">
@@ -52,48 +37,20 @@
       <Settings />
     </Tile>
     <Tile class="widget">
-      <DriveInfo
-        driveSpeedMax={ nt.topics.get(Topics[Topic.DriveSpeedMax])?.value }
-        swerveModuleFrontLeftDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftDrivingSpeedTarget])?.value }
-        swerveModuleFrontLeftDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftDrivingSpeedActual])?.value }
-        swerveModuleFrontLeftTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontLeftTurningPosition])?.value } 
-        swerveModuleFrontRightDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightDrivingSpeedTarget])?.value }
-        swerveModuleFrontRightDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightDrivingSpeedActual])?.value }
-        swerveModuleFrontRightTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleFrontRightTurningPosition])?.value } 
-        swerveModuleRearLeftDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftDrivingSpeedTarget])?.value }
-        swerveModuleRearLeftDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftDrivingSpeedActual])?.value }
-        swerveModuleRearLeftTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearLeftTurningPosition])?.value } 
-        swerveModuleRearRightDrivingSpeedTarget={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightDrivingSpeedTarget])?.value }
-        swerveModuleRearRightDrivingSpeedActual={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightDrivingSpeedActual])?.value }
-        swerveModuleRearRightTurningPosition={ nt.topics.get(Topics[Topic.DriveSwerveModuleRearRightTurningPosition])?.value } />
     </Tile>
     <Tile class="widget">
-      <LocalizationInfo 
-        robotPose={ nt.topics.get(Topics[Topic.RobotPose])?.value }
-        frontRightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontRightPoseSensorIsConnected])?.value }
-        frontRightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontRightPoseSensorHasTarget])?.value }
-        frontRightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontRightPoseSensorTargetCount])?.value }
-        frontLeftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorIsConnected])?.value }
-        frontLeftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorHasTarget])?.value }
-        frontLeftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.FrontLeftPoseSensorTargetCount])?.value }
-        rearRightPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearRightPoseSensorIsConnected])?.value }
-        rearRightPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearRightPoseSensorHasTarget])?.value }
-        rearRightPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearRightPoseSensorTargetCount])?.value }
-        rearLeftPoseSensorIsConnected={ nt.topics.get(Topics[Topic.RearLeftPoseSensorIsConnected])?.value }
-        rearLeftPoseSensorHasTarget={ nt.topics.get(Topics[Topic.RearLeftPoseSensorHasTarget])?.value }
-        rearLeftPoseSensorTargetCount={ nt.topics.get(Topics[Topic.RearLeftPoseSensorTargetCount])?.value }
-        cameraStreams={ JSON.parse(nt.topics.get(Topics[Topic.CameraStreams])?.value ?? null) } /> 
+      <ResetStatus />
     </Tile>
     <Tile class="widget row-span-2">
-      <AutoSettings
-        alliance={ nt.topics.get(Topics[Topic.Alliance])?.value } />
+      <AutoSettings />
     </Tile>
     <Tile class="widget">
+      <DriveInfo />
     </Tile>
     <Tile class="widget">
+      <LocalizationInfo />
     </Tile>
-    <ControllerMap 
-      bind:isControllerMapVisible={ isControllerMapVisible } />
+    <ControllerMap bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>
 {:else}
   <div class="inlineNotification">
@@ -139,7 +96,7 @@
         justify-content: flex-end;
       }
 
-      & .controller-map-button, .data-view-button {
+      & .controller-map-button {
         & button {
           margin: 6px 0 0 0;
           padding: 0;
