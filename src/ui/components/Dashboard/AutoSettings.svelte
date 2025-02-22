@@ -4,21 +4,24 @@
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
   let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
-  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/Command/active")?.value ?? "None");
+  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "None");
 </script>
 
 <div class="main">
   <div class="title"><h4>Auto</h4></div>
   <div>
     <SendableChooser
-      name="Auto Command"
-      options={ nt.topics.get("/SmartDashboard/Robot/Auto/Command/options") }
-      active={ nt.topics.get("/SmartDashboard/Robot/Auto/Command/active") } />
+      name=""
+      options={ nt.topics.get("/SmartDashboard/Robot/Auto/options") }
+      active={ nt.topics.get("/SmartDashboard/Robot/Auto/active") } />
   </div>
   <div 
     class="active"
     class:none={ activeCommand === "None" }>
     { activeCommand }
+  </div>
+  <div>
+    <img class="autos" src="./assets/images/autos.png" alt="Autos" />
   </div>
 </div>
 
@@ -40,7 +43,7 @@
       color: var(--app-color-black);
       text-align: center;
       font-weight: bold;
-      font-size: 200%;
+      font-size: 150%;
       padding: 0.5em 0;
 
       &.none {
@@ -49,6 +52,11 @@
         color: var(--app-color-charcoal);
         font-weight: normal;
       }
+    }
+
+    & .autos{
+      width: 270px;
+      margin-top: 3em;
     }
   }
 </style>

@@ -79,8 +79,8 @@
       width: 10px;
       height: 530px;
       background-color: var(--app-color-pink);
-      opacity: 0.5;
-      margin-left: 200px;
+      opacity: 0.75;
+      margin-left: 260px;
     }
 
     & .driverStationViewContainer {

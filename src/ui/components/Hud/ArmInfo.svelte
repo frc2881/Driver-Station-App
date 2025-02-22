@@ -2,8 +2,8 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let armPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/Position/Current")?.value as number);
-  let upperStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/UpperStage/Position/Current")?.value as number);
+  let armPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/Position")?.value as number);
+  let upperStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/UpperStage/Position")?.value as number);
   let isAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/IsAlignedToPosition")?.value as boolean);
 </script>
 <div class="main">
@@ -15,10 +15,10 @@
   <div class="arm">
     <div 
       class="stage"
-      style:transform={ `translateY(${ -upperStagePosition * 3 }px) rotate(${ (-armPosition * 3) + 190 }deg)` }>
+      style:transform={ `translateY(${ -upperStagePosition * 3 }px) rotate(${ (armPosition * 2.5) + 190 }deg)` }>
       <div 
         class="info"
-        style:transform={ `rotate(${ (armPosition * 3) + 170 }deg)` }>
+        style:transform={ `rotate(${ (-armPosition * 2.5) + 170 }deg)` }>
         { armPosition?.toFixed(2) }
       </div>
     </div>
