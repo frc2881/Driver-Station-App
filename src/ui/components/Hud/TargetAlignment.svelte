@@ -86,7 +86,7 @@
       height: 100%;
       align-items: center;
       justify-content: center;
-      opacity: 0.25;
+      opacity: 0.75;
       &.active { display: flex; }
       & .checkmark { animation: pulse 500ms infinite ease-out; }
     }

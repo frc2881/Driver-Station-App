@@ -20,8 +20,8 @@
     class:none={ activeCommand === "None" }>
     { activeCommand }
   </div>
-  <div>
-    <img class="autos" src="./assets/images/autos.png" alt="Autos" />
+  <div class="autos">
+    <img src="./assets/images/autos.png" alt="Autos" />
   </div>
 </div>
 
@@ -55,8 +55,16 @@
     }
 
     & .autos{
-      width: 270px;
-      margin-top: 3em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2.5em;
+      
+      & img {
+        padding: 20px;
+        width: 404px;
+        border: 1px solid var(--app-color-charcoal);
+      }
     }
   }
 </style>

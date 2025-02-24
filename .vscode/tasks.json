@@ -2,25 +2,25 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Project: Install",
+      "label": "Project: Install Dependencies",
       "type": "shell",
       "command": "npm install", 
       "problemMatcher": []
     },
     {
-      "label": "Project: Run Development (Robot)",
+      "label": "Project: Run Dev Mode (Robot)",
       "type": "shell",
       "command": "npm run dev", 
       "problemMatcher": []
     },
     {
-      "label": "Project: Run Development (Simulator)",
+      "label": "Project: Run Dev Mode (Local Simulator)",
       "type": "shell",
       "command": "npm run dev:local",
       "problemMatcher": []
     },
     {
-      "label": "Project: Package",
+      "label": "Project: Build Package",
       "type": "shell",
       "command": "npm run package",
       "problemMatcher": []
