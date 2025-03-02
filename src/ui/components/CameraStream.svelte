@@ -20,8 +20,8 @@
 
   const transparentPixelImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-  let image: HTMLImageElement = $state();
-  let video: HTMLVideoElement = $state();
+  let image: HTMLImageElement | undefined = $state();
+  let video: HTMLVideoElement | undefined = $state();
 
   const loadVideoStream = async (): Promise<void> => {
     try {
@@ -31,8 +31,8 @@
           const stream = await navigator.mediaDevices.getUserMedia({
             video: { deviceId: { exact: device.deviceId } }
           });
-          video.srcObject = stream;
-          video.play();
+          video!.srcObject = stream;
+          video!.play();
           break;
         }
       }
@@ -43,18 +43,14 @@
     loadVideoStream();
   }
 
-  if (streamUrl) {
-    (async (): Promise<void> => {
-      while (true) {
-        if (image!) {
-          image!.src = transparentPixelImage;
-          await Utils.wait(0.1);
-          image!.src = `${ streamUrl }?${ new Date().getTime() }`;
-        }
-        await Utils.wait(60);
+  (async (): Promise<void> => {
+    while (true) {
+      if (streamUrl && image!) {
+        image!.src = `${ streamUrl }?${ new Date().getTime() }`;
       }
-    })();
-  }
+      await Utils.wait(15);
+    }
+  })();
 </script>
 
 <div class="main" style={ `width:${width}px;height:${height}px;` }>
@@ -63,7 +59,7 @@
   <img 
     src={ `${ streamUrl }?${ new Date().getTime() }` }
     bind:this={ image } 
-    onerror={() => { image.src = transparentPixelImage; }}
+    onerror={() => { image!.src = transparentPixelImage; }}
     alt="" />
 {/if}
 {#if deviceLabel}

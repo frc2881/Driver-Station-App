@@ -22,7 +22,7 @@
       <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div class="na">RT: ----------</div>
+      <div class="na">RT: Drive Lock "X"</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div class="na">LB: ----------</div>
@@ -33,13 +33,13 @@
     <div class="text" style="left:325px;bottom:380px;">
       <div>L-R: Drive L/R</div>
       <div>U-D: Drive F/B</div>
-      <div>Hold: Lock</div>
+      <div>Hold: Lock "X"</div>
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
       <div class="na">A: ----------</div>
       <div class="na">B: ----------</div>
-      <div>Y: Cage Drop</div>
-      <div>X: Cage Climb</div>
+      <div>Y: Cage Climb Down</div>
+      <div>X: Cage Climb Up</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
@@ -72,13 +72,13 @@
       <div>LT: Run Gripper</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Release Gripper</div>
+      <div>RT: Score Coral</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Run Suction</div>
+      <div>LB: Start Suction</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Release Suction</div>
+      <div>RB: Score Algae</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div class="na">L-R: ----------</div>
@@ -87,19 +87,15 @@
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
       <div>A: Intake Coral</div>
-      <div class="na">B: ----------</div>
-      <div>Y: Toggle Wrist</div>
-      <div>X: Cage Entry</div>
+      <div>B: Intake Algae L2</div>
+      <div>Y: Intake Algae L3</div>
+      <div>X: Align Cage Entry</div>
     </div>
-    <div class="text" style="left:1025px;bottom:215px;">
+    <div class="text" style="left:1025px;bottom:290px;">
       <div>U: Align Coral L4</div>
       <div>R: Align Coral L3</div>
       <div>D: Align Coral L2</div>
       <div>L: Align Coral L1</div>
-      <div>UR: Align Algae L3</div>
-      <div>DR: Align Algae L2</div>
-      <div>DL: Align Processor</div>
-      <div>UL: Align Barge</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div class="na">L-R: ----------</div>

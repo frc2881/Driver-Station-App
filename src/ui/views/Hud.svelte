@@ -4,7 +4,7 @@
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
-  import ElevatorArmInfo from "../components/Hud/ElevatorArmInfo.svelte";
+  import MechanismInfo from "../components/Hud/MechanismInfo.svelte";
   import HandInfo from "../components/Hud/HandInfo.svelte";
 </script>
 
@@ -22,7 +22,7 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
-      <ElevatorArmInfo />
+      <MechanismInfo />
     </Tile>
   </div>
   <div class="row">
@@ -79,7 +79,7 @@
       width: 10px;
       height: 530px;
       background-color: var(--app-color-pink);
-      opacity: 0.75;
+      opacity: 0.5;
       margin-left: 260px;
     }
 

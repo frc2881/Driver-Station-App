@@ -42,6 +42,7 @@
           margin: 1em 0;
           text-align: center;
           font-size: 120%;
+          line-height: 150%;
         }
       }
     }

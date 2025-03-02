@@ -13,8 +13,8 @@
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div class="info">
-    <div>Gripper: { isGripperEnabled ? "Enabled" : "Disabled" }</div>
-    <div>Suction: { isSuctionEnabled ? "Enabled" : "Disabled" }</div>
+    <div>Gripper: <span class:enabled={ isGripperEnabled }>{ isGripperEnabled ? "Enabled" : "Disabled" }</span></div>
+    <div>Suction: <span class:enabled={ isSuctionEnabled }>{ isSuctionEnabled ? "Enabled" : "Disabled" }</span></div>
   </div>
 </div>
 
@@ -46,6 +46,15 @@
       flex-direction: column;
       gap: 1em;
       font-size: 250%;
+
+      & span {
+        color: var(--app-color-charcoal);
+        text-transform: uppercase;
+      }
+
+      & .enabled {
+        color: var(--app-color-green);
+      }
     }
   }
 </style>
