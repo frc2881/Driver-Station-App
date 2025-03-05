@@ -8,8 +8,8 @@
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let fieldLength = $derived(nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number);
   let fieldWidth = $derived(nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number);
-  let driveLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Length")?.value as number);
-  let driveWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Width")?.value as number);
+  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/RobotLength")?.value as number);
+  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/RobotWidth")?.value as number);
   let isAlignedToTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTarget")?.value as boolean);
 
   const PIXELS_PER_METER: number = 100;
@@ -59,9 +59,9 @@
     <img src="./assets/images/field.png" alt="Field" />
     <div 
       class="robot"
-      style:width={ `${driveLength * PIXELS_PER_METER}px` } 
-      style:height={`${driveWidth * PIXELS_PER_METER}px`}
-      style:transform={ `translate(${ (robotPose_?.x * PIXELS_PER_METER) - (driveLength * PIXELS_PER_METER ) / 2 }px, ${ -(robotPose_?.y * PIXELS_PER_METER) + (driveWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
+      style:width={ `${robotLength * PIXELS_PER_METER}px` } 
+      style:height={`${robotWidth * PIXELS_PER_METER}px`}
+      style:transform={ `translate(${ (robotPose_?.x * PIXELS_PER_METER) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -(robotPose_?.y * PIXELS_PER_METER) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
       <div class="line"></div>
       <div class="front"><CaretDown width=64 height=64 /></div>
     </div>
