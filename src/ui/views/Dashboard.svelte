@@ -37,18 +37,18 @@
       <Settings />
     </Tile>
     <Tile class="widget">
+      <DriveInfo />
     </Tile>
     <Tile class="widget">
-      <ResetStatus />
+      <LocalizationInfo />
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings />
     </Tile>
     <Tile class="widget">
-      <DriveInfo />
     </Tile>
     <Tile class="widget">
-      <LocalizationInfo />
+      <ResetStatus />
     </Tile>
     <ControllerMap bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>

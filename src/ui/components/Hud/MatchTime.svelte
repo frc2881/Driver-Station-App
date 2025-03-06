@@ -34,11 +34,11 @@
     font-size: 200px;
     line-height: 200px;
     font-weight: bold;
-    color: var(--app-color-charcoal);
+    color: var(--app-color-smoke);
     z-index: 9999;
 
     &.inactive {
-      color: var(--app-color-charcoal) !important;
+      color: var(--app-color-smoke) !important;
     }
 
     &.normal {

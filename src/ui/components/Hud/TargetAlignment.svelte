@@ -127,7 +127,7 @@
           box-sizing: border-box;
           top: 50%;
           left: 50%;
-          width: 140px;
+          width: 100px;
           height: 2px;
           transform: translateX(-100%) translateY(-2px) rotate(180deg);
           transform-origin: 100%;
@@ -140,8 +140,9 @@
           box-sizing: border-box;
           top: 50%;
           left: 50%;
-          transform: rotate(-90deg) translate(50%, 25%);
+          transform: rotate(-90deg) translate(50%, 0%);
           color: var(--app-color-white);
+          opacity: 0.5;
         }
       }
     }
