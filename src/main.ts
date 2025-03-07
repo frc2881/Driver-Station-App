@@ -6,6 +6,7 @@ import { type AppWindowOptions, AppWindowType } from "./common/index.js";
 
 class Main {
   constructor() {
+    app.on("window-all-closed", app.quit);
     app.on("will-quit", this.onAppWillQuit);
     app.on("quit", this.onAppQuit);
     this.init();
@@ -23,18 +24,21 @@ class Main {
     }
     await app.whenReady();
     this._appServer = fork(path.join(import.meta.dirname, "server/main.js"), [ process.argv[2] ?? "127.0.0.1" ]);
-    this._appServer.on("message", (message) => {
-      if (message == "connected") {
-        this.openAppWindow(AppWindowType.Hud);
-        this.openAppWindow(AppWindowType.Dashboard);
-        if (this._isDevMode) {
-          this.startUiAutoReload();
-        }
-      }
-    });
+    this._appServer.on("message", this.onMessage);
   }
 
-  private openAppWindow(type: AppWindowType) {
+  private onMessage = (message: any): void => {
+    if (message == "connected") {
+      this.openAppWindow(AppWindowType.Hud);
+      this.openAppWindow(AppWindowType.Dashboard);
+      if (this._isDevMode) {
+        this.startUiAutoReload();
+      }
+      this._appServer.removeAllListeners();
+    }
+  }
+
+  private openAppWindow = (type: AppWindowType): void => {
     if (this._appWindows.has(type)) { 
       const appWindow = this._appWindows.get(type);
       if (appWindow?.isDestroyed()) {
@@ -133,6 +137,7 @@ class Main {
   }
 
   private onAppQuit = (): void => {
+    this._appServer?.kill();
     this._abortController?.abort();
     if (this._isDevMode) {
       console.log("All windows closed and application exited. Press [ Ctrl+C ] to terminate process.");

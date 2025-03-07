@@ -58,7 +58,8 @@ _Note: more complete configuration and usage documentation is TBD_
 
 * Run robot simulation in local environment OR run live robot and connect remotely
 * Development
-  * `npm run dev:local` (builds and runs the app locally for development with live UI refresh on edit/save connecting to localhost)
+  * `npm run dev 127.0.0.1` (builds and runs the app locally for development with live UI refresh on edit/save connecting to localhost robot simulator)
+  * `npm run dev 10.x.x.x` (builds and runs the app locally for development with live UI refresh on edit/save connecting to robot)
 * Binary packaging and distribution
   * `npm run package` (builds and packages Windows portable executable file for simple copy distribution to driver station)
 * Other
