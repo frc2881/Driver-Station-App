@@ -26,6 +26,7 @@ class Server {
   private init = async (): Promise<void> => {
     this._webSocketServer = new WebSocketServer({ host: "127.0.0.1", port: 2881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
+    process.send!("connected");
 
     this._networkTablesService = new NetworkTablesService({ 
       address: process.argv[2] ?? "127.0.0.1", 

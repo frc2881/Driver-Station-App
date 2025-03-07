@@ -23,11 +23,15 @@ class Main {
     }
     await app.whenReady();
     this._appServer = fork(path.join(import.meta.dirname, "server/main.js"), [ process.argv[2] ?? "127.0.0.1" ]);
-    this.openAppWindow(AppWindowType.Hud);
-    this.openAppWindow(AppWindowType.Dashboard);
-    if (this._isDevMode) {
-      this.startUiAutoReload();
-    }
+    this._appServer.on("message", (message) => {
+      if (message == "connected") {
+        this.openAppWindow(AppWindowType.Hud);
+        this.openAppWindow(AppWindowType.Dashboard);
+        if (this._isDevMode) {
+          this.startUiAutoReload();
+        }
+      }
+    });
   }
 
   private openAppWindow(type: AppWindowType) {
