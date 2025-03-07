@@ -1,9 +1,6 @@
 import { WebSocketServer, WebSocket } from "ws";
 import type { IncomingMessage } from "http";
-import minimist from "minimist";
 import { 
-  type AppArguments, 
-  type AppServerMessage,
   type NetworkTablesServiceMessage,
   type NetworkTablesConnectionChangedMessage,
   type NetworkTablesTopicsUpdatedMessage,
@@ -11,8 +8,7 @@ import {
   type AppWindowType,
   AppServerMessageType,
   NetworkTablesServiceMessageType,
-  Utils,
-  Configuration
+  Utils
 } from "../common/index.js";
 import { NetworkTablesService } from "./NetworkTablesService.js";
 
@@ -28,15 +24,13 @@ class Server {
   private _networkTablesService!: NetworkTablesService;
 
   private init = async (): Promise<void> => {
-    const args = minimist(process.argv) as AppArguments;
-
-    this._webSocketServer = new WebSocketServer({ port: 2881, skipUTF8Validation: true });
+    this._webSocketServer = new WebSocketServer({ host: "127.0.0.1", port: 2881, skipUTF8Validation: true });
     this._webSocketServer.on("connection", this.onAppWindowConnectionOpened);
 
     this._networkTablesService = new NetworkTablesService({ 
-      address: args.serverAddress, 
-      port: Configuration.Settings.NetworkTables.ServerPort,
-      subscriptionTopics: Configuration.Settings.NetworkTables.Subscriptions ?? ["/"]
+      address: process.argv[2] ?? "127.0.0.1", 
+      port: 5810,
+      subscriptionTopics: ["/SmartDashboard"]
     });
     
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {

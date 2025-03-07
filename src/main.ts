@@ -1,11 +1,8 @@
-import { app, screen, ipcMain, type Rectangle, BrowserWindow, Tray, Menu } from "electron";
+import { app, screen, BrowserWindow } from "electron";
 import path from "path";
-import minimist from "minimist";
-import { fork, execFile, type ChildProcess } from "child_process";
+import { fork, type ChildProcess } from "child_process";
 import { watch } from "fs";
-import type { AppArguments, AppWindowOptions } from "./common/types.js";
-import { AppWindowType } from "./common/enums.js";
-import { Configuration } from "./common/config.js"
+import { type AppWindowOptions, AppWindowType } from "./common/index.js";
 
 class Main {
   constructor() {
@@ -24,20 +21,10 @@ class Main {
       app.quit();
       return;
     }
-
-    const args = minimist(process.argv, {
-      default: { 
-        "serverAddress": Configuration.Settings.NetworkTables.ServerAddress 
-      }
-    }) as AppArguments;
-
-    this._appServer = fork(path.join(import.meta.dirname, "server/main.js"), [ `--serverAddress=${ args.serverAddress }` ]);
-
     await app.whenReady();
-
+    this._appServer = fork(path.join(import.meta.dirname, "server/main.js"), [ process.argv[2] ?? "127.0.0.1" ]);
     this.openAppWindow(AppWindowType.Hud);
     this.openAppWindow(AppWindowType.Dashboard);
-
     if (this._isDevMode) {
       this.startUiAutoReload();
     }
@@ -57,7 +44,7 @@ class Main {
     const displays = screen.getAllDisplays();
     const secondaryDisplay = displays.length === 2 ? displays[1] : null;
 
-    const { Layout } = Configuration.Settings;
+    const Layout = { MaxWidth: 1920, MaxHeight: 1080, DockedHeight: 248 };
 
     let options!: AppWindowOptions;
     switch (type) {
@@ -111,8 +98,7 @@ class Main {
       backgroundColor: "#000000",
       webPreferences: { 
         webSecurity: false,
-        zoomFactor: 1,
-        preload: path.join(import.meta.dirname, "ui/preload.js")
+        zoomFactor: 1
       }
     });
     if (isMinimized) { appWindow.minimize(); }

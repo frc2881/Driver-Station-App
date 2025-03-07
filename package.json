@@ -16,10 +16,8 @@
     "dist": "electron-builder --win",
     "package": "npm-run-all build dist",
     "start": "electron .",
-    "start:local": "electron . --serverAddress=127.0.0.1",
-    "watch": "rollup -cw",
-    "dev": "npm-run-all build --parallel start watch",
-    "dev:local": "npm-run-all build --parallel start:local watch"
+    "dev": "npm-run-all build --parallel watch \"start -- {1}\" --",
+    "watch": "rollup -cw"
   },
   "build": {
     "appId": "FRC.DriverStationApp.2025.0.1",
@@ -35,14 +33,12 @@
   "dependencies": {
     "ws": "8.18.1",
     "@msgpack/msgpack": "3.1.0",
-    "minimist": "1.2.8",
     "date-fns": "4.1.0"
   },
   "devDependencies": {
     "@types/ws": "8.18.0",
-    "@types/minimist": "1.2.5",
     "npm-run-all": "4.1.5",
-    "electron": "35.0.0",
+    "electron": "34.3.1",
     "electron-builder": "25.1.8",
     "@electron/packager": "18.3.6",
     "tslib": "2.8.1",

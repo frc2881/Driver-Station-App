@@ -113,7 +113,7 @@
 
           & .info {
             position: absolute;
-            left: -160px;
+            left: -170px;
             bottom: -25px;
             width: 140px;
             font-size: 180%;
@@ -128,7 +128,7 @@
 
             & .info {
               position: absolute;
-              left: 130px;
+              left: 135px;
               bottom: -5px;
               width: 140px;
               font-size: 180%;

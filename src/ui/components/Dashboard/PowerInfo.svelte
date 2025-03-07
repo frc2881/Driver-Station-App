@@ -2,10 +2,13 @@
   import BatteryFull from "carbon-icons-svelte/lib/BatteryFull.svelte";
   import BatteryHalf from "carbon-icons-svelte/lib/BatteryHalf.svelte";
   import BatteryQuarter from "carbon-icons-svelte/lib/BatteryQuarter.svelte";
-  import { Configuration } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  const { BatteryVoltageLevel } = Configuration.Settings;
+  const BatteryVoltageLevel = {
+    Low: 12.3,
+    Warning: 12.1,
+    Critical: 11.9
+  };
 
   let batteryInfo = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Info")?.value as string);
   let batteryVoltage = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage")?.value as number);

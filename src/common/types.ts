@@ -1,36 +1,9 @@
 import type { Rectangle } from "electron";
-import type { ParsedArgs } from "minimist";
 import { 
   AppServerMessageType, 
   NetworkTablesServiceMessageType, 
   NetworkTablesDataType,
 } from "./enums.js";
-
-export type ConfigurationSettings = {
-  NetworkTables: {
-    ServerAddress: string;
-    ServerPort: number;
-    Subscriptions: string[];
-  }
-  MatchTime: {
-    Warning: number;
-    Critical: number;
-  }
-  BatteryVoltageLevel: {
-    Low: number;
-    Warning: number;
-    Critical: number;
-  }
-  Layout: {
-    MaxWidth: number;
-    MaxHeight: number;
-    DockedHeight: number;
-  }
-}
-
-export type AppArguments = ParsedArgs & {
-  serverAddress: string;
-}
 
 export type AppWindowOptions = {
   title: string;

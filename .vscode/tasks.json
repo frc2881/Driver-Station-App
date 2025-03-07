@@ -10,13 +10,13 @@
     {
       "label": "Project: Run Dev Mode (Robot)",
       "type": "shell",
-      "command": "npm run dev", 
+      "command": "npm run dev 10.28.81.2", 
       "problemMatcher": []
     },
     {
-      "label": "Project: Run Dev Mode (Local Simulator)",
+      "label": "Project: Run Dev Mode (Local)",
       "type": "shell",
-      "command": "npm run dev:local",
+      "command": "npm run dev 127.0.0.1",
       "problemMatcher": []
     },
     {
