@@ -2,10 +2,10 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let elevatorLowerStagePosition = 0;// $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/LowerStage/Position")?.value as number);
-  let elevatorUpperStagePosition = 0;// $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/UpperStage/Position")?.value as number);
-  let armPosition = 0;//$derived(nt.topics.get("/SmartDashboard/Robot/Arm/Position")?.value as number);
-  let wristPosition = "Up";// $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/Position")?.value as string);
+  let elevatorLowerStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/LowerStage/Position")?.value as number);
+  let elevatorUpperStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/UpperStage/Position")?.value as number);
+  let armPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/Position")?.value as number);
+  let wristPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/Position")?.value as string);
   let isElevatorAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/IsAlignedToPosition")?.value as boolean);
   let isArmAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/IsAlignedToPosition")?.value as boolean);
   let isWristAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/IsAlignedToPosition")?.value as boolean);

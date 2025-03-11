@@ -27,6 +27,10 @@
   </div>
   <div class="row">
     <Tile class="widget">
+      <CameraStream
+        streamUrl={ JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value ?? null)?.Internal }
+        width={ 530 } 
+        height={ 397 } />
     </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
