@@ -22,7 +22,7 @@
       <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div class="na">RT: Drive Lock "X"</div>
+      <div>RT: Drive Lock "X"</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div class="na">LB: ----------</div>
