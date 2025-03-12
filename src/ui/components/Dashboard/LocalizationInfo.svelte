@@ -5,21 +5,27 @@
   import CameraStream from "../../components/CameraStream.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let frontLeftPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/IsConnected")?.value as boolean);
-  let frontLeftPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/HasTarget")?.value as boolean);
-  let frontLeftPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/TargetCount")?.value as number);
-
-  let frontRightPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected")?.value as boolean);
-  let frontRightPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget")?.value as boolean);
-  let frontRightPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount")?.value as number);
-
-  let rearLeftPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected")?.value as boolean);
-  let rearLeftPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget")?.value as boolean);
-  let rearLeftPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount")?.value as number);
-
-  let rearRightPoseSensorIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/IsConnected")?.value as boolean);
-  let rearRightPoseSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean);
-  let rearRightPoseSensorTargetCount = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number);
+  let poseSensors = $derived([{
+      name: "FrontLeft",
+      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/IsConnected")?.value as boolean,
+      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/HasTarget")?.value as boolean,
+      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/TargetCount")?.value as number
+    },{
+      name: "FrontRight",
+      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected")?.value as boolean,
+      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget")?.value as boolean,
+      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount")?.value as number
+    },{
+      name: "RearLeft",
+      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected")?.value as boolean,
+      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget")?.value as boolean,
+      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount")?.value as number
+    },{
+      name: "RearRight",
+      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/IsConnected")?.value as boolean,
+      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean,
+      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number
+  }]);
 
   let cameraStreams = $derived(JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value) ?? "{}" as any);
 
@@ -36,86 +42,28 @@
   <div class="info">
     <div class="robot">
       <div class="sensors">
-        <div class="sensor">
-          <button 
-            title="FrontLeft"
-            onclick={() => { 
-              isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["FrontLeft"] ?? ""; 
-              cameraStreamName = "FrontLeft" 
-            }}>
-            <CenterSquare
-              fill={ frontLeftPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=80
-              height=80 />
-            {#if frontLeftPoseSensorIsConnected}
-            <div class="connection"></div>
-            {/if}
-            {#if frontLeftPoseSensorTargetCount > 1}
-            <div class="targetCount">{ frontLeftPoseSensorTargetCount }</div>
-            {/if}
-          </button>
-        </div>
-        <div class="sensor">
-          <button 
-            title="FrontRight"
-            onclick={() => { 
-              isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["FrontRight"] ?? ""; 
-              cameraStreamName = "FrontRight" 
-            }}>
-            <CenterSquare
-              fill={ frontRightPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=80
-              height=80 />
-            {#if frontRightPoseSensorIsConnected}
-            <div class="connection"></div>
-            {/if}
-            {#if frontRightPoseSensorTargetCount > 1}
-            <div class="targetCount">{ frontRightPoseSensorTargetCount }</div>
-            {/if}
-          </button>
-        </div>
-        <div class="sensor">
-          <button 
-            title="RearLeft"
-            onclick={() => { 
-              isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["RearLeft"] ?? ""; 
-              cameraStreamName = "RearLeft" 
-            }}>
-            <CenterSquare
-              fill={ rearLeftPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=80
-              height=80 />
-            {#if rearLeftPoseSensorIsConnected}
-            <div class="connection"></div>
-            {/if}
-            {#if rearLeftPoseSensorTargetCount > 1}
-            <div class="targetCount">{ rearLeftPoseSensorTargetCount }</div>
-            {/if}
-          </button>
-        </div>
-        <div class="sensor">
-          <button
-            title="RearRight" 
-            onclick={() => { 
-              isCameraStreamModalOpen = true; 
-              cameraStreamUrl = cameraStreams["RearRight"] ?? ""; 
-              cameraStreamName = "RearRight" 
-            }}>
-            <CenterSquare
-              fill={ rearRightPoseSensorHasTarget ? "#00CC00" : "#666666" }
-              width=80
-              height=80 />
-            {#if rearRightPoseSensorIsConnected}
-            <div class="connection"></div>
-            {/if}
-            {#if rearRightPoseSensorTargetCount > 1}
-            <div class="targetCount">{ rearRightPoseSensorTargetCount }</div>
-            {/if}
-          </button>
-        </div>
+        {#each poseSensors as { name, isConnected, hasTarget, targetCount }}
+          <div class="sensor">
+            <button 
+              title={ name }
+              onclick={() => { 
+                isCameraStreamModalOpen = true; 
+                cameraStreamUrl = cameraStreams[name] ?? ""; 
+                cameraStreamName = name 
+              }}>
+              <CenterSquare
+                fill={ hasTarget ? "#00CC00" : "#666666" }
+                width=80
+                height=80 />
+              {#if isConnected}
+              <div class="connection"></div>
+              {/if}
+              {#if targetCount > 1}
+              <div class="targetCount">{ targetCount }</div>
+              {/if}
+            </button>
+          </div>
+        {/each}
       </div>
     </div>
     <div class="poseInfo">
