@@ -5,7 +5,7 @@
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
   import ElevatorInfo from "../components/Hud/ElevatorInfo.svelte";
-  import HandInfo from "../components/Hud/HandInfo.svelte";
+  import IntakeInfo from "../components/Hud/IntakeInfo.svelte";
 </script>
 
 <main>
@@ -29,8 +29,8 @@
     <Tile class="widget">
       <CameraStream
         streamUrl={ JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value ?? null)?.Internal }
-        width={ 530 } 
-        height={ 397 } />
+        width={ 397 } 
+        height={ 530 } />
     </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
@@ -45,7 +45,7 @@
       </div>
     </Tile>
     <Tile class="widget">
-      <HandInfo />
+      <IntakeInfo />
     </Tile>
   </div>
 {:else}

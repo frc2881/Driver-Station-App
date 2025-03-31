@@ -37,7 +37,7 @@
       <Settings />
     </Tile>
     <Tile class="widget">
-      <DriveInfo />
+      <!-- <DriveInfo /> -->
     </Tile>
     <Tile class="widget">
       <LocalizationInfo />

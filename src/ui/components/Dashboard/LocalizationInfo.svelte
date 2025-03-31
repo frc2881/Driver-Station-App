@@ -1,4 +1,6 @@
 <script lang="ts">
+  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
 	import { CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
   import { Utils, type Pose2d } from "../../../common/index.js";
@@ -26,6 +28,8 @@
       hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean,
       targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number
   }]);
+
+  let hasValidVisionTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidVisionTarget")?.value as boolean)
 
   let cameraStreams = $derived(JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value) ?? "{}" as any);
 
@@ -64,6 +68,13 @@
             </button>
           </div>
         {/each}
+        <div class="status">
+          {#if !hasValidVisionTarget}
+            <div><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
+          {:else}
+            <div><CheckmarkFilled width=120 height=120 fill="#009900" /></div>
+          {/if}
+        </div>
       </div>
     </div>
     <div class="poseInfo">
@@ -111,12 +122,18 @@
       height: 245px;
 
       & .sensors {
+        position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
         gap: 1em;
+
+        & .status {
+          position: absolute;
+          opacity: 0.5;
+        }
 
         & .sensor {
           display: flex;

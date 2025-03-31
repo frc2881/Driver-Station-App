@@ -50,7 +50,7 @@
     titleText={ name }
     selectedId={ selectedItemId }
     items={ items }
-    on:select={ (e) => {
+    on:select={ (e: any) => {
       updateNetworkTablesTopics([{
         id: 0,
         name: active?.name.replace("/active", "/selected") ?? "",

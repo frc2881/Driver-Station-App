@@ -103,7 +103,7 @@
           flex-direction: column;
           align-items: center;
           justify-content: flex-end;
-          width: 130px;
+          width: 80px;
           height: 216px;
           border: 10px solid var(--app-color-pink);
 
@@ -116,7 +116,7 @@
             left: -170px;
             bottom: -25px;
             width: 140px;
-            font-size: 180%;
+            font-size: 200%;
             text-align: right;
           }
 
@@ -128,10 +128,10 @@
 
             & .info {
               position: absolute;
-              left: 135px;
+              left: 85px;
               bottom: -5px;
               width: 140px;
-              font-size: 180%;
+              font-size: 200%;
               text-align: left;
             }
           }
@@ -154,20 +154,20 @@
           justify-content: flex-end;
           width: 10px;
           height: 100px;
-          margin-left: 1.5em;
+          margin-left: 2em;
           background: var(--app-color-pink);
           transform-origin: 0px 0px;
 
           & .info {
             position: absolute;
-            left: 25px;
+            left: -70px;
             bottom: 0px;
-            font-size: 180%;
+            font-size: 200%;
             text-align: left;
 
             & .wrist {
               margin-top: 3px;
-              font-size: 75%;
+              font-size: 80%;
               text-align: center;
               text-transform: uppercase;
             }

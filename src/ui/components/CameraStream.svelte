@@ -53,22 +53,24 @@
   })();
 </script>
 
-<div class="main" style={ `width:${width}px;height:${height}px;` }>
+<div class="main">
   <div class="icon"><Video_02 class="watermark" /></div>
-{#if streamUrl}
-  <img 
-    src={ `${ streamUrl }?${ new Date().getTime() }` }
-    bind:this={ image } 
-    onerror={() => { image!.src = transparentPixelImage; }}
-    alt="" />
-{/if}
-{#if deviceLabel}
-  <video 
-    bind:this={ video }
-    style={ `transform:scale(${ scale });` }>
-    <track kind="captions"/>
-  </video>
-{/if}
+  <div class="media" style={ `width:${width}px;height:${height}px;` }>
+  {#if streamUrl}
+    <img 
+      src={ `${ streamUrl }?${ new Date().getTime() }` }
+      bind:this={ image } 
+      onerror={() => { image!.src = transparentPixelImage; }}
+      alt="" />
+  {/if}
+  {#if deviceLabel}
+    <video 
+      bind:this={ video }
+      style={ `transform:scale(${ scale });` }>
+      <track kind="captions"/>
+    </video>
+  {/if}
+  </div>
 </div>
 
 <style>
@@ -77,6 +79,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & .media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+      }
+
+      & video {
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+      }
+    }
 
     & .icon {
       position: absolute;
@@ -88,19 +110,6 @@
         fill: var(--app-color-pink);
         opacity: 0.2;
       }
-    }
-
-    & img {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      z-index: 9998;
-    }
-
-    & video {
-      width: 100%;
-      height: 100%;
-      z-index: 9998;
     }
   }
 </style>

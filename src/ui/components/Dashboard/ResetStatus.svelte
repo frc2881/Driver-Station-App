@@ -3,13 +3,13 @@
   import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let hasZeroResets = $derived(nt.topics.get("/SmartDashboard/Robot/Status/HasZeroResets")?.value as boolean);
+  let hasAllZeroResets = $derived(nt.topics.get("/SmartDashboard/Robot/Status/HasAllZeroResets")?.value as boolean);
 </script>
   
 <div class="main">
   <div class="title"><h4>Reset</h4></div>
   <div class="status">
-    {#if !hasZeroResets}
+    {#if !hasAllZeroResets}
       <div class="warning"><WarningAltFilled width=160 height=160 fill="#CCCC00" /></div>
       <div class="info">All mechanisms must be <br/><u>manually reset to zero positions</u><br/> prior to engagement!</div>
     {:else}
