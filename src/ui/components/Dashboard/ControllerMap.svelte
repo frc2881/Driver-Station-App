@@ -19,10 +19,10 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div class="na">LT: ----------</div>
+      <div>LT: Intake Coral</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Drive Lock "X"</div>
+      <div>RT: Score Coral</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div>LB: Left Align Target (+ Right Stick)</div>
@@ -37,7 +37,7 @@
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
       <div class="na">A: ----------</div>
-      <div class="na">B: ----------</div>
+      <div>B: Score Coral L1</div>
       <div>Y: Cage Climb Down</div>
       <div>X: Cage Climb Up</div>
     </div>
@@ -56,7 +56,7 @@
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div class="na">Start: ----------</div>
+      <div class="na">Start: Intake Zero Reset</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
@@ -72,13 +72,13 @@
       <div>LT: Run Gripper</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Score Coral</div>
+      <div>RT: Release Gripper</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Intake Funnel</div>
+      <div>LB: Hold Gripper</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Toggle Wrist</div>
+      <div>RB: Lift Coral (Intake)</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div class="na">L-R: ----------</div>

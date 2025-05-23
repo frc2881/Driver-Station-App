@@ -7,6 +7,7 @@
   import Settings from "../components/Dashboard/Settings.svelte";
   import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
+  import SensorInfo from "../components/Dashboard/SensorInfo.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
   import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
@@ -37,7 +38,7 @@
       <Settings />
     </Tile>
     <Tile class="widget">
-      <!-- <DriveInfo /> -->
+      <SensorInfo />
     </Tile>
     <Tile class="widget">
       <LocalizationInfo />
@@ -61,7 +62,7 @@
       lowContrast
       hideCloseButton />
   </div>
-  <div class="watermark"><SkeletonPlaceholder class="skeleton" /><svg class="icon"><use xlink:href="#iconRobot"/></svg></div>
+  <div class="watermark"><img src="./assets/images/2881.png" alt="2881" /></div>
 {/if}
 </main>
 
@@ -143,19 +144,12 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-128px, -128px);
 
-    & :global(.skeleton) {
+    & img {
       position: absolute;
-      width: 256px;
-      height: 256px;
-    }
-
-    & .icon {
-      position: absolute;
-      width: 256px;
-      height: 256px;
-      fill: var(--app-color-pink);
+      height: 512px;
+      transform: translate(-64px, -256px);
+      animation: pulse 1500ms infinite ease;
     }
   }
 </style>
