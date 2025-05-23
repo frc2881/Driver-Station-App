@@ -6,14 +6,14 @@
   let elevatorUpperStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/UpperStage/Position")?.value as number);
   let armPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/Position")?.value as number);
   let wristPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/Position")?.value as string);
-  let isElevatorAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/IsAlignedToPosition")?.value as boolean);
-  let isArmAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/IsAlignedToPosition")?.value as boolean);
-  let isWristAlignedToPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/IsAlignedToPosition")?.value as boolean);
+  let isElevatorAtTargetPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/IsAtTargetPosition")?.value as boolean);
+  let isArmAtTargetPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Arm/IsAtTargetPosition")?.value as boolean);
+  let isWristAtTargetPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Wrist/IsAtTargetPosition")?.value as boolean);
 </script>
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isElevatorAlignedToPosition && isArmAlignedToPosition && isWristAlignedToPosition }>
+    class:active={ isElevatorAtTargetPosition && isArmAtTargetPosition && isWristAtTargetPosition }>
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div 
@@ -22,11 +22,11 @@
     <div class="elevator">
       <div class="lowerStage">
         <span class="label">Elevator</span>
-        <div class="info"><span class="label">Lower</span><span class:enabled={ isElevatorAlignedToPosition }>{ elevatorLowerStagePosition?.toFixed(2) }</span></div>
+        <div class="info"><span class="label">Lower</span><span class:enabled={ isElevatorAtTargetPosition }>{ elevatorLowerStagePosition?.toFixed(2) }</span></div>
         <div 
           class="upperStage"
           style:transform={ `translateY(${ -elevatorUpperStagePosition * 6.2 }px)` }>
-          <div class="info"><span class="label">Upper</span><span class:enabled={ isElevatorAlignedToPosition }>{ elevatorUpperStagePosition?.toFixed(2) }</span></div>
+          <div class="info"><span class="label">Upper</span><span class:enabled={ isElevatorAtTargetPosition }>{ elevatorUpperStagePosition?.toFixed(2) }</span></div>
         </div>
       </div>
     </div>
@@ -37,8 +37,8 @@
         <div 
           class="info"
           style:transform={ `rotate(${ (-armPosition * 2.35) + 170 }deg)` }>
-          <span class="label">Arm + Wrist</span><span class:enabled={ isArmAlignedToPosition }>{ armPosition?.toFixed(2) }</span>
-          <div class="wrist" class:enabled={ isWristAlignedToPosition }>{ wristPosition == "Unknown" ? "?" : wristPosition  }</div>
+          <span class="label">Arm + Wrist</span><span class:enabled={ isArmAtTargetPosition }>{ armPosition?.toFixed(2) }</span>
+          <div class="wrist" class:enabled={ isWristAtTargetPosition }>{ wristPosition == "Unknown" ? "?" : wristPosition  }</div>
         </div>
       </div>
     </div>

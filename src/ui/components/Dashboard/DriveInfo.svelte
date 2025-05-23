@@ -2,8 +2,7 @@
   import { Utils } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let driveLockState = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/LockState")?.value as string);
-  let driveSpeedMax = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Speed/Max")?.value as number);
+  let driveLockState = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/LockPosition")?.value as string);
   let swerveModuleFrontLeftDrivingSpeedTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Driving/Speed/Target")?.value as number);
   let swerveModuleFrontLeftDrivingSpeedActual = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Driving/Speed/Actual")?.value as number);
   let swerveModuleFrontLeftTurningPosition = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Modules/FrontLeft/Turning/Position")?.value as number);
