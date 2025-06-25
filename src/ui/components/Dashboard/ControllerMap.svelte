@@ -25,10 +25,10 @@
       <div>RT: Score Coral</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Left Align Target (+ Right Stick)</div>
+      <div>LB: Left Align Target</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Right Align Target (+ Right Stick)</div>
+      <div>RB: Right Align Target</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>L-R: Drive L/R</div>
@@ -50,7 +50,7 @@
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>L-R: Rotate</div>
       <div class="na">U-D: ----------</div>
-      <div>Hold: Align Target (Center)</div>
+      <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
@@ -63,6 +63,7 @@
         Notes:
         <ul>
           <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed</li>
+          <li>Intake must be reset to zero position</li>
         </ul>
       </div>
     </div>
@@ -95,7 +96,7 @@
       <div>U: Align Reef Coral L4</div>
       <div>R: Align Reef Coral L3</div>
       <div>D: Align Reef Coral L2</div>
-      <div>L: Align Reef Coral L1</div>
+      <div class="na">L: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div class="na">L-R: ----------</div>
