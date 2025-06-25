@@ -5,7 +5,6 @@
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import Settings from "../components/Dashboard/Settings.svelte";
-  import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
   import SensorInfo from "../components/Dashboard/SensorInfo.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
@@ -49,7 +48,6 @@
     <Tile class="widget">
     </Tile>
     <Tile class="widget">
-      <ResetStatus />
     </Tile>
     <ControllerMap bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>

@@ -19,16 +19,16 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Intake Coral</div>
+      <div>LT: Reset Coral</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
       <div>RT: Score Coral</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Left Align Target (+ Right Stick)</div>
+      <div>LB: Left Align Target</div>
     </div>
     <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Right Align Target (+ Right Stick)</div>
+      <div>RB: Right Align Target</div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
       <div>L-R: Drive L/R</div>
@@ -37,9 +37,9 @@
     </div>
     <div class="text right" style="right:1025px;bottom:380px;">
       <div class="na">A: ----------</div>
-      <div>B: Score Coral L1</div>
-      <div>Y: Cage Climb Down</div>
-      <div>X: Cage Climb Up</div>
+      <div class="na">B: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
@@ -50,13 +50,13 @@
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>L-R: Rotate</div>
       <div class="na">U-D: ----------</div>
-      <div>Hold: Align Target (Center)</div>
+      <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       <div>Back: Reset Gyro</div>
     </div>
     <div class="text right" style="right:1025px;bottom:180px;">
-      <div class="na">Start: Intake Zero Reset</div>
+      <div class="na">Start: ----------</div>
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
@@ -69,53 +69,50 @@
     <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Run Gripper</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Release Gripper</div>
+      <div class="na">RT: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Hold Gripper</div>
+      <div class="na">LB: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Lift Coral (Intake)</div>
+      <div class="na">RB: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div class="na">L-R: ----------</div>
-      <div>U-D: Run Elevator</div>
+      <div class="na">U-D: ----------</div>
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Intake Coral Station</div>
-      <div>B: Align Reef Algae L2</div>
-      <div>Y: Align Reef Algae L3</div>
-      <div>X: Setup Cage Climb</div>
+      <div class="na">A: ----------</div>
+      <div class="na">B: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>U: Align Reef Coral L4</div>
-      <div>R: Align Reef Coral L3</div>
-      <div>D: Align Reef Coral L2</div>
-      <div>L: Align Reef Coral L1</div>
+      <div class="na">U: ----------</div>
+      <div class="na">R: ----------</div>
+      <div class="na">D: ----------</div>
+      <div class="na">L: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div class="na">L-R: ----------</div>
-      <div>U-D: Run Arm</div>
+      <div class="na">U-D: ----------</div>
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:156px;">
-      <div>Back: ----------</div>
-      <div>+ Elevator: Run Lower Stage</div>
+      <div class="na">Back: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:141px;">
-      <div>Start: ----------</div>
-      <div>+ D-pad: Zero Resets (see notes)</div>
-      <div>+ Elevator: Run Upper Stage</div>
+      <div class="na">Start: ----------</div>
     </div>
     <div class="text notes" style="right:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Mechanisms must be reset to zero positions in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)</li>
+          <li>N/A</li>
         </ul>
       </div>
     </div>

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let gripperSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Gripper/HasTarget")?.value as boolean);
   let intakeSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Intake/HasTarget")?.value as boolean);
   let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
 </script>
@@ -9,7 +8,6 @@
 <div class="main">
   <div class="title"><h4>Sensors</h4></div>
   <div class="sensors">
-    <div><span class="label">Gripper:</span>{ gripperSensorHasTarget }</div>
     <div><span class="label">Intake:</span>{ intakeSensorHasTarget }</div>
     <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN }</div>
   </div>

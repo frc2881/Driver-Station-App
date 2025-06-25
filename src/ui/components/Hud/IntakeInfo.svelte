@@ -4,8 +4,8 @@
   import CicsExplorer from "carbon-icons-svelte/lib/CicsExplorer.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let isGripperEnabled = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/Gripper/IsEnabled")?.value as boolean);
-  let isGripperHolding = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/Gripper/IsHolding")?.value as boolean);
+  let isGripperHolding = $derived(nt.topics.get("/SmartDashboard/Robot/Roller/IsHolding")?.value as boolean);
+  let isGripperEnabled = $derived(Math.abs(nt.topics.get("/SmartDashboard/Robot/Roller/Speed")?.value as number) >= 0.2);
 </script>
 <div class="main">
   <div 
