@@ -12,11 +12,6 @@
       isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/IsConnected")?.value as boolean,
       hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/HasTarget")?.value as boolean,
       targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/TargetCount")?.value as number
-    },{
-      name: "Rear",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Rear/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Rear/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Rear/TargetCount")?.value as number
     }]);
 
   let hasValidVisionTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidVisionTarget")?.value as boolean)
