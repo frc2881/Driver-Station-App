@@ -15,7 +15,6 @@
       <TargetAlignment />
     </Tile>
     <Tile class="widget">
-      <div class="alignmentMarker"></div>
       <CameraStream
         streamUrl={ JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value ?? null)?.Driver }
         width={ 810 } 
@@ -26,12 +25,7 @@
     </Tile>
   </div>
   <div class="row">
-    <Tile class="widget">
-      <CameraStream
-        streamUrl={ JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value ?? null)?.Internal }
-        width={ 397 } 
-        height={ 530 } />
-    </Tile>
+    <Tile class="widget"></Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
@@ -75,16 +69,6 @@
       display: grid;
       grid-template-columns: 530px 810px 530px;
       column-gap: 10px;
-    }
-
-    & .alignmentMarker {
-      position: absolute;
-      z-index: 9999;
-      width: 10px;
-      height: 530px;
-      background-color: var(--app-color-pink);
-      opacity: 0.8;
-      margin-left: 320px;
     }
 
     & .driverStationViewContainer {

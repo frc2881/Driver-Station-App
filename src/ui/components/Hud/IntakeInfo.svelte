@@ -2,37 +2,25 @@
   import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
   import Aperture from "carbon-icons-svelte/lib/Aperture.svelte";
   import CicsExplorer from "carbon-icons-svelte/lib/CicsExplorer.svelte";
-  import RowCollapse from "carbon-icons-svelte/lib/RowCollapse.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let isIntakeEnabled = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsEnabled")?.value as boolean);
-  let isIntakeHolding = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsHolding")?.value as boolean);
-  let isGripperEnabled = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/Gripper/IsEnabled")?.value as boolean);
-  let isGripperHolding = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/Gripper/IsHolding")?.value as boolean);
+  let isHandEnabled = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/IsEnabled")?.value as boolean);
+  let isHandHolding = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/IsHolding")?.value as boolean);
 </script>
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isGripperHolding }>
+    class:active={ isHandHolding }>
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div class="components">
-    {#if isGripperHolding}
-      <div class="gripper"><CicsExplorer width=160 height=160 fill="#FFFFFF" /></div>
+    {#if isHandHolding}
+      <div class="hand"><CicsExplorer width=160 height=160 fill="#FFFFFF" /></div>
     {:else}
-      {#if isGripperEnabled}
-        <div class="gripper enabled"><Aperture width=160 height=160 fill="#FF69B4" /></div>
+      {#if isHandEnabled}
+        <div class="hand enabled"><Aperture width=160 height=160 fill="#FF69B4" /></div>
       {:else}
-        <div class="gripper"><Aperture width=160 height=160 fill="#666666" /></div>
-      {/if}
-    {/if}
-    {#if isIntakeHolding}
-      <div class="intake"><RowCollapse width=180 height=180 fill="#00CC00" /></div>
-    {:else}
-      {#if isIntakeEnabled}
-        <div class="intake enabled"><RowCollapse width=180 height=180 fill="#FF69B4" /></div>
-      {:else}
-        <div class="intake"><RowCollapse width=180 height=180 fill="#666666" /></div>
+        <div class="hand"><Aperture width=160 height=160 fill="#666666" /></div>
       {/if}
     {/if}
   </div>
@@ -68,11 +56,7 @@
       align-items: center;
       gap: 2em;
 
-      & .intake {
-        &.enabled { animation: pulse 500ms infinite linear; }
-      }
-
-      & .gripper {
+      & .hand {
         &.enabled { animation: rotate 500ms infinite linear; }
       }
     }
