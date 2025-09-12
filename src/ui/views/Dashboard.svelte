@@ -16,7 +16,7 @@
 </script>
 
 <main>
-{#if !nt.isConnected}
+{#if nt.isConnected}
   <div class="header">
     <div class="left">
       <RobotInfo />

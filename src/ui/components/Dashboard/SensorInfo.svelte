@@ -8,8 +8,8 @@
 <div class="main">
   <div class="title"><h4>Sensors</h4></div>
   <div class="sensors">
-    <div><span class="label">Hand:</span>{ handSensorHasTarget ?? false }</div>
     <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN }</div>
+    <div><span class="label">Hand:</span>{ handSensorHasTarget ?? false }</div>
   </div>
 </div>
   
