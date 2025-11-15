@@ -64,6 +64,7 @@
         padding: 20px;
         width: 404px;
         border: 1px solid var(--app-color-charcoal);
+        display: none;
       }
     }
   }
