@@ -89,7 +89,7 @@
       <div>A: Intake Coral Station</div>
       <div>B: Intake Reef Algae L2</div>
       <div>Y: Intake Reef Algae L3</div>
-      <div class="na">X: ----------</div>
+      <div>X: Intake Algae Ground</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
       <div>U: Align Reef Coral L4</div>
