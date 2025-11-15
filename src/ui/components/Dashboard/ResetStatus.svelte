@@ -3,7 +3,7 @@
   import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let hasAllZeroResets = $derived(nt.topics.get("/SmartDashboard/Robot/Status/HasAllZeroResets")?.value as boolean);
+  let hasAllZeroResets = $derived(nt.topics.get("/SmartDashboard/Robot/Status/IsHomed")?.value as boolean);
 </script>
   
 <div class="main">
