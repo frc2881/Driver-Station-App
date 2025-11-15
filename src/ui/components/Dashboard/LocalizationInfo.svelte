@@ -8,26 +8,12 @@
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   let poseSensors = $derived([{
-      name: "FrontLeft",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/TargetCount")?.value as number
-    },{
-      name: "FrontRight",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount")?.value as number
-    },{
-      name: "RearLeft",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount")?.value as number
-    },{
-      name: "RearRight",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number
-  }]);
+      name: "Front",
+      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/IsConnected")?.value as boolean,
+      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/HasTarget")?.value as boolean,
+      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Front/TargetCount")?.value as number
+    }
+  ]);
 
   let hasValidVisionTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidVisionTarget")?.value as boolean)
 

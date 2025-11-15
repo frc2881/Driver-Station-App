@@ -19,10 +19,10 @@
     <!-- DRIVER -->
     <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Intake Coral (Ground)</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Score Coral</div>
+      <div class="na">RT: ----------</div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
       <div>LB: Left Align Target</div>
@@ -43,9 +43,9 @@
     </div>
     <div class="text" style="left:325px;bottom:290px;">
       <div class="na">L: ----------</div>
-      <div>U: Run Wrist Up</div>
+      <div class="na">U: ----------</div>
       <div class="na">R: ----------</div>
-      <div>D: Run Wrist Down</div>
+      <div class="na">D: ----------</div>
     </div>
     <div class="text right" style="right:1025px;bottom:290px;">
       <div>L-R: Rotate</div>
@@ -69,47 +69,44 @@
     <!-- OPERATOR -->
     <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Intake/Hold Algae</div>
+      <div class="na">LT: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Score Algae</div>
+      <div class="na">RT: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Intake Coral</div>
+      <div class="na">LB: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Eject Coral</div>
+      <div class="na">RB: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
       <div class="na">L-R: ----------</div>
-      <div>U-D: Run Elevator</div>
+      <div class="na">U-D: ----------</div>
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Intake Coral Station</div>
-      <div>B: Intake Reef Algae L2</div>
-      <div>Y: Intake Reef Algae L3</div>
-      <div>X: Intake Algae Ground</div>
+      <div class="na">A: ----------</div>
+      <div class="na">B: ----------</div>
+      <div class="na">Y: ----------</div>
+      <div class="na">X: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>U: Align Reef Coral L4</div>
-      <div>R: Align Reef Coral L3</div>
-      <div>D: Align Reef Coral L2</div>
-      <div>L: Align Barge Algae</div>
+      <div class="na">U: ----------</div>
+      <div class="na">R: ----------</div>
+      <div class="na">D: ----------</div>
+      <div class="na">L: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:290px;">
       <div class="na">L-R: ----------</div>
-      <div>U-D: Run Arm</div>
+      <div class="na">U-D: ----------</div>
       <div class="na">Hold: ----------</div>
     </div>
     <div class="text" style="left:1025px;bottom:156px;">
-      <div>Back: ----------</div>
-      <div>+ Elevator: Run Lower Stage</div>
+      <div class="na">Back: ----------</div>
     </div>
     <div class="text right" style="right:325px;bottom:141px;">
-      <div>Start: ----------</div>
-      <div>+ D-pad: Zero Resets (see notes)</div>
-      <div>+ Elevator: Run Upper Stage</div>
+      <div class="na">Start: ----------</div>
     </div>
     <div class="text notes" style="right:60px;top:160px;">
       <div>

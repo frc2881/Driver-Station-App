@@ -4,8 +4,6 @@
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
-  import ElevatorInfo from "../components/Hud/ElevatorInfo.svelte";
-  import IntakeInfo from "../components/Hud/IntakeInfo.svelte";
 </script>
 
 <main>
@@ -20,9 +18,7 @@
         width={ 810 } 
         height={ 530 } />
     </Tile>
-    <Tile class="widget">
-      <ElevatorInfo />
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
   <div class="row">
     <Tile class="widget"></Tile>
@@ -38,9 +34,7 @@
         </div>
       </div>
     </Tile>
-    <Tile class="widget">
-      <IntakeInfo />
-    </Tile>
+    <Tile class="widget"></Tile>
   </div>
 {:else}
   <div class="inlineNotification">
