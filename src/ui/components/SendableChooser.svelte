@@ -47,7 +47,7 @@
 <div class="main">
   <Dropdown
     type={ inline ? "inline" : "default" }
-    titleText={ name }
+    labelText={ name }
     selectedId={ selectedItemId }
     items={ items }
     on:select={ (e: any) => {

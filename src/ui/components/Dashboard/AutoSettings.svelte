@@ -61,9 +61,7 @@
       margin-top: 2.5em;
       
       & img {
-        padding: 20px;
-        width: 404px;
-        border: 1px solid var(--app-color-charcoal);
+        width: 400px;
       }
     }
   }

@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { Tile, InlineNotification, SkeletonPlaceholder } from "carbon-components-svelte";
+  import { Tile, InlineNotification } from "carbon-components-svelte";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
   import GameInfo from "../components/Dashboard/GameInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import Settings from "../components/Dashboard/Settings.svelte";
-  import DriveInfo from "../components/Dashboard/DriveInfo.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
   import SensorInfo from "../components/Dashboard/SensorInfo.svelte";
   import AutoSettings from "../components/Dashboard/AutoSettings.svelte";
-  import ResetStatus from "../components/Dashboard/ResetStatus.svelte";
+  import HomingStatus from "../components/Dashboard/HomingStatus.svelte";
   import ControllerMap from "../components/Dashboard/ControllerMap.svelte";
 
   let isControllerMapVisible: boolean = $state(false);
@@ -22,15 +21,12 @@
       <RobotInfo />
       <GameInfo />
     </div>
-    <div class="center">
+    <div class="right">
       <div class="controller-map-button">
         <button onclick={() => { isControllerMapVisible = true; }}>
           <img src="./assets/images/controller.png" alt="Controller Map" />
         </button>
       </div>
-    </div>
-    <div class="right">
-      <PowerInfo />
     </div>
   </div>
   <div class="widgets">
@@ -38,18 +34,19 @@
       <Settings />
     </Tile>
     <Tile class="widget">
-      <SensorInfo />
+      <PowerInfo />
     </Tile>
     <Tile class="widget">
-      <LocalizationInfo />
+      <HomingStatus />
     </Tile>
     <Tile class="widget row-span-2">
       <AutoSettings />
     </Tile>
     <Tile class="widget">
+      <LocalizationInfo />
     </Tile>
     <Tile class="widget">
-      <ResetStatus />
+      <SensorInfo />
     </Tile>
     <ControllerMap bind:isControllerMapVisible={ isControllerMapVisible } />
   </div>
@@ -73,7 +70,7 @@
     
     & > .header {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       height: 100px;
       padding: 0 20px;
 
@@ -81,13 +78,6 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        gap: 1.5em;
-      }
-
-      & .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         gap: 1.5em;
       }
 

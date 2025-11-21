@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import { CheckmarkFilled } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   let elevatorLowerStagePosition = $derived(nt.topics.get("/SmartDashboard/Robot/Elevator/LowerStage/Position")?.value as number);

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import CaretDown from "carbon-icons-svelte/lib/CaretDown.svelte";
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
+  import { CheckmarkFilled, CaretDown } from "carbon-icons-svelte";
 	import { Alliance, type Pose2d, Utils } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
