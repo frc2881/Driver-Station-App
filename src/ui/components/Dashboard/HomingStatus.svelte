@@ -40,7 +40,7 @@
       & .info {
         margin: 1em 0;
         text-align: center;
-        font-size: 120%;
+        font-size: 125%;
         line-height: 150%;
       }
     }

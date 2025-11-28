@@ -109,7 +109,9 @@
     & .info {
       display: flex;
       flex-direction: row;
-      gap: 3.5em;
+      justify-content: center;
+      gap: 2em;
+      margin: 0 2em 0 0;
     }
 
     & .robot {
