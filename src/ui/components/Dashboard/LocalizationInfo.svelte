@@ -1,7 +1,5 @@
 <script lang="ts">
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-  import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
-	import { CenterSquare } from "carbon-icons-svelte";
+  import { CheckmarkFilled, WarningAltFilled, CenterSquare } from "carbon-icons-svelte";
   import { Modal } from "carbon-components-svelte";
   import { Utils, type Pose2d } from "../../../common/index.js";
   import CameraStream from "../../components/CameraStream.svelte";
@@ -32,6 +30,13 @@
   <div class="info">
     <div class="robot">
       <div class="sensors">
+        <div class="status">
+          {#if !hasValidVisionTarget}
+            <div><WarningAltFilled width=100 height=100 fill="#CCCC00" /></div>
+          {:else}
+            <div><CheckmarkFilled width=100 height=100 fill="#009900" /></div>
+          {/if}
+        </div>
         {#each poseSensors as { name, isConnected, hasTarget, targetCount }}
           <div class="sensor">
             <button 
@@ -54,13 +59,6 @@
             </button>
           </div>
         {/each}
-        <div class="status">
-          {#if !hasValidVisionTarget}
-            <div><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
-          {:else}
-            <div><CheckmarkFilled width=120 height=120 fill="#009900" /></div>
-          {/if}
-        </div>
       </div>
     </div>
     <div class="poseInfo">
@@ -97,7 +95,9 @@
     & .info {
       display: flex;
       flex-direction: row;
-      gap: 3.5em;
+      justify-content: center;
+      gap: 2em;
+      margin: 0 2em 0 0;
     }
 
     & .robot {
@@ -176,7 +176,7 @@
       flex-direction: column;
       justify-content: center;
       font-size: 180%;
-      gap: 1em;
+      gap: 0.75em;
 
       & .label {
         display: block;

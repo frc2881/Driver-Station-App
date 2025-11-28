@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CloseOutline from "carbon-icons-svelte/lib/CloseOutline.svelte";
+  import { CloseOutline } from "carbon-icons-svelte";
 
   interface Props {
     isControllerMapVisible?: boolean;

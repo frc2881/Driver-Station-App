@@ -1,7 +1,5 @@
 <script lang="ts">
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-  import Aperture from "carbon-icons-svelte/lib/Aperture.svelte";
-  import CicsExplorer from "carbon-icons-svelte/lib/CicsExplorer.svelte";
+  import { CheckmarkFilled, Aperture, CicsExplorer } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   let isHandEnabled = $derived(nt.topics.get("/SmartDashboard/Robot/Hand/IsEnabled")?.value as boolean);

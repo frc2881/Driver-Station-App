@@ -1,7 +1,5 @@
 <script lang="ts">
-  import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-  import CloseFilled from "carbon-icons-svelte/lib/CloseFilled.svelte";
-  import WarningAltFilled from "carbon-icons-svelte/lib/WarningAltFilled.svelte";
+  import { CheckmarkFilled, WarningAltFilled, CloseFilled } from "carbon-icons-svelte";
   import { RobotMode, RobotState } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 

@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { type Alliance } from "../../../common/index.js";
   import SendableChooser from "../SendableChooser.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
-  let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
   let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "None");
 </script>
 
@@ -12,8 +10,8 @@
   <div>
     <SendableChooser
       name=""
-      options={ nt.topics.get("/SmartDashboard/Robot/Auto/options") }
-      active={ nt.topics.get("/SmartDashboard/Robot/Auto/active") } />
+      key="/SmartDashboard/Robot/Auto"
+      useInline={ false } />
   </div>
   <div 
     class="active"
@@ -61,10 +59,7 @@
       margin-top: 2.5em;
       
       & img {
-        padding: 20px;
-        width: 404px;
-        border: 1px solid var(--app-color-charcoal);
-        display: none;
+        width: 400px;
       }
     }
   }
