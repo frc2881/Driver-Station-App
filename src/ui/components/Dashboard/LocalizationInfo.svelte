@@ -5,31 +5,17 @@
   import CameraStream from "../../components/CameraStream.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let poseSensors = $derived([{
-      name: "FrontLeft",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontLeft/TargetCount")?.value as number
-    },{
-      name: "FrontRight",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/FrontRight/TargetCount")?.value as number
-    },{
-      name: "RearLeft",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearLeft/TargetCount")?.value as number
-    },{
-      name: "RearRight",
-      isConnected: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/IsConnected")?.value as boolean,
-      hasTarget: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/HasTarget")?.value as boolean,
-      targetCount: nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/RearRight/TargetCount")?.value as number
-  }]);
+  let poseSensors = $derived.by(() => {
+    const names = (nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Names")?.value ?? []) as Array<string>;
+    return names.map(name => ({
+      name,
+      isConnected: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/IsConnected`)?.value as boolean,
+      hasTarget: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/HasTarget`)?.value as boolean,
+      stream: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/Stream`)?.value as string
+    }));
+  });
 
   let hasValidVisionTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidVisionTarget")?.value as boolean)
-
-  let cameraStreams = $derived(JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value) ?? "{}" as any);
 
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
@@ -51,13 +37,13 @@
             <div><CheckmarkFilled width=100 height=100 fill="#009900" /></div>
           {/if}
         </div>
-        {#each poseSensors as { name, isConnected, hasTarget, targetCount }}
+        {#each poseSensors as { name, isConnected, hasTarget, stream }}
           <div class="sensor">
             <button 
               title={ name }
               onclick={() => { 
                 isCameraStreamModalOpen = true; 
-                cameraStreamUrl = cameraStreams[name] ?? ""; 
+                cameraStreamUrl = stream ?? ""; 
                 cameraStreamName = name 
               }}>
               <CenterSquare
@@ -66,9 +52,6 @@
                 height=80 />
               {#if isConnected}
               <div class="connection"></div>
-              {/if}
-              {#if targetCount > 1}
-              <div class="targetCount">{ targetCount }</div>
               {/if}
             </button>
           </div>
@@ -163,22 +146,6 @@
               border-radius: 50%;
               background: var(--app-color-green);
               opacity: .5;
-            }
-
-            & .targetCount {
-              position: absolute;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              right: 0;
-              top: 40px;
-              width: 20px;
-              height: 20px;
-              border-radius: 50%;
-              color: var(--app-color-white);
-              background: var(--app-color-charcoal);
-              font-weight: bold;
-              opacity: .8;
             }
           }
         }

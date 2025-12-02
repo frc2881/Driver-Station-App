@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { InlineNotification, SkeletonPlaceholder, Tile } from "carbon-components-svelte";
+  import { InlineNotification, Tile } from "carbon-components-svelte";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
@@ -16,7 +16,7 @@
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ JSON.parse(nt.topics.get("/SmartDashboard/Robot/Sensors/Camera/Streams")?.value ?? null)?.Driver }
+        streamUrl={ nt.topics.get("/SmartDashboard/Robot/Cameras/Driver")?.value ?? null }
         width={ 810 } 
         height={ 530 } />
     </Tile>
