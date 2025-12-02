@@ -112,7 +112,7 @@
       <div>
         Notes:
         <ul>
-          <li>Mechanisms must be reset to zero positions in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)</li>
+          <li>Mechanisms must be homed in the correct order</li>
         </ul>
       </div>
     </div>
