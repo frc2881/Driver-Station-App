@@ -39,6 +39,7 @@
     } catch (e) {}
   }
 
+  // svelte-ignore state_referenced_locally
   if (deviceLabel) {
     loadVideoStream();
   }
