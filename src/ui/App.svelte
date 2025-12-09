@@ -69,16 +69,16 @@
 	}
 
 	@keyframes pulse {
-    0% { opacity: 1.0; }
+		0% { opacity: 1.0; }
 		50% { opacity: 1.0; }
-    100% { opacity: 0.25; }
-  }
+		100% { opacity: 0.25; }
+	}
 
-  @keyframes rotate {
-    0% { transform: rotate(0deg); }
-    50% { transform: rotate(180deg); }
-    100% { transform: rotate(360deg); }
-  }
+	@keyframes rotate {
+		0% { transform: rotate(0deg); }
+		50% { transform: rotate(180deg); }
+		100% { transform: rotate(360deg); }
+	}
 
 	@keyframes pulse-expand {
 		0%    { opacity: 0.75; transform: scale(1);  }

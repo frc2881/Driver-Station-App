@@ -1,11 +1,65 @@
 <script lang="ts">
   import { CloseOutline } from "carbon-icons-svelte";
+  import { type ControllerMapAnnotations } from "../../../common/index.js";
 
   interface Props {
     isControllerMapVisible?: boolean;
   }
 
   let { isControllerMapVisible = $bindable(false) }: Props = $props();
+
+  const annotations: ControllerMapAnnotations = {
+    driver: {
+      stickLeftX: "Drive L/R",
+      stickLeftY: "Drive F/B",
+      stickLeftButton: "Lock X",
+      stickRightX: "Rotate",
+      stickRightY: "",
+      stickRightButton: "",
+      triggerLeft: "Intake Coral (Ground)",
+      triggerRight: "Score Coral",
+      bumperLeft: "Left Align Target",
+      bumperRight: "Right Align Target",
+      buttonA: "",
+      buttonB: "",
+      buttonY: "",
+      buttonX: "",
+      dpadUp: "Run Wrist Up",
+      dpadRight: "",
+      dpadDown: "Run Wrist Down",
+      dpadLeft: "",
+      buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
+      buttonStart: [ "" ],
+      notes: [
+        "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)"
+      ]
+    },
+    operator: {
+      stickLeftX: "",
+      stickLeftY: "Run Elevator",
+      stickLeftButton: "",
+      stickRightX: "",
+      stickRightY: "Run Arm",
+      stickRightButton: "",
+      triggerLeft: "Intake + Hold Algae",
+      triggerRight: "Score Algae",
+      bumperLeft: "Intake Coral",
+      bumperRight: "Eject Coral",
+      buttonA: "Intake Coral Station",
+      buttonB: "Intake Reef Algae L2",
+      buttonY: "Intake Reef Algae L3",
+      buttonX: "Intake Algae Ground",
+      dpadUp: "Align Reef Coral L4",
+      dpadRight: "Align Reef Coral L3",
+      dpadDown: "Align Reef Coral L2",
+      dpadLeft: "Align Barge Algae",
+      buttonBack: [ "", "+ Elevator: Run Lower Stage" ],
+      buttonStart: [ "", "+ D-pad: Homing (see notes)", "+ Elevator: Run Upper Stage" ],
+      notes: [
+        "Mechanisms must be reset to zero positions in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)"
+      ]
+    }
+  }
 </script>
 
 {#if isControllerMapVisible}
@@ -16,106 +70,113 @@
     </button>
   </div>
   <div class="controllers">
-    <!-- DRIVER -->
-    <div class="text title" style="left:465px;top:50px;"><h3>Driver</h3></div>
+    <div class="text title" style="left:465px;top:50px;">DRIVER</div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT: Intake Coral (Ground)</div>
+      <div>LT <span class="annotation">{ annotations.driver.triggerLeft }</span></div>
     </div>
-    <div class="text right" style="right:1025px;bottom:570px;">
-      <div>RT: Score Coral</div>
+    <div class="text" style="right:1025px;bottom:570px;">
+      <div>RT <span class="annotation">{ annotations.driver.triggerRight }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB: Left Align Target</div>
+      <div>LB <span class="annotation">{ annotations.driver.bumperLeft }</span></div>
     </div>
-    <div class="text right" style="right:1025px;bottom:480px;">
-      <div>RB: Right Align Target</div>
+    <div class="text" style="right:1025px;bottom:480px;">
+      <div>RB <span class="annotation">{ annotations.driver.bumperRight }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
-      <div>L-R: Drive L/R</div>
-      <div>U-D: Drive F/B</div>
-      <div>Hold: Lock "X"</div>
+      <div>L&mdash;R <span class="annotation">{ annotations.driver.stickLeftX }</span></div>
+      <div>U&mdash;D <span class="annotation">{ annotations.driver.stickLeftY }</span></div>
+      <div>Hold <span class="annotation">{ annotations.driver.stickLeftButton }</span></div>
     </div>
-    <div class="text right" style="right:1025px;bottom:380px;">
-      <div class="na">A: ----------</div>
-      <div class="na">B: ----------</div>
-      <div class="na">Y: ----------</div>
-      <div class="na">X: ----------</div>
+    <div class="text" style="right:1025px;bottom:380px;">
+      <div>A <span class="annotation">{ annotations.driver.buttonA }</span></div>
+      <div>B <span class="annotation">{ annotations.driver.buttonB }</span></div>
+      <div>Y <span class="annotation">{ annotations.driver.buttonY }</span></div>
+      <div>X <span class="annotation">{ annotations.driver.buttonX }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
-      <div class="na">L: ----------</div>
-      <div>U: Run Wrist Up</div>
-      <div class="na">R: ----------</div>
-      <div>D: Run Wrist Down</div>
+      <div>L <span class="annotation">{ annotations.driver.dpadLeft }</span></div>
+      <div>U <span class="annotation">{ annotations.driver.dpadUp }</span></div>
+      <div>R <span class="annotation">{ annotations.driver.dpadRight }</span></div>
+      <div>D <span class="annotation">{ annotations.driver.dpadDown }</span></div>
     </div>
-    <div class="text right" style="right:1025px;bottom:290px;">
-      <div>L-R: Rotate</div>
-      <div class="na">U-D: ----------</div>
-      <div class="na">Hold: ----------</div>
+    <div class="text" style="right:1025px;bottom:290px;">
+      <div>L&mdash;R <span class="annotation">{ annotations.driver.stickRightX }</span></div>
+      <div>U&mdash;D <span class="annotation">{ annotations.driver.stickRightY }</span></div>
+      <div>Hold <span class="annotation">{ annotations.driver.stickRightButton }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
-      <div>Back: Reset Gyro (Hold)</div>
+      {#each annotations.driver.buttonBack as annotation, index}
+      <div>{#if index == 0}Back{/if}<span class="annotation">{ annotation }</span></div>
+      {/each}
     </div>
-    <div class="text right" style="right:1025px;bottom:180px;">
-      <div class="na">Start: ----------</div>
+    <div class="text" style="right:1025px;bottom:180px;">
+      {#each annotations.driver.buttonStart as annotation, index}
+      <div>{#if index == 0}Start{/if}<span class="annotation">{ annotation }</span></div>
+      {/each}
     </div>
     <div class="text notes" style="left:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)</li>
+          {#each annotations.driver.notes as note}
+          <li>{ note }</li>
+          {/each}
         </ul>
       </div>
     </div>
-    <!-- OPERATOR -->
-    <div class="text title" style="right:465px;top:50px;"><h3>Operator</h3></div>
+    <div class="text title" style="right:465px;top:50px;">OPERATOR</div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT: Intake/Hold Algae</div>
+      <div>LT <span class="annotation">{ annotations.operator.triggerLeft }</span></div>
     </div>
-    <div class="text right" style="right:325px;bottom:570px;">
-      <div>RT: Score Algae</div>
+    <div class="text" style="right:325px;bottom:570px;">
+      <div>RT <span class="annotation">{ annotations.operator.triggerRight }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB: Intake Coral</div>
+      <div>LB <span class="annotation">{ annotations.operator.bumperLeft }</span></div>
     </div>
-    <div class="text right" style="right:325px;bottom:480px;">
-      <div>RB: Eject Coral</div>
+    <div class="text" style="right:325px;bottom:480px;">
+      <div>RB <span class="annotation">{ annotations.operator.bumperRight }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
-      <div class="na">L-R: ----------</div>
-      <div>U-D: Run Elevator</div>
-      <div class="na">Hold: ----------</div>
+      <div>L&mdash;R <span class="annotation">{ annotations.operator.stickLeftX }</span></div>
+      <div>U&mdash;D <span class="annotation">{ annotations.operator.stickLeftY }</span></div>
+      <div>Hold <span class="annotation">{ annotations.operator.stickLeftButton }</span></div>
     </div>
-    <div class="text right" style="right:325px;bottom:380px;">
-      <div>A: Intake Coral Station</div>
-      <div>B: Intake Reef Algae L2</div>
-      <div>Y: Intake Reef Algae L3</div>
-      <div>X: Intake Algae Ground</div>
+    <div class="text" style="right:325px;bottom:380px;">
+      <div>A <span class="annotation">{ annotations.operator.buttonA }</span></div>
+      <div>B <span class="annotation">{ annotations.operator.buttonB }</span></div>
+      <div>Y <span class="annotation">{ annotations.operator.buttonY }</span></div>
+      <div>X <span class="annotation">{ annotations.operator.buttonX }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>U: Align Reef Coral L4</div>
-      <div>R: Align Reef Coral L3</div>
-      <div>D: Align Reef Coral L2</div>
-      <div>L: Align Barge Algae</div>
+      <div>L <span class="annotation">{ annotations.operator.dpadLeft }</span></div>
+      <div>U <span class="annotation">{ annotations.operator.dpadUp }</span></div>
+      <div>R <span class="annotation">{ annotations.operator.dpadRight }</span></div>
+      <div>D <span class="annotation">{ annotations.operator.dpadDown }</span></div>
     </div>
-    <div class="text right" style="right:325px;bottom:290px;">
-      <div class="na">L-R: ----------</div>
-      <div>U-D: Run Arm</div>
-      <div class="na">Hold: ----------</div>
+    <div class="text" style="right:325px;bottom:290px;">
+      <div>L&mdash;R <span class="annotation">{ annotations.operator.stickRightX }</span></div>
+      <div>U&mdash;D <span class="annotation">{ annotations.operator.stickRightY }</span></div>
+      <div>Hold <span class="annotation">{ annotations.operator.stickRightButton }</span></div>
     </div>
-    <div class="text" style="left:1025px;bottom:156px;">
-      <div>Back: ----------</div>
-      <div>+ Elevator: Run Lower Stage</div>
+    <div class="text" style="left:1025px;bottom:180px;">
+      {#each annotations.operator.buttonBack as annotation, index}
+      <div>{#if index == 0}Back{/if}<span class="annotation">{ annotation }</span></div>
+      {/each}
     </div>
-    <div class="text right" style="right:325px;bottom:141px;">
-      <div>Start: ----------</div>
-      <div>+ D-pad: Zero Resets (see notes)</div>
-      <div>+ Elevator: Run Upper Stage</div>
+    <div class="text" style="right:325px;bottom:180px;">
+      {#each annotations.operator.buttonStart as annotation, index}
+      <div>{#if index == 0}Start{/if}<span class="annotation">{ annotation }</span></div>
+      {/each}
     </div>
     <div class="text notes" style="right:60px;top:160px;">
       <div>
         Notes:
         <ul>
-          <li>Mechanisms must be reset to zero positions in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)</li>
+          {#each annotations.operator.notes as note}
+          <li>{ note }</li>
+          {/each}
         </ul>
       </div>
     </div>
@@ -137,8 +198,8 @@
 
     & .close-button {
       position: absolute;
-      top: 1em;
-      right: 1em;
+      top: 0.5em;
+      right: 0.5em;
 
       & button {
         margin: 6px 0 0 0;
@@ -163,6 +224,7 @@
         gap: .25em;
         font-size: 13px;
         transform: translateY(20px);
+        color: var(--app-color-pink);
 
         &.title {
           width: 250px;
@@ -170,14 +232,12 @@
           background: var(--app-color-pink);
           color: var(--app-color-black);
           text-align: center;
-        }
-
-        &.right {
-          text-align: right;
+          font-size: 1.5rem;
+          font-weight: bold;
         }
 
         &.notes {
-          width: 200px;
+          width: 220px;
           height: 390px;
           padding: 15px;
           border: 1px solid var(--app-color-charcoal);
@@ -188,16 +248,19 @@
 
             & li {
               margin-bottom: 10px;
+              color: var(--app-color-white);
             }
           }
         }
 
-        & .na {
-          opacity: 0.5;
-        }
+        & .annotation {
+          margin-left: .5rem;
+          color: var(--app-color-white);
 
-        & .do {
-          color: var(--app-color-pink);
+          &:empty::after {
+            content: "----------------";
+            opacity: 0.3;
+          }
         }
       }
     }

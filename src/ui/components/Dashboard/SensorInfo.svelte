@@ -1,8 +1,9 @@
 <script lang="ts">
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let handSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Hand/HasTarget")?.value as boolean);
   let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
+
+  let handSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Hand/HasTarget")?.value as boolean);
 </script>
   
 <div class="main">

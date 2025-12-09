@@ -72,3 +72,32 @@ export type Pose3d = {
   z: number;
   rotation: number;
 }
+
+export type ControllerMapAnnotationSet = {
+  stickLeftX: string;
+  stickLeftY: string;
+  stickLeftButton: string;
+  stickRightX: string;
+  stickRightY: string;
+  stickRightButton: string;
+  triggerLeft: string;
+  triggerRight: string;
+  bumperLeft: string;
+  bumperRight: string;
+  buttonA: string;
+  buttonB: string;
+  buttonY: string;
+  buttonX: string;
+  dpadUp: string;
+  dpadRight: string;
+  dpadDown: string;
+  dpadLeft: string;
+  buttonBack: string[];
+  buttonStart: string[];
+  notes: string[];
+}
+
+export type ControllerMapAnnotations = {
+  driver: ControllerMapAnnotationSet;
+  operator: ControllerMapAnnotationSet;
+}
