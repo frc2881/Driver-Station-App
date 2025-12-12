@@ -1,6 +1,7 @@
 <script lang="ts">
   import { CloseOutline } from "carbon-icons-svelte";
-  import { type ControllerMapAnnotations } from "../../../common/index.js";
+  import { RobotType, type ControllerMapAnnotations } from "../../../common/index.js";
+  import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
   interface Props {
     isControllerMapVisible?: boolean;
@@ -8,7 +9,7 @@
 
   let { isControllerMapVisible = $bindable(false) }: Props = $props();
 
-  const annotations: ControllerMapAnnotations = {
+  const ANNOTATIONS_COMPETITION: ControllerMapAnnotations = {
     driver: {
       stickLeftX: "Drive L/R",
       stickLeftY: "Drive F/B",
@@ -56,10 +57,73 @@
       buttonBack: [ "", "+ Elevator: Run Lower Stage" ],
       buttonStart: [ "", "+ D-pad: Homing (see notes)", "+ Elevator: Run Upper Stage" ],
       notes: [
-        "Mechanisms must be reset to zero positions in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)"
+        "Mechanisms must be homed in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)"
       ]
     }
   }
+
+  const ANNOTATIONS_DEFAULT: ControllerMapAnnotations = {
+    driver: {
+      stickLeftX: "Drive L/R",
+      stickLeftY: "Drive F/B",
+      stickLeftButton: "Lock X",
+      stickRightX: "Rotate",
+      stickRightY: "",
+      stickRightButton: "",
+      triggerLeft: "",
+      triggerRight: "",
+      bumperLeft: "Left Align Target",
+      bumperRight: "Right Align Target",
+      buttonA: "",
+      buttonB: "",
+      buttonY: "",
+      buttonX: "",
+      dpadUp: "",
+      dpadRight: "",
+      dpadDown: "",
+      dpadLeft: "",
+      buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
+      buttonStart: [ "" ],
+      notes: [
+        "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)"
+      ]
+    },
+    operator: {
+      stickLeftX: "",
+      stickLeftY: "",
+      stickLeftButton: "",
+      stickRightX: "",
+      stickRightY: "",
+      stickRightButton: "",
+      triggerLeft: "",
+      triggerRight: "",
+      bumperLeft: "",
+      bumperRight: "",
+      buttonA: "",
+      buttonB: "",
+      buttonY: "",
+      buttonX: "",
+      dpadUp: "",
+      dpadRight: "",
+      dpadDown: "",
+      dpadLeft: "",
+      buttonBack: [ "" ],
+      buttonStart: [ "" ],
+      notes: [
+        "Mechanisms must be homed in the correct order (if applicable)"
+      ]
+    }
+  }
+
+  let annotations = $derived.by(() => {
+    const robotType = nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType;
+    switch (robotType) {
+      case RobotType.Competition:
+        return ANNOTATIONS_COMPETITION;
+      default:
+        return ANNOTATIONS_DEFAULT;
+    }
+  });
 </script>
 
 {#if isControllerMapVisible}

@@ -11,6 +11,13 @@ export enum RobotState {
   Estopped = "EStopped"
 }
 
+export enum RobotType {
+  Other = "Other",
+  Competition = "Competition",
+  Practice = "Pracitce",
+  Demo = "Demo"
+}
+
 export enum Alliance {
   Red = "Red",
   Blue = "Blue"

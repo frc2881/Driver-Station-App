@@ -1,11 +1,14 @@
 <script lang="ts">
   import { InlineNotification, Tile } from "carbon-components-svelte";
+  import { RobotType } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
   import ElevatorInfo from "../components/Hud/ElevatorInfo.svelte";
   import IntakeInfo from "../components/Hud/IntakeInfo.svelte";
+
+  let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
 </script>
 
 <main>
@@ -21,7 +24,9 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
+      {#if robotType == RobotType.Competition}
       <ElevatorInfo />
+      {/if}
     </Tile>
   </div>
   <div class="row">
@@ -39,7 +44,9 @@
       </div>
     </Tile>
     <Tile class="widget">
+      {#if robotType == RobotType.Competition}
       <IntakeInfo />
+      {/if}
     </Tile>
   </div>
 {:else}

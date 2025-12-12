@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { RobotType } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
+  let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
 
+  let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
   let handSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Hand/HasTarget")?.value as boolean);
 </script>
   
@@ -10,7 +12,9 @@
   <div class="title"><h4>Sensors</h4></div>
   <div class="sensors">
     <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</div>
+    {#if robotType == RobotType.Competition}
     <div><span class="label">Hand:</span>{ handSensorHasTarget ?? false }</div>
+    {/if}
   </div>
 </div>
   
