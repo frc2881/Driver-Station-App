@@ -42,7 +42,7 @@
       &.robot {
         margin: 0 0 0 1em;
         font-size: 1.5rem;
-        color: var(--app-color-white);
+        color: var(--app-color-pink);
       }
     }
   }

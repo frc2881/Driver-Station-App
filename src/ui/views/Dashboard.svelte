@@ -112,6 +112,7 @@
 
       & :global(.widget) {
         padding: 2em;
+        background: var(--app-color-tile-background);
 
         &:global(.row-span-2) {
           grid-row: span 2;

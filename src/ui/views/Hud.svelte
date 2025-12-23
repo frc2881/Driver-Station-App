@@ -26,11 +26,19 @@
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
       <ElevatorInfo />
+      {:else}
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
     </Tile>
   </div>
   <div class="row">
-    <Tile class="widget"></Tile>
+    <Tile class="widget">
+      {#if robotType == RobotType.Competition}
+      <div></div>
+      {:else}
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
+      {/if}
+    </Tile>
     <Tile class="widget">
       <div class="driverStationViewContainer">
         <CameraStream 
@@ -46,6 +54,8 @@
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
       <IntakeInfo />
+      {:else}
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
     </Tile>
   </div>
@@ -96,9 +106,23 @@
       }
     }
 
+    & .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+
+      & img {
+        height: 240px;
+        /* filter: grayscale(100%);
+        opacity: .1; */
+      }
+    }
+
     & :global(.widget) {
       padding: 0px;
-      background: #1C1C1C;
+      background: var(--app-color-tile-background);
     } 
   }
 

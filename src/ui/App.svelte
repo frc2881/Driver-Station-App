@@ -64,6 +64,7 @@
 		--app-color-silver: #CCCCCC;
 		--app-color-smoke: #999999;
 		--app-color-charcoal: #666666;
+		--app-color-tile-background: #1C1C1C;
 		--app-color-black: #000000;
 		--app-color-white: #FFFFFF;
 	}
