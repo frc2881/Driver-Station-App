@@ -56,10 +56,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 2.5em;
+      margin-top: 2.75em;
       
       & img {
-        width: 400px;
+        width: 435px;
       }
     }
   }

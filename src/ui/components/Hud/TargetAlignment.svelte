@@ -5,28 +5,21 @@
 
   let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
-  let fieldLength = $derived(nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number);
-  let fieldWidth = $derived(nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number);
+  let fieldLength = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number) * 100) / 100);
+  let fieldWidth = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number) * 100) / 100);
   let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Length")?.value as number);
   let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Width")?.value as number);
   let isAlignedToTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTarget")?.value as boolean);
 
   const PIXELS_PER_METER: number = 100;
+  const FIELD_BUFFER_PIXELS: number = 51;
 
   const targetZones: Record<Alliance, Record<string, { x: number, y: number, distance: number }>> = {
     [Alliance.Blue]: {
-      "reef": { x: 4.500, y: 4.050, distance: 2.5 },
-      "coralStationLeft": { x: 0.85, y: 7.40, distance: 1.5 },
-      "coralStationRight": { x: 0.85, y: 0.66, distance: 1.5 },
-      "processor": { x: 5.99, y: -0.01, distance: 1.0 },
-      "barge": { x: 8.27, y: 6.14, distance: 1.5 }
+      "tower": { x: 1.225, y: 3.750, distance: 1.0 }
     },
     [Alliance.Red]: {
-      "reef": { x: 13.045, y: 4.050, distance: 2.5 },
-      "coralStationLeft": { x: 16.70, y: 0.66, distance: 1.5 },
-      "coralStationRight": { x: 16.70, y: 7.40, distance: 1.5 },
-      "processor": { x: 11.56, y: 8.06, distance: 1.0 },
-      "barge": { x: 9.28, y: 1.91, distance: 1.5 }
+      "tower": { x: 15.300, y: 4.325, distance: 1.0 }
     }
   };
 
@@ -53,14 +46,14 @@
   </div>
   <div 
     class="field { alliance?.toLowerCase() } { targetZone }"
-    style:width={ `${fieldLength * PIXELS_PER_METER}px` } 
-    style:height={`${fieldWidth * PIXELS_PER_METER}px`}>
+    style:width={ `${(fieldLength * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px` } 
+    style:height={`${(fieldWidth * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px`}>
     <img src="./assets/images/field.png" alt="Field" />
     <div 
       class="robot"
       style:width={ `${robotLength * PIXELS_PER_METER}px` } 
       style:height={`${robotWidth * PIXELS_PER_METER}px`}
-      style:transform={ `translate(${ (robotPose_?.x * PIXELS_PER_METER) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -(robotPose_?.y * PIXELS_PER_METER) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
+      style:transform={ `translate(${ ((robotPose_?.x * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -((robotPose_?.y * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
       <div class="line"></div>
       <div class="front"><CaretDown width=64 height=64 /></div>
     </div>
@@ -97,20 +90,12 @@
       transition: transform 500ms ease-in-out;
 
       &.blue { 
-        transform: rotate(-90deg) translateX(13.5%) scale(55%);
-        &.reef { transform: rotate(-90deg) translateX(27.0%) scale(110%); }
-        &.coralStationLeft { transform: rotate(-90deg) translateX(42.5%)  translateY(27.0%) scale(110%); }
-        &.coralStationRight { transform: rotate(-90deg) translateX(42.5%)  translateY(-27.0%) scale(110%); }
-        &.processor { transform: rotate(-90deg) translateX(17.5%)  translateY(-27.0%) scale(110%); }
-        &.barge { transform: rotate(-90deg) translateX(7.5%) translateY(27.0%) scale(110%); }
+        transform: rotate(-90deg) translateX(11%) scale(50%);
+        &.tower { transform: rotate(-90deg) translateX(32.5%) scale(100%); }
       }
       &.red { 
-        transform: rotate(90deg) translateX(-13.5%) scale(55%); 
-        &.reef { transform: rotate(90deg) translateX(-27.0%) scale(110%); }
-        &.coralStationLeft { transform: rotate(90deg) translateX(-42.5%) translateY(-27.0%) scale(110%); }
-        &.coralStationRight { transform: rotate(90deg) translateX(-42.5%) translateY(27.0%) scale(110%); }
-        &.processor { transform: rotate(90deg) translateX(-17.5%) translateY(27.0%) scale(110%); }
-        &.barge { transform: rotate(90deg) translateX(-7.5%) translateY(-27.0%) scale(110%); }
+        transform: rotate(90deg) translateX(-11%) scale(50%); 
+        &.tower { transform: rotate(90deg) translateX(-32.5%) scale(100%); }
       }
 
       & .robot {

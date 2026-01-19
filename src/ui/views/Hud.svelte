@@ -115,8 +115,7 @@
 
       & img {
         height: 240px;
-        /* filter: grayscale(100%);
-        opacity: .1; */
+        opacity: .2;
       }
     }
 
