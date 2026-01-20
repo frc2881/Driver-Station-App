@@ -7,8 +7,8 @@
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let fieldLength = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number) * 100) / 100);
   let fieldWidth = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number) * 100) / 100);
-  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Length")?.value as number);
-  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Chassis/Width")?.value as number);
+  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Bumper/Length")?.value as number);
+  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Bumper/Width")?.value as number);
   let isAlignedToTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTarget")?.value as boolean);
 
   const PIXELS_PER_METER: number = 100;
