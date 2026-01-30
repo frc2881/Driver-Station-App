@@ -13,22 +13,22 @@
     driver: {
       stickLeftX: "Drive L/R",
       stickLeftY: "Drive F/B",
-      stickLeftButton: "Lock X",
+      stickLeftButton: "Lock Drive (X)",
       stickRightX: "Rotate",
       stickRightY: "",
-      stickRightButton: "",
-      triggerLeft: "Intake Coral (Ground)",
-      triggerRight: "Score Coral",
-      bumperLeft: "Left Align Target",
-      bumperRight: "Right Align Target",
+      stickRightButton: "Lock To Target",
+      triggerLeft: "",
+      triggerRight: "",
+      bumperLeft: "Align Corner Left",
+      bumperRight: "Align Corner Right",
       buttonA: "",
       buttonB: "",
       buttonY: "",
       buttonX: "",
-      dpadUp: "Run Wrist Up",
-      dpadRight: "",
-      dpadDown: "Run Wrist Down",
-      dpadLeft: "",
+      dpadUp: "",
+      dpadRight: "Align Tower Right",
+      dpadDown: "",
+      dpadLeft: "Align Tower Left",
       buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
       buttonStart: [ "" ],
       notes: [
@@ -37,43 +37,15 @@
     },
     operator: {
       stickLeftX: "",
-      stickLeftY: "Run Elevator",
+      stickLeftY: "",
       stickLeftButton: "",
       stickRightX: "",
-      stickRightY: "Run Arm",
-      stickRightButton: "",
-      triggerLeft: "Intake + Hold Algae",
-      triggerRight: "Score Algae",
-      bumperLeft: "Intake Coral",
-      bumperRight: "Eject Coral",
-      buttonA: "Intake Coral Station",
-      buttonB: "Intake Reef Algae L2",
-      buttonY: "Intake Reef Algae L3",
-      buttonX: "Intake Algae Ground",
-      dpadUp: "Align Reef Coral L4",
-      dpadRight: "Align Reef Coral L3",
-      dpadDown: "Align Reef Coral L2",
-      dpadLeft: "Align Barge Algae",
-      buttonBack: [ "", "+ Elevator: Run Lower Stage" ],
-      buttonStart: [ "", "+ D-pad: Homing (see notes)", "+ Elevator: Run Upper Stage" ],
-      notes: [
-        "Mechanisms must be homed in the order of arm (Left D-pad), elevator lower stage (Down D-pad), wrist (Right D-pad), elevator upper stage (Up D-pad)"
-      ]
-    }
-  }
-
-  const ANNOTATIONS_DEFAULT: ControllerMapAnnotations = {
-    driver: {
-      stickLeftX: "Drive L/R",
-      stickLeftY: "Drive F/B",
-      stickLeftButton: "Lock X",
-      stickRightX: "Rotate",
       stickRightY: "",
       stickRightButton: "",
       triggerLeft: "",
       triggerRight: "",
-      bumperLeft: "Left Align Target",
-      bumperRight: "Right Align Target",
+      bumperLeft: "",
+      bumperRight: "",
       buttonA: "",
       buttonB: "",
       buttonY: "",
@@ -82,6 +54,34 @@
       dpadRight: "",
       dpadDown: "",
       dpadLeft: "",
+      buttonBack: [ "", "" ],
+      buttonStart: [ "", "+ D-pad: Homing (see notes)", "" ],
+      notes: [
+        "Mechanisms must be homed in the correct order"
+      ]
+    }
+  }
+
+  const ANNOTATIONS_DEFAULT: ControllerMapAnnotations = {
+    driver: {
+      stickLeftX: "Drive L/R",
+      stickLeftY: "Drive F/B",
+      stickLeftButton: "Lock Drive (X)",
+      stickRightX: "Rotate",
+      stickRightY: "",
+      stickRightButton: "Lock To Target",
+      triggerLeft: "",
+      triggerRight: "",
+      bumperLeft: "Align Corner Left",
+      bumperRight: "Align Corner Right",
+      buttonA: "",
+      buttonB: "",
+      buttonY: "",
+      buttonX: "",
+      dpadUp: "",
+      dpadRight: "Align Tower Right",
+      dpadDown: "",
+      dpadLeft: "Align Tower Left",
       buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
       buttonStart: [ "" ],
       notes: [

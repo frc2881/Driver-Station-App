@@ -51,10 +51,10 @@
 	}
 
 	:root {
-		--app-color-pink: #FF69B4;
-		--app-color-pink-80: #FF69B4CC;
-		--app-color-pink-60: #FF69B499;
-		--app-color-pink-40: #FF69B466;
+		--app-color-pink: #FF1493;
+		--app-color-pink-80: #FF1493CC;
+		--app-color-pink-60: #FF149399;
+		--app-color-pink-40: #FF149366;
 		--app-color-green: #00CC00;
 		--app-color-red: #CC0000;
 		--app-color-blue: #0000CC;

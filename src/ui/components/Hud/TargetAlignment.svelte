@@ -111,7 +111,7 @@
           box-sizing: border-box;
           top: 50%;
           left: 50%;
-          width: 100px;
+          width: 400px;
           height: 2px;
           transform: translateX(-100%) translateY(-2px) rotate(180deg);
           transform-origin: 100%;

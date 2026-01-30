@@ -5,8 +5,6 @@
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTime from "../components/Hud/MatchTime.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
-  import ElevatorInfo from "../components/Hud/ElevatorInfo.svelte";
-  import IntakeInfo from "../components/Hud/IntakeInfo.svelte";
 
   let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
 </script>
@@ -25,7 +23,7 @@
     </Tile>
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-      <ElevatorInfo />
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
@@ -34,7 +32,7 @@
   <div class="row">
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-      <div></div>
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
@@ -53,7 +51,7 @@
     </Tile>
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-      <IntakeInfo />
+        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
