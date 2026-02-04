@@ -22,28 +22,28 @@
       bumperLeft: "Align Corner Left",
       bumperRight: "Align Corner Right",
       buttonA: "",
-      buttonB: "",
+      buttonB: "Align Trench Right",
       buttonY: "",
-      buttonX: "",
+      buttonX: "Align Trench Left",
       dpadUp: "",
       dpadRight: "Align Tower Right",
       dpadDown: "",
       dpadLeft: "Align Tower Left",
-      buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
+      buttonBack: [ "Reset Gyro" ],
       buttonStart: [ "" ],
       notes: [
         "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)"
       ]
     },
     operator: {
-      stickLeftX: "",
+      stickLeftX: "Run Turret",
       stickLeftY: "",
       stickLeftButton: "",
       stickRightX: "",
       stickRightY: "",
       stickRightButton: "",
       triggerLeft: "",
-      triggerRight: "",
+      triggerRight: "Score Fuel",
       bumperLeft: "",
       bumperRight: "",
       buttonA: "",
@@ -54,10 +54,10 @@
       dpadRight: "",
       dpadDown: "",
       dpadLeft: "",
-      buttonBack: [ "", "" ],
-      buttonStart: [ "", "+ D-pad: Homing (see notes)", "" ],
+      buttonBack: [ "Home Turret" ],
+      buttonStart: [ "Home Intake" ],
       notes: [
-        "Mechanisms must be homed in the correct order"
+        "Mechanisms must be homed in the correct order (if applicable)"
       ]
     }
   }
@@ -75,14 +75,14 @@
       bumperLeft: "Align Corner Left",
       bumperRight: "Align Corner Right",
       buttonA: "",
-      buttonB: "",
+      buttonB: "Align Trench Right",
       buttonY: "",
-      buttonX: "",
+      buttonX: "Align Trench Left",
       dpadUp: "",
       dpadRight: "Align Tower Right",
       dpadDown: "",
       dpadLeft: "Align Tower Left",
-      buttonBack: [ "Reset Gyro (Hold 0.5s)" ],
+      buttonBack: [ "Reset Gyro" ],
       buttonStart: [ "" ],
       notes: [
         "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)"

@@ -7,9 +7,10 @@
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let fieldLength = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number) * 100) / 100);
   let fieldWidth = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number) * 100) / 100);
-  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Bumper/Length")?.value as number);
-  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Bumper/Width")?.value as number);
-  let isAlignedToTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTarget")?.value as boolean);
+  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Length")?.value as number);
+  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Width")?.value as number);
+  let isAlignedToTargetPose = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetPose")?.value as boolean);
+  let isAlignedToTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetHeading")?.value as boolean);
 
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
@@ -41,7 +42,7 @@
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isAlignedToTarget }>
+    class:active={ isAlignedToTargetPose || isAlignedToTargetHeading }>
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div 
