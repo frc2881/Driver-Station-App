@@ -3,7 +3,7 @@
 	import { Alliance, type Pose2d, Utils } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let alliance = $derived(nt.topics.get("/SmartDashboard/Game/Alliance")?.value as Alliance);
+  let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let fieldLength = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number) * 100) / 100);
   let fieldWidth = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number) * 100) / 100);
@@ -117,7 +117,7 @@
           transform: translateX(-100%) translateY(-2px) rotate(180deg);
           transform-origin: 100%;
           border: 2px dashed var(--app-color-white);
-          opacity: 0.75;
+          opacity: 0.5;
         }
 
         & .front {

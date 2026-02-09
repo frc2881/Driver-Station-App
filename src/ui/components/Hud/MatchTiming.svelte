@@ -4,7 +4,7 @@
 
   const MatchTime = { Warning: 30, Critical: 15 };
   
-  let matchTime = $derived(nt.topics.get("/SmartDashboard/Game/MatchTime")?.value as number);
+  let matchTime = $derived(nt.topics.get("/SmartDashboard/Match/Time")?.value as number);
   let _matchTime = $derived(Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0);
 </script>
 

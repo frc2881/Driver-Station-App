@@ -2,7 +2,7 @@
   import { Tile, InlineNotification } from "carbon-components-svelte";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import RobotInfo from "../components/Dashboard/RobotInfo.svelte";
-  import GameInfo from "../components/Dashboard/GameInfo.svelte";
+  import MatchInfo from "../components/Dashboard/MatchInfo.svelte";
   import PowerInfo from "../components/Dashboard/PowerInfo.svelte";
   import Settings from "../components/Dashboard/Settings.svelte";
   import LocalizationInfo from "../components/Dashboard/LocalizationInfo.svelte";
@@ -19,7 +19,7 @@
   <div class="header">
     <div class="left">
       <RobotInfo />
-      <GameInfo />
+      <MatchInfo />
     </div>
     <div class="right">
       <div class="controller-map-button">

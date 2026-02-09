@@ -3,7 +3,7 @@
   import { RobotType } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
-  import MatchTime from "../components/Hud/MatchTime.svelte";
+  import MatchTiming from "../components/Hud/MatchTiming.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
 
   let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
@@ -44,8 +44,8 @@
           width={ 810 } 
           height={ 530 }
         />
-        <div class="matchtime">
-          <MatchTime />
+        <div class="matchTiming">
+          <MatchTiming />
         </div>
       </div>
     </Tile>
@@ -92,7 +92,7 @@
       overflow: hidden;
       height: 100%;
 
-      & .matchtime {
+      & .matchTiming {
         position: absolute;
         top: 0;
         width: 100%;
