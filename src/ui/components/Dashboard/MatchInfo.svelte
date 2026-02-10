@@ -4,7 +4,7 @@
 
   let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
   let station = $derived(nt.topics.get("/SmartDashboard/Match/Station")?.value as number);
-  let team = $derived(nt.topics.get("/SmartDashboard/Match/Team")?.value as number);
+  let team = $derived(nt.topics.get("/SmartDashboard/Game/Team")?.value as number);
   let name = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Name")?.value as string);
 </script>
 
