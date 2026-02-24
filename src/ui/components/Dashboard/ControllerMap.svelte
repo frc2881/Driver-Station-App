@@ -16,19 +16,19 @@
       stickLeftButton: "Lock Drive (X)",
       stickRightX: "Rotate",
       stickRightY: "",
-      stickRightButton: "Align To Hub",
+      stickRightButton: "Align Hub",
       triggerLeft: "Retract Intake",
       triggerRight: "Run Intake",
       bumperLeft: "Align Trench Left",
       bumperRight: "Align Trench Right",
-      buttonA: "",
-      buttonB: "Align Corner Right",
+      buttonA: "Align Corner Left",
+      buttonB: "Align Tower Right",
       buttonY: "",
-      buttonX: "Align Corner Left",
+      buttonX: "Align Tower Left",
       dpadUp: "Climb Up",
-      dpadRight: "Align Tower Right",
+      dpadRight: "Align Climb Right",
       dpadDown: "Climb Down",
-      dpadLeft: "Align Tower Left",
+      dpadLeft: "Align Climb Left",
       buttonBack: [ "Reset Gyro" ],
       buttonStart: [ "" ],
       notes: [
@@ -42,18 +42,18 @@
       stickRightX: "",
       stickRightY: "",
       stickRightButton: "",
-      triggerLeft: "Agitate Hopper",
+      triggerLeft: "",
       triggerRight: "Score Fuel",
-      bumperLeft: "",
+      bumperLeft: "Agitate Hopper",
       bumperRight: "",
-      buttonA: "",
+      buttonA: "Align Turret Hub",
       buttonB: "",
-      buttonY: "",
+      buttonY: "Set Turret 0&deg;",
       buttonX: "",
       dpadUp: "Home Turret",
-      dpadRight: "Home Climber",
+      dpadRight: "",
       dpadDown: "Home Intake",
-      dpadLeft: "",
+      dpadLeft: "Home Climber",
       buttonBack: [ "" ],
       buttonStart: [ "" ],
       notes: [
@@ -69,19 +69,19 @@
       stickLeftButton: "Lock Drive (X)",
       stickRightX: "Rotate",
       stickRightY: "",
-      stickRightButton: "Align To Hub",
+      stickRightButton: "Align Hub",
       triggerLeft: "",
       triggerRight: "",
       bumperLeft: "Align Trench Left",
       bumperRight: "Align Trench Right",
-      buttonA: "",
-      buttonB: "Align Corner Right",
+      buttonA: "Align Corner Left",
+      buttonB: "Align Tower Right",
       buttonY: "",
-      buttonX: "Align Corner Left",
+      buttonX: "Align Tower Left",
       dpadUp: "",
-      dpadRight: "Align Tower Right",
+      dpadRight: "",
       dpadDown: "",
-      dpadLeft: "Align Tower Left",
+      dpadLeft: "",
       buttonBack: [ "Reset Gyro" ],
       buttonStart: [ "" ],
       notes: [
@@ -136,47 +136,47 @@
   <div class="controllers">
     <div class="text title" style="left:465px;top:50px;">DRIVER</div>
     <div class="text" style="left:325px;bottom:570px;">
-      <div>LT <span class="annotation">{ annotations.driver.triggerLeft }</span></div>
+      <div>LT <span class="annotation">{@html annotations.driver.triggerLeft }</span></div>
     </div>
     <div class="text" style="right:1025px;bottom:570px;">
-      <div>RT <span class="annotation">{ annotations.driver.triggerRight }</span></div>
+      <div>RT <span class="annotation">{@html annotations.driver.triggerRight }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:480px;">
-      <div>LB <span class="annotation">{ annotations.driver.bumperLeft }</span></div>
+      <div>LB <span class="annotation">{@html annotations.driver.bumperLeft }</span></div>
     </div>
     <div class="text" style="right:1025px;bottom:480px;">
-      <div>RB <span class="annotation">{ annotations.driver.bumperRight }</span></div>
+      <div>RB <span class="annotation">{@html annotations.driver.bumperRight }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:380px;">
-      <div>L&mdash;R <span class="annotation">{ annotations.driver.stickLeftX }</span></div>
-      <div>U&mdash;D <span class="annotation">{ annotations.driver.stickLeftY }</span></div>
-      <div>Hold <span class="annotation">{ annotations.driver.stickLeftButton }</span></div>
+      <div>L&mdash;R <span class="annotation">{@html annotations.driver.stickLeftX }</span></div>
+      <div>U&mdash;D <span class="annotation">{@html annotations.driver.stickLeftY }</span></div>
+      <div>Hold <span class="annotation">{@html annotations.driver.stickLeftButton }</span></div>
     </div>
     <div class="text" style="right:1025px;bottom:380px;">
-      <div>A <span class="annotation">{ annotations.driver.buttonA }</span></div>
-      <div>B <span class="annotation">{ annotations.driver.buttonB }</span></div>
-      <div>Y <span class="annotation">{ annotations.driver.buttonY }</span></div>
-      <div>X <span class="annotation">{ annotations.driver.buttonX }</span></div>
+      <div>A <span class="annotation">{@html annotations.driver.buttonA }</span></div>
+      <div>B <span class="annotation">{@html annotations.driver.buttonB }</span></div>
+      <div>Y <span class="annotation">{@html annotations.driver.buttonY }</span></div>
+      <div>X <span class="annotation">{@html annotations.driver.buttonX }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:290px;">
-      <div>L <span class="annotation">{ annotations.driver.dpadLeft }</span></div>
-      <div>U <span class="annotation">{ annotations.driver.dpadUp }</span></div>
-      <div>R <span class="annotation">{ annotations.driver.dpadRight }</span></div>
-      <div>D <span class="annotation">{ annotations.driver.dpadDown }</span></div>
+      <div>L <span class="annotation">{@html annotations.driver.dpadLeft }</span></div>
+      <div>U <span class="annotation">{@html annotations.driver.dpadUp }</span></div>
+      <div>R <span class="annotation">{@html annotations.driver.dpadRight }</span></div>
+      <div>D <span class="annotation">{@html annotations.driver.dpadDown }</span></div>
     </div>
     <div class="text" style="right:1025px;bottom:290px;">
-      <div>L&mdash;R <span class="annotation">{ annotations.driver.stickRightX }</span></div>
-      <div>U&mdash;D <span class="annotation">{ annotations.driver.stickRightY }</span></div>
-      <div>Hold <span class="annotation">{ annotations.driver.stickRightButton }</span></div>
+      <div>L&mdash;R <span class="annotation">{@html annotations.driver.stickRightX }</span></div>
+      <div>U&mdash;D <span class="annotation">{@html annotations.driver.stickRightY }</span></div>
+      <div>Hold <span class="annotation">{@html annotations.driver.stickRightButton }</span></div>
     </div>
     <div class="text" style="left:325px;bottom:180px;">
       {#each annotations.driver.buttonBack as annotation, index}
-      <div>{#if index == 0}Back{/if}<span class="annotation">{ annotation }</span></div>
+      <div>{#if index == 0}Back{/if}<span class="annotation">{@html annotation }</span></div>
       {/each}
     </div>
     <div class="text" style="right:1025px;bottom:180px;">
       {#each annotations.driver.buttonStart as annotation, index}
-      <div>{#if index == 0}Start{/if}<span class="annotation">{ annotation }</span></div>
+      <div>{#if index == 0}Start{/if}<span class="annotation">{@html annotation }</span></div>
       {/each}
     </div>
     <div class="text notes" style="left:60px;top:160px;">
@@ -184,54 +184,54 @@
         Notes:
         <ul>
           {#each annotations.driver.notes as note}
-          <li>{ note }</li>
+          <li>{@html note }</li>
           {/each}
         </ul>
       </div>
     </div>
     <div class="text title" style="right:465px;top:50px;">OPERATOR</div>
     <div class="text" style="left:1025px;bottom:570px;">
-      <div>LT <span class="annotation">{ annotations.operator.triggerLeft }</span></div>
+      <div>LT <span class="annotation">{@html annotations.operator.triggerLeft }</span></div>
     </div>
     <div class="text" style="right:325px;bottom:570px;">
-      <div>RT <span class="annotation">{ annotations.operator.triggerRight }</span></div>
+      <div>RT <span class="annotation">{@html annotations.operator.triggerRight }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:480px;">
-      <div>LB <span class="annotation">{ annotations.operator.bumperLeft }</span></div>
+      <div>LB <span class="annotation">{@html annotations.operator.bumperLeft }</span></div>
     </div>
     <div class="text" style="right:325px;bottom:480px;">
-      <div>RB <span class="annotation">{ annotations.operator.bumperRight }</span></div>
+      <div>RB <span class="annotation">{@html annotations.operator.bumperRight }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:380px;">
-      <div>L&mdash;R <span class="annotation">{ annotations.operator.stickLeftX }</span></div>
-      <div>U&mdash;D <span class="annotation">{ annotations.operator.stickLeftY }</span></div>
-      <div>Hold <span class="annotation">{ annotations.operator.stickLeftButton }</span></div>
+      <div>L&mdash;R <span class="annotation">{@html annotations.operator.stickLeftX }</span></div>
+      <div>U&mdash;D <span class="annotation">{@html annotations.operator.stickLeftY }</span></div>
+      <div>Hold <span class="annotation">{@html annotations.operator.stickLeftButton }</span></div>
     </div>
     <div class="text" style="right:325px;bottom:380px;">
-      <div>A <span class="annotation">{ annotations.operator.buttonA }</span></div>
-      <div>B <span class="annotation">{ annotations.operator.buttonB }</span></div>
-      <div>Y <span class="annotation">{ annotations.operator.buttonY }</span></div>
-      <div>X <span class="annotation">{ annotations.operator.buttonX }</span></div>
+      <div>A <span class="annotation">{@html annotations.operator.buttonA }</span></div>
+      <div>B <span class="annotation">{@html annotations.operator.buttonB }</span></div>
+      <div>Y <span class="annotation">{@html annotations.operator.buttonY }</span></div>
+      <div>X <span class="annotation">{@html annotations.operator.buttonX }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:290px;">
-      <div>L <span class="annotation">{ annotations.operator.dpadLeft }</span></div>
-      <div>U <span class="annotation">{ annotations.operator.dpadUp }</span></div>
-      <div>R <span class="annotation">{ annotations.operator.dpadRight }</span></div>
-      <div>D <span class="annotation">{ annotations.operator.dpadDown }</span></div>
+      <div>L <span class="annotation">{@html annotations.operator.dpadLeft }</span></div>
+      <div>U <span class="annotation">{@html annotations.operator.dpadUp }</span></div>
+      <div>R <span class="annotation">{@html annotations.operator.dpadRight }</span></div>
+      <div>D <span class="annotation">{@html annotations.operator.dpadDown }</span></div>
     </div>
     <div class="text" style="right:325px;bottom:290px;">
-      <div>L&mdash;R <span class="annotation">{ annotations.operator.stickRightX }</span></div>
-      <div>U&mdash;D <span class="annotation">{ annotations.operator.stickRightY }</span></div>
-      <div>Hold <span class="annotation">{ annotations.operator.stickRightButton }</span></div>
+      <div>L&mdash;R <span class="annotation">{@html annotations.operator.stickRightX }</span></div>
+      <div>U&mdash;D <span class="annotation">{@html annotations.operator.stickRightY }</span></div>
+      <div>Hold <span class="annotation">{@html annotations.operator.stickRightButton }</span></div>
     </div>
     <div class="text" style="left:1025px;bottom:180px;">
       {#each annotations.operator.buttonBack as annotation, index}
-      <div>{#if index == 0}Back{/if}<span class="annotation">{ annotation }</span></div>
+      <div>{#if index == 0}Back{/if}<span class="annotation">{@html annotation }</span></div>
       {/each}
     </div>
     <div class="text" style="right:325px;bottom:180px;">
       {#each annotations.operator.buttonStart as annotation, index}
-      <div>{#if index == 0}Start{/if}<span class="annotation">{ annotation }</span></div>
+      <div>{#if index == 0}Start{/if}<span class="annotation">{@html annotation }</span></div>
       {/each}
     </div>
     <div class="text notes" style="right:60px;top:160px;">
@@ -239,7 +239,7 @@
         Notes:
         <ul>
           {#each annotations.operator.notes as note}
-          <li>{ note }</li>
+          <li>{@html note }</li>
           {/each}
         </ul>
       </div>
