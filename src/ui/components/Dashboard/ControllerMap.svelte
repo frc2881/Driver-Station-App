@@ -53,7 +53,7 @@
       dpadUp: "Home Turret",
       dpadRight: "",
       dpadDown: "Home Intake",
-      dpadLeft: "Home Climber",
+      dpadLeft: "r",
       buttonBack: [ "" ],
       buttonStart: [ "" ],
       notes: [
