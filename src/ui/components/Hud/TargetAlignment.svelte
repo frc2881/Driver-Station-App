@@ -11,6 +11,7 @@
   let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Width")?.value as number);
   let isAlignedToTargetPose = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetPose")?.value as boolean);
   let isAlignedToTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetHeading")?.value as boolean);
+  let turretHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/Heading")?.value as number);
 
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
@@ -55,8 +56,10 @@
       style:width={ `${robotLength * PIXELS_PER_METER}px` } 
       style:height={`${robotWidth * PIXELS_PER_METER}px`}
       style:transform={ `translate(${ ((robotPose_?.x * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -((robotPose_?.y * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
-      <div class="line"></div>
-      <div class="front"><CaretDown width=64 height=64 /></div>
+      <div class="front"><CaretDown width=96 height=96 /></div>
+      <div class="turret">
+        <div class="heading" style:transform={ `rotate(${ -turretHeading }deg)` }></div>
+      </div>
     </div>
   </div>
 </div>
@@ -104,30 +107,39 @@
         left: 0;
         bottom: 0;
         box-sizing: border-box;
-        background-color: var(--app-color-pink);
+        border: 6px solid var(--app-color-pink);
         border-radius: 8px;
-
-        & .line {
-          position: absolute;
-          box-sizing: border-box;
-          top: 50%;
-          left: 50%;
-          width: 400px;
-          height: 2px;
-          transform: translateX(-100%) translateY(-2px) rotate(180deg);
-          transform-origin: 100%;
-          border: 2px dashed var(--app-color-white);
-          opacity: 0.5;
-        }
 
         & .front {
           position: absolute;
           box-sizing: border-box;
           top: 50%;
           left: 50%;
-          transform: rotate(-90deg) translate(50%, 0%);
+          transform: rotate(-90deg) translate(50%, 10%);
           color: var(--app-color-white);
           opacity: 0.5;
+        }
+
+        & .turret {
+          position: absolute;
+          top: 7px;
+          left: 7px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: var(--app-color-pink);
+
+          & .heading {
+            position: absolute;
+            box-sizing: border-box;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 2px;
+            transform-origin: 0;
+            border: 2px dashed var(--app-color-white);
+            opacity: 0.5;
+          }
         }
       }
     }

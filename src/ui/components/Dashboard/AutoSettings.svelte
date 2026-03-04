@@ -36,8 +36,8 @@
       align-items: flex-start;
       justify-content: center;
       margin-top: 1em;
-      background: var(--app-color-pink);
-      border: 1px solid var(--app-color-pink);
+      background: var(--app-color-green);
+      border: 1px solid var(--app-color-green);
       color: var(--app-color-black);
       text-align: center;
       font-weight: bold;
@@ -56,7 +56,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 2.75em;
+      margin-top: 4em;
       
       & img {
         width: 435px;

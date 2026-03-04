@@ -1,65 +1,109 @@
 <script lang="ts">
-  import { Utils } from "../../../common/index.js";
+  import { IntentRequestActive, IntentRequestInactive, IntentRequestUninstall, CloseOutline, CheckmarkOutline, Unknown } from "carbon-icons-svelte";
+  import { Alliance } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  const MatchTime = { Warning: 30, Critical: 15 };
-  
-  let matchTime = $derived(nt.topics.get("/SmartDashboard/Match/Time")?.value as number);
-  let _matchTime = $derived(Utils.isNumberInRange(matchTime, 0, 135) ? matchTime : 0);
+  let matchTime = $derived(nt.topics.get("/SmartDashboard/Match/Time")?.value ?? 0 as number);
+  let matchStateTime = $derived(nt.topics.get("/SmartDashboard/Match/StateTime")?.value ?? 0 as number);
+  let matchState = $derived(nt.topics.get("/SmartDashboard/Match/State")?.value ?? "Unknown" as string);
+  let hubState = $derived(nt.topics.get("/SmartDashboard/Match/Hub")?.value ?? "Inactive" as string);
+  let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
+  let selectedAlliance = $derived(nt.topics.get("/SmartDashboard/Match/SelectedAlliance")?.value as Alliance);
 </script>
 
-<div 
-  class="main"
-  class:inactive={ _matchTime === 0 }
-  class:normal={ _matchTime > 0 }
-  class:warning={ 
-    Utils.isNumberInRange(
-      _matchTime, 
-      MatchTime.Critical, 
-      MatchTime.Warning
-    ) }
-  class:critical={ 
-    Utils.isNumberInRange(
-      _matchTime, 1, MatchTime.Critical
-    ) }>
-  <div class="time">{ _matchTime }</div>
+<div class="main">
+  <div class="state">
+    <div class="hub" class:ending={ matchTime > 0 && matchStateTime <= 5 }>
+    {#if matchTime > 0 }
+      {#if hubState == "Active" }
+        <IntentRequestActive width=240 height=240 fill="#00CC00" />
+      {:else}
+        <IntentRequestUninstall width=240 height=240 fill="#CC0000" />
+      {/if}
+    {:else}
+      <IntentRequestInactive width=240 height=240 fill="#666666" />
+    {/if}
+    </div>
+    <div class="timing">
+      { String(matchStateTime).padStart(2, "0") }
+    </div>
+  </div>
+  <div class="info">
+    <div class="matchState">
+      { matchState }
+    </div>
+    <div class="matchTime">
+      { matchTime > 0 ? matchTime : 0 }
+    </div>
+  </div>
+  <div class="alliance">
+    {#if selectedAlliance != Alliance.None }
+      {#if alliance == selectedAlliance }
+        <CheckmarkOutline width=120 height=120 fill="#00CC00" />
+      {:else}
+        <CloseOutline width=120 height=120 fill="#CC0000" />
+      {/if}
+    {:else}
+      <Unknown width=120 height=120 fill="#666666" />
+    {/if}
+  </div>
 </div>
 
 <style>
   .main {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    font-size: 200px;
-    line-height: 200px;
-    font-weight: bold;
-    color: var(--app-color-smoke);
-    z-index: 9999;
+    overflow: hidden;
+    gap: 2em;
 
-    &.inactive {
-      color: var(--app-color-smoke) !important;
-    }
-
-    &.normal {
-      color: var(--app-color-white);
-    }
-
-    &.warning {
-      color: var(--app-color-yellow);
-      animation: pulse-expand 1000ms ease-in-out infinite;
-    }
-
-    &.critical {
-      color: var(--app-color-red);
-      animation: pulse-expand 750ms ease-in-out infinite;
-    }
-
-    & .time {
+    & .state {
       display: flex;
-      justify-content: center;
-      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 1em;
+
+      & .hub {
+        &.ending {
+          animation: pulse-expand 500ms ease-in-out infinite;
+        }
+      }
+
+      & .timing {
+        width: 200px;
+        text-align: center;
+        font-size: 10rem;
+      }
+    }
+
+    & .info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1em;
+
+      & .matchState {
+        width: 240px;
+        font-size: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      & .matchTime {
+        width: 180px;
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+
+    & .alliance {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
   }
 </style>

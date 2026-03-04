@@ -22,11 +22,7 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
-      {#if robotType == RobotType.Competition}
-        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
-      {:else}
-        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
-      {/if}
+      <MatchTiming />
     </Tile>
   </div>
   <div class="row">
@@ -38,15 +34,12 @@
       {/if}
     </Tile>
     <Tile class="widget">
-      <div class="driverStationViewContainer">
+      <div class="driverStationCamera">
         <CameraStream 
           deviceLabel={ "HD USB Camera" } 
           width={ 810 } 
           height={ 530 }
         />
-        <div class="matchTiming">
-          <MatchTiming />
-        </div>
       </div>
     </Tile>
     <Tile class="widget">
@@ -86,22 +79,11 @@
       column-gap: 10px;
     }
 
-    & .driverStationViewContainer {
+    & .driverStationCamera {
       position: relative;
       background: var(--app-color-black);
       overflow: hidden;
       height: 100%;
-
-      & .matchTiming {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-      }
     }
 
     & .placeholder {

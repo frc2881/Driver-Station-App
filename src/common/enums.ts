@@ -20,7 +20,8 @@ export enum RobotType {
 
 export enum Alliance {
   Red = "Red",
-  Blue = "Blue"
+  Blue = "Blue",
+  None = "None"
 }
 
 export enum AppWindowType {

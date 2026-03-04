@@ -47,12 +47,10 @@
                 cameraStreamName = name 
               }}>
               <CenterSquare
-                fill={ hasTarget ? "#00CC00" : "#666666" }
+                fill={ hasTarget ? "#00CC00" : "#333333" }
                 width=80
                 height=80 />
-              {#if isConnected}
-              <div class="connection"></div>
-              {/if}
+              <div class="connection { isConnected ? "connected" : "" }"></div>
             </button>
           </div>
         {/each}
@@ -144,8 +142,11 @@
               width: 14px;
               height: 14px;
               border-radius: 50%;
-              background: var(--app-color-green);
-              opacity: .5;
+              background: var(--app-color-red);
+
+              &.connected {
+                background: var(--app-color-green);
+              }
             }
           }
         }
@@ -156,13 +157,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 180%;
+      font-size: 1.5rem;
       gap: 0.75em;
 
       & .label {
         display: block;
         margin-bottom: .5em;
-        font-size: 14px;
+        font-size: 0.9rem;
         color: var(--app-color-smoke);
       }
     }

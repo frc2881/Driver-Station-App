@@ -20,6 +20,10 @@ export namespace Utils {
     return radians / (Math.PI / 180);
   }
 
+  export const degreesToRadians = (degrees: number): number => {
+    return degrees * (Math.PI / 180);
+  }
+
   export const isNumberInRange = (value: number, minValue: number, maxValue: number): boolean => {
     return value >= minValue && value <= maxValue;
   }
@@ -36,7 +40,7 @@ export namespace Utils {
     return { x: 0, y: 0, rotation: 0 };
   }
 
-  export const getDistance = (robotPose: Pose2d, targetPose: Pose2d) => {
+  export const getDistance = (robotPose: Pose2d, targetPose: Pose2d): number => {
     return Math.sqrt(((targetPose.x - robotPose.x) ** 2) + ((targetPose.y - robotPose.y) ** 2));
   }
 

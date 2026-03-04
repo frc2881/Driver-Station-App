@@ -18,8 +18,8 @@
   <div class="sensors">
     <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</div>
     {#if robotType == RobotType.Competition}
-    <div><span class="label">Hopper:</span>{ hopperSensorHasTarget ?? false } ({ hopperSensorDistance })</div>
-    <div><span class="label">Indexer:</span>{ indexerSensorHasTarget ?? false } ({ indexerSensorDistance })</div>
+    <div><span class="label">Hopper:</span>{ hopperSensorHasTarget ?? false } <span class="distance">{ hopperSensorDistance }</span></div>
+    <div><span class="label">Indexer:</span>{ indexerSensorHasTarget ?? false } <span class="distance">{ indexerSensorDistance }</span></div>
     <div><span class="label">Feeder:</span>{ feederSensorHasTarget ?? false }</div>
     <div><span class="label">Elevator:</span>{ elevatorSensorHasTarget ?? false }</div>
     {/if}
@@ -39,14 +39,19 @@
       flex-direction: column;
       gap: 1em;
       margin: 1.5em 0 0 .5em;
-      font-size: 150%;
-      text-transform: uppercase;
+      font-size: 1.25rem;
+      text-transform: capitalize;
 
       & .label {
         display: inline-block;
         width: 80px;
-        font-size: 14px;
+        font-size: 0.9rem;
         color: var(--app-color-smoke);
+        text-transform: none;
+      }
+
+      & .distance {
+        margin-left: 1em;
         text-transform: none;
       }
     }

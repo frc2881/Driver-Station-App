@@ -92,8 +92,9 @@
 
     & :global(.bx--label) {
       min-width: 130px;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       white-space: nowrap;
+      color: var(--app-color-smoke);
     }
 
     & :global(.bx--list-box__label) {
@@ -112,9 +113,9 @@
 
         & .label {
           min-width: 130px;
-          font-size: 1.1rem;
+          font-size: 0.9rem;
           margin: 0 30px 0 0;
-          color: var(--app-color-silver);
+          color: var(--app-color-smoke);
         }
 
         & :global(.bx--toggle__text--off), :global(.bx--toggle__text--on) {
