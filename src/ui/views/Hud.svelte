@@ -5,6 +5,8 @@
   import CameraStream from "../components/CameraStream.svelte";
   import MatchTiming from "../components/Hud/MatchTiming.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
+  import HopperStatus from "../components/Hud/HopperStatus.svelte";
+  import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
 
   let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
 </script>
@@ -28,7 +30,7 @@
   <div class="row">
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
+        <HopperStatus />
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
@@ -44,7 +46,7 @@
     </Tile>
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-        <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
+        <LauncherStatus />
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}

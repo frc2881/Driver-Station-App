@@ -92,7 +92,7 @@
       flex-direction: row;
       justify-content: center;
       gap: 2em;
-      margin: 0 2em 0 0;
+      margin: 0 1em 0 0;
     }
 
     & .robot {
@@ -162,6 +162,7 @@
 
       & .label {
         display: block;
+        width: 110px;
         margin-bottom: .5em;
         font-size: 0.9rem;
         color: var(--app-color-smoke);
