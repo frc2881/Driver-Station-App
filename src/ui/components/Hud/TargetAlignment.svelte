@@ -38,7 +38,7 @@
   }
 
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
-  let targetZone: string | null = $derived(getTargetZone(robotPose_));
+  let targetZone: string | null = null; //$derived(getTargetZone(robotPose_));
 </script>
 <div class="main">
   <div 
