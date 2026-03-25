@@ -3,6 +3,7 @@
   "include": ["src/**/*"],
   "exclude": ["src/ui/*", "node_modules/*"],
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "app"
   }
 }

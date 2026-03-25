@@ -122,8 +122,8 @@
 
         & .turret {
           position: absolute;
-          top: 7px;
-          left: 7px;
+          left: 10px;
+          top: 10px;
           width: 20px;
           height: 20px;
           border-radius: 50%;
