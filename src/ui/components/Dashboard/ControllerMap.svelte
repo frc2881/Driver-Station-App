@@ -49,7 +49,7 @@
       buttonA: "Align Turret Hub",
       buttonB: "",
       buttonY: "Set Turret 0&deg;",
-      buttonX: "Reverse Hopper",
+      buttonX: "",
       dpadUp: "Home Turret",
       dpadRight: "",
       dpadDown: "Home Intake",

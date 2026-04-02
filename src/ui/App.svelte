@@ -82,8 +82,8 @@
 	}
 
 	@keyframes pulse-expand {
-		0%    { opacity: 0.75; transform: scale(1);  }
+		0%    { opacity: 0.33; transform: scale(1);  }
 		50%   { opacity: 1; transform: scale(1.05); }
-		100%  { opacity: 0.75; transform: scale(1); }
+		100%  { opacity: 0.33; transform: scale(1); }
 	}
 </style>

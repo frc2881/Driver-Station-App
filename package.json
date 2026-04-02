@@ -1,7 +1,7 @@
 {
   "name": "frc-driver-station-app",
   "description": "FRC driver station app for HUD and dashboard",
-  "version": "2026.7.0",
+  "version": "2026.7.1",
   "author": "frc2881",
   "license": "MIT",
   "private": true,
@@ -20,7 +20,7 @@
     "watch": "rollup -cw"
   },
   "build": {
-    "appId": "FRC.DriverStationApp.2026.7.0",
+    "appId": "FRC.DriverStationApp.2026.7.1",
     "productName": "FRCDriverStationApp",
     "copyright": "Copyright (c) FRC Team 2881",
     "win": {

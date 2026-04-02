@@ -7,10 +7,7 @@
   let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
   let hopperSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/HasTarget")?.value as boolean);
   let hopperSensorDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/Value")?.value as number);
-  let indexerSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Indexer/HasTarget")?.value as boolean);
-  let indexerSensorDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Indexer/Value")?.value as number);
-  let feederSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Feeder/HasTarget")?.value as boolean);
-  let elevatorSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Elevator/HasTarget")?.value as boolean);
+  let indexerSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Indexer/HasTarget")?.value as boolean);
 </script>
   
 <div class="main">
@@ -18,10 +15,8 @@
   <div class="sensors">
     <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</div>
     {#if robotType == RobotType.Competition}
-    <div><span class="label">Hopper:</span>{ hopperSensorHasTarget ?? false } <span class="distance">{ hopperSensorDistance }</span></div>
-    <div><span class="label">Indexer:</span>{ indexerSensorHasTarget ?? false } <span class="distance">{ indexerSensorDistance }</span></div>
-    <div><span class="label">Feeder:</span>{ feederSensorHasTarget ?? false }</div>
-    <div><span class="label">Elevator:</span>{ elevatorSensorHasTarget ?? false }</div>
+    <div><span class="label">Hopper:</span>{ hopperSensorHasTarget ?? false } <span class="distance">[ { hopperSensorDistance } ]</span></div>
+    <div><span class="label">Indexer:</span>{ indexerSensorHasTarget ?? false }</div>
     {/if}
   </div>
 </div>
@@ -51,7 +46,7 @@
       }
 
       & .distance {
-        margin-left: 1em;
+        margin-left: .5em;
         text-transform: none;
       }
     }

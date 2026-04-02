@@ -50,7 +50,7 @@ class Main {
     }
 
     const displays = screen.getAllDisplays();
-    const secondaryDisplay = displays.length === 2 ? displays[1] : null;
+    const secondaryDisplay = displays.length === 2 ? displays.find(display => !display.internal) : null;
 
     const Layout = { MaxWidth: 1920, MaxHeight: 1080, DockedHeight: 248 };
 

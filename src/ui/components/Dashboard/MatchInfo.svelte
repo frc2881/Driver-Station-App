@@ -42,7 +42,7 @@
       &.name {
         justify-content: left;
         width: auto;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         color: var(--app-color-pink);
         white-space: nowrap;
       }

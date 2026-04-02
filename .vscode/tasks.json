@@ -4,7 +4,7 @@
     {
       "label": "Project: Install Dependencies",
       "type": "shell",
-      "command": "npm install", 
+      "command": "npm install --legacy-peer-deps", 
       "problemMatcher": []
     },
     {
