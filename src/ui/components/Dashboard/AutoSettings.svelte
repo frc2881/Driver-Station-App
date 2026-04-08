@@ -26,7 +26,9 @@
       <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
       <div class="info">No auto command selected for match!</div>
     {:else}
-      <img src={ activeCommand != "None" ? `./assets/images/autos/${ commandName }.png` : null } alt="" />
+      {#if activeCommand != "None" }
+      <img src={ `./assets/images/autos/${ commandName }.png` } alt={ commandName } />
+      {/if}
     {/if}
   </div>
 </div>
@@ -43,7 +45,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      margin-top: 1em;
+      margin-top: 1.5em;
       background: var(--app-color-green);
       border: 1px solid var(--app-color-green);
       color: var(--app-color-black);
@@ -64,13 +66,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 3em;
-      height: 480px;
+      margin-top: 2em;
+      height: 460px;
       overflow: hidden;
       
       & img {
-        width: 740px;
-        transform: rotate(-90deg) translateX(120px);
+        width: 800px;
+        transform: rotate(-90deg) translateX(150px);
         filter: grayscale(100%);
       }
 
