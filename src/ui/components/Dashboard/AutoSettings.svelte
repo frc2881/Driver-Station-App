@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { WarningAltFilled } from "carbon-icons-svelte";
   import SendableChooser from "../SendableChooser.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
-  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "None");
+  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "None" as string);
+  let commandName = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/command")?.value ?? "None" as string);
+  let isCompetitionMode = $derived(nt.topics.get("/SmartDashboard/Match/IsCompetitionMode")?.value ?? false as boolean);
 </script>
 
 <div class="main">
@@ -19,7 +22,12 @@
     { activeCommand }
   </div>
   <div class="auto">
-    <img src={ activeCommand != "None" ? `./assets/images/autos/${ activeCommand.charAt(0) }.gif` : null } alt="" />
+    {#if isCompetitionMode && activeCommand === "None" }
+      <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
+      <div class="info">No auto command selected for match!</div>
+    {:else}
+      <img src={ activeCommand != "None" ? `./assets/images/autos/${ commandName }.png` : null } alt="" />
+    {/if}
   </div>
 </div>
 
@@ -64,6 +72,17 @@
         width: 740px;
         transform: rotate(-90deg) translateX(120px);
         filter: grayscale(100%);
+      }
+
+      & .warning {
+        animation: pulse 750ms infinite ease;
+      }
+
+      & .info {
+        margin: 1em 0;
+        text-align: center;
+        font-size: 125%;
+        line-height: 150%;
       }
     }
   }
