@@ -18,8 +18,8 @@
     class:none={ activeCommand === "None" }>
     { activeCommand }
   </div>
-  <div class="autos">
-    <img src="./assets/images/autos.png" alt="Autos" />
+  <div class="auto">
+    <img src={ activeCommand != "None" ? `./assets/images/autos/${ activeCommand.charAt(0) }.gif` : null } alt="" />
   </div>
 </div>
 
@@ -42,7 +42,7 @@
       text-align: center;
       font-weight: bold;
       font-size: 150%;
-      padding: 0.5em 0;
+      padding: 0.75em 0;
 
       &.none {
         background: none;
@@ -52,14 +52,18 @@
       }
     }
 
-    & .autos{
+    & .auto{
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 4em;
+      margin-top: 3em;
+      height: 480px;
+      overflow: hidden;
       
       & img {
-        width: 435px;
+        width: 740px;
+        transform: rotate(-90deg) translateX(120px);
+        filter: grayscale(100%);
       }
     }
   }
