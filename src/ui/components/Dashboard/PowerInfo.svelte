@@ -35,7 +35,7 @@
         {/if}
       </div>
       <div>
-        <div class="value">{ batteryVoltage?.toFixed(2) ?? "0.00" }</div>
+        <div class="value">{ batteryVoltage?.toFixed(2) ?? "0.00" } V</div>
         <div class="info">{ batteryInfo ?? "UNKNOWN" }</div>
       </div>
     </div>
@@ -60,7 +60,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 2em;
+        gap: 1em;
 
         & .warning {
           animation: pulse 750ms infinite ease;

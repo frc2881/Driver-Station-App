@@ -4,19 +4,20 @@
 
   let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
 
-  let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value as number);
-  let hopperSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/HasTarget")?.value as boolean);
-  let hopperSensorDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/Value")?.value as number);
-  let indexerSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Indexer/HasTarget")?.value as boolean);
+  let gyroIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/IsConnected")?.value ?? false as boolean);
+  let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value ?? 0 as number);
+  let hopperSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/HasTarget")?.value ?? false as boolean);
+  let hopperSensorDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/Value")?.value ?? 0 as number);
+  let indexerSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Indexer/HasTarget")?.value ?? false as boolean);
 </script>
   
 <div class="main">
   <div class="title"><h4>Sensors</h4></div>
   <div class="sensors">
-    <div><span class="label">Gyro:</span>{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</div>
+    <div><span class="label">Gyro:</span><span class="state" class:active={ gyroIsConnected }></span><span class="value">{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</span></div>
     {#if robotType == RobotType.Competition}
-    <div><span class="label">Hopper:</span>{ hopperSensorHasTarget ?? false } <span class="distance">[ { hopperSensorDistance } ]</span></div>
-    <div><span class="label">Indexer:</span>{ indexerSensorHasTarget ?? false }</div>
+    <div><span class="label">Hopper:</span><span class="state" class:active={ hopperSensorHasTarget }></span><span class="value">{ hopperSensorDistance }<span class="unit">mm</span></span></div>
+    <div><span class="label">Indexer:</span><span class="state" class:active={ indexerSensorHasTarget }></span></div>
     {/if}
   </div>
 </div>
@@ -45,9 +46,26 @@
         text-transform: none;
       }
 
-      & .distance {
-        margin-left: .5em;
+      & .state {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--app-color-red);
+
+        &.active {
+          background-color: var(--app-color-green);
+        }
+      }
+
+      & .value {
+        margin-left: 1.5em;
         text-transform: none;
+
+        & .unit {
+          margin-left: .25em;
+          font-size: 80%;
+        }
       }
     }
   }

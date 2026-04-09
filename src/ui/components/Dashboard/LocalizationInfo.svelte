@@ -57,8 +57,8 @@
       </div>
     </div>
     <div class="poseInfo">
-      <div><span class="label">X</span>{ robotPose_.x?.toFixed(3) } m</div>
-      <div><span class="label">Y</span>{ robotPose_.y?.toFixed(3) } m</div>
+      <div><span class="label">X</span>{ robotPose_.x?.toFixed(3) } <span class="unit">m</span></div>
+      <div><span class="label">Y</span>{ robotPose_.y?.toFixed(3) } <span class="unit">m</span></div>
       <div><span class="label">Heading</span>{ robotPose_.rotation?.toFixed(2) } &deg;</div>
     </div>
   </div>
@@ -166,6 +166,11 @@
         margin-bottom: .5em;
         font-size: 0.9rem;
         color: var(--app-color-smoke);
+      }
+
+      & .unit {
+        margin-left: .25em;
+        font-size: 80%;
       }
     }
   }
