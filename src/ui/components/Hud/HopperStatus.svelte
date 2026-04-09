@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { CheckmarkFilled } from "carbon-icons-svelte";
   import { CircleSolid, Aperture } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
@@ -30,6 +31,11 @@
   let isIntakeRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsRunning")?.value ?? false as boolean);
 </script>
 <div class="main">
+  <div 
+    class="alignment"
+    class:active={ fuelLevel == FuelLevel.Full }>
+    <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
+  </div>
   <div class="status">
     <div class="fuelLevel">
       {#each Array.from({ length: getFuelCount(fuelLevel) }) as _}  
@@ -53,6 +59,18 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+
+    & .alignment {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+      &.active { display: flex; }
+      & .checkmark { animation: pulse 500ms infinite ease-out; }
+    }
 
     & .status {
       display: flex;
