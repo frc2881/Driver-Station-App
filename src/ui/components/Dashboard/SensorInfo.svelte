@@ -51,10 +51,11 @@
         width: 14px;
         height: 14px;
         border-radius: 50%;
-        background-color: var(--app-color-red);
+        border: 1px solid var(--app-color-smoke);
 
         &.active {
           background-color: var(--app-color-green);
+          border-color: var(--app-color-green);
         }
       }
 

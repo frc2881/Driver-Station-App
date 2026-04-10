@@ -27,7 +27,7 @@
       <div class="info">No auto command selected for match!</div>
     {:else}
       {#if activeCommand != "None" }
-      <img src={ `./assets/images/autos/${ commandName }.png` } alt={ commandName } />
+      <img src={ `./assets/images/autos/${ commandName }.png` } alt="" />
       {/if}
     {/if}
   </div>
