@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Theme } from "carbon-components-svelte";
 	import "carbon-components-svelte/css/all.css";
-	import "@carbon/charts-svelte/styles.min.css";
 	import { AppWindowType } from "../common/index.js";
 	import { connectNetworkTablesService } from "./services/NetworkTables.svelte";
 	import Graphics from "./components/Graphics.svelte";
