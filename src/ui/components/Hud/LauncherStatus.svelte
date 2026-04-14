@@ -2,7 +2,7 @@
   import { CheckmarkFilled } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let currentTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/CurrentTarget")?.value ?? "" as string);
+  let activeTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTarget")?.value ?? "" as string);
   let isTurretAtTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/IsAtTargetHeading")?.value ?? false as boolean);
   let isLauncherAtTargetSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/IsAtTargetSpeed")?.value ?? false as boolean);
   let turretHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/Heading")?.value ?? 0 as number);
@@ -26,8 +26,8 @@
   let isShuttleRightDistanceValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/IsDistanceValid")?.value ?? false as boolean);
   let isShuttleRightHeadingValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/IsHeadingValid")?.value ?? false as boolean);
 
-  const isTurretHeadingValid = (): boolean => {
-    switch (currentTarget) {
+  const isLaunchHeadingValid = (): boolean => {
+    switch (activeTarget) {
       case "Hub":
         return isHubHeadingValid;
       case "ShuttleLeft":
@@ -42,11 +42,11 @@
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isTurretHeadingValid() && isTurretAtTargetHeading && isLauncherAtTargetSpeed }>
+    class:active={ isLaunchHeadingValid() && isTurretAtTargetHeading && isLauncherAtTargetSpeed }>
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div class="info">
-    <div class="value" class:active={ isTurretHeadingValid() && isTurretAtTargetHeading } class:invalid={ !isTurretHeadingValid() }>{ turretHeading.toFixed(1) } &deg;</div>
+    <div class="value" class:active={ isLaunchHeadingValid() && isTurretAtTargetHeading } class:invalid={ !isLaunchHeadingValid() }>{ turretHeading.toFixed(1) } &deg;</div>
     <div class="value" class:active={ isLauncherAtTargetSpeed }>{ (launcherSpeed * 100).toFixed(1) } %</div>
   </div>
   <div class="targeting">
@@ -57,7 +57,7 @@
       <div>Speed</div>
     </div>
     <div class="row">
-      <div class="target" class:active={ currentTarget == "Hub" }>Hub</div>
+      <div class="target" class:active={ activeTarget == "Hub" }>Hub</div>
       <div class:invalid={ !isHubDistanceValid }>{ hubDistance.toFixed(2) } m</div>
       <div class:invalid={ !isHubHeadingValid }>{ hubHeading.toFixed(1) } &deg;</div>
       <div>{ (hubSpeed * 100).toFixed(1) } %</div>
@@ -156,8 +156,9 @@
           }
 
           &.active {
-            background-color: var(--app-color-green);
+            background-color: var(--app-color-silver);
             color:  var(--app-color-black);
+            animation: pulse 500ms infinite ease-out;
           }
 
           &.invalid {
