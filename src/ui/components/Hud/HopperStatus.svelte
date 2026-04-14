@@ -29,6 +29,7 @@
   let fuelLevel = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
   let isIntakeExtended = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsExtended")?.value ?? false as boolean);
   let isIntakeRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsRunning")?.value ?? false as boolean);
+  let isHopperRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsRunning")?.value ?? false as boolean);
 </script>
 <div class="main">
   <div 
@@ -37,13 +38,16 @@
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div class="status">
-    <div class="fuelLevel">
-      {#each Array.from({ length: getFuelCount(fuelLevel) }) as _}  
-        <CircleSolid width=60 height=60 fill="#B1902F" />
-      {/each} 
+    <div class="hopper">
+      <div class="fuelLevel">
+        {#each Array.from({ length: getFuelCount(fuelLevel) }) as _}  
+          <CircleSolid width=60 height=60 fill="#B1902F" />
+        {/each} 
+      </div>
+      <div class="indexer" class:running={ isHopperRunning }></div>
     </div>
     <div class="intake">
-      <div class="arm" style:border-width={ `0px ${isIntakeExtended ? 60 : 5}px 150px 0px` } ></div>
+      <div class="arm" style:border-width={ `0px ${isIntakeExtended ? 50 : 10}px 150px 0px` } ></div>
       <div class="roller" class:running={ isIntakeRunning }><Aperture width=60 height=60 fill="#FF1493" /></div>
     </div>
   </div>
@@ -78,18 +82,34 @@
       gap: 1.5em;
       margin-left: 4em;
 
-      & .fuelLevel {
+      & .hopper {
         display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        align-content: flex-end;
-        flex-wrap: wrap;
-        gap: .1em;
-        width: 220px;
-        height: 220px;
-        padding: 1em 1em 1.25em 1em;
-        border: 3px solid var(--app-color-pink);
-        border-radius: 6px;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+
+        & .fuelLevel {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          align-content: flex-end;
+          flex-wrap: wrap;
+          gap: .1em;
+          width: 220px;
+          height: 220px;
+          padding: 1em 1em 1.25em 1em;
+          border: 3px solid var(--app-color-pink);
+          border-radius: 6px;
+        }
+
+        & .indexer {
+          width: 80%;
+          height: 10px;
+          border: 5px solid var(--app-color-pink);
+          border-radius: 5px;
+
+          &.running { animation: pulse 500ms infinite linear; }
+        }
       }
 
       & .intake {
@@ -105,6 +125,7 @@
           border-width: 1px;
           border-color: transparent transparent var(--app-color-pink) transparent;
           transform: rotate(0deg);
+          margin-left: .5em;
         }
 
         & .roller {

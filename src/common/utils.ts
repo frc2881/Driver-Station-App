@@ -47,14 +47,6 @@ export namespace Utils {
   const baseTime = new Date();
   baseTime.setHours(0, 0, 0, 0);
 
-  export const formatTimestamp = (timestamp: number): string => {
-    return format(convertTimestamp(timestamp), "H:mm:ss.SSS");
-  }
-
-  export const convertTimestamp = (timestamp: number): Date => {
-    return timestamp ? addMilliseconds(baseTime, timestamp / 1000) : baseTime;
-  }
-
   export const stringifyNetworkTables = (networkTables: NetworkTables, space?: string | number): string => {
     return JSON.stringify(networkTables, (key, value) => { return (value instanceof Map) ? Object.fromEntries(value.entries()) : value }, space);
   }

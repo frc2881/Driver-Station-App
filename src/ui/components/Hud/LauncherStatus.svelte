@@ -2,70 +2,77 @@
   import { CheckmarkFilled } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
+  let currentTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/CurrentTarget")?.value ?? "" as string);
   let isTurretAtTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/IsAtTargetHeading")?.value ?? false as boolean);
   let isLauncherAtTargetSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/IsAtTargetSpeed")?.value ?? false as boolean);
   let turretHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/Heading")?.value ?? 0 as number);
   let launcherSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/Speed")?.value ?? 0 as number);
 
-  let distanceMin = $derived(nt.topics.get("/SmartDashboard/Targeting/DistanceMin")?.value ?? 0 as number);
-  let distanceMax = $derived(nt.topics.get("/SmartDashboard/Targeting/DistanceMax")?.value ?? 0 as number);
-  let headingMin = $derived(nt.topics.get("/SmartDashboard/Targeting/HeadingMin")?.value ?? 0 as number);
-  let headingMax = $derived(nt.topics.get("/SmartDashboard/Targeting/HeadingMax")?.value ?? 0 as number);
-
   let hubDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/Distance")?.value ?? 0 as number);
-  let hubSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/Speed")?.value ?? 0 as number);
   let hubHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/Heading")?.value ?? 0 as number);
+  let hubSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/Speed")?.value ?? 0 as number);
+  let isHubDistanceValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/IsDistanceValid")?.value ?? false as boolean);
+  let isHubHeadingValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/Hub/IsHeadingValid")?.value ?? false as boolean);
 
   let shuttleLeftDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/Distance")?.value ?? 0 as number);
-  let shuttleLeftSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/Speed")?.value ?? 0 as number);
   let shuttleLeftHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/Heading")?.value ?? 0 as number);
+  let shuttleLeftSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/Speed")?.value ?? 0 as number);
+  let isShuttleLeftDistanceValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/IsDistanceValid")?.value ?? false as boolean);
+  let isShuttleLeftHeadingValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleLeft/IsHeadingValid")?.value ?? false as boolean);
 
   let shuttleRightDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/Distance")?.value ?? 0 as number);
-  let shuttleRightSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/Speed")?.value ?? 0 as number);
   let shuttleRightHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/Heading")?.value ?? 0 as number);
+  let shuttleRightSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/Speed")?.value ?? 0 as number);
+  let isShuttleRightDistanceValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/IsDistanceValid")?.value ?? false as boolean);
+  let isShuttleRightHeadingValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ShuttleRight/IsHeadingValid")?.value ?? false as boolean);
 
-  const isValidDistance = (distance: number): boolean => {
-    return distance >= distanceMin && distance <= distanceMax;
-  }
-
-  const isValidHeading = (heading: number): boolean => {
-    return heading >= headingMin && heading <= headingMax;
+  const isTurretHeadingValid = (): boolean => {
+    switch (currentTarget) {
+      case "Hub":
+        return isHubHeadingValid;
+      case "ShuttleLeft":
+        return isShuttleLeftHeadingValid;
+      case "ShuttleRight":
+        return isShuttleRightHeadingValid;
+      default:
+        return true;
+    }
   }
 </script>
 <div class="main">
   <div 
     class="alignment"
-    class:active={ isTurretAtTargetHeading && isLauncherAtTargetSpeed }>
+    class:active={ isTurretHeadingValid() && isTurretAtTargetHeading && isLauncherAtTargetSpeed }>
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div class="info">
-    <div class="value" class:active={ isTurretAtTargetHeading }>{ turretHeading.toFixed(1) } &deg;</div>
+    <div class="value" class:active={ isTurretHeadingValid() && isTurretAtTargetHeading } class:invalid={ !isTurretHeadingValid() }>{ turretHeading.toFixed(1) } &deg;</div>
     <div class="value" class:active={ isLauncherAtTargetSpeed }>{ (launcherSpeed * 100).toFixed(1) } %</div>
   </div>
   <div class="targeting">
     <div class="row header">
       <div class="target">Target</div>
       <div>Distance</div>
-      <div>Speed</div>
       <div>Heading</div>
+      <div>Speed</div>
     </div>
     <div class="row">
-      <div class="target">Hub</div>
-      <div class:invalid={ isValidDistance(hubDistance) }>{ hubDistance.toFixed(2) } m</div>
+      <div class="target" class:active={ currentTarget == "Hub" }>Hub</div>
+      <div class:invalid={ !isHubDistanceValid }>{ hubDistance.toFixed(2) } m</div>
+      <div class:invalid={ !isHubHeadingValid }>{ hubHeading.toFixed(1) } &deg;</div>
       <div>{ (hubSpeed * 100).toFixed(1) } %</div>
-      <div class:invalid={ isValidHeading(hubHeading) }>{ hubHeading.toFixed(1) } &deg;</div>
     </div>
     <div class="row">
       <div class="target">Shuttle Left</div>
-      <div class:invalid={ isValidDistance(shuttleLeftDistance) }>{ shuttleLeftDistance.toFixed(2) } m</div>
+      <div class:invalid={ !isShuttleLeftDistanceValid }>{ shuttleLeftDistance.toFixed(2) } m</div>
+      <div class:invalid={ !isShuttleLeftHeadingValid }>{ shuttleLeftHeading.toFixed(1) } &deg;</div>
       <div>{ (shuttleLeftSpeed * 100).toFixed(1) } %</div>
-      <div class:invalid={ isValidHeading(shuttleLeftHeading) }>{ shuttleLeftHeading.toFixed(1) } &deg;</div>
     </div>
     <div class="row">
       <div class="target">Shuttle Right</div>
-      <div class:invalid={ isValidDistance(shuttleRightDistance) }>{ shuttleRightDistance.toFixed(2) } m</div>
+      <div class:invalid={ !isShuttleRightDistanceValid }>{ shuttleRightDistance.toFixed(2) } m</div>
+      <div class:invalid={ !isShuttleRightHeadingValid }>{ shuttleRightHeading.toFixed(1) } &deg;</div>
       <div>{ (shuttleRightSpeed * 100).toFixed(1) } %</div>
-      <div class:invalid={ isValidHeading(shuttleRightHeading) }>{ shuttleRightHeading.toFixed(1) } &deg;</div>
     </div>
   </div>
 </div>
@@ -103,9 +110,15 @@
         font-size: 5rem;
         text-align: right;
         padding: 10px 20px;
+        border-radius: 10px;
 
         &.active {
           border: 3px solid var(--app-color-green);
+        }
+
+        &.invalid {
+          background-color: var(--app-color-red);
+          animation: pulse 500ms infinite ease-out;
         }
       }
     }
@@ -113,7 +126,7 @@
     & .targeting {
       display: table;
       border-collapse: separate;
-      border-spacing: 0 5px;
+      border-spacing: 10px;
       margin-top: 3em;
       font-size: 1rem;
 
@@ -126,6 +139,7 @@
             padding-bottom: .5em;
             color: var(--app-color-smoke);
             font-size: .9rem;
+            border-radius: 0;
           }
         }
 
@@ -134,10 +148,16 @@
           padding: .5em .5em .25em .5em;
           text-align: right;
           width: 6rem;
+          border-radius: 5px;
 
           &.target {
             text-align: left;
             width: 8rem;
+          }
+
+          &.active {
+            background-color: var(--app-color-green);
+            color:  var(--app-color-black);
           }
 
           &.invalid {

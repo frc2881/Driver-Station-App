@@ -53,6 +53,7 @@
       font-weight: bold;
       font-size: 150%;
       padding: 0.75em 0;
+      border-radius: 5px;
 
       &.none {
         background: none;

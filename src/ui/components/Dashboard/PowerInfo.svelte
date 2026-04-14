@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { BatteryFull, BatteryHalf, BatteryWarning, BatteryError, BatteryEmpty } from "carbon-icons-svelte";
+  import { BatteryFull, BatteryHalf, BatteryWarning, BatteryEmpty, Vpn } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
-
+  
   const BatteryVoltageLevel = {
     Low: 12.2,
     Warning: 11.99,
@@ -10,7 +10,13 @@
 
   let batteryInfo = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Info")?.value as string);
   let batteryVoltage = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage")?.value as number);
-  let isBrownedOut = $derived(nt.topics.get("/SmartDashboard/Robot/Power/IsBrownedOut")?.value as boolean);
+
+  const _batteryVoltages: number[] = [];
+  let batteryVoltages = $derived.by(() => {
+    _batteryVoltages.push(batteryVoltage);
+    if (_batteryVoltages.length > 50) { _batteryVoltages.shift(); }
+    return [..._batteryVoltages];
+  });
 
   const iconSize = 180;
 </script>
@@ -20,9 +26,7 @@
   <div class="battery">
     <div class="status">
       <div>
-        {#if isBrownedOut}
-          <div class="warning"><BatteryError width={ iconSize } height={ iconSize } fill="#663300" /></div>
-        {:else if batteryVoltage <= BatteryVoltageLevel.Critical}
+        {#if batteryVoltage <= BatteryVoltageLevel.Critical}
           <div class="warning"><BatteryWarning width={ iconSize } height={ iconSize } fill="#CC0000" /></div>
         {:else if batteryVoltage <= BatteryVoltageLevel.Warning}
           <div><BatteryWarning width={ iconSize } height={ iconSize } fill="#FF6600" /></div>
@@ -39,6 +43,12 @@
         <div class="info">{ batteryInfo ?? "UNKNOWN" }</div>
       </div>
     </div>
+    <div class="sparkline">
+      {#each batteryVoltages as voltage}
+        <span style:height={ `${ ((voltage - 6) * 10)  }px` }></span>
+      {/each}
+      <div class="line"></div>
+    </div>
   </div>
 </div>
 
@@ -51,6 +61,7 @@
     }
 
     & .battery {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -67,11 +78,40 @@
         }
 
         & .value {
+          width: 150px;
           font-size: 300%;
+          text-align: right;
         }
 
         & .info {
           margin: 1em 0 0 0.5em;
+          text-align: right;
+        }
+      }
+
+      & .sparkline {
+        position: absolute;
+        bottom: -60px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 2px;
+        width: 350px;
+        height: 60px;
+
+        & span {
+          display: block;
+          width: 5px;
+          background-color: var(--app-color-charcoal);
+        }
+
+        & .line {
+          position: absolute;
+          top: 45px;
+          width: 100%;
+          height: 1px;
+          background-color: var(--app-color-yellow);
+          opacity: 0.75;
         }
       }
     }

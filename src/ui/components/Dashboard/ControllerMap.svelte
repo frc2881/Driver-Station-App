@@ -21,9 +21,9 @@
       triggerRight: "Run Intake",
       bumperLeft: "",
       bumperRight: "Agitate Robot",
-      buttonA: "",
+      buttonA: "Align Bump Heading",
       buttonB: "",
-      buttonY: "Align Nearest Bump",
+      buttonY: "Align Bump Pose",
       buttonX: "",
       dpadUp: "",
       dpadRight: "",
@@ -49,7 +49,7 @@
       buttonA: "Align Turret Hub",
       buttonB: "",
       buttonY: "Set Turret 0&deg;",
-      buttonX: "Reverse Hopper",
+      buttonX: "Agitate Hopper",
       dpadUp: "Home Turret",
       dpadRight: "",
       dpadDown: "Home Intake",
@@ -298,6 +298,7 @@
           text-align: center;
           font-size: 1.25rem;
           font-weight: bold;
+          border-radius: 5px;
         }
 
         &.notes {

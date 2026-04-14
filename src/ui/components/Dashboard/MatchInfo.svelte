@@ -28,6 +28,7 @@
       width: 48px;
       height: 48px;
       font-size: 2rem;
+      border-radius: 5px;
 
       &.blue { background-color: var(--app-color-blue); }
       &.red { background-color: var(--app-color-red); }
