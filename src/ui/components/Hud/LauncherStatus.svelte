@@ -63,13 +63,13 @@
       <div>{ (hubSpeed * 100).toFixed(1) } %</div>
     </div>
     <div class="row">
-      <div class="target">Shuttle Left</div>
+      <div class="target" class:active={ activeTarget == "ShuttleLeft" }>Shuttle Left</div>
       <div class:invalid={ !isShuttleLeftDistanceValid }>{ shuttleLeftDistance.toFixed(2) } m</div>
       <div class:invalid={ !isShuttleLeftHeadingValid }>{ shuttleLeftHeading.toFixed(1) } &deg;</div>
       <div>{ (shuttleLeftSpeed * 100).toFixed(1) } %</div>
     </div>
     <div class="row">
-      <div class="target">Shuttle Right</div>
+      <div class="target" class:active={ activeTarget == "ShuttleRight" }>Shuttle Right</div>
       <div class:invalid={ !isShuttleRightDistanceValid }>{ shuttleRightDistance.toFixed(2) } m</div>
       <div class:invalid={ !isShuttleRightHeadingValid }>{ shuttleRightHeading.toFixed(1) } &deg;</div>
       <div>{ (shuttleRightSpeed * 100).toFixed(1) } %</div>
