@@ -11,11 +11,24 @@
   let batteryInfo = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Info")?.value as string);
   let batteryVoltage = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage")?.value as number);
 
+  let _maxBatteryVoltage = 0;
+  let _minBatteryVoltage = 15.0;
+
   const _batteryVoltages: number[] = [];
   let batteryVoltages = $derived.by(() => {
     _batteryVoltages.push(batteryVoltage);
     if (_batteryVoltages.length > 50) { _batteryVoltages.shift(); }
     return [..._batteryVoltages];
+  });
+
+  let maxBatteryVoltage = $derived.by(() => {
+    if (batteryVoltage > _maxBatteryVoltage) { _maxBatteryVoltage = batteryVoltage; }
+    return _maxBatteryVoltage;
+  });
+
+  let minBatteryVoltage = $derived.by(() => {
+    if (batteryVoltage < _minBatteryVoltage) { _minBatteryVoltage = batteryVoltage; }
+    return _minBatteryVoltage;
   });
 
   const iconSize = 180;
@@ -40,12 +53,21 @@
       </div>
       <div>
         <div class="value">{ batteryVoltage?.toFixed(2) ?? "0.00" } V</div>
-        <div class="info">{ batteryInfo ?? "UNKNOWN" }</div>
+        <div class="stats">
+          <div><span class="label">Max:</span><span class="voltage">{ maxBatteryVoltage?.toFixed(2) } V</span></div>
+          <div><span class="label">Min:</span><span class="voltage">{ minBatteryVoltage?.toFixed(2) } V</span></div>
+        </div>
+        <div class="info"><span class="label">Tag: </span><span class="tag">{ batteryInfo ?? "UNKNOWN" }</span></div>
       </div>
     </div>
     <div class="graph">
       {#each batteryVoltages as voltage}
-        <span style:height={ `${ ((voltage - 6) * 10)  }px` }></span>
+        <span 
+          style:height={ `${ ((voltage - 6) * 8)  }px` }
+          class:critical={ voltage <= BatteryVoltageLevel.Critical }
+          class:warning={ voltage > BatteryVoltageLevel.Critical && voltage <= BatteryVoltageLevel.Warning }
+          class:low={ voltage > BatteryVoltageLevel.Warning && voltage <= BatteryVoltageLevel.Low }
+        ></span>
       {/each}
       <div class="line"></div>
     </div>
@@ -83,9 +105,36 @@
           text-align: right;
         }
 
-        & .info {
-          margin: 1em 0 0 0.5em;
+        & .label {
+          display: inline-block;
+          font-size: 0.9rem;
+          color: var(--app-color-smoke);
+          text-transform: none;
           text-align: right;
+        }
+
+        & .info {
+          margin: 1em 0 0 0;
+          text-align: right;
+
+          & .tag {
+            margin-left: 1em;
+          }
+        }
+
+        & .stats {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          text-transform: capitalize;
+          margin-top: 1em;
+          gap: 0.25em;
+
+          & .voltage {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+          }
         }
       }
 
@@ -97,20 +146,24 @@
         justify-content: flex-end;
         gap: 2px;
         width: 350px;
-        height: 60px;
+        height: 40px;
 
         & span {
           display: block;
           width: 5px;
-          background-color: var(--app-color-charcoal);
+          background-color: var(--app-color-green);
+
+          &.critical { background-color: var(--app-color-red); }
+          &.warning { background-color: var(--app-color-orange); }
+          &.low { background-color: var(--app-color-yellow); }
         }
 
         & .line {
           position: absolute;
-          top: 45px;
+          top: 25px;
           width: 100%;
-          height: 1px;
-          background-color: var(--app-color-yellow);
+          height: 2px;
+          background-color: var(--app-color-white);
           opacity: 0.75;
         }
       }
