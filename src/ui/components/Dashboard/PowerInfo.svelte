@@ -43,7 +43,7 @@
         <div class="info">{ batteryInfo ?? "UNKNOWN" }</div>
       </div>
     </div>
-    <div class="sparkline">
+    <div class="graph">
       {#each batteryVoltages as voltage}
         <span style:height={ `${ ((voltage - 6) * 10)  }px` }></span>
       {/each}
@@ -89,7 +89,7 @@
         }
       }
 
-      & .sparkline {
+      & .graph {
         position: absolute;
         bottom: -60px;
         display: flex;

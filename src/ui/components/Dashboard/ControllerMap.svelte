@@ -16,14 +16,14 @@
       stickLeftButton: "Lock Drive (X)",
       stickRightX: "Rotate",
       stickRightY: "",
-      stickRightButton: "Align Hub",
-      triggerLeft: "Retract Intake",
-      triggerRight: "Run Intake",
+      stickRightButton: "",
+      triggerLeft: "",
+      triggerRight: "",
       bumperLeft: "",
-      bumperRight: "Agitate Robot",
-      buttonA: "Align Bump Heading",
+      bumperRight: "Align For Bump",
+      buttonA: "",
       buttonB: "",
-      buttonY: "Align Bump Pose",
+      buttonY: "",
       buttonX: "",
       dpadUp: "",
       dpadRight: "",
@@ -42,14 +42,14 @@
       stickRightX: "",
       stickRightY: "",
       stickRightButton: "",
-      triggerLeft: "Agitate Intake",
-      triggerRight: "Score Fuel",
-      bumperLeft: "Shuttle Left",
-      bumperRight: "Shuttle Right",
-      buttonA: "Align Turret Hub",
+      triggerLeft: "Run Intake",
+      triggerRight: "Launch Fuel",
+      bumperLeft: "Retract Intake",
+      bumperRight: "Agitate Hopper",
+      buttonA: "Align Turret Target",
       buttonB: "",
-      buttonY: "Set Turret 0&deg;",
-      buttonX: "Agitate Hopper",
+      buttonY: "Align Turret Robot",
+      buttonX: "",
       dpadUp: "Home Turret",
       dpadRight: "",
       dpadDown: "Home Intake",
@@ -116,6 +116,7 @@
   }
 
   let annotations = $derived.by(() => {
+    return ANNOTATIONS_COMPETITION;
     const robotType = nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType;
     switch (robotType) {
       case RobotType.Competition:

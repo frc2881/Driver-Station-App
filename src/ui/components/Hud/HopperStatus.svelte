@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckmarkFilled } from "carbon-icons-svelte";
+  import { CheckmarkFilled, WarningAltFilled } from "carbon-icons-svelte";
   import { CircleSolid, Aperture } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
@@ -11,36 +11,37 @@
     Full = "Full"
   }
 
-  const getFuelCount = (fuelLevel: FuelLevel): number => {
+  const getFuelCountForDisplay = (fuelLevel: FuelLevel): number => {
     switch (fuelLevel) {
-      case FuelLevel.Empty:
-        return 0;
-      case FuelLevel.Low:
-        return 3;
-      case FuelLevel.Mid:
-        return 6;
-      case FuelLevel.Full:
-        return 9;
-      default: 
-        return 0;
+      case FuelLevel.Empty: return 0;
+      case FuelLevel.Low: return 3;
+      case FuelLevel.Mid: return 6;
+      case FuelLevel.Full: return 9;
+      default: return 0;
     }
   }
 
-  let fuelLevel = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
   let isIntakeExtended = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsExtended")?.value ?? false as boolean);
   let isIntakeRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsRunning")?.value ?? false as boolean);
   let isHopperRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsRunning")?.value ?? false as boolean);
+  let isHopperJammed = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsJammed")?.value ?? false as boolean);
+  let fuelLevel = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
 </script>
 <div class="main">
   <div 
-    class="alignment"
-    class:active={ fuelLevel == FuelLevel.Full }>
-    <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
+    class="ready"
+    class:active={ fuelLevel == FuelLevel.Full && !isHopperJammed }>
+    <div class="icon"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
+  </div>
+  <div 
+    class="warning"
+    class:active={ isHopperJammed }>
+    <div class="icon"><WarningAltFilled width=480 height=480 fill="#CCCC00" /></div>
   </div>
   <div class="status">
     <div class="hopper">
       <div class="fuelLevel">
-        {#each Array.from({ length: getFuelCount(fuelLevel) }) as _}  
+        {#each Array.from({ length: getFuelCountForDisplay(fuelLevel) }) as _}  
           <CircleSolid width=60 height=60 fill="#B1902F" />
         {/each} 
       </div>
@@ -64,7 +65,7 @@
     height: 100%;
     overflow: hidden;
 
-    & .alignment {
+    & .ready, .warning {
       position: absolute;
       display: none;
       width: 100%;
@@ -73,7 +74,7 @@
       justify-content: center;
       opacity: 0.5;
       &.active { display: flex; }
-      & .checkmark { animation: pulse 500ms infinite ease-out; }
+      & .icon { animation: pulse 500ms infinite ease-out; }
     }
 
     & .status {

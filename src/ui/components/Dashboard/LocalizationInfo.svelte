@@ -15,7 +15,7 @@
     }));
   });
 
-  let hasValidVisionTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidVisionTarget")?.value as boolean)
+  let hasValidPoseSensorResult = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidPoseSensorResult")?.value as boolean)
 
   let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
@@ -31,7 +31,7 @@
     <div class="robot">
       <div class="sensors">
         <div class="status">
-          {#if !hasValidVisionTarget}
+          {#if !hasValidPoseSensorResult}
             <div><WarningAltFilled width=100 height=100 fill="#CCCC00" /></div>
           {:else}
             <div><CheckmarkFilled width=100 height=100 fill="#009900" /></div>
