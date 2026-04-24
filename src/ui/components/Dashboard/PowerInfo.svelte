@@ -63,6 +63,7 @@
     <div class="graph">
       {#each batteryVoltages as voltage}
         <span 
+          class="bar"
           style:height={ `${ ((voltage - 6) * 8)  }px` }
           class:critical={ voltage <= BatteryVoltageLevel.Critical }
           class:warning={ voltage > BatteryVoltageLevel.Critical && voltage <= BatteryVoltageLevel.Warning }
@@ -148,10 +149,11 @@
         width: 350px;
         height: 40px;
 
-        & span {
+        & .bar {
           display: block;
           width: 5px;
           background-color: var(--app-color-green);
+          opacity: .5;
 
           &.critical { background-color: var(--app-color-red); }
           &.warning { background-color: var(--app-color-orange); }
@@ -164,7 +166,7 @@
           width: 100%;
           height: 2px;
           background-color: var(--app-color-white);
-          opacity: 0.75;
+          opacity: 0.5;
         }
       }
     }
