@@ -3,8 +3,8 @@
   import SendableChooser from "../SendableChooser.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
-  let activeCommand = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "None" as string);
-  let commandName = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/command")?.value ?? "None" as string);
+  let activeCommand = $derived((nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "" as string).substring(3));
+  let commandName = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/command")?.value ?? "NONE" as string);
   let isCompetitionMode = $derived(nt.topics.get("/SmartDashboard/Match/IsCompetitionMode")?.value ?? false as boolean);
 </script>
 
@@ -18,17 +18,16 @@
   </div>
   <div 
     class="active"
-    class:none={ activeCommand === "None" }>
+    class:none={ activeCommand == "None" }>
     { activeCommand }
   </div>
   <div class="auto">
-    {#if isCompetitionMode && activeCommand === "None" }
-      <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
-      <div class="info">No auto command selected for match!</div>
-    {:else}
-      {#if activeCommand != "None" }
-      <img src={ `./assets/images/autos/${ commandName }.png` } alt="" />
-      {/if}
+    <img src={ `./assets/images/autos/${ commandName }.png` } alt="" />
+    {#if isCompetitionMode && activeCommand == "None" }
+      <div class="noauto">
+        <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
+        <div class="info">No auto command selected<br/>for this match!</div>
+      </div>
     {/if}
   </div>
 </div>
@@ -64,6 +63,7 @@
     }
 
     & .auto{
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -77,15 +77,23 @@
         filter: grayscale(100%);
       }
 
-      & .warning {
-        animation: pulse 750ms infinite ease;
-      }
+      & .noauto {
+        position: absolute;
+        bottom: 7.5em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-      & .info {
-        margin: 1em 0;
-        text-align: center;
-        font-size: 125%;
-        line-height: 150%;
+        & .warning {
+          animation: pulse 750ms infinite ease;
+        }
+
+        & .info {
+          margin: 1em 0;
+          text-align: center;
+          font-size: 125%;
+          line-height: 150%;
+        }
       }
     }
   }

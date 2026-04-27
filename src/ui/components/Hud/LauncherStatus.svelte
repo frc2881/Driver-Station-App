@@ -34,7 +34,7 @@
       <div>Speed</div>
     </div>
     <div class="row">
-      <div class="target" class:engaged={ isActiveTargetEngaged }>{ activeTarget || "------------" }</div>
+      <div class="target" class:inactive={ !activeTarget } class:engaged={ isActiveTargetEngaged }>{ activeTarget || "?" }</div>
       <div class:invalid={ activeTarget && !activeTargetInfoIsDistanceValid }>{ activeTargetInfoDistance.toFixed(2) } m</div>
       <div class:invalid={ activeTarget && !activeTargetInfoIsHeadingValid }>{ activeTargetInfoHeading.toFixed(1) } &deg;</div>
       <div>{ (activeTargetInfoSpeed * 100).toFixed(1) } %</div>
@@ -118,16 +118,24 @@
           &.target {
             text-align: left;
             width: 8rem;
-          }
 
-          &.engaged {
-            background-color: var(--app-color-silver);
-            color:  var(--app-color-black);
-            animation: pulse 500ms infinite ease-out;
-          }
+            &.engaged {
+              background-color: var(--app-color-silver);
+              color:  var(--app-color-black);
+              animation: pulse 500ms infinite ease-out;
+            }
 
+            &.inactive {
+              background-color: var(--app-color-yellow);
+              color: var(--app-color-black);
+              text-align: center;
+              animation: pulse 1000ms infinite ease-out;
+            }
+          }
+          
           &.invalid {
             background-color: var(--app-color-red);
+            animation: pulse 500ms infinite ease-out;
           }
         }
       }
