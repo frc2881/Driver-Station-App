@@ -81,8 +81,8 @@ export type ControllerMapAnnotationSet = {
   stickRightY: string;
   stickRightButton: string;
   triggerLeft: string;
-  triggerRight: string;
   bumperLeft: string;
+  triggerRight: string;
   bumperRight: string;
   buttonA: string;
   buttonB: string;
