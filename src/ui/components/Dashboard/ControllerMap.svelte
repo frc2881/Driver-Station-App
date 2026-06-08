@@ -32,7 +32,7 @@
       buttonBack: [ "Reset Gyro" ],
       buttonStart: [ "" ],
       notes: [
-        "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold for &gt; 0.5 seconds)"
+        "Reset gyro to desired field orientation after robot power cycle or during teleop driving as needed (hold until buzz)"
       ]
     },
     operator: {
