@@ -30,7 +30,7 @@
   <div class="row">
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-        <HopperStatus />
+        <LauncherStatus />
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
@@ -46,7 +46,7 @@
     </Tile>
     <Tile class="widget">
       {#if robotType == RobotType.Competition}
-        <LauncherStatus />
+        <HopperStatus />
       {:else}
         <div class="placeholder"><img src="./assets/images/2881.png" alt="2881" /></div>
       {/if}
