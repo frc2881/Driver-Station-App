@@ -3,7 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2022",
+    "target": "es2025",
     "allowJs": false,
     "resolveJsonModule": true,
     "moduleDetection": "force",
@@ -14,8 +14,8 @@
     "noImplicitOverride": true,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "sourceMap": false
   }
 }

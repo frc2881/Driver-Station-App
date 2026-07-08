@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IntentRequestActive, IntentRequestInactive, IntentRequestUninstall, CloseOutline, CheckmarkOutline, Unknown } from "carbon-icons-svelte";
+  import { IntentRequestActive, IntentRequestInactive, IntentRequestUninstall, CloseOutline, CheckmarkOutline, Unknown, ArrowShiftDown } from "carbon-icons-svelte";
   import { Alliance } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
@@ -9,6 +9,12 @@
   let hubState = $derived(nt.topics.get("/SmartDashboard/Match/Hub")?.value ?? "Inactive" as string);
   let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
   let selectedAlliance = $derived(nt.topics.get("/SmartDashboard/Match/SelectedAlliance")?.value as Alliance);
+
+  const getIsReturnAlertState = (): boolean => {
+    return (matchState.startsWith("Shift") && hubState == "Inactive" && matchStateTime <= 5) || (matchState == "EndGame" && matchStateTime <= 15);
+  }
+
+  let isReturnActive: boolean = $derived(getIsReturnAlertState());
 </script>
 
 <div class="main">
@@ -49,7 +55,36 @@
   </div>
 </div>
 
+<div 
+  class="return"
+  class:active={ isReturnActive }
+>
+  <div class="time">{ matchStateTime }</div>
+  <ArrowShiftDown width=320 height=320 fill="#FFFF00" />
+</div>
+
 <style>
+  .return {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: .75;
+    animation: pulse-expand 500ms ease-in-out infinite;
+    &.active { display: flex; }
+
+    & .time {
+      font-size: 36rem;
+      color: var(--app-color-yellow);
+    }
+  }
+
   .main {
     position: relative;
     display: flex;

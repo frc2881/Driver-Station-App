@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckmarkFilled, WarningAltFilled } from "carbon-icons-svelte";
+  import { CheckmarkFilled } from "carbon-icons-svelte";
   import { CircleSolid, Aperture } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
@@ -24,19 +24,13 @@
   let isIntakeExtended = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsExtended")?.value ?? false as boolean);
   let isIntakeRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsRunning")?.value ?? false as boolean);
   let isHopperRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsRunning")?.value ?? false as boolean);
-  let isHopperJammed = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsJammed")?.value ?? false as boolean);
   let fuelLevel = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
 </script>
 <div class="main">
   <div 
     class="ready"
-    class:active={ fuelLevel == FuelLevel.Full && !isHopperJammed }>
+    class:active={ fuelLevel == FuelLevel.Full }>
     <div class="icon"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
-  </div>
-  <div 
-    class="warning"
-    class:active={ isHopperJammed }>
-    <div class="icon"><WarningAltFilled width=480 height=480 fill="#CCCC00" /></div>
   </div>
   <div class="status">
     <div class="hopper">
@@ -65,7 +59,7 @@
     height: 100%;
     overflow: hidden;
 
-    & .ready, .warning {
+    & .ready {
       position: absolute;
       display: none;
       width: 100%;
