@@ -49,7 +49,7 @@
       buttonA: "Align Turret: Target",
       buttonB: "",
       buttonY: "Align Turret: Robot",
-      buttonX: "",
+      buttonX: "Reverse Intake",
       dpadUp: "Home Turret",
       dpadRight: "",
       dpadDown: "Home Intake",
