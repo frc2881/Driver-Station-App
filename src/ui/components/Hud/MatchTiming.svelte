@@ -11,7 +11,7 @@
   let selectedAlliance = $derived(nt.topics.get("/SmartDashboard/Match/SelectedAlliance")?.value as Alliance);
 
   const getIsReturnAlertState = (): boolean => {
-    return (matchState.startsWith("Shift") && hubState == "Inactive" && matchStateTime <= 5) || (matchState == "EndGame" && matchStateTime <= 15);
+    return (matchState.startsWith("Shift") && hubState == "Inactive" && matchStateTime <= 7) || (matchState == "EndGame" && matchStateTime <= 20);
   }
 
   let isReturnActive: boolean = $derived(getIsReturnAlertState());
