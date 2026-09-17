@@ -32,7 +32,7 @@
       <div class="sensors">
         <div class="status">
           {#if !hasValidPoseSensorResult}
-            <div><WarningAltFilled width=100 height=100 fill="#CCCC00" /></div>
+            <div class="warning"><WarningAltFilled width=100 height=100 fill="#CCCC00" /></div>
           {:else}
             <div><CheckmarkFilled width=100 height=100 fill="#009900" /></div>
           {/if}
@@ -114,6 +114,10 @@
         & .status {
           position: absolute;
           opacity: 0.5;
+
+          & .warning {
+            animation: pulse 750ms infinite ease;
+          }
         }
 
         & .sensor {
