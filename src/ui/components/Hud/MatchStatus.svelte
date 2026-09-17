@@ -6,7 +6,7 @@
   let matchTime = $derived(nt.topics.get("/SmartDashboard/Match/Time")?.value ?? 0 as number);
   let matchStateTime = $derived(nt.topics.get("/SmartDashboard/Match/StateTime")?.value ?? 0 as number);
   let matchState = $derived(nt.topics.get("/SmartDashboard/Match/State")?.value ?? "Unknown" as string);
-  let hubState = $derived(nt.topics.get("/SmartDashboard/Match/Hub")?.value ?? "Inactive" as string);
+  let hubState = $derived(nt.topics.get("/SmartDashboard/Match/HubState")?.value ?? "Inactive" as string);
   let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
   let selectedAlliance = $derived(nt.topics.get("/SmartDashboard/Match/SelectedAlliance")?.value as Alliance);
 

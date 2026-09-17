@@ -3,7 +3,7 @@
   import { RobotType } from "../../common/index.js";
   import { NetworkTablesService as nt } from "../services/NetworkTables.svelte";
   import CameraStream from "../components/CameraStream.svelte";
-  import MatchTiming from "../components/Hud/MatchTiming.svelte";
+  import MatchStatus from "../components/Hud/MatchStatus.svelte";
   import TargetAlignment from "../components/Hud/TargetAlignment.svelte";
   import HopperStatus from "../components/Hud/HopperStatus.svelte";
   import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
@@ -24,7 +24,7 @@
         height={ 530 } />
     </Tile>
     <Tile class="widget">
-      <MatchTiming />
+      <MatchStatus />
     </Tile>
   </div>
   <div class="row">
