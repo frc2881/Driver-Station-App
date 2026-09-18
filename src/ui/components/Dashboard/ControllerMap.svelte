@@ -45,7 +45,7 @@
       triggerLeft: "Run Intake",
       bumperLeft: "Retract Intake",
       triggerRight: "Launch Fuel",
-      bumperRight: "Reverse Hopper",
+      bumperRight: "Agitate Hopper",
       buttonA: "Align Turret: Target",
       buttonB: "Launch Fuel (Demo)",
       buttonY: "Align Turret: 0&#176;",
