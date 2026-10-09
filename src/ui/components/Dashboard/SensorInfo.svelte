@@ -6,9 +6,9 @@
 
   let gyroIsConnected = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/IsConnected")?.value ?? false as boolean);
   let gyroSensorValue = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/Heading")?.value ?? 0 as number);
-  let hopperSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/HasTarget")?.value ?? false as boolean);
-  let hopperSensorDistance = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/Value")?.value ?? 0 as number);
-  let indexerSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Indexer/Fuel/HasTarget")?.value ?? false as boolean);
+  let hopperSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Proximity/Hopper/Fuel/HasTarget")?.value ?? false as boolean);
+  let hopperSensorDistance = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Proximity/Hopper/Fuel/Value")?.value ?? 0 as number);
+  let indexerSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors//Proximity/Indexer/Fuel/HasTarget")?.value ?? false as boolean);
 </script>
   
 <div class="main">
