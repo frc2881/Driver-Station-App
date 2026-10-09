@@ -3,15 +3,15 @@
 	import { Alliance, type Pose2d, Utils } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
-  let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
-  let fieldLength = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Length")?.value as number) * 100) / 100);
-  let fieldWidth = $derived(Math.ceil((nt.topics.get("/SmartDashboard/Game/Field/Width")?.value as number) * 100) / 100);
-  let robotLength = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Length")?.value as number);
-  let robotWidth = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/Width")?.value as number);
-  let isAlignedToTargetPose = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetPose")?.value as boolean);
-  let isAlignedToTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Drive/IsAlignedToTargetHeading")?.value as boolean);
-  let turretHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/Heading")?.value as number);
+  let alliance = $derived(nt.topics.get("/Telemetry/Match/Alliance")?.value as Alliance);
+  let robotPose = $derived(nt.topics.get("/Telemetry/Robot/Services/Localization/Pose")?.value as any);
+  let fieldLength = $derived(Math.ceil((nt.topics.get("/Telemetry/Game/Field/Length")?.value as number) * 100) / 100);
+  let fieldWidth = $derived(Math.ceil((nt.topics.get("/Telemetry/Game/Field/Width")?.value as number) * 100) / 100);
+  let robotLength = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/Bumper/Length")?.value as number);
+  let robotWidth = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/Bumper/Width")?.value as number);
+  let isAlignedToTargetPose = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetPose")?.value as boolean);
+  let isAlignedToTargetHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetHeading")?.value as boolean);
+  let turretHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Turret/Heading")?.value as number);
 
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
@@ -22,7 +22,8 @@
     },
     [Alliance.Red]: {
       "tower": { x: 15.300, y: 4.325, distance: 1.0 }
-    }
+    },
+    [Alliance.None]: {}
   };
 
   const getTargetZone = (robotPose: Pose2d): string | null => {

@@ -1,26 +1,26 @@
 export enum RobotMode {
-  Disabled = "Disabled",
-  Auto = "Auto",
-  Teleop = "Teleop",
-  Test = "Test"
+  Disabled = "DISABLED",
+  Auto = "AUTO",
+  Teleop = "TELELOP",
+  Test = "TEST"
 }
 
 export enum RobotState {
-  Disabled = "Disabled",
-  Enabled = "Enabled",
-  Estopped = "EStopped"
+  Disabled = "DISABLED",
+  Enabled = "ENABLED",
+  Estopped = "ESTOPPED"
 }
 
 export enum RobotType {
-  Other = "Other",
-  Competition = "Competition",
-  Practice = "Pracitce",
-  Demo = "Demo"
+  Other = "OTHER",
+  Competition = "COMPETITION",
+  Practice = "PRACTICE",
+  Demo = "DEMO"
 }
 
 export enum Alliance {
-  Red = "Red",
-  Blue = "Blue",
+  Red = "RED",
+  Blue = "BLUE",
   None = "None"
 }
 

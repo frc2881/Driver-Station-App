@@ -31,7 +31,7 @@ class Server {
     this._networkTablesService = new NetworkTablesService({ 
       address: process.argv[2] ?? "127.0.0.1", 
       port: 5810,
-      subscriptionTopics: ["/SmartDashboard"]
+      subscriptionTopics: ["/Telemetry", "/SmartDashboard"]
     });
     
     this._networkTablesService.on(NetworkTablesServiceMessageType.ConnectionChanged, (e: NetworkTablesConnectionChangedMessage) => {

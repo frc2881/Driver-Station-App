@@ -6,18 +6,18 @@
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
   let poseSensors = $derived.by(() => {
-    const names = (nt.topics.get("/SmartDashboard/Robot/Sensors/Pose/Names")?.value ?? []) as Array<string>;
+    const names = (nt.topics.get("/Telemetry/Robot/Sensors/Pose/Names")?.value ?? []) as Array<string>;
     return names.map(name => ({
       name,
-      isConnected: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/IsConnected`)?.value as boolean,
-      hasTarget: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/HasTarget`)?.value as boolean,
-      stream: nt.topics.get(`/SmartDashboard/Robot/Sensors/Pose/${name}/Stream`)?.value as string
+      isConnected: nt.topics.get(`/Telemetry/Robot/Sensors/Pose/${name}/IsConnected`)?.value as boolean,
+      hasTarget: nt.topics.get(`/Telemetry/Robot/Sensors/Pose/${name}/HasTarget`)?.value as boolean,
+      stream: nt.topics.get(`/Telemetry/Robot/Sensors/Pose/${name}/Stream`)?.value as string
     }));
   });
 
-  let hasValidPoseSensorResult = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/HasValidPoseSensorResult")?.value as boolean)
+  let hasValidPoseSensorResult = $derived(nt.topics.get("/Telemetry/Robot/Services/Localization/HasValidPoseSensorResult")?.value as boolean)
 
-  let robotPose = $derived(nt.topics.get("/SmartDashboard/Robot/Localization/Pose")?.value as any);
+  let robotPose = $derived(nt.topics.get("/Telemetry/Robot/Services/Localization/Pose")?.value as any);
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
   
   let isCameraStreamModalOpen: boolean = $state(false);

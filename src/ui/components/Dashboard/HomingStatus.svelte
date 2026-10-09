@@ -2,7 +2,7 @@
   import { CheckmarkFilled, WarningAltFilled } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let isHomed = $derived(nt.topics.get("/SmartDashboard/Robot/Status/IsHomed")?.value as boolean);
+  let isHomed = $derived(nt.topics.get("/Telemetry/Robot/Status/IsHomed")?.value as boolean);
 </script>
   
 <div class="main">

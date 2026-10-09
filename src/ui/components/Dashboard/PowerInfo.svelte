@@ -8,8 +8,8 @@
     Critical: 11.8
   };
 
-  let batteryInfo = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Info")?.value as string);
-  let batteryVoltage = $derived(nt.topics.get("/SmartDashboard/Robot/Power/Battery/Voltage")?.value as number);
+  let batteryInfo = $derived(nt.topics.get("/Telemetry/Robot/Power/Battery/Info")?.value as string);
+  let batteryVoltage = $derived(nt.topics.get("/Telemetry/Robot/Power/Battery/Voltage")?.value as number);
 
   let _maxBatteryVoltage = 0;
   let _minBatteryVoltage = 15.0;

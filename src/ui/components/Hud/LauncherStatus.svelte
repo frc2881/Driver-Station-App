@@ -2,19 +2,19 @@
   import { CheckmarkFilled } from "carbon-icons-svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let isTurretAtTargetHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/IsAtTargetHeading")?.value ?? false as boolean);
-  let isLauncherAtTargetSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/IsAtTargetSpeed")?.value ?? false as boolean);
-  let turretHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Turret/Heading")?.value ?? 0 as number);
-  let launcherSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/Speed")?.value ?? 0 as number);
+  let isTurretAtTargetHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystesms/Turret/IsAtTargetHeading")?.value ?? false as boolean);
+  let isLauncherAtTargetSpeed = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Launcher/IsAtTargetSpeed")?.value ?? false as boolean);
+  let turretHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Turret/Heading")?.value ?? 0 as number);
+  let launcherSpeed = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Launcher/Speed")?.value ?? 0 as number);
 
-  let activeTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTarget")?.value ?? "" as string);
-  let isActiveTargetEngaged = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/IsActiveTargetEngaged")?.value ?? false as boolean);
-  let isActiveTargetInRange = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/IsActiveTargetInRange")?.value ?? true as boolean);
-  let activeTargetInfoDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTargetInfo/Distance")?.value ?? 0 as number);
-  let activeTargetInfoHeading = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTargetInfo/Heading")?.value ?? 0 as number);
-  let activeTargetInfoSpeed = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTargetInfo/Speed")?.value ?? 0 as number);
-  let activeTargetInfoIsDistanceValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTargetInfo/IsDistanceValid")?.value ?? false as boolean);
-  let activeTargetInfoIsHeadingValid = $derived(nt.topics.get("/SmartDashboard/Robot/Targeting/ActiveTargetInfo/IsHeadingValid")?.value ?? false as boolean);
+  let activeTarget = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTarget")?.value ?? "" as string);
+  let isActiveTargetEngaged = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/IsActiveTargetEngaged")?.value ?? false as boolean);
+  let isActiveTargetInRange = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/IsActiveTargetInRange")?.value ?? true as boolean);
+  let activeTargetInfoDistance = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTargetInfo/Distance")?.value ?? 0 as number);
+  let activeTargetInfoHeading = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTargetInfo/Heading")?.value ?? 0 as number);
+  let activeTargetInfoSpeed = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTargetInfo/Speed")?.value ?? 0 as number);
+  let activeTargetInfoIsDistanceValid = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTargetInfo/IsDistanceValid")?.value ?? false as boolean);
+  let activeTargetInfoIsHeadingValid = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/ActiveTargetInfo/IsHeadingValid")?.value ?? false as boolean);
 </script>
 <div class="main">
   <div 
@@ -34,7 +34,7 @@
       <div>Speed</div>
     </div>
     <div class="row">
-      <div class="target" class:inactive={ !activeTarget } class:engaged={ isActiveTargetEngaged }>{ activeTarget || "?" }</div>
+      <div class="target" class:inactive={ !activeTarget } class:engaged={ isActiveTargetEngaged }>{ activeTarget.replace("_", " ") || "?" }</div>
       <div class:invalid={ activeTarget && !activeTargetInfoIsDistanceValid }>{ activeTargetInfoDistance.toFixed(2) } m</div>
       <div class:invalid={ activeTarget && !activeTargetInfoIsHeadingValid }>{ activeTargetInfoHeading.toFixed(1) } &deg;</div>
       <div>{ (activeTargetInfoSpeed * 100).toFixed(1) } %</div>

@@ -3,8 +3,8 @@
   import { RobotMode, RobotState } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let state = $derived(nt.topics.get("/SmartDashboard/Robot/Status/State")?.value as RobotState);
-  let mode = $derived(nt.topics.get("/SmartDashboard/Robot/Status/Mode")?.value as RobotMode);
+  let state = $derived(nt.topics.get("/Telemetry/Robot/Status/State")?.value as RobotState);
+  let mode = $derived(nt.topics.get("/Telemetry/Robot/Status/Mode")?.value as RobotMode);
 </script>
 
 <div class="main">

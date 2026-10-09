@@ -4,26 +4,26 @@
 
 <div class="main">
   <div class="title"><h4>Settings</h4></div>
-  <div class="category">
+  <!-- <div class="category">
     <div class="label">Drive</div>
     <SendableChooser
       name="Speed Mode"
-      key="/SmartDashboard/Robot/Drive/SpeedMode"
+      key="/Telemetry/Robot/Drive/SpeedMode"
       useInline={ true } />
     <SendableChooser
       name="Drift Correction"
-      key="/SmartDashboard/Robot/Drive/DriftCorrection"
+      key="/Telemetry/Robot/Drive/DriftCorrection"
       useToggle={ true } />
     <SendableChooser
       name="Idle Mode"
-      key="/SmartDashboard/Robot/Drive/IdleMode"
+      key="/Telemetry/Robot/Drive/IdleMode"
       useToggle={ true }
       invertToggle={ true } />
     <SendableChooser
       name="Orientation"
-      key="/SmartDashboard/Robot/Drive/Orientation"
+      key="/Telemetry/Robot/Drive/Orientation"
       useInline={ true } />
-  </div>
+  </div> -->
 </div>
 
 <style>

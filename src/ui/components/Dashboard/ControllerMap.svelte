@@ -117,7 +117,7 @@
 
   let annotations = $derived.by(() => {
     return ANNOTATIONS_COMPETITION;
-    const robotType = nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType;
+    const robotType = nt.topics.get("/Telemetry/Game/Robot/Type")?.value as RobotType;
     switch (robotType) {
       case RobotType.Competition:
         return ANNOTATIONS_COMPETITION;

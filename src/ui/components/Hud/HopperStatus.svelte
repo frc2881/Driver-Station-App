@@ -5,10 +5,10 @@
 
   // svelte-ignore non_reactive_update
   const enum FuelLevel {
-    Empty = "Empty",
-    Low = "Low",
-    Mid = "Mid",
-    Full = "Full"
+    Empty = "EMPTY",
+    Low = "LOW",
+    Mid = "MID",
+    Full = "FULL"
   }
 
   const getFuelCountForDisplay = (fuelLevel: FuelLevel): number => {
@@ -21,10 +21,10 @@
     }
   }
 
-  let isIntakeExtended = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsExtended")?.value ?? false as boolean);
-  let isIntakeRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Intake/IsRunning")?.value ?? false as boolean);
-  let isHopperRunning = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/IsRunning")?.value ?? false as boolean);
-  let fuelLevel = $derived(nt.topics.get("/SmartDashboard/Robot/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
+  let isIntakeExtended = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Intake/IsExtended")?.value ?? false as boolean);
+  let isIntakeRunning = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Intake/IsRunning")?.value ?? false as boolean);
+  let isHopperRunning = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Hopper/IsRunning")?.value ?? false as boolean);
+  let fuelLevel = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Hopper/FuelLevel")?.value ?? FuelLevel.Empty as FuelLevel);
 </script>
 <div class="main">
   <div 

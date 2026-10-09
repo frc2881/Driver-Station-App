@@ -2,13 +2,13 @@
   import { RobotType } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
+  let robotType = $derived(nt.topics.get("/Telemetry/Game/Robot/Type")?.value as RobotType);
 
-  let gyroIsConnected = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/IsConnected")?.value ?? false as boolean);
-  let gyroSensorValue = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Gyro/Heading")?.value ?? 0 as number);
-  let hopperSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/HasTarget")?.value ?? false as boolean);
-  let hopperSensorDistance = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Distance/Hopper/Value")?.value ?? 0 as number);
-  let indexerSensorHasTarget = $derived(nt.topics.get("/SmartDashboard/Robot/Sensors/Binary/Indexer/HasTarget")?.value ?? false as boolean);
+  let gyroIsConnected = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/IsConnected")?.value ?? false as boolean);
+  let gyroSensorValue = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/Heading")?.value ?? 0 as number);
+  let hopperSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/HasTarget")?.value ?? false as boolean);
+  let hopperSensorDistance = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/Value")?.value ?? 0 as number);
+  let indexerSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Indexer/Fuel/HasTarget")?.value ?? false as boolean);
 </script>
   
 <div class="main">

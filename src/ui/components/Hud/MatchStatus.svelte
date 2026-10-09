@@ -3,15 +3,26 @@
   import { Alliance } from "../../../common/index.js";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte.js";
 
-  let matchTime = $derived(nt.topics.get("/SmartDashboard/Match/Time")?.value ?? 0 as number);
-  let matchStateTime = $derived(nt.topics.get("/SmartDashboard/Match/StateTime")?.value ?? 0 as number);
-  let matchState = $derived(nt.topics.get("/SmartDashboard/Match/State")?.value ?? "Unknown" as string);
-  let hubState = $derived(nt.topics.get("/SmartDashboard/Match/HubState")?.value ?? "Inactive" as string);
-  let alliance = $derived(nt.topics.get("/SmartDashboard/Match/Alliance")?.value as Alliance);
-  let selectedAlliance = $derived(nt.topics.get("/SmartDashboard/Match/SelectedAlliance")?.value as Alliance);
+  const enum MatchState {
+    Stopped = "STOPPED",
+    Auto = "AUTO",
+    Transition = "TRANSITION",
+    Shift1 = "SHIFT_1",
+    Shift2 = "SHIFT_2",
+    Shift3 = "SHIFT_3",
+    Shift4 = "SHIFT_4",
+    EndGame = "END_GAME"
+  }
+
+  let matchTime = $derived(nt.topics.get("/Telemetry/Match/Time")?.value ?? 0 as number);
+  let matchStateTime = $derived(nt.topics.get("/Telemetry/Match/StateTime")?.value ?? 0 as number);
+  let matchState = $derived(nt.topics.get("/Telemetry/Match/State")?.value ?? MatchState.Stopped as MatchState);
+  let hubState = $derived(nt.topics.get("/Telemetry/Match/HubState")?.value ?? "Inactive" as string);
+  let alliance = $derived(nt.topics.get("/Telemetry/Match/Alliance")?.value as Alliance);
+  let selectedAlliance = $derived(nt.topics.get("/Telemetry/Match/SelectedAlliance")?.value as Alliance);
 
   const getIsReturnAlertState = (): boolean => {
-    return (matchState.startsWith("Shift") && hubState == "Inactive" && matchStateTime <= 7) || (matchState == "EndGame" && matchStateTime <= 20);
+    return ([MatchState.Shift1, MatchState.Shift2, MatchState.Shift3, MatchState.Shift4].includes(matchState) && hubState == "INACTIVE" && matchStateTime <= 7) || (matchState == MatchState.EndGame && matchStateTime <= 20);
   }
 
   let isReturnActive: boolean = $derived(getIsReturnAlertState());
@@ -21,7 +32,7 @@
   <div class="state">
     <div class="hub" class:ending={ matchTime > 0 && matchStateTime <= 5 }>
     {#if matchTime > 0 }
-      {#if hubState == "Active" }
+      {#if hubState == "ACTIVE" }
         <IntentRequestActive width=240 height=240 fill="#00CC00" />
       {:else}
         <IntentRequestUninstall width=240 height=240 fill="#CC0000" />
@@ -36,7 +47,7 @@
   </div>
   <div class="info">
     <div class="matchState">
-      { matchState }
+      { matchState.replace("_", " ") }
     </div>
     <div class="matchTime">
       { matchTime > 0 ? matchTime : 0 }

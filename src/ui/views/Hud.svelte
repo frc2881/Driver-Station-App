@@ -8,7 +8,7 @@
   import HopperStatus from "../components/Hud/HopperStatus.svelte";
   import LauncherStatus from "../components/Hud/LauncherStatus.svelte";
 
-  let robotType = $derived(nt.topics.get("/SmartDashboard/Game/Robot/Type")?.value as RobotType);
+  let robotType = $derived(nt.topics.get("/Telemetry/Game/Robot/Type")?.value as RobotType);
 </script>
 
 <main>
@@ -19,7 +19,7 @@
     </Tile>
     <Tile class="widget">
       <CameraStream
-        streamUrl={ nt.topics.get("/SmartDashboard/Robot/Cameras/Driver")?.value ?? null }
+        streamUrl={ nt.topics.get("/Telemetry/Robot/Cameras/Driver")?.value ?? null }
         width={ 810 } 
         height={ 530 } />
     </Tile>
