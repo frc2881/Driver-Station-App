@@ -11,18 +11,13 @@
   let robotWidth = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/Bumper/Width")?.value as number);
   let isAlignedToTargetPose = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetPose")?.value as boolean);
   let isAlignedToTargetHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetHeading")?.value as boolean);
-  let turretHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Turret/Heading")?.value as number);
 
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
 
   const targetZones: Record<Alliance, Record<string, { x: number, y: number, distance: number }>> = {
-    [Alliance.Blue]: {
-      "tower": { x: 1.225, y: 3.750, distance: 1.0 }
-    },
-    [Alliance.Red]: {
-      "tower": { x: 15.300, y: 4.325, distance: 1.0 }
-    },
+    [Alliance.Blue]: {},
+    [Alliance.Red]: {},
     [Alliance.None]: {}
   };
 
@@ -58,8 +53,8 @@
       style:height={`${robotWidth * PIXELS_PER_METER}px`}
       style:transform={ `translate(${ ((robotPose_?.x * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -((robotPose_?.y * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
       <div class="front"><CaretDown width=96 height=96 /></div>
-      <div class="turret">
-        <div class="heading" style:transform={ `rotate(${ -turretHeading }deg)` }></div>
+      <div class="launcher">
+        <div class="heading"></div>
       </div>
     </div>
   </div>
@@ -121,10 +116,10 @@
           opacity: 0.5;
         }
 
-        & .turret {
+        & .launcher {
           position: absolute;
-          left: 10px;
-          top: 10px;
+          left: calc(50% - 20px);
+          top: calc(50% - 10px);
           width: 20px;
           height: 20px;
           border-radius: 50%;
@@ -133,8 +128,8 @@
           & .heading {
             position: absolute;
             box-sizing: border-box;
-            top: 50%;
-            left: 50%;
+            top: calc(50% - 2px);
+            left: calc(50% - 2px);
             width: 600px;
             height: 2px;
             transform-origin: 0;

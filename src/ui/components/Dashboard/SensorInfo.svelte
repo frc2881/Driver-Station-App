@@ -6,9 +6,7 @@
 
   let gyroIsConnected = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/IsConnected")?.value ?? false as boolean);
   let gyroSensorValue = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Gyro/Heading")?.value ?? 0 as number);
-  let hopperSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/HasTarget")?.value ?? false as boolean);
-  let hopperSensorDistance = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Hopper/Fuel/Value")?.value ?? 0 as number);
-  let indexerSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Indexer/Fuel/HasTarget")?.value ?? false as boolean);
+  let launcherSensorHasTarget = $derived(nt.topics.get("/Telemetry/Robot/Sensors/Proximity/Launcher/HasTarget")?.value ?? false as boolean);
 </script>
   
 <div class="main">
@@ -16,8 +14,7 @@
   <div class="sensors">
     <div><span class="label">Gyro:</span><span class="state" class:active={ gyroIsConnected }></span><span class="value">{ gyroSensorValue?.toFixed(2) ?? NaN } &deg;</span></div>
     {#if robotType == RobotType.Competition}
-    <div><span class="label">Hopper:</span><span class="state" class:active={ hopperSensorHasTarget }></span><span class="value">{ hopperSensorDistance }<span class="unit">mm</span></span></div>
-    <div><span class="label">Indexer:</span><span class="state" class:active={ indexerSensorHasTarget }></span></div>
+    <div><span class="label">Launcher:</span><span class="state" class:active={ launcherSensorHasTarget }></span></div>
     {/if}
   </div>
 </div>
