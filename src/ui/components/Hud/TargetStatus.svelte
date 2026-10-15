@@ -12,11 +12,13 @@
   let targetStableLeftHeading = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/Targets/STABLE_LEFT/Heading")?.value ?? 0 as number);
   let targetStableLeftSpeed = $derived(nt.topics.get("/Telemetry/Robot/Services/Targeting/Targets/STABLE_LEFT/Speed")?.value ?? 0 as number);
 
+  let isAlignedToTargetHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetHeading")?.value as boolean);
+
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
 </script>
 <div class="main">
   <div class="info">
-    <div class="value">{ robotPose_.rotation.toFixed(1) } &deg;</div>
+    <div class="value" class:active={ isAlignedToTargetHeading }>{ robotPose_.rotation.toFixed(1) } &deg;</div>
     <div class="value">{ (launcherSpeed * 100).toFixed(1) } %</div>
   </div>
   <div class="targeting">
@@ -63,6 +65,10 @@
         text-align: right;
         padding: 10px 20px;
         border-radius: 10px;
+
+        &.active {
+          border: 3px solid var(--app-color-green);
+        }
       }
     }
 

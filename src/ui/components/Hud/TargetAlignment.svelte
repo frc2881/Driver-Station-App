@@ -15,26 +15,7 @@
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
 
-  const targetZones: Record<Alliance, Record<string, { x: number, y: number, distance: number }>> = {
-    [Alliance.Blue]: {},
-    [Alliance.Red]: {},
-    [Alliance.None]: {}
-  };
-
-  const getTargetZone = (robotPose: Pose2d): string | null => {
-    if (robotPose.x > 0 || robotPose.y > 0) {
-      for (const targetKey in targetZones[alliance]) {
-        const { x, y, distance } = targetZones[alliance][targetKey] as { x: number, y: number, distance: number };
-        if (Utils.getDistance(robotPose, { x, y, rotation: 0 }) < distance) {
-          return targetKey;
-        }
-      }
-    }
-    return null;
-  }
-
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
-  let targetZone: string | null = null; //$derived(getTargetZone(robotPose_));
 </script>
 <div class="main">
   <div 
@@ -43,7 +24,7 @@
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div 
-    class="field { alliance?.toLowerCase() } { targetZone }"
+    class="field { alliance?.toLowerCase() }"
     style:width={ `${(fieldLength * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px` } 
     style:height={`${(fieldWidth * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px`}>
     <img src="./assets/images/field.png" alt="Field" />
@@ -56,6 +37,7 @@
       <div class="launcher">
         <div class="heading"></div>
       </div>
+      <div class="intake"></div>
     </div>
   </div>
 </div>
@@ -91,11 +73,9 @@
 
       &.blue { 
         transform: rotate(-90deg) translateX(11%) scale(50%);
-        &.tower { transform: rotate(-90deg) translateX(32.5%) scale(100%); }
       }
       &.red { 
         transform: rotate(90deg) translateX(-11%) scale(50%); 
-        &.tower { transform: rotate(90deg) translateX(-32.5%) scale(100%); }
       }
 
       & .robot {
@@ -136,6 +116,14 @@
             border: 2px dashed var(--app-color-white);
             opacity: 0.5;
           }
+        }
+
+        & .intake {
+          position: absolute;
+          right: calc(100% + 19px);
+          width: 3px;
+          height: 100%;
+          background: var(--app-color-pink);
         }
       }
     }

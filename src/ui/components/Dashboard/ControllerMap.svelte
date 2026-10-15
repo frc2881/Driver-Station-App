@@ -17,10 +17,10 @@
       stickRightX: "Rotate",
       stickRightY: "",
       stickRightButton: "",
-      triggerLeft: "Align + Score Left",
-      bumperLeft: "",
-      triggerRight: "Align + Score Right",
-      bumperRight: "",
+      triggerLeft: "Score Stable Left",
+      bumperLeft: "Align Bale Left",
+      triggerRight: "Score Stable Right",
+      bumperRight: "Align Bale Right",
       buttonA: "",
       buttonB: "",
       buttonY: "",
@@ -42,10 +42,10 @@
       stickRightX: "",
       stickRightY: "",
       stickRightButton: "",
-      triggerLeft: "Load Hay",
-      bumperLeft: "Grab Hay",
+      triggerLeft: "Intake Hay",
+      bumperLeft: "Hold Hay",
       triggerRight: "",
-      bumperRight: "",
+      bumperRight: "Place Hay",
       buttonA: "",
       buttonB: "",
       buttonY: "",
@@ -57,7 +57,7 @@
       buttonBack: [ "" ],
       buttonStart: [ "" ],
       notes: [
-        "Mechanisms must be homed in the correct order (if applicable)"
+        "Mechanisms must be homed in the correct order (if applicable). Using on-board homing button is preferred."
       ]
     }
   }
