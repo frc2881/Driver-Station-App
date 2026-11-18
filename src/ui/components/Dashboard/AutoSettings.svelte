@@ -22,7 +22,7 @@
     { activeCommand }
   </div>
   <div class="auto">
-    <img src={ `./assets/images/autos/${ commandName }.png` } alt="" />
+    <!-- <img src={ `./assets/images/autos/${ commandName }.png` } alt="" /> -->
     {#if isCompetitionMode && activeCommand == "None" }
       <div class="noauto">
         <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>

@@ -1,9 +1,33 @@
 <script lang="ts">
+  import { NumberInput } from "carbon-components-svelte";
   import SendableChooser from "../SendableChooser.svelte";
+  import { NetworkTablesDataType } from "../../../common/index.js";
+  import { NetworkTablesService as nt, updateNetworkTablesTopics } from "../../services/NetworkTables.svelte";
+
+  let launcherTestSpeed: number = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/TestSpeed")?.value ?? 0 as number);
 </script>
 
 <div class="main">
   <div class="title"><h4>Settings</h4></div>
+    <div class="category">
+      <div class="label">Launcher</div>
+      <div>
+        <NumberInput 
+          labelText="Test Speed ( % )"
+          min={ 0 }
+          max={ 100 }
+          step={ 1 } 
+          value={ launcherTestSpeed * 100 }
+          on:change={ (e: any) => {
+            updateNetworkTablesTopics([{
+              id: 0,
+              name: "/SmartDashboard/Robot/Launcher/TestSpeed",
+              type: NetworkTablesDataType.Float,
+              value: (e.detail as number) / 100
+            }]);
+          }} />
+      </div>
+    </div>
   <!-- <div class="category">
     <div class="label">Drive</div>
     <SendableChooser

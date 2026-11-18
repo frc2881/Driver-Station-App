@@ -11,35 +11,11 @@
   let robotWidth = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/Bumper/Width")?.value as number);
   let isAlignedToTargetPose = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetPose")?.value as boolean);
   let isAlignedToTargetHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Drive/IsAlignedToTargetHeading")?.value as boolean);
-  let turretHeading = $derived(nt.topics.get("/Telemetry/Robot/Subsystems/Turret/Heading")?.value as number);
 
   const PIXELS_PER_METER: number = 100;
   const FIELD_BUFFER_PIXELS: number = 51;
 
-  const targetZones: Record<Alliance, Record<string, { x: number, y: number, distance: number }>> = {
-    [Alliance.Blue]: {
-      "tower": { x: 1.225, y: 3.750, distance: 1.0 }
-    },
-    [Alliance.Red]: {
-      "tower": { x: 15.300, y: 4.325, distance: 1.0 }
-    },
-    [Alliance.None]: {}
-  };
-
-  const getTargetZone = (robotPose: Pose2d): string | null => {
-    if (robotPose.x > 0 || robotPose.y > 0) {
-      for (const targetKey in targetZones[alliance]) {
-        const { x, y, distance } = targetZones[alliance][targetKey] as { x: number, y: number, distance: number };
-        if (Utils.getDistance(robotPose, { x, y, rotation: 0 }) < distance) {
-          return targetKey;
-        }
-      }
-    }
-    return null;
-  }
-
   let robotPose_: Pose2d = $derived(Utils.decodePose2dFromStruct(robotPose));
-  let targetZone: string | null = null; //$derived(getTargetZone(robotPose_));
 </script>
 <div class="main">
   <div 
@@ -48,7 +24,7 @@
     <div class="checkmark"><CheckmarkFilled width=480 height=480 fill="#00CC00" /></div>
   </div>
   <div 
-    class="field { alliance?.toLowerCase() } { targetZone }"
+    class="field { alliance?.toLowerCase() }"
     style:width={ `${(fieldLength * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px` } 
     style:height={`${(fieldWidth * PIXELS_PER_METER) + (FIELD_BUFFER_PIXELS * 2)}px`}>
     <img src="./assets/images/field.png" alt="Field" />
@@ -58,9 +34,10 @@
       style:height={`${robotWidth * PIXELS_PER_METER}px`}
       style:transform={ `translate(${ ((robotPose_?.x * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) - (robotLength * PIXELS_PER_METER ) / 2 }px, ${ -((robotPose_?.y * PIXELS_PER_METER) + FIELD_BUFFER_PIXELS) + (robotWidth * PIXELS_PER_METER) / 2 }px) rotate(${ -robotPose_?.rotation }deg)` }>
       <div class="front"><CaretDown width=96 height=96 /></div>
-      <div class="turret">
-        <div class="heading" style:transform={ `rotate(${ -turretHeading }deg)` }></div>
+      <div class="launcher">
+        <div class="heading"></div>
       </div>
+      <div class="intake"></div>
     </div>
   </div>
 </div>
@@ -96,11 +73,9 @@
 
       &.blue { 
         transform: rotate(-90deg) translateX(11%) scale(50%);
-        &.tower { transform: rotate(-90deg) translateX(32.5%) scale(100%); }
       }
       &.red { 
         transform: rotate(90deg) translateX(-11%) scale(50%); 
-        &.tower { transform: rotate(90deg) translateX(-32.5%) scale(100%); }
       }
 
       & .robot {
@@ -121,10 +96,10 @@
           opacity: 0.5;
         }
 
-        & .turret {
+        & .launcher {
           position: absolute;
-          left: 10px;
-          top: 10px;
+          left: calc(50% - 20px);
+          top: calc(50% - 10px);
           width: 20px;
           height: 20px;
           border-radius: 50%;
@@ -133,14 +108,22 @@
           & .heading {
             position: absolute;
             box-sizing: border-box;
-            top: 50%;
-            left: 50%;
+            top: calc(50% - 2px);
+            left: calc(50% - 2px);
             width: 600px;
             height: 2px;
             transform-origin: 0;
             border: 2px dashed var(--app-color-white);
             opacity: 0.5;
           }
+        }
+
+        & .intake {
+          position: absolute;
+          right: calc(100% + 19px);
+          width: 3px;
+          height: 100%;
+          background: var(--app-color-pink);
         }
       }
     }
