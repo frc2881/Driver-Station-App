@@ -5,7 +5,7 @@
 
   let activeCommand = $derived((nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "" as string).substring(3));
   let commandName = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/command")?.value ?? "NONE" as string);
-  let isCompetitionMode = $derived(nt.topics.get("/SmartDashboard/Match/IsCompetitionMode")?.value ?? false as boolean);
+  let isCompetitionMode = $derived(nt.topics.get("/Telemetry/Match/IsCompetitionMode")?.value ?? false as boolean);
 </script>
 
 <div class="main">
