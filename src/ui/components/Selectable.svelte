@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dropdown, Toggle } from "carbon-components-svelte";
   import { NetworkTablesDataType } from "../../common/index.js";
-  import { NetworkTablesService as nt, updateNetworkTablesTopics } from "../services/NetworkTables.svelte";
+  import { NetworkTablesService as nt, updateNetworkTablesTopics } from "../services/NetworkTables.svelte.js";
 
   interface Props {
     name?: string;
@@ -20,10 +20,10 @@
   }: Props = $props();
 
   let options = $derived(nt.topics.get(`${ key }/options`))
-  let active = $derived(nt.topics.get(`${ key }/active`))
+  let selected = $derived(nt.topics.get(`${ key }/selected/value`))
 
   let items: { id: number; text: string; }[] = $derived.by(() => {
-    if (options?.value && active?.value) {
+    if (options?.value) {
       const __items = [];
       let id = 0;
       for (const option of options?.value as Array<string>) {
@@ -37,10 +37,10 @@
   });
 
   let selectedItemId = $derived.by(() => {
-    if (options?.value && active?.value) {
+    if (options?.value && selected?.value) {
       let id = 0;
       for (const option of options?.value as Array<string>) {
-        if (option === active?.value) { return id; }
+        if (option === selected?.value) { return id; }
         id += 1;
       }
     } else {
@@ -62,8 +62,8 @@
         on:toggle={ (e: any) => {
         updateNetworkTablesTopics([{
           id: 0,
-          name: active?.name.replace("/active", "/selected") ?? "",
-          type: active?.type ?? NetworkTablesDataType.Raw,
+          name: selected?.name ?? "",
+          type: selected?.type ?? NetworkTablesDataType.Raw,
           value: e.detail.toggled ? items[invertToggle ? 0: 1]?.text : items[invertToggle ? 1: 0]?.text
         }]);
       }} />
@@ -78,8 +78,8 @@
     on:select={ (e: any) => {
       updateNetworkTablesTopics([{
         id: 0,
-        name: active?.name.replace("/active", "/selected") ?? "",
-        type: active?.type ?? NetworkTablesDataType.Raw,
+        name: selected?.name ?? "",
+        type: selected?.type ?? NetworkTablesDataType.Raw,
         value: e.detail.selectedItem.text
       }]);
     }} />

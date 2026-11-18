@@ -1,10 +1,10 @@
 <script lang="ts">
   import { NumberInput } from "carbon-components-svelte";
-  import SendableChooser from "../SendableChooser.svelte";
+  import Selectable from "../Selectable.svelte";
   import { NetworkTablesDataType } from "../../../common/index.js";
   import { NetworkTablesService as nt, updateNetworkTablesTopics } from "../../services/NetworkTables.svelte";
 
-  let launcherTestSpeed: number = $derived(nt.topics.get("/SmartDashboard/Robot/Launcher/TestSpeed")?.value ?? 0 as number);
+  let launcherTestSpeed: number = $derived(nt.topics.get("/Tunables/Robot/Launcher/TestSpeed")?.value ?? 0 as number);
 </script>
 
 <div class="main">
@@ -17,11 +17,11 @@
           min={ 0 }
           max={ 100 }
           step={ 1 } 
-          value={ launcherTestSpeed * 100 }
+          value={ Math.floor(launcherTestSpeed * 100) }
           on:change={ (e: any) => {
             updateNetworkTablesTopics([{
               id: 0,
-              name: "/SmartDashboard/Robot/Launcher/TestSpeed",
+              name: "/Tunables/Robot/Launcher/TestSpeed",
               type: NetworkTablesDataType.Float,
               value: (e.detail as number) / 100
             }]);
@@ -30,22 +30,22 @@
     </div>
   <!-- <div class="category">
     <div class="label">Drive</div>
-    <SendableChooser
+    <Selectable
       name="Speed Mode"
-      key="/Telemetry/Robot/Drive/SpeedMode"
+      key="/Tunables/Robot/Drive/SpeedMode"
       useInline={ true } />
-    <SendableChooser
+    <Selectable
       name="Drift Correction"
-      key="/Telemetry/Robot/Drive/DriftCorrection"
+      key="/Tunables/Robot/Drive/DriftCorrection"
       useToggle={ true } />
-    <SendableChooser
+    <Selectable
       name="Idle Mode"
-      key="/Telemetry/Robot/Drive/IdleMode"
+      key="/Tunables/Robot/Drive/IdleMode"
       useToggle={ true }
       invertToggle={ true } />
-    <SendableChooser
+    <Selectable
       name="Orientation"
-      key="/Telemetry/Robot/Drive/Orientation"
+      key="/Tunables/Robot/Drive/Orientation"
       useInline={ true } />
   </div> -->
 </div>

@@ -1,29 +1,28 @@
 <script lang="ts">
   import { WarningAltFilled } from "carbon-icons-svelte";
-  import SendableChooser from "../SendableChooser.svelte";
+  import Selectable from "../Selectable.svelte";
   import { NetworkTablesService as nt } from "../../services/NetworkTables.svelte";
 
-  let activeCommand = $derived((nt.topics.get("/SmartDashboard/Robot/Auto/active")?.value ?? "" as string).substring(3));
-  let commandName = $derived(nt.topics.get("/SmartDashboard/Robot/Auto/command")?.value ?? "NONE" as string);
-  let isCompetitionMode = $derived(nt.topics.get("/SmartDashboard/Match/IsCompetitionMode")?.value ?? false as boolean);
+  let selectedAuto = $derived(nt.topics.get("/Tunables/Robot/Auto/selected/value")?.value ?? "" as string);
+  let isCompetitionMode = $derived(nt.topics.get("/Telemetry/Match/IsCompetitionMode")?.value ?? false as boolean);
+  
 </script>
 
 <div class="main">
   <div class="title"><h4>Auto</h4></div>
   <div>
-    <SendableChooser
+    <Selectable
       name=""
-      key="/SmartDashboard/Robot/Auto"
+      key="/Tunables/Robot/Auto"
       useInline={ false } />
   </div>
   <div 
-    class="active"
-    class:none={ activeCommand == "None" }>
-    { activeCommand }
+    class="selected"
+    class:none={ selectedAuto == "" || selectedAuto.includes("None") }>
+    { selectedAuto.substring(3) || "None" }
   </div>
   <div class="auto">
-    <!-- <img src={ `./assets/images/autos/${ commandName }.png` } alt="" /> -->
-    {#if isCompetitionMode && activeCommand == "None" }
+    {#if isCompetitionMode && selectedAuto == "" || selectedAuto.includes("None") }
       <div class="noauto">
         <div class="warning"><WarningAltFilled width=120 height=120 fill="#CCCC00" /></div>
         <div class="info">No auto command selected<br/>for this match!</div>
@@ -40,7 +39,7 @@
       padding: 0px 3px;
     }
 
-    & .active {
+    & .selected {
       display: flex;
       align-items: flex-start;
       justify-content: center;
